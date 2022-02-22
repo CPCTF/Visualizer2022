@@ -2,11 +2,11 @@ name: lint
 on:
   pull_request:
     branches:
-      - master
+      - main
     paths:
       - 'src/**/*.ts'
       - '.eslintrc.js'
-      - '.github/workflows/lint.yaml'
+      - '.github/workflows/lint.yml'
 jobs:
   eslint:
     name: run eslint
