@@ -1,18 +1,31 @@
 {
+  "include": ["src", "tests"],
   "compilerOptions": {
-    "target": "ESNext",
-    "useDefineForClassFields": true,
-    "module": "ESNext",
-    "lib": ["ESNext", "DOM"],
-    "moduleResolution": "Node",
-    "strict": true,
+    "module": "esnext",
+    "lib": ["esnext", "dom"],
+    "declaration": true,
     "sourceMap": true,
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "noEmit": true,
+    "rootDir": ".",
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noImplicitReturns": true
-  },
-  "include": ["src"]
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "importsNotUsedAsValues": "error",
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "#/*": ["src/*"]
+    },
+    "jsx": "react",
+    "esModuleInterop": true,
+    "downlevelIteration": true
+  }
 }
