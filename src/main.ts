@@ -8,4 +8,6 @@ camera.position.set(0, 0, 10)
 camera.lookAt(0, 0, 0)
 
 const visualizer = new Visualizer(camera)
-visualizer.add(new Mesh(new BoxGeometry(), new MeshBasicMaterial({color: 'black'})))
+visualizer.add(
+  new Mesh(new BoxGeometry(), new MeshBasicMaterial({ color: 'black' }))
+)
