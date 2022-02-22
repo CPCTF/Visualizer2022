@@ -1,8 +1,11 @@
+import { BoxGeometry, Mesh, MeshBasicMaterial, PerspectiveCamera } from 'three'
 import './style.css'
+import { Visualizer } from './Visualizer'
 
-const app = document.querySelector<HTMLDivElement>('#app')!
+const camera = new PerspectiveCamera()
 
-app.innerHTML = `
-  <h1>Hello Vite!</h1>
-  <a href="https://vitejs.dev/guide/features.html" target="_blank">Documentation</a>
-`
+camera.position.set(0, 0, 10)
+camera.lookAt(0, 0, 0)
+
+const visualizer = new Visualizer(camera)
+visualizer.add(new Mesh(new BoxGeometry(), new MeshBasicMaterial({color: 'black'})))
