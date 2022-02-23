@@ -72,28 +72,29 @@ export class ThreeResourceLoader {
       data: ResourceType['data']
       total: number
       count: number
-    }) => void,
-    onLoad: () => void
+    }) => void
   ) {
-    let count = 0
-    const total = this.queue.length
-    this.queue.map(([path, type]) => {
-      createResources(path, type, data => {
-        count += 1
-        this.resources[path] = {
-          type,
-          data
-        } as ResourceType
-        onProgress({
-          path,
-          data: data,
-          total,
-          count
+    return new Promise(resolve => {
+      let count = 0
+      const total = this.queue.length
+      this.queue.map(([path, type]) => {
+        createResources(path, type, data => {
+          count += 1
+          this.resources[path] = {
+            type,
+            data
+          } as ResourceType
+          onProgress({
+            path,
+            data: data,
+            total,
+            count
+          })
+          if (count === total) resolve({})
         })
-        if (count === total) onLoad()
       })
+      this.queue = []
     })
-    this.queue = []
   }
 
   public get(path: string): ResourceType['data'] | undefined {

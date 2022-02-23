@@ -3,7 +3,7 @@ import type { QuestionGenre } from './ResponseType'
 
 type WebSocketMessage =
   | {
-      type: 'submission'
+      type: 'submit'
       result: {
         userid: string
         point: number
@@ -34,7 +34,7 @@ export class WebSocketReceiver extends EventTarget {
   }
   private messageHandler(event: MessageEvent<WebSocketMessage>) {
     switch (event.data.type) {
-      case 'submission': {
+      case 'submit': {
         this.dispatchEvent(
           new CustomEvent('submission', { detail: event.data.result })
         )
