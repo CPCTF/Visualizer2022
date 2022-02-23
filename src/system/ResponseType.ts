@@ -1,3 +1,4 @@
+// TODO: 型修正
 export interface UserRaw {
   id: string
   displayName: string
@@ -11,3 +12,6 @@ export interface UserRankingRaw {
   point: number
   ranking: number
 }
+
+// TODO: ジャンル追加
+export type QuestionGenre = 'nanika' | 'doreka' | 'tekito'
