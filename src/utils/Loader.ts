@@ -77,7 +77,7 @@ export class ThreeResourceLoader {
     })
   }
 
-  public get(path: string) {
-    return this.resources[path]
+  public get(path: string): ResourceType['data'] | undefined {
+    return this.resources[path]?.data
   }
 }
