@@ -9,7 +9,7 @@ export abstract class VisualizerObject extends Mesh implements IRenderable {
   }
   public abstract start(): void
 
-  public update(delta: number) {
+  public update() {
     if (!this.visible) return
     if (!this.initialized) {
       this.start()
@@ -20,7 +20,7 @@ export abstract class VisualizerObject extends Mesh implements IRenderable {
         value instanceof VisualizerGroup ||
         value instanceof VisualizerObject
       ) {
-        value.update(delta)
+        value.update()
       }
     })
   }
