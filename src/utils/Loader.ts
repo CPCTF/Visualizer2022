@@ -18,7 +18,7 @@ type ResourceType =
 
 type CallbackType = (data: ResourceType['data']) => void
 
-const Loaders = {
+export const Loaders = {
   texture: new TextureLoader(),
   gltf: new GLTFLoader(),
   fbx: new FBXLoader()
