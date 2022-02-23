@@ -75,6 +75,7 @@ export class ThreeResourceLoader {
         } as ResourceType
       })
     })
+    this.queue = []
   }
 
   public get(path: string): ResourceType['data'] | undefined {
