@@ -66,13 +66,31 @@ export class ThreeResourceLoader {
     this.queue.push([path, 'fbx'])
   }
 
-  public load() {
+  public load(
+    onProgress: (data: {
+      path: string
+      data: ResourceType['data']
+      total: number
+      count: number
+    }) => void,
+    onLoad: () => void
+  ) {
+    let count = 0
+    const total = this.queue.length
     this.queue.map(([path, type]) => {
       createResources(path, type, data => {
+        count += 1
         this.resources[path] = {
           type,
           data
         } as ResourceType
+        onProgress({
+          path,
+          data: data,
+          total,
+          count
+        })
+        if (count === total) onLoad()
       })
     })
     this.queue = []
