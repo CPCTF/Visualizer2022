@@ -1,4 +1,4 @@
-import { Loaders } from '#/utils/Loader'
+import { Loaders } from './Loader'
 import type { Texture } from 'three'
 
 export class User {
