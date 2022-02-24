@@ -46,27 +46,22 @@ const createResources = (
 }
 
 export class ThreeResourceLoader {
-  private resources: Record<string, ResourceType>
-  private queue: [string, ResourceType['type']][]
+  private static resources: Record<string, ResourceType> = {}
+  private static queue: [string, ResourceType['type']][] = []
 
-  constructor() {
-    this.resources = {}
-    this.queue = []
-  }
-
-  public addGLTF(path: string) {
+  public static addGLTF(path: string) {
     this.queue.push([path, 'gltf'])
   }
 
-  public addTexture(path: string) {
+  public static addTexture(path: string) {
     this.queue.push([path, 'texture'])
   }
 
-  public addFBX(path: string) {
+  public static addFBX(path: string) {
     this.queue.push([path, 'fbx'])
   }
 
-  public load(
+  public static load(
     onProgress: (data: {
       path: string
       data: ResourceType['data']
@@ -97,7 +92,7 @@ export class ThreeResourceLoader {
     })
   }
 
-  public get(path: string): ResourceType['data'] | undefined {
+  public static get(path: string): ResourceType['data'] | undefined {
     return this.resources[path]?.data
   }
 }

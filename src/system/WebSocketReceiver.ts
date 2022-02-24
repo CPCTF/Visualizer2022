@@ -20,7 +20,8 @@ type WebSocketMessage =
   | {
       type: 'recalculate'
     }
-export class WebSocketReceiver extends EventTarget {
+
+class WebSocketReceiver extends EventTarget {
   private websocket: WebSocket
   constructor() {
     super()
@@ -55,3 +56,5 @@ export class WebSocketReceiver extends EventTarget {
     }
   }
 }
+
+export const WebSocketInstance = new WebSocketReceiver()

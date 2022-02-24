@@ -1,26 +1,22 @@
 export class Time {
-  private startTime = -1
-  private _time = -1
-  private _deltaTime = -1
-  private prevTime = -1
+  private static startTime = -1
+  private static _time = -1
+  private static _deltaTime = -1
+  private static prevTime = -1
 
-  constructor() {
-    this.startTime = performance.now()
-  }
-
-  public get time() {
+  public static get time() {
     return this._time
   }
-  public get deltaTime() {
+  public static get deltaTime() {
     return this._deltaTime
   }
 
-  public start(timestamp: number) {
+  public static start(timestamp: number) {
     this.startTime = timestamp
     this.prevTime = timestamp
   }
 
-  public update(timestamp: number) {
+  public static update(timestamp: number) {
     this._time = timestamp - this.startTime
     this._deltaTime = timestamp - this.prevTime
     this.prevTime = timestamp
