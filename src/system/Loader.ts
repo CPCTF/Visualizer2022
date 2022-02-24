@@ -46,57 +46,53 @@ const createResources = (
 }
 
 export class ThreeResourceLoader {
-  private resources: Record<string, ResourceType>
-  private queue: [string, ResourceType['type']][]
+  private static resources: Record<string, ResourceType> = {}
+  private static queue: [string, ResourceType['type']][] = []
 
-  constructor() {
-    this.resources = {}
-    this.queue = []
-  }
-
-  public addGLTF(path: string) {
+  public static addGLTF(path: string) {
     this.queue.push([path, 'gltf'])
   }
 
-  public addTexture(path: string) {
+  public static addTexture(path: string) {
     this.queue.push([path, 'texture'])
   }
 
-  public addFBX(path: string) {
+  public static addFBX(path: string) {
     this.queue.push([path, 'fbx'])
   }
 
-  public load(
+  public static load(
     onProgress: (data: {
       path: string
       data: ResourceType['data']
       total: number
       count: number
-    }) => void,
-    onLoad: () => void
+    }) => void
   ) {
-    let count = 0
-    const total = this.queue.length
-    this.queue.map(([path, type]) => {
-      createResources(path, type, data => {
-        count += 1
-        this.resources[path] = {
-          type,
-          data
-        } as ResourceType
-        onProgress({
-          path,
-          data: data,
-          total,
-          count
+    return new Promise(resolve => {
+      let count = 0
+      const total = this.queue.length
+      this.queue.map(([path, type]) => {
+        createResources(path, type, data => {
+          count += 1
+          this.resources[path] = {
+            type,
+            data
+          } as ResourceType
+          onProgress({
+            path,
+            data: data,
+            total,
+            count
+          })
+          if (count === total) resolve({})
         })
-        if (count === total) onLoad()
       })
+      this.queue = []
     })
-    this.queue = []
   }
 
-  public get(path: string): ResourceType['data'] | undefined {
+  public static get(path: string): ResourceType['data'] | undefined {
     return this.resources[path]?.data
   }
 }
