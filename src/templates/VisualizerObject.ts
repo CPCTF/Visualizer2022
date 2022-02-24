@@ -4,9 +4,6 @@ import { VisualizerGroup } from './VisualizerGroup'
 
 export abstract class VisualizerObject extends Mesh implements IRenderable {
   private initialized = false
-  constructor() {
-    super()
-  }
   public abstract start(): void
 
   public update() {
