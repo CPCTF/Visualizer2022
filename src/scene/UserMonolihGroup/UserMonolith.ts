@@ -4,7 +4,7 @@ import { BoxGeometry, MeshBasicMaterial } from 'three'
 export class UserMonolith extends VisualizerObject {
   constructor() {
     super(
-      new BoxGeometry(1, 2, 0.5),
+      new BoxGeometry(0.1, 0.2, 0.05),
       new MeshBasicMaterial({ color: 0x00ff00 })
     )
   }
