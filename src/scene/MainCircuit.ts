@@ -4,7 +4,7 @@ import { BoxGeometry, MeshBasicMaterial } from 'three'
 
 export class MainCircuit extends VisualizerObject {
   constructor() {
-    super(new BoxGeometry(1, 1, 1), new MeshBasicMaterial({ color: 0x110000 }))
+    super(new BoxGeometry(1, 1, 1), new MeshBasicMaterial({ color: 0xff0000 }))
   }
 
   public start() {

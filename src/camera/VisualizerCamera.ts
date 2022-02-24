@@ -12,7 +12,11 @@ export class VisualizerCamera extends PerspectiveCamera implements IRenderable {
   }
 
   public update(): void {
-    this.position.set(Math.sin(Time.time) * 3, 2, Math.cos(Time.time) * 3)
+    this.position.set(
+      Math.sin(Time.time * 0.1) * 3,
+      2,
+      Math.cos(Time.time * 0.1) * 3
+    )
     this.lookAt(0, 0, 0)
   }
 }
