@@ -1,15 +1,15 @@
 import { User } from './User'
 
 export class UserManager {
-  private users: Record<string, User> = {}
+  private static users: Record<string, User> = {}
 
-  public addUser(id: string, displayName: string, iconPath: string) {
+  public static addUser(id: string, displayName: string, iconPath: string) {
     const user = new User(id)
     this.users[id] = user
     user.set(99999999, displayName, iconPath)
   }
 
-  public updateUser(
+  public static updateUser(
     id: string,
     ranking: number,
     displayName: string,
@@ -19,7 +19,7 @@ export class UserManager {
     this.users[id]?.set(ranking, displayName, iconPath)
   }
 
-  public getUser(id: string): User | undefined {
+  public static getUser(id: string): User | undefined {
     return this.users[id]
   }
 }
