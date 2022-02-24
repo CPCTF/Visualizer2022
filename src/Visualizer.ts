@@ -1,12 +1,11 @@
 import { PerspectiveCamera, Scene, WebGLRenderer } from 'three'
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer'
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
+import { ThreeResourceLoader } from './system/Loader'
 import { Time } from './system/Time'
-import { UserManager } from './system/UserManager'
-import { WebSocketReceiver } from './system/WebSocketReceiver'
 import { VisualizerGroup } from './templates/VisualizerGroup'
 import { VisualizerObject } from './templates/VisualizerObject'
-import { ThreeResourceLoader } from './system/Loader'
+import { WebSocketInstance } from './system/WebSocketReceiver'
 
 export const RunVisualizer = async () => {
   // setup variables
@@ -22,33 +21,26 @@ export const RunVisualizer = async () => {
 
   const camera = new PerspectiveCamera()
 
-  const loader = new ThreeResourceLoader()
-  const users = new UserManager()
-
-  const websocketReceiver = new WebSocketReceiver()
-
-  const timer = new Time()
-
   // call methods
   composer.addPass(new RenderPass(scene, camera))
 
-  websocketReceiver.addEventListener('start', () => {
+  WebSocketInstance.addEventListener('start', () => {
     console.log('start ctf')
   })
-  websocketReceiver.addEventListener('end', () => {
+  WebSocketInstance.addEventListener('end', () => {
     console.log('end ctf')
   })
-  websocketReceiver.addEventListener('recalcurate', () => {
+  WebSocketInstance.addEventListener('recalcurate', () => {
     console.log('recalcurate')
   })
-  websocketReceiver.addEventListener('submit', () => {
+  WebSocketInstance.addEventListener('submit', () => {
     console.log('submit')
   })
 
   // load resources
-  loader.addGLTF('gltf-path')
-  loader.addTexture('texture-path')
-  await loader.load(({ total, count }) => {
+  ThreeResourceLoader.addGLTF('gltf-path')
+  ThreeResourceLoader.addTexture('texture-path')
+  await ThreeResourceLoader.load(({ total, count }) => {
     console.log('progress' + count / total)
   })
   console.log('loaded')
@@ -56,7 +48,7 @@ export const RunVisualizer = async () => {
   // animation loop
   const tick = (timestamp: number) => {
     requestAnimationFrame(tick)
-    timer.update(timestamp)
+    Time.update(timestamp)
 
     composer.render()
 
@@ -69,6 +61,6 @@ export const RunVisualizer = async () => {
       }
     })
   }
-
+  Time.start(performance.now())
   requestAnimationFrame(tick)
 }
