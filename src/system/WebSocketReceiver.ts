@@ -1,6 +1,7 @@
 import { websocketBasePath } from '#/globals/serverInfos'
 import type { QuestionGenre } from './ResponseType'
 
+// TODO: tekito type
 type WebSocketMessage =
   | {
       type: 'submit'
@@ -22,16 +23,14 @@ type WebSocketMessage =
     }
 
 class WebSocketReceiver extends EventTarget {
-  private websocket: WebSocket
+  // private websocket: WebSocket
   constructor() {
     super()
-    this.websocket = new WebSocket(websocketBasePath)
-
-    this.websocket.addEventListener('message', this.messageHandler.bind(this))
-
-    this.websocket.addEventListener('error', () => {
-      this.dispatchEvent(new CustomEvent('disconnect'))
-    })
+    // this.websocket = new WebSocket(websocketBasePath)
+    // this.websocket.addEventListener('message', this.messageHandler.bind(this))
+    // this.websocket.addEventListener('error', () => {
+    //   this.dispatchEvent(new CustomEvent('disconnect'))
+    // })
   }
   private messageHandler(event: MessageEvent<WebSocketMessage>) {
     switch (event.data.type) {

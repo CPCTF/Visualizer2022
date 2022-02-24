@@ -17,8 +17,8 @@ export class Time {
   }
 
   public static update(timestamp: number) {
-    this._time = timestamp - this.startTime
-    this._deltaTime = timestamp - this.prevTime
+    this._time = (timestamp - this.startTime) / 1000
+    this._deltaTime = (timestamp - this.prevTime) / 1000
     this.prevTime = timestamp
   }
 }
