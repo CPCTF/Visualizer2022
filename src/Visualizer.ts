@@ -1,11 +1,15 @@
-import { PerspectiveCamera, Scene, WebGLRenderer } from 'three'
+import { Scene, WebGLRenderer } from 'three'
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer'
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
-import { ThreeResourceLoader } from './system/Loader'
 import { Time } from './system/Time'
 import { VisualizerGroup } from './templates/VisualizerGroup'
 import { VisualizerObject } from './templates/VisualizerObject'
 import { WebSocketInstance } from './system/WebSocketReceiver'
+import { ServerRequest } from './system/ServerRequest'
+import { Effects } from './scene/Effects'
+import { UserMonolithGroup } from './scene/UserMonolihGroup'
+import { MainCircuit } from './scene/MainCircuit'
+import { VisualizerCamera } from './camera/VisualizerCamera'
 
 export const RunVisualizer = async () => {
   // setup variables
@@ -16,41 +20,52 @@ export const RunVisualizer = async () => {
     antialias: true
   })
   const composer = new EffectComposer(renderer)
+  const camera = new VisualizerCamera()
+
+  renderer.setSize(window.innerWidth, window.innerHeight)
+  renderer.setPixelRatio(window.devicePixelRatio)
+  camera.aspect = window.innerWidth / window.innerHeight
+  camera.updateProjectionMatrix()
 
   const scene = new Scene()
+  scene.add(new Effects(), new UserMonolithGroup(), new MainCircuit())
 
-  const camera = new PerspectiveCamera()
+  // load resources
+  // ThreeResourceLoader.addGLTF('gltf-path')
+  // ThreeResourceLoader.addTexture('texture-path')
+  // await ThreeResourceLoader.load(({ total, count }) => {
+  //   console.log('progress' + count / total)
+  // })
+  // console.log('loaded')
 
-  // call methods
-  composer.addPass(new RenderPass(scene, camera))
-
+  // server connection
   WebSocketInstance.addEventListener('start', () => {
     console.log('start ctf')
   })
   WebSocketInstance.addEventListener('end', () => {
     console.log('end ctf')
   })
-  WebSocketInstance.addEventListener('recalcurate', () => {
+  WebSocketInstance.addEventListener('recalcurate', async () => {
     console.log('recalcurate')
+    // const { ranking, circuit } = await ServerRequest.recalculate()
   })
   WebSocketInstance.addEventListener('submit', () => {
     console.log('submit')
   })
 
-  // load resources
-  ThreeResourceLoader.addGLTF('gltf-path')
-  ThreeResourceLoader.addTexture('texture-path')
-  await ThreeResourceLoader.load(({ total, count }) => {
-    console.log('progress' + count / total)
-  })
-  console.log('loaded')
+  // const initialData = await ServerRequest.initial()
+
+  // set render path
+  composer.addPass(new RenderPass(scene, camera))
 
   // animation loop
   const tick = (timestamp: number) => {
     requestAnimationFrame(tick)
     Time.update(timestamp)
 
-    composer.render()
+    renderer.render(scene, camera)
+
+    camera.update()
 
     scene.children.map(value => {
       if (
