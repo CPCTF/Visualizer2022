@@ -8,7 +8,7 @@ const getJson = (response: Response) => {
   return response.json()
 }
 
-export class Request {
+export class ServerRequest {
   // 初回ロード
   public static initial(): Promise<any> {
     return fetch(`${apiBasePath}/initial`).then(getJson)
