@@ -10,6 +10,7 @@
     "format": "eslint --cache --fix ."
   },
   "devDependencies": {
+    "@types/gsap": "^3.0.0",
     "@typescript-eslint/eslint-plugin": "^5.12.1",
     "@typescript-eslint/parser": "^5.12.1",
     "eslint": "^8.9.0",
