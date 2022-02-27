@@ -11,7 +11,12 @@ module.exports = {
   rules: {
     '@typescript-eslint/member-delimiter-style': 'off'
   },
+  plugins: ['svelte3'],
   overrides: [
+    {
+      files: ['*.svelte'],
+      processor: 'svelte3/svelte3'
+    },
     {
       // 直下のファイル
       files: ['*.{js,mjs}'],
