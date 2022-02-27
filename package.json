@@ -6,10 +6,12 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "lint": "eslint --cache .",
+    "lint": "eslint --cache . && svelte-check",
     "format": "eslint --cache --fix ."
   },
   "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^1.0.0-next.38",
+    "@tsconfig/svelte": "^3.0.0",
     "@types/gsap": "^3.0.0",
     "@typescript-eslint/eslint-plugin": "^5.12.1",
     "@typescript-eslint/parser": "^5.12.1",
@@ -17,7 +19,10 @@
     "eslint-config-prettier": "^8.4.0",
     "eslint-plugin-prettier": "^4.0.0",
     "prettier": "^2.5.1",
-    "typescript": "^4.5.4",
+    "sass": "^1.49.9",
+    "svelte-check": "^2.4.5",
+    "svelte-preprocess": "^4.10.4",
+    "typescript": "^4.5.5",
     "vite": "^2.8.0",
     "vite-tsconfig-paths": "^3.4.1"
   },
