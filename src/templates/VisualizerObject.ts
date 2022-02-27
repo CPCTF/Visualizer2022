@@ -4,7 +4,10 @@ import { VisualizerGroup } from './VisualizerGroup'
 
 export abstract class VisualizerObject extends Mesh implements IRenderable {
   private initialized = false
-  public abstract start(): void
+
+  public start(): void {
+    // no impl
+  }
 
   public update() {
     if (!this.visible) return

@@ -7,7 +7,9 @@ export abstract class VisualizerGroup extends Group implements IRenderable {
   constructor() {
     super()
   }
-  public abstract start(): void
+  public start(): void {
+    // no impl
+  }
 
   public update() {
     if (!this.visible) return
