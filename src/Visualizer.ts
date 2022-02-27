@@ -22,10 +22,24 @@ export const RunVisualizer = async () => {
   const composer = new EffectComposer(renderer)
   const camera = new VisualizerCamera()
 
-  renderer.setSize(window.innerWidth, window.innerHeight)
-  renderer.setPixelRatio(window.devicePixelRatio)
-  camera.aspect = window.innerWidth / window.innerHeight
-  camera.updateProjectionMatrix()
+  // resize event
+  const resizeHandler = () => {
+    const rect = canvas.getBoundingClientRect()
+    const width = rect.width
+    const height = rect.height
+    renderer.setSize(width, height)
+    renderer.setPixelRatio(window.devicePixelRatio)
+    camera.aspect = width / height
+    camera.updateProjectionMatrix()
+  }
+
+  const resizeObserver = new MutationObserver(resizeHandler)
+  resizeObserver.observe(canvas, {
+    attributes: true,
+    attributeFilter: ['style']
+  })
+
+  resizeHandler()
 
   const scene = new Scene()
   scene.add(new Effects(), new UserMonolithGroup(), new MainCircuit())
