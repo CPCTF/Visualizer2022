@@ -10,7 +10,7 @@ const getJson = (response: Response) => {
 
 export class ServerRequest {
   // 初回ロード
-  public static initial(): Promise<any> {
+  public static async initial() {
     return fetch(`${apiBasePath}/initial`).then(getJson)
   }
   public static async recalculate() {

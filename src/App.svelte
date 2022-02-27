@@ -1,20 +1,25 @@
 <script lang="ts">
-  let num: number = 0
+  let num = 0
 
+  let logger = (script: string) => {
+    console.log(script)
+  }
   setInterval(() => {
     num += 1
-  }, 100)
+    logger(String(num));
+  }, 10)
 </script>
 
 <div id="canvas-wrapper">
   <canvas id="main-canvas"></canvas>
+  {num}
 </div>
 
-{num}
 
 <style>
   #canvas-wrapper {
     width: 100%;
     height: 100%;
+    background: red;
   }
 </style>
