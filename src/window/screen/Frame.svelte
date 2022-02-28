@@ -36,11 +36,11 @@ let basePos = {
 let cursor = 'pointer'
 let rect = windowInfo.rect
 const mouseDownHandler = (e) => {
-  if(scaleMode[0] === 0 && scaleMode[1] === 0 && e.clientY - rect.y > headerHeight) return;
-  e.preventDefault()
   basePos.x = e.clientX
   basePos.y = e.clientY
   rect = windowInfo.rect
+  if(scaleMode[0] === 0 && scaleMode[1] === 0 && e.clientY - rect.y > headerHeight) return;
+  e.preventDefault()
   downScaleMode[0] = scaleMode[0]
   downScaleMode[1] = scaleMode[1]
   mode = scaleMode[0] === 0 && scaleMode[1] === 0 ? 'move' : 'scale'
@@ -71,7 +71,7 @@ const mouseMoveHandler = (e) => {
   } else if (scaleMode[1] !== 0) {
     cursor = 'ns-resize'
   } else if(e.clientY - nowRect.y < headerHeight) {
-    cursor = 'pointer'
+    cursor = 'grab'
   } else {
     cursor = 'default'
   }
@@ -79,6 +79,7 @@ const mouseMoveHandler = (e) => {
   if (mode === 'none') return
 
   if (mode === 'move') {
+    cursor = 'grabbing'
     WindowSystem.updateWindow(id, {
       ...windowInfo,
       rect: {
@@ -89,7 +90,6 @@ const mouseMoveHandler = (e) => {
       }
     })
   } else {
-    console.log('scale')
     const newRect = {...rect}
     if (downScaleMode[0] === 1) {
       newRect.width = rect.width - basePos.x + e.clientX 
