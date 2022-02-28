@@ -45,12 +45,14 @@ const mouseDownHandler = (e: MouseEvent) => {
   rect = windowInfo.rect
   WindowSystem.focus(id)
   if(scaleMode[0] === 0 && scaleMode[1] === 0 && e.clientY - rect.y > headerHeight) return;
+  // move and resize event
   e.preventDefault()
   downScaleMode[0] = scaleMode[0]
   downScaleMode[1] = scaleMode[1]
   mode = scaleMode[0] === 0 && scaleMode[1] === 0 ? 'move' : 'scale'
 }
 const mouseMoveHandler = (e: MouseEvent) => {
+  // set cursor and scale direction
   const nowRect = windowInfo.rect
   if (e.clientX - nowRect.x < scaleEdge) {
     scaleMode[0] = -1
@@ -81,6 +83,7 @@ const mouseMoveHandler = (e: MouseEvent) => {
     cursor = 'default'
   }
 
+  // resize and move event
   if (mode === 'none') return
 
   if (mode === 'move') {
@@ -132,6 +135,7 @@ $header-height: 32px;
 
 .frame {
   position: absolute;
+  background: white;
   border: 1px solid;
   border-radius: 5px;
 
