@@ -87,6 +87,7 @@ $header-height: 32px;
 
 .frame {
   position: absolute;
+  box-sizing: border-box;
   background: white;
   border: 7px solid;
   border-radius: 10px;
