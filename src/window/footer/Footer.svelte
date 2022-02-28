@@ -13,10 +13,14 @@
 
 <script>
 import { WindowSystem } from "../stores/WindowSystem";
+import { frames } from '../screen/frames'
 import "../_variables.css";
 
 let windows = WindowSystem.windows
 let windowsEntries = Object.entries(windows) || []
+
+WindowSystem.updateWindow('canvas', frames['canvas'])
+
 </script>
 
 <style type="scss">
