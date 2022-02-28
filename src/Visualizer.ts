@@ -63,7 +63,7 @@ export const RunVisualizer = async () => {
     // const { ranking, circuit } = await ServerRequest.recalculate()
   })
   WebSocketInstance.addEventListener('submit', () => {
-    console.log('submit');
+    console.log('submit')
   })
 
   // const initialData = await ServerRequest.initial()

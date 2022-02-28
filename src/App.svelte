@@ -2,11 +2,13 @@
   let num = 0
 
   let logger = (script: string) => {
+    // eslint-disable-next-line no-undef
     console.log(script)
   }
+  // eslint-disable-next-line no-undef
   setInterval(() => {
     num += 1
-    logger(num)
+    logger(String(num))
   }, 10)
 </script>
 
@@ -18,9 +20,9 @@
 
 <style lang="scss">
   #canvas-wrapper {
+    background: red;
     width: 500px;
     height: 500px;
-    background: red;
     #main-canvas {
       width: 100%;
       height: 100%;
