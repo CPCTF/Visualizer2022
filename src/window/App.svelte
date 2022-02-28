@@ -7,7 +7,19 @@ import { WindowSystem } from "./stores/WindowSystem"
 if (frames['canvas']) WindowSystem.updateWindow('canvas', frames['canvas'])
 if (frames['clock']) WindowSystem.updateWindow('clock', frames['clock'])
 </script>
+<main>
+  <Screen />
+  <Footer />
+</main>
 
-<Screen />
-<Footer />
+<style>
+  main {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    background-image: url("/public/assets/xp.jpg");
+    background-size: cover;
+  }
+</style>
 

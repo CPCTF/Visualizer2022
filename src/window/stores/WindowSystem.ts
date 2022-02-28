@@ -38,10 +38,32 @@ export class WindowSystem {
   }
 
   public static focus(id: string) {
+    this._windows.update((windowMap: Record<string, WindowInfo>) => {
+      const newInstance = { ...windowMap }
+      const target = newInstance[id]
+      if (!target) throw new Error('invalid id')
+      newInstance[id] = {
+        ...target,
+        visible: true
+      }
+      return newInstance
+    })
     this._windowIndices.update(indices => {
       const newInstance = indices.filter(value => value !== id)
-      if (newInstance.length === indices.length) throw new Error('no id')
       newInstance.push(id)
+      return newInstance
+    })
+  }
+
+  public static minimize(id: string) {
+    this._windows.update((windowMap: Record<string, WindowInfo>) => {
+      const newInstance = { ...windowMap }
+      const target = newInstance[id]
+      if (!target) throw new Error('invalid id')
+      newInstance[id] = {
+        ...target,
+        visible: false
+      }
       return newInstance
     })
   }

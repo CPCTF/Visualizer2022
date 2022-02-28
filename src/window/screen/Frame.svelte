@@ -1,10 +1,11 @@
 <div class="frame" style={`
-top: ${windowInfo.rect.y}px;
+top: ${windowInfo.visible ? windowInfo.rect.y : window.innerHeight}px;
 left: ${windowInfo.rect.x}px;
 width: ${windowInfo.rect.width}px;
 height: ${windowInfo.rect.height}px;
 cursor: ${cursor};
-z-index: ${zIndex}
+z-index: ${zIndex};
+border-color: ${focus ? 'red' : 'black'};
 `}
   on:mousedown={(e) => mouseDownHandler(windowInfo)(e)}
 >
@@ -32,6 +33,7 @@ import { MouseEventHandlerGenerator } from "./mouseevent";
 export let id: string
 export let windowInfo: WindowInfo
 export let zIndex: number
+export let focus: boolean
 let cursor  = 'default'
 
 let { Component } = windowInfo
