@@ -13,7 +13,9 @@ import { VisualizerCamera } from './camera/VisualizerCamera'
 export const RunVisualizer = async () => {
   // setup variables
   const canvas = document.getElementById('main-canvas') as HTMLCanvasElement
-  const canvasWrapper = document.getElementById('canvas-wrapper') as HTMLCanvasElement
+  const canvasWrapper = document.getElementById(
+    'canvas-wrapper'
+  ) as HTMLCanvasElement
   const renderer = new WebGLRenderer({
     canvas,
     alpha: true,
