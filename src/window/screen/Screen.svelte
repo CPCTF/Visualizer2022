@@ -1,5 +1,5 @@
-{#each windowIndices as id}
-  <Frame windowInfo={windows[id]} id={id} />
+{#each windowIndices as id, i (id)}
+  <Frame windowInfo={windows[id]} id={id} zIndex={i} />
 {/each}
 
 <script>
