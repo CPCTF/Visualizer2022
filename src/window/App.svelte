@@ -1,21 +1,12 @@
 <script lang="ts">
-  let num = 0
-
-  let logger = (script: string) => {
-    // eslint-disable-next-line no-undef
-    console.log(script)
-  }
-  // eslint-disable-next-line no-undef
-  setInterval(() => {
-    num += 1
-    logger(String(num))
-  }, 10)
+import Footer from "./footer/Footer.svelte";
 </script>
 
 <div id="canvas-wrapper">
   <canvas id="main-canvas"></canvas>
-  {num}
 </div>
+
+<Footer />
 
 
 <style lang="scss">
