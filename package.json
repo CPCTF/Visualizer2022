@@ -6,8 +6,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "lint": "svelte-check --tsconfig ./tsconfig.json",
-    "format": "svelte-check --tsconfig ./tsconfig.json --fix"
+    "check": "svelte-check --tsconfig ./tsconfig.json && eslint .",
+    "format": "svelte-check --fix"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^1.0.0-next.38",
@@ -15,18 +15,25 @@
     "@types/gsap": "^3.0.0",
     "@typescript-eslint/eslint-plugin": "^5.12.1",
     "@typescript-eslint/parser": "^5.12.1",
+    "autoprefixer": "^10.4.2",
+    "cssnano": "^5.0.17",
     "eslint": "^8.9.0",
     "eslint-config-prettier": "^8.4.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-svelte3": "^3.4.1",
+    "postcss": "^8.4.5",
+    "postcss-import": "^14.0.2",
+    "postcss-nested": "^5.0.6",
+    "postcss-simple-vars": "^6.0.3",
     "prettier": "^2.5.1",
     "sass": "^1.49.9",
     "svelte": "^3.46.4",
     "svelte-check": "^2.4.5",
-    "svelte-preprocess": "^4.10.4",
+    "svelte-preprocess": "^4.10.1",
     "typescript": "^4.5.5",
     "vite": "^2.8.0",
-    "vite-tsconfig-paths": "^3.4.1"
+    "vite-tsconfig-paths": "^3.4.1",
+    "postcss-load-config": "^3.1.1"
   },
   "dependencies": {
     "@types/three": "^0.137.0",

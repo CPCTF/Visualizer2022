@@ -6,7 +6,7 @@
   }
   setInterval(() => {
     num += 1
-    logger(String(num));
+    logger(num)
   }, 10)
 </script>
 
@@ -16,10 +16,14 @@
 </div>
 
 
-<style>
+<style lang="scss">
   #canvas-wrapper {
-    width: 100%;
-    height: 100%;
+    width: 500px;
+    height: 500px;
     background: red;
+    #main-canvas {
+      width: 100%;
+      height: 100%;
+    }
   }
 </style>

@@ -19,8 +19,8 @@ module.exports = {
     },
     {
       // 直下のファイル
-      files: ['*.{js,mjs}'],
-      excludedFiles: ['*/**/*.{js,mjs}'],
+      files: ['*.{js,mjs,cjs}'],
+      excludedFiles: ['*/**/*.{js,mjs,cjs}'],
       env: {
         node: true
       },
@@ -29,5 +29,8 @@ module.exports = {
       }
     }
   ],
+  settings: {
+    'svelte3/typescript': () => require('typescript')
+  },
   reportUnusedDisableDirectives: true
 }
