@@ -5,7 +5,7 @@ width: ${windowInfo.rect.width}px;
 height: ${windowInfo.rect.height}px;
 cursor: ${cursor};
 z-index: ${zIndex};
-border-color: ${focus ? 'red' : 'black'};
+border-color: ${focus ? '#3B77BC' : '#3B77BC'};
 `}
   on:mousedown={(e) => mouseDownHandler(windowInfo)(e)}
 >
@@ -88,22 +88,31 @@ $header-height: 32px;
 .frame {
   position: absolute;
   background: white;
-  border: 1px solid;
-  border-radius: 5px;
+  border: 7px solid;
+  border-radius: 10px;
 
   .header {
+    position: absolute;
+    top: 0;
+    left: 0;
     display: flex;
     justify-content: space-between;
     width: 100%;
     height: $header-height;
+    background-color: #3b77bc;
+    outline: 1px #3b77bc solid;
 
     h2 {
       margin: 0;
       font-size: 28px;
+      color: white;
     }
   }
 
   .content {
+    position: absolute;
+    top: $header-height;
+    left: 0;
     width: 100%;
     height: calc(100% - $header-height);
     overflow: hidden;
