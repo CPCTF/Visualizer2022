@@ -55,7 +55,7 @@ footer {
   justify-content: flex-start;
   width: 100%;
   height: $footer-height;
-  background: #77f;
+  background: #3b77bc;
 
   .start {
     height: 100%;
