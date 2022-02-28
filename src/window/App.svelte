@@ -1,31 +1,25 @@
 <script lang="ts">
-  let num = 0
+import Footer from "./footer/Footer.svelte"
+import Screen from "./screen/Screen.svelte"
+import { frames } from './screen/frames'
+import { WindowSystem } from "./stores/WindowSystem"
 
-  let logger = (script: string) => {
-    // eslint-disable-next-line no-undef
-    console.log(script)
-  }
-  // eslint-disable-next-line no-undef
-  setInterval(() => {
-    num += 1
-    logger(String(num))
-  }, 10)
+if (frames['canvas']) WindowSystem.updateWindow('canvas', frames['canvas'])
+if (frames['clock']) WindowSystem.updateWindow('clock', frames['clock'])
 </script>
+<main>
+  <Screen />
+  <Footer />
+</main>
 
-<div id="canvas-wrapper">
-  <canvas id="main-canvas"></canvas>
-  {num}
-</div>
-
-
-<style lang="scss">
-  #canvas-wrapper {
-    border: 1px solid;
-    width: 500px;
-    height: 500px;
-    #main-canvas {
-      width: 100%;
-      height: 100%;
-    }
+<style>
+  main {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    background-image: url("/public/assets/xp.jpg");
+    background-size: cover;
   }
 </style>
+

@@ -1,5 +1,8 @@
 module.exports = {
   root: true,
+  env: {
+    browser: true
+  },
   parserOptions: {
     sourceType: 'module'
   },
@@ -15,7 +18,10 @@ module.exports = {
   overrides: [
     {
       files: ['*.svelte'],
-      processor: 'svelte3/svelte3'
+      processor: 'svelte3/svelte3',
+      rules: {
+        'prettier/prettier': 'off'
+      }
     },
     {
       // 直下のファイル
