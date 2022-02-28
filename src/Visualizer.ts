@@ -5,6 +5,7 @@ import { Time } from './system/Time'
 import { VisualizerGroup } from './templates/VisualizerGroup'
 import { VisualizerObject } from './templates/VisualizerObject'
 import { WebSocketInstance } from './system/WebSocketReceiver'
+import { ServerRequest } from './system/ServerRequest'
 import { Effects } from './scene/Effects'
 import { UserMonolithGroup } from './scene/UserMonolihGroup'
 import { MainCircuit } from './scene/MainCircuit'
@@ -13,9 +14,6 @@ import { VisualizerCamera } from './camera/VisualizerCamera'
 export const RunVisualizer = async () => {
   // setup variables
   const canvas = document.getElementById('main-canvas') as HTMLCanvasElement
-  const canvasWrapper = document.getElementById(
-    'canvas-wrapper'
-  ) as HTMLCanvasElement
   const renderer = new WebGLRenderer({
     canvas,
     alpha: true,
@@ -24,24 +22,10 @@ export const RunVisualizer = async () => {
   const composer = new EffectComposer(renderer)
   const camera = new VisualizerCamera()
 
-  // resize event
-  const resizeHandler = () => {
-    const rect = canvasWrapper.getBoundingClientRect()
-    const width = rect.width
-    const height = rect.height
-    renderer.setSize(width, height)
-    renderer.setPixelRatio(window.devicePixelRatio)
-    camera.aspect = width / height
-    camera.updateProjectionMatrix()
-  }
-
-  const resizeObserver = new MutationObserver(resizeHandler)
-  resizeObserver.observe(canvasWrapper, {
-    attributes: true,
-    attributeFilter: ['style']
-  })
-
-  resizeHandler()
+  renderer.setSize(window.innerWidth, window.innerHeight)
+  renderer.setPixelRatio(window.devicePixelRatio)
+  camera.aspect = window.innerWidth / window.innerHeight
+  camera.updateProjectionMatrix()
 
   const scene = new Scene()
   scene.add(new Effects(), new UserMonolithGroup(), new MainCircuit())

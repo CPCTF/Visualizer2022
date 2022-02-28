@@ -1,5 +1,4 @@
 {
-  "extends": "@tsconfig/svelte/tsconfig.json",
   "include": ["src", "tests"],
   "compilerOptions": {
     "target": "ESNext",
@@ -29,5 +28,5 @@
     "jsx": "react",
     "esModuleInterop": true,
     "downlevelIteration": true
-  },
+  }
 }

@@ -1,25 +1,26 @@
-// import type { QuestionGenre } from './ResponseType'
+import { websocketBasePath } from '#/globals/serverInfos'
+import type { QuestionGenre } from './ResponseType'
 
 // TODO: tekito type
-// type WebSocketMessage =
-//   | {
-//       type: 'submit'
-//       result: {
-//         userid: string
-//         point: number
-//         genre: QuestionGenre
-//         questionName: string
-//       }
-//     }
-//   | {
-//       type: 'start'
-//     }
-//   | {
-//       type: 'end'
-//     }
-//   | {
-//       type: 'recalculate'
-//     }
+type WebSocketMessage =
+  | {
+      type: 'submit'
+      result: {
+        userid: string
+        point: number
+        genre: QuestionGenre
+        questionName: string
+      }
+    }
+  | {
+      type: 'start'
+    }
+  | {
+      type: 'end'
+    }
+  | {
+      type: 'recalculate'
+    }
 
 class WebSocketReceiver extends EventTarget {
   // private websocket: WebSocket
@@ -31,28 +32,28 @@ class WebSocketReceiver extends EventTarget {
     //   this.dispatchEvent(new CustomEvent('disconnect'))
     // })
   }
-  // private messageHandler(event: MessageEvent<WebSocketMessage>) {
-  //   switch (event.data.type) {
-  //     case 'submit': {
-  //       this.dispatchEvent(
-  //         new CustomEvent('submission', { detail: event.data.result })
-  //       )
-  //       break
-  //     }
-  //     case 'start': {
-  //       this.dispatchEvent(new CustomEvent('start'))
-  //       break
-  //     }
-  //     case 'end': {
-  //       this.dispatchEvent(new CustomEvent('end'))
-  //       break
-  //     }
-  //     case 'recalculate': {
-  //       this.dispatchEvent(new CustomEvent('recalculate'))
-  //       break
-  //     }
-  //   }
-  // }
+  private messageHandler(event: MessageEvent<WebSocketMessage>) {
+    switch (event.data.type) {
+      case 'submit': {
+        this.dispatchEvent(
+          new CustomEvent('submission', { detail: event.data.result })
+        )
+        break
+      }
+      case 'start': {
+        this.dispatchEvent(new CustomEvent('start'))
+        break
+      }
+      case 'end': {
+        this.dispatchEvent(new CustomEvent('end'))
+        break
+      }
+      case 'recalculate': {
+        this.dispatchEvent(new CustomEvent('recalculate'))
+        break
+      }
+    }
+  }
 }
 
 export const WebSocketInstance = new WebSocketReceiver()
