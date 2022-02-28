@@ -13,6 +13,7 @@ import { VisualizerCamera } from './camera/VisualizerCamera'
 export const RunVisualizer = async () => {
   // setup variables
   const canvas = document.getElementById('main-canvas') as HTMLCanvasElement
+  const canvasWrapper = document.getElementById('canvas-wrapper') as HTMLCanvasElement
   const renderer = new WebGLRenderer({
     canvas,
     alpha: true,
@@ -23,7 +24,7 @@ export const RunVisualizer = async () => {
 
   // resize event
   const resizeHandler = () => {
-    const rect = canvas.getBoundingClientRect()
+    const rect = canvasWrapper.getBoundingClientRect()
     const width = rect.width
     const height = rect.height
     renderer.setSize(width, height)
@@ -33,7 +34,7 @@ export const RunVisualizer = async () => {
   }
 
   const resizeObserver = new MutationObserver(resizeHandler)
-  resizeObserver.observe(canvas, {
+  resizeObserver.observe(canvasWrapper, {
     attributes: true,
     attributeFilter: ['style']
   })
