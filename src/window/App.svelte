@@ -20,7 +20,7 @@
 
 <style lang="scss">
   #canvas-wrapper {
-    background: red;
+    border: 1px solid;
     width: 500px;
     height: 500px;
     #main-canvas {
