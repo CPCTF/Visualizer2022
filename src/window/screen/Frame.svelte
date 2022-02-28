@@ -4,6 +4,7 @@ left: ${windowInfo.rect.x}px;
 width: ${windowInfo.rect.width}px;
 height: ${windowInfo.rect.height}px;
 cursor: ${cursor};
+z-index: ${zIndex}
 `}
   on:mousedown={mouseDownHandler}
 >
@@ -17,10 +18,13 @@ cursor: ${cursor};
 </div>
 
 <script type="ts">
+import { onDestroy } from "svelte";
+
 import { WindowSystem, type WindowInfo } from "../stores/WindowSystem";
 
 export let id: string
 export let windowInfo: WindowInfo
+export let zIndex: number
 
 let { Component } = windowInfo
 
@@ -35,17 +39,18 @@ let basePos = {
 }
 let cursor = 'pointer'
 let rect = windowInfo.rect
-const mouseDownHandler = (e) => {
+const mouseDownHandler = (e: MouseEvent) => {
   basePos.x = e.clientX
   basePos.y = e.clientY
   rect = windowInfo.rect
+  WindowSystem.focus(id)
   if(scaleMode[0] === 0 && scaleMode[1] === 0 && e.clientY - rect.y > headerHeight) return;
   e.preventDefault()
   downScaleMode[0] = scaleMode[0]
   downScaleMode[1] = scaleMode[1]
   mode = scaleMode[0] === 0 && scaleMode[1] === 0 ? 'move' : 'scale'
 }
-const mouseMoveHandler = (e) => {
+const mouseMoveHandler = (e: MouseEvent) => {
   const nowRect = windowInfo.rect
   if (e.clientX - nowRect.x < scaleEdge) {
     scaleMode[0] = -1
@@ -114,10 +119,12 @@ const mouseUpHandler = () => {
   mode = 'none'
 }
 
-// eslint-disable-next-line no-undef
 window.addEventListener('mousemove', mouseMoveHandler)
-// eslint-disable-next-line no-undef
 window.addEventListener('mouseup', mouseUpHandler)
+onDestroy(() => {
+  window.removeEventListener('mousemove', mouseMoveHandler)
+  window.removeEventListener('mouseup', mouseUpHandler)
+})
 </script>
 
 <style type="scss">

@@ -36,4 +36,13 @@ export class WindowSystem {
       return newInstance
     })
   }
+
+  public static focus(id: string) {
+    this._windowIndices.update(indices => {
+      const newInstance = indices.filter(value => value !== id)
+      if (newInstance.length === indices.length) throw new Error('no id')
+      newInstance.push(id)
+      return newInstance
+    })
+  }
 }
