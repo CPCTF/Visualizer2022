@@ -17,6 +17,9 @@ border-color: ${focus ? '#3B77BC' : '#3B77BC'};
     <div class="controls">
       <button on:click|stopPropagation={closeHandler} on:mousedown|stopPropagation={() => ''}>_</button>
       <button on:click|stopPropagation={fullScreenHandler} on:mousedown|stopPropagation={() => ''}>□</button>
+      {#if id !== 'visualizer'}
+        <button on:click|stopPropagation={killHandler} on:mousedown|stopPropagation={() => ''}>×</button>
+      {/if}
     </div>
   </div>
   <section class="content">
@@ -50,6 +53,9 @@ const closeHandler = () => {
     ...windowInfo,
     visible: false
   })
+}
+const killHandler = () => {
+  WindowSystem.killWindow(id)
 }
 
 // mouse events
