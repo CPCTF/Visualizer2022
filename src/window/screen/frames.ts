@@ -11,7 +11,8 @@ export const dummyWindow = {
     width: 500,
     height: 500
   },
-  visible: true
+  visible: true,
+  fullscreen: false
 }
 
 export const frames: Record<string, WindowInfo> = {
@@ -24,7 +25,8 @@ export const frames: Record<string, WindowInfo> = {
       width: 500,
       height: 500
     },
-    visible: true
+    visible: true,
+    fullscreen: false
   },
   clock: {
     Component: ClockFrame,
@@ -35,6 +37,7 @@ export const frames: Record<string, WindowInfo> = {
       width: 500,
       height: 500
     },
-    visible: true
+    visible: true,
+    fullscreen: false
   }
 }

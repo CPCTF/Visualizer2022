@@ -5,7 +5,7 @@
   <ul>
     {#each windowEntries as entry (entry[0])}
       <li>
-        <button on:click={tabHandler(entry[0])}>
+        <button on:click={tabHandler(entry[0])} style={`border-style: ${entry[1].visible ? 'inset' : 'outset'}`}>
           {entry[1].title}
         </button>
       </li>
@@ -48,26 +48,65 @@ const tabHandler = (id: string) => () => {
 <style type="scss">
 $footer-height: 54px;
 
+button {
+  padding: 0;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  appearance: none;
+}
+
 footer {
   position: absolute;
-  bottom: 0;
+  top: calc(100vh - $footer-height);
+  left: 0;
   display: flex;
   justify-content: flex-start;
   width: 100%;
   height: $footer-height;
   background: #3b77bc;
 
-  .start {
-    height: 100%;
-  }
-
   ul {
     display: flex;
     flex-direction: row;
+    justify-content: flex-start;
+    padding-inline-start: 0;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
     list-style: none;
 
     li {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 200px;
       height: 100%;
+
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 90%;
+        height: 60%;
+        font-size: 18px;
+        background: #35f;
+        border: 2px #35f;
+      }
+    }
+  }
+
+  .start {
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100px;
+      height: 100%;
+      color: white;
+      background: green;
     }
   }
 }
