@@ -16,7 +16,7 @@ export const dummyWindow = {
 }
 
 export const frames: Record<string, WindowInfo> = {
-  canvas: {
+  visualizer: {
     Component: CanvasFrame,
     title: 'Visualizer',
     rect: {

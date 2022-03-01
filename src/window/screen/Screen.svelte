@@ -5,7 +5,7 @@
 <script lang="ts">
   import Frame from '../screen/Frame.svelte'
   import { WindowSystem, type WindowInfo } from '../stores/WindowSystem'
-import { dummyWindow } from './frames';
+  import { dummyWindow } from './frames';
   let windowIndices = [] as string[]
   let focused = ''
   let windows = {} as Record<string, WindowInfo>
