@@ -9,13 +9,14 @@ if (frames['clock']) WindowSystem.updateWindow('clock', frames['clock'])
 </script>
 <main>
   <Screen />
-  <Footer />
 </main>
+<Footer />
 
-<style>
+<style lang="scss">
+  $footer-height: 54px;
   main {
     width: 100%;
-    height: 100%;
+    height: calc(100% - $footer-height);
     padding: 0;
     margin: 0;
     background-image: url("/public/assets/xp.jpg");
