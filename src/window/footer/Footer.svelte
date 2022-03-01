@@ -48,15 +48,6 @@ const tabHandler = (id: string) => () => {
 <style type="scss">
 $footer-height: 54px;
 
-button {
-  padding: 0;
-  cursor: pointer;
-  background-color: transparent;
-  border: none;
-  outline: none;
-  appearance: none;
-}
-
 footer {
   position: absolute;
   top: calc(100vh - $footer-height);
