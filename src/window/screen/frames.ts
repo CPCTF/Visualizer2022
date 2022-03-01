@@ -11,11 +11,12 @@ export const dummyWindow = {
     width: 500,
     height: 500
   },
-  visible: true
+  visible: true,
+  fullscreen: false
 }
 
 export const frames: Record<string, WindowInfo> = {
-  canvas: {
+  visualizer: {
     Component: CanvasFrame,
     title: 'Visualizer',
     rect: {
@@ -24,7 +25,8 @@ export const frames: Record<string, WindowInfo> = {
       width: 500,
       height: 500
     },
-    visible: true
+    visible: true,
+    fullscreen: false
   },
   clock: {
     Component: ClockFrame,
@@ -35,6 +37,7 @@ export const frames: Record<string, WindowInfo> = {
       width: 500,
       height: 500
     },
-    visible: true
+    visible: true,
+    fullscreen: false
   }
 }

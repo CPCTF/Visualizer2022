@@ -1,1 +1,8 @@
-/* Write your global styles here, in PostCSS syntax */
+button {
+  padding: 0;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  appearance: none;
+}

@@ -3,19 +3,22 @@ import Footer from "./footer/Footer.svelte"
 import Screen from "./screen/Screen.svelte"
 import { frames } from './screen/frames'
 import { WindowSystem } from "./stores/WindowSystem"
+import Startup from "./startup/Startup.svelte"
 
-if (frames['canvas']) WindowSystem.updateWindow('canvas', frames['canvas'])
-if (frames['clock']) WindowSystem.updateWindow('clock', frames['clock'])
+if (frames['visualizer']) WindowSystem.updateWindow('visualizer', frames['visualizer'])
 </script>
+
 <main>
   <Screen />
-  <Footer />
 </main>
+<Footer />
+<Startup />
 
-<style>
+<style lang="scss">
+  $footer-height: 54px;
   main {
     width: 100%;
-    height: 100%;
+    height: calc(100% - $footer-height);
     padding: 0;
     margin: 0;
     background-image: url("/public/assets/xp.jpg");

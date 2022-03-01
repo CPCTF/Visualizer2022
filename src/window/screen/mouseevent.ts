@@ -1,3 +1,4 @@
+import { footerHeight } from '../globals'
 import { type WindowInfo, WindowSystem } from '../stores/WindowSystem'
 
 export const MouseEventHandlerGenerator = (id: string) => {
@@ -16,7 +17,16 @@ export const MouseEventHandlerGenerator = (id: string) => {
   const mouseDownHandler = (windowInfo: WindowInfo) => (e: MouseEvent) => {
     basePos.x = e.clientX
     basePos.y = e.clientY
-    rect = windowInfo.rect
+    if (windowInfo.fullscreen) {
+      rect = {
+        x: 0,
+        y: 0,
+        width: window.innerWidth,
+        height: window.innerHeight - footerHeight
+      }
+    } else {
+      rect = windowInfo.rect
+    }
     WindowSystem.focus(id)
     if (
       scaleMode[0] === 0 &&
@@ -29,10 +39,22 @@ export const MouseEventHandlerGenerator = (id: string) => {
     downScaleMode[0] = scaleMode[0]
     downScaleMode[1] = scaleMode[1]
     mode = scaleMode[0] === 0 && scaleMode[1] === 0 ? 'move' : 'scale'
+    WindowSystem.updateWindow(id, {
+      ...windowInfo,
+      rect,
+      fullscreen: false
+    })
   }
   const mouseMoveHandler = (windowInfo: WindowInfo) => (e: MouseEvent) => {
     // set cursor and scale direction
-    const nowRect = windowInfo.rect
+    const nowRect = windowInfo.fullscreen
+      ? {
+          x: 0,
+          y: 0,
+          width: window.innerWidth,
+          height: window.innerHeight - footerHeight
+        }
+      : windowInfo.rect
     if (e.clientX - nowRect.x < scaleEdge) {
       scaleMode[0] = -1
     } else if (nowRect.x + nowRect.width - e.clientX < scaleEdge) {

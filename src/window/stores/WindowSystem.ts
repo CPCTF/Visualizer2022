@@ -10,6 +10,7 @@ export interface WindowInfo {
     height: number
   }
   visible: boolean
+  fullscreen: boolean
   Component: typeof SvelteComponent
 }
 
@@ -33,6 +34,18 @@ export class WindowSystem {
       if (indexList.includes(id)) return indexList
       const newInstance = [...indexList]
       newInstance.push(id)
+      return newInstance
+    })
+  }
+
+  public static killWindow(id: string) {
+    this._windows.update((windowMap: Record<string, WindowInfo>) => {
+      const newInstance = { ...windowMap }
+      delete newInstance[id]
+      return newInstance
+    })
+    this._windowIndices.update(indices => {
+      const newInstance = indices.filter(value => value !== id)
       return newInstance
     })
   }
