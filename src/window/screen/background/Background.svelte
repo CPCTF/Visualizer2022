@@ -7,5 +7,4 @@
 <script lang="ts">
 import Icon from  './Icon.svelte'
 import { icons } from "../../stores/Icons";
-
 </script>
