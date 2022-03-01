@@ -10,6 +10,7 @@ export interface WindowInfo {
     height: number
   }
   visible: boolean
+  fullscreen: boolean
   Component: typeof SvelteComponent
 }
 

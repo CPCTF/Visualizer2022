@@ -1,8 +1,8 @@
 <div class="frame" style={`
-top: ${windowInfo.visible ? windowInfo.rect.y : window.innerHeight}px;
-left: ${windowInfo.rect.x}px;
-width: ${windowInfo.rect.width}px;
-height: ${windowInfo.rect.height}px;
+top: ${windowInfo.visible ? (windowInfo.fullscreen ? 0 : windowInfo.rect.y) : window.innerHeight}px;
+left: ${windowInfo.fullscreen ? 0 : windowInfo.rect.x}px;
+width: ${windowInfo.fullscreen ? window.innerWidth : windowInfo.rect.width}px;
+height: ${windowInfo.fullscreen ? window.innerHeight - footerHeight : windowInfo.rect.height}px;
 cursor: ${cursor};
 z-index: ${zIndex};
 border-color: ${focus ? '#3B77BC' : '#3B77BC'};
@@ -15,8 +15,8 @@ border-color: ${focus ? '#3B77BC' : '#3B77BC'};
       <h2>{windowInfo.title}</h2>
     </div>
     <div class="controls">
-      <button on:click|stopPropagation={closeHandler}>_</button>
-      <button on:click|stopPropagation={fullScreenHandler}>□</button>
+      <button on:click|stopPropagation={closeHandler} on:mousedown|stopPropagation={() => ''}>_</button>
+      <button on:click|stopPropagation={fullScreenHandler} on:mousedown|stopPropagation={() => ''}>□</button>
     </div>
   </div>
   <section class="content">
@@ -26,6 +26,7 @@ border-color: ${focus ? '#3B77BC' : '#3B77BC'};
 
 <script type="ts">
 import { onDestroy } from "svelte";
+import { footerHeight } from "../globals";
 import { WindowSystem, type WindowInfo } from "../stores/WindowSystem";
 
 import { MouseEventHandlerGenerator } from "./mouseevent";
@@ -38,17 +39,10 @@ let cursor  = 'default'
 
 let { Component } = windowInfo
 
-const footerHeight = 54;
-
 const fullScreenHandler = () => {
   WindowSystem.updateWindow(id, {
     ...windowInfo,
-    rect: {
-      x: 0,
-      y: 0,
-      width: window.innerWidth,
-      height: window.innerHeight - footerHeight
-    }
+    fullscreen: !windowInfo.fullscreen
   })
 }
 const closeHandler = () => {
