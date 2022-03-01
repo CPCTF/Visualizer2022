@@ -1,11 +1,13 @@
+<Background />
 {#each windowIndices as id, i (id)}
   <Frame windowInfo={windows[id] || dummyWindow} id={id} zIndex={i} focus={focused === id} />
 {/each}
 
 <script lang="ts">
   import Frame from '../screen/Frame.svelte'
+  import Background from './background/Background.svelte'
   import { WindowSystem, type WindowInfo } from '../stores/WindowSystem'
-import { dummyWindow } from './frames';
+  import { dummyWindow } from './frames';
   let windowIndices = [] as string[]
   let focused = ''
   let windows = {} as Record<string, WindowInfo>
