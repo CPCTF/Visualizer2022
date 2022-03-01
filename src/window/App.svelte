@@ -3,13 +3,16 @@ import Footer from "./footer/Footer.svelte"
 import Screen from "./screen/Screen.svelte"
 import { frames } from './screen/frames'
 import { WindowSystem } from "./stores/WindowSystem"
+import Startup from "./startup/Startup.svelte"
 
 if (frames['visualizer']) WindowSystem.updateWindow('visualizer', frames['visualizer'])
 </script>
+
 <main>
   <Screen />
 </main>
 <Footer />
+<Startup />
 
 <style lang="scss">
   $footer-height: 54px;

@@ -105,7 +105,7 @@ $header-height: 32px;
 
     h2 {
       margin: 0;
-      font-size: 28px;
+      font-size: 20px;
       color: white;
     }
   }
