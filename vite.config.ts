@@ -17,8 +17,7 @@ export default defineConfig({
     svelte({
       emitCss: false,
       preprocess: sveltePreprocess({
-        postcss: true,
-        sass: false
+        'node-sass': true
       })
     }),
     tsconfigPaths()

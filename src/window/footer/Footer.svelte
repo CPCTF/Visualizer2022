@@ -1,4 +1,4 @@
-<footer>
+<footer style={`--footer-height: ${footerHeight}px`}>
   <div class="left-menus">
     <div class="start">
       <button class="start-button">スタート</button>
@@ -20,6 +20,7 @@
 
 <script type="ts">
 import { onDestroy } from "svelte";
+import { footerHeight } from "../globals";
 
 import { WindowSystem, type WindowInfo } from "../stores/WindowSystem";
 
@@ -64,16 +65,14 @@ onDestroy(() => {
 </script>
 
 <style type="scss">
-$footer-height: 54px;
-
 footer {
   position: absolute;
-  top: calc(100vh - $footer-height);
+  top: calc(100vh - var(--footer-height));
   left: 0;
   display: flex;
   justify-content: space-between;
   width: 100%;
-  height: $footer-height;
+  height: var(--footer-height);
   background: #3b77bc;
 
   .left-menus {
