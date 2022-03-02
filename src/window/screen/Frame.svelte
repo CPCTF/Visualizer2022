@@ -28,8 +28,9 @@ border-color: ${focus ? '#3B77BC' : '#3B77BC'};
   </section>
 </div>
 
+<svelte:body on:mousemove={mouseMoveHandlerWrapper} on:mouseup={mouseUpHandlerWrapper} />
+
 <script type="ts">
-import { onDestroy } from "svelte";
 import { footerHeight, windowHeaderHeight } from "../globals";
 import { WindowSystem, type WindowInfo } from "../stores/WindowSystem";
 
@@ -75,12 +76,6 @@ const mouseUpHandlerWrapper = () => {
   mouseUpHandler()()
 }
 
-window.addEventListener('mousemove', mouseMoveHandlerWrapper)
-window.addEventListener('mouseup', mouseUpHandlerWrapper)
-onDestroy(() => {
-  window.removeEventListener('mousemove', mouseMoveHandlerWrapper)
-  window.removeEventListener('mouseup', mouseUpHandlerWrapper)
-})
 </script>
 
 <style type="scss">
