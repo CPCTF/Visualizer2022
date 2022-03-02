@@ -1,4 +1,5 @@
 import iconSrc from './icons/clock-icon.png'
+import visualizerSrc from './icons/visualizer-icon.png'
 
 export interface IconInfo {
   src: string
@@ -7,6 +8,11 @@ export interface IconInfo {
 }
 
 export const icons: IconInfo[] = [
+  {
+    src: visualizerSrc,
+    id: 'visualizer',
+    title: 'Visualizer.exe'
+  },
   {
     src: iconSrc,
     id: 'clock',

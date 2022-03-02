@@ -8,6 +8,14 @@
 </div>
 
 <script lang="ts">
+import { RunVisualizer } from "#/Visualizer";
+
+import { onMount } from "svelte";
+
+
+  onMount(()  => {
+    RunVisualizer()
+  })
   let clientHeight;
   let clientWidth;
 </script>

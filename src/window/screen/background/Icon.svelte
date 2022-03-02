@@ -22,9 +22,18 @@ const height = 64
 const width = 64
 const maxColumn = Math.floor((window.innerHeight - footerHeight) / height)
 const x = width * Math.floor(index / maxColumn)
-const y = height * (index % maxColumn) 
+const y = height * (index % maxColumn)
+
+let windowIndices: string[] = []
+WindowSystem.windowIndices.subscribe(value => {
+  windowIndices = value
+})
 
 const clickHandler = () => {
+  if(windowIndices.includes(icon.id)) {
+    WindowSystem.focus(icon.id)
+    return;
+  };
   const window = frames[icon.id]
   if (window)  WindowSystem.updateWindow(icon.id, window)
 }

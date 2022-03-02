@@ -5,6 +5,7 @@ on:
       - main
     paths:
       - 'src/**/*.ts'
+      - 'src/**/*.svelte'
       - '.eslintrc.js'
       - '.github/workflows/lint.yml'
 jobs:
