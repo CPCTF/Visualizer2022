@@ -1,10 +1,10 @@
 {#if starting}
-<main>
-  ''
+<main style={`--startup-src:url(${startupSrc})`}>
 </main>
 {/if}
 
 <script lang="ts">
+  import startupSrc from './startup.png'
 let starting = true;
 
 setTimeout(() => {
@@ -20,7 +20,7 @@ main {
   z-index: 1000;
   width: 100%;
   height: 100%;
-  background-image: url("/assets/startup.png");
+  background-image: var(--startup-src);
   background-size: cover;
   background-position: center center;
 }
