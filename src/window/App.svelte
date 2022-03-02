@@ -21,7 +21,7 @@ if (frames['visualizer']) WindowSystem.updateWindow('visualizer', frames['visual
     height: calc(100% - $footer-height);
     padding: 0;
     margin: 0;
-    background-image: url("/public/assets/xp.jpg");
+    background-image: url("/assets/xp.jpg");
     background-size: cover;
   }
 </style>
