@@ -1,7 +1,6 @@
 {
   "extends": "@tsconfig/svelte/tsconfig.json",
   "include": ["src", "tests"],
-  "outDir": "dist",
   "compilerOptions": {
     "target": "ESNext",
     "module": "esnext",
@@ -9,6 +8,7 @@
     "declaration": true,
     "sourceMap": true,
     "rootDir": ".",
+    "outDir": "./dist",
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
