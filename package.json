@@ -28,6 +28,7 @@
     "postcss-nested": "^5.0.6",
     "postcss-simple-vars": "^6.0.3",
     "prettier": "^2.5.1",
+    "sass": "^1.49.9",
     "stylelint": "^14.5.3",
     "stylelint-config-html": "^1.0.0",
     "stylelint-config-recess-order": "^3.0.0",
