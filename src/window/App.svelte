@@ -1,13 +1,9 @@
 <script lang="ts">
 import Footer from "./footer/Footer.svelte"
 import Screen from "./screen/Screen.svelte"
-import { frames } from './screen/frames'
-import { WindowSystem } from "./stores/WindowSystem"
 import Startup from "./startup/Startup.svelte"
 import screenBgSrc from './screen/background/xp.jpg'
 import { footerHeight } from "./globals";
-
-if (frames['visualizer']) WindowSystem.updateWindow('visualizer', frames['visualizer'])
 </script>
 
 <main style={`
