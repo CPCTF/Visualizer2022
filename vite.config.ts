@@ -4,6 +4,7 @@ import { svelte } from '@sveltejs/vite-plugin-svelte'
 import sveltePreprocess from 'svelte-preprocess'
 
 export default defineConfig({
+  base: process.env.BUILD_BASE_PATH || '/',
   build: {
     outDir: './build'
   },
