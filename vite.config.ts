@@ -4,6 +4,14 @@ import { svelte } from '@sveltejs/vite-plugin-svelte'
 import sveltePreprocess from 'svelte-preprocess'
 
 export default defineConfig({
+  build: {
+    outDir: './build'
+  },
+  resolve: {
+    alias: {
+      '#/': `${__dirname}/src/`
+    }
+  },
   plugins: [
     svelte({
       emitCss: false,
