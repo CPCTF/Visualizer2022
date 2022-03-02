@@ -6,6 +6,7 @@ height: ${windowInfo.fullscreen ? window.innerHeight - footerHeight : windowInfo
 cursor: ${cursor};
 z-index: ${zIndex};
 border-color: ${focus ? '#3B77BC' : '#3B77BC'};
+--header-height: ${windowHeaderHeight}px
 `}
   on:mousedown={(e) => mouseDownHandler(windowInfo)(e)}
 >
@@ -29,7 +30,7 @@ border-color: ${focus ? '#3B77BC' : '#3B77BC'};
 
 <script type="ts">
 import { onDestroy } from "svelte";
-import { footerHeight } from "../globals";
+import { footerHeight, windowHeaderHeight } from "../globals";
 import { WindowSystem, type WindowInfo } from "../stores/WindowSystem";
 
 import { MouseEventHandlerGenerator } from "./mouseevent";
@@ -83,8 +84,6 @@ onDestroy(() => {
 </script>
 
 <style type="scss">
-$header-height: 32px;
-
 .frame {
   position: absolute;
   box-sizing: border-box;
@@ -99,7 +98,7 @@ $header-height: 32px;
     display: flex;
     justify-content: space-between;
     width: 100%;
-    height: $header-height;
+    height: var(--header-height);
     background-color: #3b77bc;
     outline: 1px #3b77bc solid;
 
@@ -112,10 +111,10 @@ $header-height: 32px;
 
   .content {
     position: absolute;
-    top: $header-height;
+    top: var(--header-height);
     left: 0;
     width: 100%;
-    height: calc(100% - $header-height);
+    height: calc(100% - var(--header-height));
     overflow: hidden;
   }
 }
