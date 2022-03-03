@@ -14,7 +14,7 @@ module.exports = {
   ],
   rules: {
     '@typescript-eslint/member-delimiter-style': 'off',
-    'react/react-in-jsx-scope': true
+    'react/react-in-jsx-scope': 'off'
   },
   plugins: ['react'],
   overrides: [

@@ -6,8 +6,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "check": "stylelint \"src/**/*.{css,svelte}\" && eslint .",
-    "format": "stylelint \"src/**/*.{css,svelte}\" --fix && eslint . --fix"
+    "check": "stylelint \"src/**/*.css\" && eslint .",
+    "format": "stylelint \"src/**/*.css\" --fix && eslint . --fix"
   },
   "devDependencies": {
     "@types/gsap": "^3.0.0",
