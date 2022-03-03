@@ -1,9 +1,8 @@
 import type { WindowInfo } from '../stores/WindowSystem'
-import CanvasFrame from './instances/CanvasFrame.svelte'
-import ClockFrame from './instances/ClockFrame.svelte'
+import { CanvasFrame } from './instances/CanvasFrame'
 
 export const dummyWindow = {
-  Component: ClockFrame,
+  Component: null,
   title: 'Clock',
   rect: {
     x: 0,
@@ -29,7 +28,7 @@ export const frames: Record<string, WindowInfo> = {
     fullscreen: false
   },
   clock: {
-    Component: ClockFrame,
+    Component: null,
     title: 'Clock',
     rect: {
       x: 0,
