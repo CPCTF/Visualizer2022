@@ -21,6 +21,7 @@ export const MouseEventHandlerGenerator = (
   let rect = { x: 0, y: 0, width: 0, height: 0 }
   const mouseDownHandler =
     (windowInfo: WindowInfo) => (e: InteractionEvent) => {
+      console.log(e)
       basePos.x = e.data.global.x
       basePos.y = e.data.global.y
       if (windowInfo.fullscreen) {
