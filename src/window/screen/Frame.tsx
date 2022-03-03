@@ -1,11 +1,12 @@
 import { Container, Sprite, Text } from '@inlet/react-pixi'
-import { useContext, useEffect, VFC } from 'react'
+import { useContext, useEffect, useRef, useState, VFC } from 'react'
 import { windowHeaderHeight } from '../globals'
 import type { WindowInfo } from '../stores/WindowSystem'
 import { TextStyle } from 'pixi.js'
 import bgImgSrc from './background/xp.jpg'
 import { MouseEventHandlerGenerator } from './mouseevent'
 import { WindowSettingContext } from '../GlobalSetting'
+import type { InteractionEvent } from 'pixi.js'
 interface FrameProps {
   id: string
   windowInfo: WindowInfo
@@ -17,25 +18,38 @@ export const Frame: VFC<FrameProps> = ({ id, windowInfo }) => {
 
   const { windowSettings } = useContext(WindowSettingContext)
 
-  const { mouseDownHandler, mouseMoveHandler, mouseUpHandler, cursorGetter } =
-    MouseEventHandlerGenerator(id, windowSettings)
-  const mouseMoveHandlerWrapper = (e: MouseEvent) => {
-    document.body.style.cursor = cursorGetter()
-    mouseMoveHandler(windowInfo)(e)
-  }
-  const mouseUpHandlerWrapper = () => {
-    mouseUpHandler()()
-  }
+  const windowInfoRef = useRef<WindowInfo | null>(windowInfo)
 
   useEffect(() => {
+    windowInfoRef.current = windowInfo
+  }, [windowInfo])
+
+  const [handler, setHandler] = useState<{
+    mouseDownHandler:
+      | ((_windowInfo: WindowInfo) => (_e: InteractionEvent) => void)
+      | null
+  }>({ mouseDownHandler: null })
+
+  useEffect(() => {
+    const { mouseDownHandler, mouseMoveHandler, mouseUpHandler, cursorGetter } =
+      MouseEventHandlerGenerator(id, windowSettings)
+    setHandler({ mouseDownHandler })
+    const mouseMoveHandlerWrapper = (e: MouseEvent) => {
+      document.body.style.cursor = cursorGetter()
+      mouseMoveHandler(windowInfoRef.current || windowInfo)(e)
+    }
+    const mouseUpHandlerWrapper = () => {
+      mouseUpHandler()()
+    }
     window.addEventListener('mousemove', mouseMoveHandlerWrapper)
     window.addEventListener('mouseup', mouseUpHandlerWrapper)
-
+    console.log('rebuild')
     return () => {
       window.removeEventListener('mousemove', mouseMoveHandlerWrapper)
       window.removeEventListener('mouseup', mouseUpHandlerWrapper)
     }
-  })
+  }, [])
+  console.log(windowInfo)
 
   return (
     <Container
@@ -43,7 +57,11 @@ export const Frame: VFC<FrameProps> = ({ id, windowInfo }) => {
         !visible ? [rect.x, -99999] : fullscreen ? [0, 0] : [rect.x, rect.y]
       }
       interactive
-      mousedown={mouseDownHandler(windowInfo)}
+      mousedown={
+        handler.mouseDownHandler
+          ? handler.mouseDownHandler(windowInfo)
+          : () => ''
+      }
     >
       <Sprite image={bgImgSrc} width={rect.width} height={rect.height} />
       <Container position={[0, 0]}>

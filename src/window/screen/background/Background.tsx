@@ -6,7 +6,6 @@ import bgImgSrc from './xp.jpg'
 
 export const Background = () => {
   const { width, height } = useContext(WindowSettingContext)
-  console.log(width, height)
   return (
     <Sprite
       image={bgImgSrc}
