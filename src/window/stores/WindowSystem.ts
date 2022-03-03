@@ -1,5 +1,9 @@
-import type { ReactNode } from 'react'
+import type { ReactNode, VFC } from 'react'
 
+export interface WindowComponentProps {
+  width: number
+  height: number
+}
 export interface WindowInfo {
   title: string
   rect: {
@@ -10,5 +14,5 @@ export interface WindowInfo {
   }
   visible: boolean
   fullscreen: boolean
-  Component: ReactNode
+  Component: VFC<WindowComponentProps> | null
 }

@@ -1,4 +1,5 @@
 import type { WindowInfo } from '../stores/WindowSystem'
+import { CanvasFrame } from './instances/CanvasFrame'
 
 export const dummyWindow = {
   Component: null,
@@ -15,7 +16,7 @@ export const dummyWindow = {
 
 export const frames: Record<string, WindowInfo> = {
   visualizer: {
-    Component: null,
+    Component: CanvasFrame,
     title: 'Visualizer',
     rect: {
       x: 0,
