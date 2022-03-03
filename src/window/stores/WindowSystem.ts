@@ -1,4 +1,4 @@
-import type { ReactNode, VFC } from 'react'
+import type { VFC } from 'react'
 
 export interface WindowComponentProps {
   width: number
