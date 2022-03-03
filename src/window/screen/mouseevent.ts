@@ -1,4 +1,4 @@
-import { footerHeight } from '../globals'
+import { footerHeight, windowHeaderHeight } from '../globals'
 import type { WindowInfo } from '../stores/WindowSystem'
 import type { WindowSettingProps } from '../GlobalSetting'
 import type { InteractionEvent } from 'pixi.js'
@@ -21,7 +21,6 @@ export const MouseEventHandlerGenerator = (
   let rect = { x: 0, y: 0, width: 0, height: 0 }
   const mouseDownHandler =
     (windowInfo: WindowInfo) => (e: InteractionEvent) => {
-      console.log(e)
       basePos.x = e.data.global.x
       basePos.y = e.data.global.y
       if (windowInfo.fullscreen) {
@@ -118,6 +117,8 @@ export const MouseEventHandlerGenerator = (
         newRect.height = basePos.y + rect.height - e.clientY
         newRect.y = rect.y - basePos.y + e.clientY
       }
+      newRect.width = Math.max(200, newRect.width)
+      newRect.height = Math.max(windowHeaderHeight, newRect.height)
       WindowSystem.update(id, {
         ...windowInfo,
         rect: newRect

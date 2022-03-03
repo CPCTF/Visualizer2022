@@ -10,12 +10,8 @@ import { UserMonolithGroup } from './scene/UserMonolihGroup'
 import { MainCircuit } from './scene/MainCircuit'
 import { VisualizerCamera } from './camera/VisualizerCamera'
 
-export const RunVisualizer = async () => {
+export const RunVisualizer = (canvas: HTMLCanvasElement) => {
   // setup variables
-  const canvas = document.getElementById('main-canvas') as HTMLCanvasElement
-  const canvasWrapper = document.getElementById(
-    'canvas-wrapper'
-  ) as HTMLCanvasElement
   const renderer = new WebGLRenderer({
     canvas,
     alpha: true,
@@ -25,23 +21,12 @@ export const RunVisualizer = async () => {
   const camera = new VisualizerCamera()
 
   // resize event
-  const resizeHandler = () => {
-    const rect = canvasWrapper.getBoundingClientRect()
-    const width = rect.width
-    const height = rect.height
+  const resizeHandler = (width: number, height: number) => {
     renderer.setSize(width, height)
     renderer.setPixelRatio(window.devicePixelRatio)
     camera.aspect = width / height
     camera.updateProjectionMatrix()
   }
-
-  const resizeObserver = new MutationObserver(resizeHandler)
-  resizeObserver.observe(canvasWrapper, {
-    attributes: true,
-    attributeFilter: ['style']
-  })
-
-  resizeHandler()
 
   const scene = new Scene()
   scene.add(new Effects(), new UserMonolithGroup(), new MainCircuit())
@@ -94,4 +79,6 @@ export const RunVisualizer = async () => {
   }
   Time.start(performance.now())
   requestAnimationFrame(tick)
+
+  return resizeHandler
 }

@@ -12,7 +12,12 @@ export const Screen = () => {
     <>
       <Background />
       {windowIndicies.map(id => (
-        <Frame windowInfo={windows[id] || dummyWindow} id={id} focus={false} />
+        <Frame
+          windowInfo={windows[id] || dummyWindow}
+          id={id}
+          focus={false}
+          key={id}
+        />
       ))}
     </>
   )
