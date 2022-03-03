@@ -13,7 +13,8 @@ module.exports = {
     'plugin:prettier/recommended'
   ],
   rules: {
-    '@typescript-eslint/member-delimiter-style': 'off'
+    '@typescript-eslint/member-delimiter-style': 'off',
+    'react/react-in-jsx-scope': true
   },
   plugins: ['react'],
   overrides: [
@@ -29,8 +30,5 @@ module.exports = {
       }
     }
   ],
-  settings: {
-    'svelte3/typescript': () => require('typescript')
-  },
   reportUnusedDisableDirectives: true
 }
