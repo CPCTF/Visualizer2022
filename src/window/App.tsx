@@ -4,6 +4,7 @@ import { WindowSettingContext, WindowSettingProvider } from './GlobalSetting'
 import { frames } from './screen/frames'
 import { Screen } from './screen/Screen'
 import type { WindowInfo } from './stores/WindowSystem'
+import { CRTFilter, RGBSplitFilter } from 'pixi-filters'
 
 // the context bridge:
 const ContextBridge: VFC<{
@@ -34,7 +35,10 @@ export const Stage: VFC<{ children: ReactNode } & Record<string, unknown>> = ({
   )
 }
 
-const Filters = withFilters(Container, {})
+const Filters = withFilters(Container, {
+  rgbsplit: RGBSplitFilter,
+  crt: CRTFilter
+})
 
 export const AppInner = () => {
   const {
@@ -44,9 +48,19 @@ export const AppInner = () => {
   } = useContext(WindowSettingContext)
   useEffect(() => {
     update('visualizer', frames['visualizer'] as WindowInfo)
+    update('clock', frames['clock'] as WindowInfo)
   }, [])
   return (
-    <Stage width={width} height={height}>
+    <Stage
+      crt={{lineContrast: 1}}
+      rgbsplit={{
+        red: [-0.4, 0.2],
+        blue: [0.68, 0.2],
+        green: [-0.06, 0.2]
+      }}
+      width={width}
+      height={height}
+    >
       <Filters>
         <Screen />
         {/* <Footer /> */}
