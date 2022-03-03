@@ -1,11 +1,12 @@
 import { RunVisualizer } from '#/Visualizer'
 import type { WindowComponentProps } from '#/window/stores/WindowSystem'
-import { Suspense, useEffect, useRef, useState, VFC } from 'react'
+import { useEffect, useRef, useState, VFC } from 'react'
 import { Texture, BaseTexture } from 'pixi.js'
 import { Sprite, useTick } from '@inlet/react-pixi'
 
 export const CanvasFrame: VFC<WindowComponentProps> = ({ width, height }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const resizeHandlerRef = useRef((width: number, height: number) => {
     // no
   })

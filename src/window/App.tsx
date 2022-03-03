@@ -52,7 +52,7 @@ export const AppInner = () => {
   }, [])
   return (
     <Stage
-      crt={{lineContrast: 1}}
+      crt={{ lineContrast: 1 }}
       rgbsplit={{
         red: [-0.4, 0.2],
         blue: [0.68, 0.2],
