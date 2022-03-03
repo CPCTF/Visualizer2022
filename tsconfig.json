@@ -1,10 +1,9 @@
 {
-  "extends": "@tsconfig/svelte/tsconfig.json",
   "include": ["src", "tests"],
   "compilerOptions": {
     "target": "ESNext",
     "module": "esnext",
-    "lib": ["esnext", "dom"],
+    "lib": ["esnext", "dom", "DOM.Iterable"],
     "declaration": true,
     "sourceMap": true,
     "rootDir": ".",
@@ -27,8 +26,9 @@
     "paths": {
       "#/*": ["src/*"]
     },
-    "jsx": "react",
+    "jsx": "react-jsx",
     "esModuleInterop": true,
     "downlevelIteration": true
   },
+  "references": [{ "path": "./tsconfig.node.json" }]
 }
