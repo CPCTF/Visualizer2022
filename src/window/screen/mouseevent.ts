@@ -1,7 +1,12 @@
 import { footerHeight } from '../globals'
-import { type WindowInfo, WindowSystem } from '../stores/WindowSystem'
+import type { WindowInfo } from '../stores/WindowSystem'
+import type { WindowSettingProps } from '../GlobalSetting'
+import type { InteractionEvent } from 'pixi.js'
 
-export const MouseEventHandlerGenerator = (id: string) => {
+export const MouseEventHandlerGenerator = (
+  id: string,
+  WindowSystem: WindowSettingProps['windowSettings']
+) => {
   type DragMode = 'none' | 'move' | 'scale'
   const headerHeight = 32
   const scaleEdge = 8
@@ -14,37 +19,37 @@ export const MouseEventHandlerGenerator = (id: string) => {
   }
   let cursor = 'pointer'
   let rect = { x: 0, y: 0, width: 0, height: 0 }
-  const mouseDownHandler = (windowInfo: WindowInfo) => (e: MouseEvent) => {
-    basePos.x = e.clientX
-    basePos.y = e.clientY
-    if (windowInfo.fullscreen) {
-      rect = {
-        x: 0,
-        y: 0,
-        width: window.innerWidth,
-        height: window.innerHeight - footerHeight
+  const mouseDownHandler =
+    (windowInfo: WindowInfo) => (e: InteractionEvent) => {
+      basePos.x = e.data.global.x
+      basePos.y = e.data.global.y
+      if (windowInfo.fullscreen) {
+        rect = {
+          x: 0,
+          y: 0,
+          width: window.innerWidth,
+          height: window.innerHeight - footerHeight
+        }
+      } else {
+        rect = windowInfo.rect
       }
-    } else {
-      rect = windowInfo.rect
+      WindowSystem.focus(id)
+      if (
+        scaleMode[0] === 0 &&
+        scaleMode[1] === 0 &&
+        basePos.y - rect.y > headerHeight
+      )
+        return
+      // move and resize event
+      downScaleMode[0] = scaleMode[0]
+      downScaleMode[1] = scaleMode[1]
+      mode = scaleMode[0] === 0 && scaleMode[1] === 0 ? 'move' : 'scale'
+      WindowSystem.update(id, {
+        ...windowInfo,
+        rect,
+        fullscreen: false
+      })
     }
-    WindowSystem.focus(id)
-    if (
-      scaleMode[0] === 0 &&
-      scaleMode[1] === 0 &&
-      e.clientY - rect.y > headerHeight
-    )
-      return
-    // move and resize event
-    e.preventDefault()
-    downScaleMode[0] = scaleMode[0]
-    downScaleMode[1] = scaleMode[1]
-    mode = scaleMode[0] === 0 && scaleMode[1] === 0 ? 'move' : 'scale'
-    WindowSystem.updateWindow(id, {
-      ...windowInfo,
-      rect,
-      fullscreen: false
-    })
-  }
   const mouseMoveHandler = (windowInfo: WindowInfo) => (e: MouseEvent) => {
     // set cursor and scale direction
     const nowRect = windowInfo.fullscreen
@@ -89,7 +94,7 @@ export const MouseEventHandlerGenerator = (id: string) => {
 
     if (mode === 'move') {
       cursor = 'grabbing'
-      WindowSystem.updateWindow(id, {
+      WindowSystem.update(id, {
         ...windowInfo,
         rect: {
           x: rect.x + e.clientX - basePos.x,
@@ -112,7 +117,7 @@ export const MouseEventHandlerGenerator = (id: string) => {
         newRect.height = basePos.y + rect.height - e.clientY
         newRect.y = rect.y - basePos.y + e.clientY
       }
-      WindowSystem.updateWindow(id, {
+      WindowSystem.update(id, {
         ...windowInfo,
         rect: newRect
       })

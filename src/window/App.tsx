@@ -1,20 +1,34 @@
 import { Container, Stage as PixiStage, withFilters } from '@inlet/react-pixi'
-import { ReactNode, useContext, VFC } from 'react'
+import { ReactNode, useContext, useEffect, VFC } from 'react'
 import { WindowSettingContext, WindowSettingProvider } from './GlobalSetting'
+import { frames } from './screen/frames'
 import { Screen } from './screen/Screen'
+import type { WindowInfo } from './stores/WindowSystem'
 
 // the context bridge:
-const ContextBridge: VFC<{children: ReactNode, Context: typeof WindowSettingContext, render: (children: ReactNode) => ReactNode}> = ({ children, Context, render }) => {
+const ContextBridge: VFC<{
+  children: ReactNode
+  Context: typeof WindowSettingContext
+  render: (children: ReactNode) => ReactNode
+}> = ({ children, Context, render }) => {
   return (
     <Context.Consumer>
-      {value => render(<Context.Provider value={value}>{children}</Context.Provider>)}
+      {value =>
+        render(<Context.Provider value={value}>{children}</Context.Provider>)
+      }
     </Context.Consumer>
   )
 }
 
-export const Stage: VFC<{children: ReactNode} & Record<string, any>> = ({ children, ...props }) => {
+export const Stage: VFC<{ children: ReactNode } & Record<string, unknown>> = ({
+  children,
+  ...props
+}) => {
   return (
-    <ContextBridge Context={WindowSettingContext} render={children  => <PixiStage {...props}>{children}</PixiStage>}>
+    <ContextBridge
+      Context={WindowSettingContext}
+      render={children => <PixiStage {...props}>{children}</PixiStage>}
+    >
       {children}
     </ContextBridge>
   )
@@ -23,7 +37,14 @@ export const Stage: VFC<{children: ReactNode} & Record<string, any>> = ({ childr
 const Filters = withFilters(Container, {})
 
 export const AppInner = () => {
-  const { width, height }= useContext(WindowSettingContext)
+  const {
+    width,
+    height,
+    windowSettings: { update }
+  } = useContext(WindowSettingContext)
+  useEffect(() => {
+    update('visualizer', frames['visualizer'] as WindowInfo)
+  }, [])
   return (
     <Stage width={width} height={height}>
       <Filters>

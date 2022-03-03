@@ -1,12 +1,6 @@
 import { createContext, ReactNode, useEffect, useState, VFC } from 'react'
 import type { WindowInfo } from './stores/WindowSystem'
-
-export const WindowSettingContext = createContext({
-  width: 0,
-  height: 0
-})
-
-interface WindowSettingProps {
+export interface WindowSettingProps {
   width: number
   height: number
   windowSettings: {
@@ -18,6 +12,19 @@ interface WindowSettingProps {
     minimize: (id: string) => void
   }
 }
+
+export const WindowSettingContext = createContext<WindowSettingProps>({
+  width: 0,
+  height: 0,
+  windowSettings: {
+    windows: {},
+    windowIndicies: [],
+    update: () => '',
+    kill: () => '',
+    focus: () => '',
+    minimize: () => ''
+  }
+})
 
 export const WindowSettingProvider: VFC<{ children: ReactNode }> = ({
   children
@@ -48,7 +55,10 @@ export const WindowSettingProvider: VFC<{ children: ReactNode }> = ({
         setSettings(nowSetting => {
           const windows = { ...nowSetting.windowSettings.windows }
           delete windows[id]
-          const windowIndicies = nowSetting.windowSettings.windowIndicies.filter(value => value !== id)
+          const windowIndicies =
+            nowSetting.windowSettings.windowIndicies.filter(
+              value => value !== id
+            )
           return {
             ...nowSetting,
             windowSettings: {
@@ -63,12 +73,15 @@ export const WindowSettingProvider: VFC<{ children: ReactNode }> = ({
         setSettings(nowSetting => {
           const windows = { ...nowSetting.windowSettings.windows }
           const target = windows[id]
-          if(!target) throw new Error('invalid id')
+          if (!target) throw new Error('invalid id')
           windows[id] = {
             ...target,
             visible: true
           }
-          const windowIndicies = nowSetting.windowSettings.windowIndicies.filter(value => value !== id)
+          const windowIndicies =
+            nowSetting.windowSettings.windowIndicies.filter(
+              value => value !== id
+            )
           windowIndicies.push(id)
           return {
             ...nowSetting,
@@ -84,7 +97,7 @@ export const WindowSettingProvider: VFC<{ children: ReactNode }> = ({
         setSettings(nowSetting => {
           const windows = { ...nowSetting.windowSettings.windows }
           const target = windows[id]
-          if(!target) throw new Error('invalid id')
+          if (!target) throw new Error('invalid id')
           windows[id] = {
             ...target,
             visible: false
@@ -97,7 +110,7 @@ export const WindowSettingProvider: VFC<{ children: ReactNode }> = ({
             }
           }
         })
-      },
+      }
     }
   })
 
