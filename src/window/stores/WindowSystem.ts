@@ -1,5 +1,4 @@
-import type { SvelteComponent } from 'svelte'
-import { writable } from 'svelte/store'
+import type { ReactNode } from "react"
 
 export interface WindowInfo {
   title: string
@@ -11,73 +10,5 @@ export interface WindowInfo {
   }
   visible: boolean
   fullscreen: boolean
-  Component: typeof SvelteComponent
-}
-
-export class WindowSystem {
-  private static _windows = writable<Record<string, WindowInfo>>({})
-  private static _windowIndices = writable<string[]>([])
-  public static get windows() {
-    return this._windows
-  }
-  public static get windowIndices() {
-    return this._windowIndices
-  }
-
-  public static updateWindow(id: string, info: WindowInfo) {
-    this._windows.update((windowMap: Record<string, WindowInfo>) => {
-      const newInstance = { ...windowMap }
-      newInstance[id] = info
-      return newInstance
-    })
-    this._windowIndices.update((indexList: string[]) => {
-      if (indexList.includes(id)) return indexList
-      const newInstance = [...indexList]
-      newInstance.push(id)
-      return newInstance
-    })
-  }
-
-  public static killWindow(id: string) {
-    this._windows.update((windowMap: Record<string, WindowInfo>) => {
-      const newInstance = { ...windowMap }
-      delete newInstance[id]
-      return newInstance
-    })
-    this._windowIndices.update(indices => {
-      const newInstance = indices.filter(value => value !== id)
-      return newInstance
-    })
-  }
-
-  public static focus(id: string) {
-    this._windows.update((windowMap: Record<string, WindowInfo>) => {
-      const newInstance = { ...windowMap }
-      const target = newInstance[id]
-      if (!target) throw new Error('invalid id')
-      newInstance[id] = {
-        ...target,
-        visible: true
-      }
-      return newInstance
-    })
-    this._windowIndices.update(indices => {
-      const newInstance = indices.filter(value => value !== id)
-      newInstance.push(id)
-      return newInstance
-    })
-  }
-
-  public static minimize(id: string) {
-    this._windows.update((windowMap: Record<string, WindowInfo>) => {
-      const newInstance = { ...windowMap }
-      const target = newInstance[id]
-      if (!target) throw new Error('invalid id')
-      newInstance[id] = {
-        ...target,
-        visible: false
-      }
-      return newInstance
-    })
-  }
+  Component: ReactNode
 }
