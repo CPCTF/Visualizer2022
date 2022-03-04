@@ -1,9 +1,7 @@
 import { Container, Stage as PixiStage, withFilters } from '@inlet/react-pixi'
-import { ReactNode, useContext, useEffect, VFC } from 'react'
+import { ReactNode, useContext, VFC } from 'react'
 import { WindowSettingContext, WindowSettingProvider } from './GlobalSetting'
-import { frames } from './screen/frames'
 import { Screen } from './screen/Screen'
-import type { WindowInfo } from './stores/WindowSystem'
 import { CRTFilter, RGBSplitFilter } from 'pixi-filters'
 import { Footer } from './footer/Footer'
 
@@ -42,15 +40,7 @@ const Filters = withFilters(Container, {
 })
 
 export const AppInner = () => {
-  const {
-    width,
-    height,
-    windowSettings: { update }
-  } = useContext(WindowSettingContext)
-  useEffect(() => {
-    update('visualizer', frames['visualizer'] as WindowInfo)
-    update('clock', frames['clock'] as WindowInfo)
-  }, [])
+  const { width, height } = useContext(WindowSettingContext)
   return (
     <Stage width={width} height={height}>
       <Filters
