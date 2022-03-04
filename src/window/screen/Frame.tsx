@@ -64,8 +64,12 @@ export const Frame: VFC<FrameProps> = ({ id, windowInfo }) => {
   }>({ mouseDownHandler: null, cursorMouseMoveHandler: null })
 
   useEffect(() => {
-    const { mouseDownHandler, mouseMoveHandler, mouseUpHandler, cursorMouseMoveHandler } =
-      MouseEventHandlerGenerator(id, windowSettings)
+    const {
+      mouseDownHandler,
+      mouseMoveHandler,
+      mouseUpHandler,
+      cursorMouseMoveHandler
+    } = MouseEventHandlerGenerator(id, windowSettings)
     setHandler({ mouseDownHandler, cursorMouseMoveHandler })
     const mouseMoveHandlerWrapper = (e: MouseEvent) => {
       // document.body.style.cursor = cursorGetter()
