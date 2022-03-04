@@ -1,6 +1,6 @@
 import { Container, Sprite, Text } from '@inlet/react-pixi'
 import { useContext, useEffect, useRef, useState, VFC } from 'react'
-import { windowHeaderHeight } from '../globals'
+import { footerHeight, windowHeaderHeight } from '../globals'
 import type { WindowInfo } from '../stores/WindowSystem'
 import { TextStyle } from 'pixi.js'
 import bgImgSrc from './background/xp.jpg'
@@ -21,7 +21,17 @@ interface FrameProps {
 }
 
 export const Frame: VFC<FrameProps> = ({ id, windowInfo }) => {
-  const { title, rect, visible, fullscreen, Component } = windowInfo
+  const { width, height } = useContext(WindowSettingContext)
+  const { title, visible, fullscreen, Component } = windowInfo
+
+  const rect = !fullscreen
+    ? windowInfo.rect
+    : {
+        x: 0,
+        y: 0,
+        width,
+        height: height - footerHeight
+      }
 
   const { windowSettings } = useContext(WindowSettingContext)
 
@@ -34,10 +44,7 @@ export const Frame: VFC<FrameProps> = ({ id, windowInfo }) => {
     })
   }
   const closeHandler = () => {
-    windowSettings.update(id, {
-      ...windowInfo,
-      visible: false
-    })
+    windowSettings.minimize(id)
   }
   const killHandler = () => {
     windowSettings.kill(id)
@@ -75,9 +82,7 @@ export const Frame: VFC<FrameProps> = ({ id, windowInfo }) => {
 
   return (
     <Container
-      position={
-        !visible ? [rect.x, -99999] : fullscreen ? [0, 0] : [rect.x, rect.y]
-      }
+      position={!visible ? [rect.x, -99999] : [rect.x, rect.y]}
       interactive
       mousedown={
         handler.mouseDownHandler
@@ -153,7 +158,7 @@ export const Frame: VFC<FrameProps> = ({ id, windowInfo }) => {
           anchor={[0, 0]}
           image={bgSrc}
           width={rect.width}
-          height={rect.height}
+          height={rect.height - windowHeaderHeight}
           position={[0, 0]}
         />
         {Component ? (
