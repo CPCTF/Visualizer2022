@@ -80,7 +80,6 @@ export const Frame: VFC<FrameProps> = ({ id, windowInfo }) => {
     }
     window.addEventListener('mousemove', mouseMoveHandlerWrapper)
     window.addEventListener('mouseup', mouseUpHandlerWrapper)
-    console.log('rebuild')
     return () => {
       window.removeEventListener('mousemove', mouseMoveHandlerWrapper)
       window.removeEventListener('mouseup', mouseUpHandlerWrapper)
@@ -131,7 +130,7 @@ export const Frame: VFC<FrameProps> = ({ id, windowInfo }) => {
             image={minimizeSrc}
             width={windowHeaderHeight}
             height={windowHeaderHeight}
-            position={[-windowHeaderHeight * 2, 0]}
+            position={[-windowHeaderHeight * (id === 'visualizer' ? 1 : 2), 0]}
             interactive
             click={closeHandler}
           />
@@ -140,19 +139,21 @@ export const Frame: VFC<FrameProps> = ({ id, windowInfo }) => {
             image={fullscreenSrc}
             width={windowHeaderHeight}
             height={windowHeaderHeight}
-            position={[-windowHeaderHeight, 0]}
+            position={[-windowHeaderHeight * (id === 'visualizer' ? 0 : 1), 0]}
             interactive
             click={fullScreenHandler}
           />
-          <Sprite
-            anchor={[1, 0.5]}
-            image={closeSrc}
-            width={windowHeaderHeight}
-            height={windowHeaderHeight}
-            position={[0, 0]}
-            interactive
-            click={killHandler}
-          />
+          {id !== 'visualizer' ? (
+            <Sprite
+              anchor={[1, 0.5]}
+              image={closeSrc}
+              width={windowHeaderHeight}
+              height={windowHeaderHeight}
+              position={[0, 0]}
+              interactive
+              click={killHandler}
+            />
+          ) : null}
         </Container>
       </Container>
 
