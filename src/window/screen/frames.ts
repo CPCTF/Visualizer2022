@@ -1,5 +1,6 @@
 import type { WindowInfo } from '../stores/WindowSystem'
 import { CanvasFrame } from './instances/CanvasFrame'
+import { ClockFrame } from './instances/ClockFrame'
 
 export const dummyWindow = {
   Component: null,
@@ -28,7 +29,7 @@ export const frames: Record<string, WindowInfo> = {
     fullscreen: false
   },
   clock: {
-    Component: null,
+    Component: ClockFrame,
     title: 'Clock',
     rect: {
       x: 0,

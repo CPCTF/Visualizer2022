@@ -1,10 +1,9 @@
 import { Container, Stage as PixiStage, withFilters } from '@inlet/react-pixi'
-import { ReactNode, useContext, useEffect, VFC } from 'react'
+import { ReactNode, useContext, VFC } from 'react'
 import { WindowSettingContext, WindowSettingProvider } from './GlobalSetting'
-import { frames } from './screen/frames'
 import { Screen } from './screen/Screen'
-import type { WindowInfo } from './stores/WindowSystem'
 import { CRTFilter, RGBSplitFilter } from 'pixi-filters'
+import { Footer } from './footer/Footer'
 
 // the context bridge:
 const ContextBridge: VFC<{
@@ -41,29 +40,19 @@ const Filters = withFilters(Container, {
 })
 
 export const AppInner = () => {
-  const {
-    width,
-    height,
-    windowSettings: { update }
-  } = useContext(WindowSettingContext)
-  useEffect(() => {
-    update('visualizer', frames['visualizer'] as WindowInfo)
-    update('clock', frames['clock'] as WindowInfo)
-  }, [])
+  const { width, height } = useContext(WindowSettingContext)
   return (
-    <Stage
-      crt={{ lineContrast: 1 }}
-      rgbsplit={{
-        red: [-0.4, 0.2],
-        blue: [0.68, 0.2],
-        green: [-0.06, 0.2]
-      }}
-      width={width}
-      height={height}
-    >
-      <Filters>
+    <Stage width={width} height={height}>
+      <Filters
+        crt={{ vignetting: 0.2, noiseSize: 5 }}
+        rgbsplit={{
+          red: [-2.4, 2.2],
+          blue: [2.68, 3.2],
+          green: [-0.26, 2.2]
+        }}
+      >
+        <Footer />
         <Screen />
-        {/* <Footer /> */}
       </Filters>
     </Stage>
   )
