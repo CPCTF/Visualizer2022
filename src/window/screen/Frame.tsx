@@ -7,6 +7,13 @@ import bgImgSrc from './background/xp.jpg'
 import { MouseEventHandlerGenerator } from './mouseevent'
 import { WindowSettingContext } from '../GlobalSetting'
 import type { InteractionEvent } from 'pixi.js'
+
+import closeSrc from './close.png'
+import fullscreenSrc from './fullscreen.png'
+import minimizeSrc from './minimize.png'
+import barSrc from './bar.png'
+import bgSrc from './bg.png'
+
 interface FrameProps {
   id: string
   windowInfo: WindowInfo
@@ -19,6 +26,22 @@ export const Frame: VFC<FrameProps> = ({ id, windowInfo }) => {
   const { windowSettings } = useContext(WindowSettingContext)
 
   const windowInfoRef = useRef<WindowInfo | null>(windowInfo)
+
+  const fullScreenHandler = () => {
+    windowSettings.update(id, {
+      ...windowInfo,
+      fullscreen: !windowInfo.fullscreen
+    })
+  }
+  const closeHandler = () => {
+    windowSettings.update(id, {
+      ...windowInfo,
+      visible: false
+    })
+  }
+  const killHandler = () => {
+    windowSettings.kill(id)
+  }
 
   useEffect(() => {
     windowInfoRef.current = windowInfo
@@ -64,6 +87,13 @@ export const Frame: VFC<FrameProps> = ({ id, windowInfo }) => {
     >
       <Sprite image={bgImgSrc} width={rect.width} height={rect.height} />
       <Container position={[0, 0]}>
+        <Sprite
+          anchor={[0, 0]}
+          image={barSrc}
+          width={rect.width}
+          height={windowHeaderHeight}
+          position={[0, 0]}
+        />
         <Text
           text={title}
           anchor={[0, 0.5]}
@@ -87,11 +117,45 @@ export const Frame: VFC<FrameProps> = ({ id, windowInfo }) => {
             })
           }
         />
-        {/* <Container position={[rect.width, windowHeaderHeight / 2]}>
-        </Container> */}
+        <Container position={[rect.width, windowHeaderHeight / 2]}>
+          <Sprite
+            anchor={[1, 0.5]}
+            image={minimizeSrc}
+            width={windowHeaderHeight}
+            height={windowHeaderHeight}
+            position={[-windowHeaderHeight * 2, 0]}
+            interactive
+            click={closeHandler}
+          />
+          <Sprite
+            anchor={[1, 0.5]}
+            image={fullscreenSrc}
+            width={windowHeaderHeight}
+            height={windowHeaderHeight}
+            position={[-windowHeaderHeight, 0]}
+            interactive
+            click={fullScreenHandler}
+          />
+          <Sprite
+            anchor={[1, 0.5]}
+            image={closeSrc}
+            width={windowHeaderHeight}
+            height={windowHeaderHeight}
+            position={[0, 0]}
+            interactive
+            click={killHandler}
+          />
+        </Container>
       </Container>
 
       <Container position={[0, windowHeaderHeight]}>
+        <Sprite
+          anchor={[0, 0]}
+          image={bgSrc}
+          width={rect.width}
+          height={rect.height}
+          position={[0, 0]}
+        />
         {Component ? (
           <Component
             width={rect.width}
