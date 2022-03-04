@@ -1,6 +1,5 @@
 import { footerHeight, windowHeaderHeight } from '../globals'
-import type { WindowInfo } from '../stores/WindowSystem'
-import type { WindowSettingProps } from '../GlobalSetting'
+import type { WindowInfo, WindowSettingProps } from '../stores/WindowSystem'
 import type { InteractionEvent } from 'pixi.js'
 
 export const MouseEventHandlerGenerator = (
