@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useEffect, useState, VFC } from 'react'
+import { createContext, ReactNode, useEffect, VFC } from 'react'
 import { WindowSettingProps, WindowSystemHooks } from './stores/WindowSystem'
 
 export const WindowSettingContext = createContext<WindowSettingProps>({
