@@ -6,12 +6,12 @@ import { dummyWindow } from './frames'
 
 export const Screen = () => {
   const {
-    windowSettings: { windows, windowIndicies }
+    windowSettings: { windows, windowIndices: windowIndices }
   } = useContext(WindowSettingContext)
   return (
     <>
       <Background />
-      {windowIndicies.map(id => (
+      {windowIndices.map(id => (
         <Frame
           windowInfo={windows[id] || dummyWindow}
           id={id}

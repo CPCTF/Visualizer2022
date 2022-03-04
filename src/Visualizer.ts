@@ -22,6 +22,7 @@ export const RunVisualizer = (canvas: HTMLCanvasElement) => {
 
   // resize event
   const resizeHandler = (width: number, height: number) => {
+    console.log(width, height, 'renderer')
     renderer.setSize(width, height)
     renderer.setPixelRatio(window.devicePixelRatio)
     camera.aspect = width / height
