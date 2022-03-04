@@ -1,6 +1,8 @@
 import type { VFC } from 'react'
 
 export interface WindowComponentProps {
+  x: number
+  y: number
   width: number
   height: number
 }
