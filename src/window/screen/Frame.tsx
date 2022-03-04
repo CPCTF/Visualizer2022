@@ -58,12 +58,15 @@ export const Frame: VFC<FrameProps> = ({ id, windowInfo }) => {
     mouseDownHandler:
       | ((_windowInfo: WindowInfo) => (_e: InteractionEvent) => void)
       | null
-  }>({ mouseDownHandler: null })
+    cursorMouseMoveHandler:
+      | ((_windowInfo: WindowInfo) => (_e: InteractionEvent) => void)
+      | null
+  }>({ mouseDownHandler: null, cursorMouseMoveHandler: null })
 
   useEffect(() => {
-    const { mouseDownHandler, mouseMoveHandler, mouseUpHandler } =
+    const { mouseDownHandler, mouseMoveHandler, mouseUpHandler, cursorMouseMoveHandler } =
       MouseEventHandlerGenerator(id, windowSettings)
-    setHandler({ mouseDownHandler })
+    setHandler({ mouseDownHandler, cursorMouseMoveHandler })
     const mouseMoveHandlerWrapper = (e: MouseEvent) => {
       // document.body.style.cursor = cursorGetter()
       mouseMoveHandler(windowInfoRef.current || windowInfo)(e)
@@ -89,6 +92,11 @@ export const Frame: VFC<FrameProps> = ({ id, windowInfo }) => {
           ? handler.mouseDownHandler(windowInfo)
           : () => ''
       }
+      mousemove={
+        handler.cursorMouseMoveHandler
+          ? handler.cursorMouseMoveHandler(windowInfo)
+          : () => ''
+      }
     >
       <Sprite image={bgImgSrc} width={rect.width} height={rect.height} />
       <Container position={[0, 0]}>
@@ -108,17 +116,8 @@ export const Frame: VFC<FrameProps> = ({ id, windowInfo }) => {
               align: 'center',
               fontFamily: '"Source Sans Pro", Helvetica, sans-serif',
               fontSize: windowHeaderHeight * 0.5,
-              fill: ['#ffffff', '#00ff99'], // gradient
-              stroke: '#01d27e',
-              strokeThickness: 5,
-              letterSpacing: 20,
-              dropShadow: true,
-              dropShadowColor: '#ccced2',
-              dropShadowBlur: 4,
-              dropShadowAngle: Math.PI / 6,
-              dropShadowDistance: 6,
-              wordWrap: true,
-              wordWrapWidth: 440
+              fill: '#000',
+              letterSpacing: 20
             })
           }
         />
@@ -163,6 +162,8 @@ export const Frame: VFC<FrameProps> = ({ id, windowInfo }) => {
         />
         {Component ? (
           <Component
+            x={rect.x}
+            y={rect.y + windowHeaderHeight}
             width={rect.width}
             height={rect.height - windowHeaderHeight}
           />
