@@ -1,6 +1,5 @@
 import { footerHeight, windowHeaderHeight } from '../globals'
-import type { WindowInfo } from '../stores/WindowSystem'
-import type { WindowSettingProps } from '../GlobalSetting'
+import type { WindowInfo, WindowSettingProps } from '../stores/WindowSystem'
 import type { InteractionEvent } from 'pixi.js'
 
 export const MouseEventHandlerGenerator = (
@@ -51,44 +50,6 @@ export const MouseEventHandlerGenerator = (
       })
     }
   const mouseMoveHandler = (windowInfo: WindowInfo) => (e: MouseEvent) => {
-    // set cursor and scale direction
-    const nowRect = windowInfo.fullscreen
-      ? {
-          x: 0,
-          y: 0,
-          width: window.innerWidth,
-          height: window.innerHeight - footerHeight
-        }
-      : windowInfo.rect
-    if (e.clientX - nowRect.x < scaleEdge) {
-      scaleMode[0] = -1
-    } else if (nowRect.x + nowRect.width - e.clientX < scaleEdge) {
-      scaleMode[0] = 1
-    } else {
-      scaleMode[0] = 0
-    }
-    if (e.clientY - nowRect.y < scaleEdge) {
-      scaleMode[1] = -1
-    } else if (nowRect.y + nowRect.height - e.clientY < scaleEdge) {
-      scaleMode[1] = 1
-    } else {
-      scaleMode[1] = 0
-    }
-
-    if (scaleMode[0] * scaleMode[1] === 1) {
-      cursor = 'nwse-resize'
-    } else if (scaleMode[0] * scaleMode[1] === -1) {
-      cursor = 'nesw-resize'
-    } else if (scaleMode[0] !== 0) {
-      cursor = 'ew-resize'
-    } else if (scaleMode[1] !== 0) {
-      cursor = 'ns-resize'
-    } else if (e.clientY - nowRect.y < headerHeight) {
-      cursor = 'grab'
-    } else {
-      cursor = 'default'
-    }
-
     // resize and move event
     if (mode === 'none') return
 
@@ -105,17 +66,31 @@ export const MouseEventHandlerGenerator = (
       })
     } else {
       const newRect = { ...rect }
+      const maxWidth = 200
+      const maxHeight = 200
       if (downScaleMode[0] === 1) {
-        newRect.width = rect.width - basePos.x + e.clientX
+        newRect.width = Math.max(maxWidth, rect.width - basePos.x + e.clientX)
       } else if (downScaleMode[0] === -1) {
-        newRect.width = basePos.x + rect.width - e.clientX
-        newRect.x = rect.x - basePos.x + e.clientX
+        newRect.width = Math.max(maxWidth, basePos.x + rect.width - e.clientX)
+        newRect.x = Math.min(
+          rect.x + rect.width - maxWidth,
+          rect.x - basePos.x + e.clientX
+        )
       }
       if (downScaleMode[1] === 1) {
-        newRect.height = rect.height - basePos.y + e.clientY
+        newRect.height = Math.max(
+          maxHeight,
+          rect.height - basePos.y + e.clientY
+        )
       } else if (downScaleMode[1] === -1) {
-        newRect.height = basePos.y + rect.height - e.clientY
-        newRect.y = rect.y - basePos.y + e.clientY
+        newRect.height = Math.max(
+          maxHeight,
+          basePos.y + rect.height - e.clientY
+        )
+        newRect.y = Math.min(
+          rect.y + rect.height - maxHeight,
+          rect.y - basePos.y + e.clientY
+        )
       }
       newRect.width = Math.max(200, newRect.width)
       newRect.height = Math.max(windowHeaderHeight, newRect.height)
@@ -129,10 +104,54 @@ export const MouseEventHandlerGenerator = (
     mode = 'none'
   }
 
+  const cursorMouseMoveHandler =
+    (windowInfo: WindowInfo) => (e: InteractionEvent) => {
+      // set cursor and scale direction
+      const nowRect = windowInfo.fullscreen
+        ? {
+            x: 0,
+            y: 0,
+            width: window.innerWidth,
+            height: window.innerHeight - footerHeight
+          }
+        : windowInfo.rect
+      if (e.data.global.x - nowRect.x < scaleEdge) {
+        scaleMode[0] = -1
+      } else if (nowRect.x + nowRect.width - e.data.global.x < scaleEdge) {
+        scaleMode[0] = 1
+      } else {
+        scaleMode[0] = 0
+      }
+      if (e.data.global.y - nowRect.y < scaleEdge) {
+        scaleMode[1] = -1
+      } else if (nowRect.y + nowRect.height - e.data.global.y < scaleEdge) {
+        scaleMode[1] = 1
+      } else {
+        scaleMode[1] = 0
+      }
+
+      if (scaleMode[0] * scaleMode[1] === 1) {
+        cursor = 'nwse-resize'
+      } else if (scaleMode[0] * scaleMode[1] === -1) {
+        cursor = 'nesw-resize'
+      } else if (scaleMode[0] !== 0) {
+        cursor = 'ew-resize'
+      } else if (scaleMode[1] !== 0) {
+        cursor = 'ns-resize'
+      } else if (e.data.global.y - nowRect.y < headerHeight) {
+        cursor = 'grab'
+      } else {
+        cursor = 'default'
+      }
+
+      if (document.body.style.cursor === 'default')
+        document.body.style.cursor = cursor
+    }
+
   return {
     mouseDownHandler,
     mouseMoveHandler,
     mouseUpHandler,
-    cursorGetter: () => cursor
+    cursorMouseMoveHandler
   }
 }

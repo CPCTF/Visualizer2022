@@ -11,6 +11,7 @@ export const CanvasFrame: VFC<WindowComponentProps> = ({ width, height }) => {
       // no
     }
   )
+  const [spriteSize, setSpriteSize] = useState({ width, height })
   const [texture, setTexture] = useState<Texture>(
     new Texture(new BaseTexture())
   )
@@ -20,7 +21,11 @@ export const CanvasFrame: VFC<WindowComponentProps> = ({ width, height }) => {
   })
 
   useEffect(() => {
-    if (resizeHandlerRef.current) resizeHandlerRef.current(width, height)
+    if (resizeHandlerRef.current) {
+      resizeHandlerRef.current(width, height)
+      texture.update()
+      setSpriteSize({ width, height })
+    }
   }, [width, height])
   useEffect(() => {
     const canvas = document.createElement('canvas') as HTMLCanvasElement
@@ -29,8 +34,13 @@ export const CanvasFrame: VFC<WindowComponentProps> = ({ width, height }) => {
     resizeHandlerRef.current = RunVisualizer(canvas)
     resizeHandlerRef.current(width, height)
     setTexture(new Texture(BaseTexture.from(canvas)))
-    document.body.append(canvas)
   }, [])
 
-  return <Sprite texture={texture} width={width} height={height} />
+  return (
+    <Sprite
+      texture={texture}
+      width={spriteSize.width}
+      height={spriteSize.height}
+    />
+  )
 }
