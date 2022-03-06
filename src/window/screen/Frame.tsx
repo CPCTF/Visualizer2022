@@ -113,14 +113,13 @@ export const Frame: VFC<FrameProps> = ({ id, windowInfo }) => {
         <Text
           text={title}
           anchor={[0, 0.5]}
-          position={[0, windowHeaderHeight / 2]}
+          position={[5, windowHeaderHeight / 2]}
           style={
             new TextStyle({
               align: 'center',
               fontFamily: '"Source Sans Pro", Helvetica, sans-serif',
               fontSize: windowHeaderHeight * 0.5,
-              fill: '#000',
-              letterSpacing: 20
+              fill: '#000'
             })
           }
         />
