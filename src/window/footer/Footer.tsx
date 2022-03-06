@@ -22,7 +22,7 @@ export const Footer = () => {
       />
       <Container position={[200, 0]}>
         {windowStack.map((value: string, index: number) => (
-          <Tab id={value} index={index} />
+          <Tab key={value} id={value} index={index} />
         ))}
       </Container>
     </Container>
