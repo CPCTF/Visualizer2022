@@ -27,6 +27,7 @@ export const Background = () => {
       <Container position={[iconSize / 2, iconSize / 2]}>
         {icons.map((iconInfo, index) => (
           <Icon
+            key={iconInfo.id}
             iconInfo={iconInfo}
             position={[
               Math.floor(index / row) * (iconSize + iconMargin),
