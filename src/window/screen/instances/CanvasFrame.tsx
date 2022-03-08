@@ -3,6 +3,7 @@ import type { WindowComponentProps } from '#/window/stores/WindowSystem'
 import { useEffect, useRef, useState, VFC } from 'react'
 import { Texture, BaseTexture } from 'pixi.js'
 import { Sprite, useTick } from '@inlet/react-pixi'
+import { LoadingCanvas } from './CanvasFrame/Loading'
 
 export const CanvasFrame: VFC<WindowComponentProps> = ({ width, height }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
@@ -27,20 +28,27 @@ export const CanvasFrame: VFC<WindowComponentProps> = ({ width, height }) => {
       setSpriteSize({ width, height })
     }
   }, [width, height])
-  useEffect(() => {
+  const callVisualizer = () => {
     const canvas = document.createElement('canvas') as HTMLCanvasElement
     canvasRef.current = canvas
 
     resizeHandlerRef.current = RunVisualizer(canvas)
     resizeHandlerRef.current(width, height)
     setTexture(new Texture(BaseTexture.from(canvas)))
-  }, [])
+  }
 
   return (
-    <Sprite
-      texture={texture}
-      width={spriteSize.width}
-      height={spriteSize.height}
-    />
+    <>
+      <Sprite
+        texture={texture}
+        width={spriteSize.width}
+        height={spriteSize.height}
+      />
+      <LoadingCanvas
+        width={width}
+        height={height}
+        loadedHandler={callVisualizer}
+      />
+    </>
   )
 }

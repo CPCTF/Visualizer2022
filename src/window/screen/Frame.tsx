@@ -3,7 +3,6 @@ import { useContext, useEffect, useRef, useState, VFC } from 'react'
 import { footerHeight, windowHeaderHeight } from '../globals'
 import type { WindowInfo } from '../stores/WindowSystem'
 import { TextStyle } from 'pixi.js'
-import bgImgSrc from './background/xp.jpg'
 import { MouseEventHandlerGenerator } from './mouseevent'
 import { WindowSettingContext } from '../GlobalSetting'
 import type { InteractionEvent } from 'pixi.js'
@@ -101,7 +100,6 @@ export const Frame: VFC<FrameProps> = ({ id, windowInfo }) => {
           : () => ''
       }
     >
-      <Sprite image={bgImgSrc} width={rect.width} height={rect.height} />
       <Container position={[0, 0]}>
         <Sprite
           anchor={[0, 0]}
