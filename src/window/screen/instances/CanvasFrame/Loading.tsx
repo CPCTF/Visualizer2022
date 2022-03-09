@@ -1,7 +1,7 @@
 import { ThreeResourceLoader } from '#/system/Loader'
 import { Container, Sprite, Text } from '@inlet/react-pixi'
 import { BaseTexture, Rectangle, TextStyle, Texture } from 'pixi.js'
-import { useEffect, useMemo, useState, VFC } from 'react'
+import { useEffect, useState, VFC } from 'react'
 import xpSrc from '../../background/xp.jpg'
 import closeSrc from '../../close.png'
 import fullscreenSrc from '../../fullscreen.png'
