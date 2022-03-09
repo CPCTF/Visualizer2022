@@ -28,6 +28,8 @@ export const CanvasFrame: VFC<WindowComponentProps> = ({ width, height }) => {
       setSpriteSize({ width, height })
     }
   }, [width, height])
+
+  const [isLoading, setIsLoading] = useState(true)
   const callVisualizer = () => {
     const canvas = document.createElement('canvas') as HTMLCanvasElement
     canvasRef.current = canvas
@@ -35,6 +37,7 @@ export const CanvasFrame: VFC<WindowComponentProps> = ({ width, height }) => {
     resizeHandlerRef.current = RunVisualizer(canvas)
     resizeHandlerRef.current(width, height)
     setTexture(new Texture(BaseTexture.from(canvas)))
+    // setIsLoading(false)
   }
 
   return (
@@ -44,11 +47,13 @@ export const CanvasFrame: VFC<WindowComponentProps> = ({ width, height }) => {
         width={spriteSize.width}
         height={spriteSize.height}
       />
-      <LoadingCanvas
-        width={width}
-        height={height}
-        loadedHandler={callVisualizer}
-      />
+      {isLoading ? (
+        <LoadingCanvas
+          width={width}
+          height={height}
+          loadedHandler={callVisualizer}
+        />
+      ) : null}
     </>
   )
 }
