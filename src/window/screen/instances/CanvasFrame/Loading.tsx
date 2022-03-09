@@ -11,6 +11,7 @@ import barSrc from '../../bar.png'
 import folderSrc from './folder.png'
 import loadingFrameSrc from './loading_frame.png'
 import loadingFillSrc from './loading_fill.png'
+import { addLoadFiles } from '#/globals/loadFiles'
 
 interface LoadingCanvasProps {
   width: number
@@ -32,12 +33,7 @@ export const LoadingCanvas: VFC<LoadingCanvasProps> = ({
 
   useEffect(() => {
     const asyncFunc = async () => {
-      ThreeResourceLoader.addTexture(closeSrc)
-      ThreeResourceLoader.addTexture(xpSrc)
-      ThreeResourceLoader.addTexture(fullscreenSrc)
-      ThreeResourceLoader.addTexture(minimizeSrc)
-      ThreeResourceLoader.addTexture(barSrc)
-      ThreeResourceLoader.addTexture(bgSrc)
+      addLoadFiles()
       await ThreeResourceLoader.load(({ path, total, count }) => {
         setPathText(path)
         setPercent(count / total)
