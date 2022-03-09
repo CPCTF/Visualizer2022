@@ -11,7 +11,7 @@ import closeSrc from './close.png'
 import fullscreenSrc from './fullscreen.png'
 import minimizeSrc from './minimize.png'
 import barSrc from './bar.png'
-import bgSrc from './bg.png'
+import { FrameBackground } from './FrameBackground'
 
 interface FrameProps {
   id: string
@@ -155,12 +155,9 @@ export const Frame: VFC<FrameProps> = ({ id, windowInfo }) => {
       </Container>
 
       <Container position={[0, windowHeaderHeight]}>
-        <Sprite
-          anchor={[0, 0]}
-          image={bgSrc}
+        <FrameBackground
           width={rect.width}
           height={rect.height - windowHeaderHeight}
-          position={[0, 0]}
         />
         {Component ? (
           <Component
