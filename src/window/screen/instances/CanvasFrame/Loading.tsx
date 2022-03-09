@@ -83,6 +83,8 @@ export const LoadingCanvas: VFC<LoadingCanvasProps> = ({
           texture={textures.textures[textures.index]}
           anchor={0.5}
           position={[0, -50]}
+          width={64}
+          height={64}
         />
       )}
       <Text
