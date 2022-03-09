@@ -72,6 +72,7 @@ export class ThreeResourceLoader {
     return new Promise(resolve => {
       let count = 0
       const total = this.queue.length
+      if (total === 0) resolve({})
       this.queue.map(([path, type]) => {
         createResources(path, type, data => {
           count += 1
