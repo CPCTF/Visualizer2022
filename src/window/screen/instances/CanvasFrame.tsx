@@ -37,7 +37,7 @@ export const CanvasFrame: VFC<WindowComponentProps> = ({ width, height }) => {
     resizeHandlerRef.current = RunVisualizer(canvas)
     resizeHandlerRef.current(width, height)
     setTexture(new Texture(BaseTexture.from(canvas)))
-    // setIsLoading(false)
+    setIsLoading(false)
   }
 
   return (
