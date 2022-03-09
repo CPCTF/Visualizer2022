@@ -52,8 +52,8 @@ export const RunVisualizer = (canvas: HTMLCanvasElement) => {
   WebSocketInstance.addEventListener('end', () => {
     console.log('end ctf')
   })
-  WebSocketInstance.addEventListener('recalcurate', async () => {
-    console.log('recalcurate')
+  WebSocketInstance.addEventListener('recalculate', async () => {
+    console.log('recalculate')
     // const { ranking, circuit } = await ServerRequest.recalculate()
   })
   WebSocketInstance.addEventListener('submit', () => {
