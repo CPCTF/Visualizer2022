@@ -5,6 +5,7 @@ on:
       - main
     paths:
       - 'src/**/*.ts'
+      - 'src/**/*.tsx'
       - '.eslintrc.js'
       - '.github/workflows/lint.yml'
 jobs:
