@@ -37,23 +37,13 @@ export const Tab: VFC<{ id: string; index: number }> = ({ id, index }) => {
       <Text
         text={title}
         anchor={[0, 0.5]}
-        position={[0, 0]}
+        position={[5, 0]}
         style={
           new TextStyle({
             align: 'center',
             fontFamily: '"Source Sans Pro", Helvetica, sans-serif',
             fontSize: footerHeight * 0.5 * 0.8,
-            fill: ['#ffffff', '#00ff99'], // gradient
-            stroke: '#01d27e',
-            strokeThickness: 5,
-            letterSpacing: 20,
-            dropShadow: true,
-            dropShadowColor: '#ccced2',
-            dropShadowBlur: 4,
-            dropShadowAngle: Math.PI / 6,
-            dropShadowDistance: 6,
-            wordWrap: true,
-            wordWrapWidth: 440
+            fill: '#000'
           })
         }
       />
