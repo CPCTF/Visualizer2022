@@ -48,7 +48,7 @@ void main() {
     );
   }
 
-  float scanline = mix(0.5, 1.0, sin(time * 1.5 + vUv.y * 60.0) * 0.5 + 0.5);
+  float scanline = mix(0.5, 1.0, sin(time * 4.0 + vUv.y * 60.0) * 0.5 + 0.5);
   float visnetting = mix(1.0, 0.5, distance(vUv, vec2(0.5)) * 2.0);
   vec4 icon = texture2D(icon, vUv);
   gl_FragColor = vec4(max(value + icon.rgb * 0.6, 0.1) * scanline * visnetting, 1.0);
