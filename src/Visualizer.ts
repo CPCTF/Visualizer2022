@@ -76,10 +76,7 @@ export const SetupVisualizer = (
     requestAnimationFrame(tick)
     Time.update(timestamp)
 
-    renderer.render(scene, camera)
-
     camera.update()
-
     scene.children.map(value => {
       if (
         value instanceof VisualizerGroup ||
@@ -88,12 +85,15 @@ export const SetupVisualizer = (
         value.update()
       }
     })
+
+    renderer.render(scene, camera)
   }
 
   return {
     resizeHandler,
     startVisualizer: () => {
       Time.start(performance.now())
+      camera.start()
       requestAnimationFrame(tick)
     }
   }
