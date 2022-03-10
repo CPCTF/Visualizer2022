@@ -9,6 +9,7 @@ import { Effects } from './scene/Effects'
 import { UserMonolithGroup } from './scene/UserMonolihGroup'
 import { MainCircuit } from './scene/MainCircuit'
 import { VisualizerCamera } from './camera/VisualizerCamera'
+import { Recalculate } from './scene/Recalculates'
 
 export const RunVisualizer = (canvas: HTMLCanvasElement) => {
   // setup variables
@@ -29,7 +30,12 @@ export const RunVisualizer = (canvas: HTMLCanvasElement) => {
   }
 
   const scene = new Scene()
-  scene.add(new Effects(), new UserMonolithGroup(), new MainCircuit())
+  scene.add(
+    new Effects(),
+    new UserMonolithGroup(),
+    new MainCircuit(),
+    new Recalculate()
+  )
 
   // load resources
   // ThreeResourceLoader.addGLTF('gltf-path')
@@ -46,8 +52,8 @@ export const RunVisualizer = (canvas: HTMLCanvasElement) => {
   WebSocketInstance.addEventListener('end', () => {
     console.log('end ctf')
   })
-  WebSocketInstance.addEventListener('recalcurate', async () => {
-    console.log('recalcurate')
+  WebSocketInstance.addEventListener('recalculate', async () => {
+    console.log('recalculate')
     // const { ranking, circuit } = await ServerRequest.recalculate()
   })
   WebSocketInstance.addEventListener('submit', () => {

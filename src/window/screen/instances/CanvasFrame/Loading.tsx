@@ -2,12 +2,6 @@ import { ThreeResourceLoader } from '#/system/Loader'
 import { Container, Sprite, Text } from '@inlet/react-pixi'
 import { BaseTexture, Rectangle, TextStyle, Texture } from 'pixi.js'
 import { useEffect, useState, VFC } from 'react'
-import xpSrc from '../../background/xp.jpg'
-import closeSrc from '../../close.png'
-import fullscreenSrc from '../../fullscreen.png'
-import minimizeSrc from '../../minimize.png'
-import bgSrc from '../../bg.png'
-import barSrc from '../../bar.png'
 import folderSrc from './folder.png'
 import loadingFrameSrc from './loading_frame.png'
 import loadingFillSrc from './loading_fill.png'
@@ -106,6 +100,7 @@ export const LoadingCanvas: VFC<LoadingCanvasProps> = ({
         {new Array(Math.floor(16 * percent)).fill(null).map((_, index) => {
           return (
             <Sprite
+              key={index}
               image={loadingFillSrc}
               anchor={[0, 0.5]}
               position={[(index - 8) * 16, 0]}
