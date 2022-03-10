@@ -18,7 +18,10 @@ export const SplashScreen: VFC<{
       setIndex(index => {
         if (index === spriteNum + fps * 2) {
           clearInterval(animation)
-          onComplete()
+          // 即座に実行するとsetIndexが虚無に対して実行されるため
+          setTimeout(() => {
+            onComplete()
+          }, 1)
           return index
         } else {
           return index + 1
