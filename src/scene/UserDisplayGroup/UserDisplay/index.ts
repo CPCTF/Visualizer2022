@@ -11,8 +11,6 @@ export class UserDisplay extends VisualizerGroup {
     display.material = new MeshBasicMaterial({ color: 0x00ff00 })
     this.add(display)
     this.add(new Display())
-
-    this.scale.set(0.2, 0.2, 0.2)
   }
 
   public start() {
