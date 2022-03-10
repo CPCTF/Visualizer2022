@@ -8,7 +8,6 @@ export class VisualizerCamera extends PerspectiveCamera implements IRenderable {
   constructor() {
     super(60, 1, 1, 2000)
 
-    this.position.y = 2
     WebSocketInstance.addEventListener('recalculate', () => {
       gsap.to(this.position, 2, { y: -8 })
       setTimeout(() => {
@@ -18,7 +17,11 @@ export class VisualizerCamera extends PerspectiveCamera implements IRenderable {
   }
 
   public start(): void {
-    // no impl
+    this.position.set(
+      Math.sin(Time.time * 0.1) * 4,
+      2,
+      Math.cos(Time.time * 0.1) * 4
+    )
   }
 
   public update(): void {
