@@ -1,6 +1,6 @@
 import { ThreeResourceLoader } from '#/system/Loader'
 import { VisualizerGroup } from '#/templates/VisualizerGroup'
-import { Mesh, MeshBasicMaterial, Object3D } from 'three'
+import { Mesh, MeshBasicMaterial } from 'three'
 import { Display } from './Display'
 import monitorSrc from './monitor.glb?url'
 

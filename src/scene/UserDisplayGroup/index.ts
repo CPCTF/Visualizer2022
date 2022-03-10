@@ -1,5 +1,4 @@
 import { VisualizerGroup } from '#/templates/VisualizerGroup'
-import { TweenLite, Back } from 'gsap'
 import { UserDisplay } from './UserDisplay'
 
 export class UserDisplayGroup extends VisualizerGroup {
