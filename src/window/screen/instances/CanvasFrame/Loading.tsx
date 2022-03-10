@@ -106,6 +106,7 @@ export const LoadingCanvas: VFC<LoadingCanvasProps> = ({
         {new Array(Math.floor(16 * percent)).fill(null).map((_, index) => {
           return (
             <Sprite
+              key={index}
               image={loadingFillSrc}
               anchor={[0, 0.5]}
               position={[(index - 8) * 16, 0]}
