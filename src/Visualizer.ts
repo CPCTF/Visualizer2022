@@ -11,7 +11,13 @@ import { MainCircuit } from './scene/MainCircuit'
 import { VisualizerCamera } from './camera/VisualizerCamera'
 import { Recalculate } from './scene/Recalculates'
 
-export const RunVisualizer = (canvas: HTMLCanvasElement) => {
+export interface SetupVisualizerReturn {
+  resizeHandler: (width: number, height: number) => void
+  startVisualizer: () => void
+}
+export const SetupVisualizer = (
+  canvas: HTMLCanvasElement
+): SetupVisualizerReturn => {
   // setup variables
   const renderer = new WebGLRenderer({
     canvas,
@@ -70,10 +76,7 @@ export const RunVisualizer = (canvas: HTMLCanvasElement) => {
     requestAnimationFrame(tick)
     Time.update(timestamp)
 
-    renderer.render(scene, camera)
-
     camera.update()
-
     scene.children.map(value => {
       if (
         value instanceof VisualizerGroup ||
@@ -82,9 +85,16 @@ export const RunVisualizer = (canvas: HTMLCanvasElement) => {
         value.update()
       }
     })
-  }
-  Time.start(performance.now())
-  requestAnimationFrame(tick)
 
-  return resizeHandler
+    renderer.render(scene, camera)
+  }
+
+  return {
+    resizeHandler,
+    startVisualizer: () => {
+      Time.start(performance.now())
+      camera.start()
+      requestAnimationFrame(tick)
+    }
+  }
 }

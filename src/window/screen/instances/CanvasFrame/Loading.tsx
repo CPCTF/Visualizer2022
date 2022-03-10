@@ -65,7 +65,6 @@ export const LoadingCanvas: VFC<LoadingCanvasProps> = ({
     }
   }, [])
 
-  // if (percent === 100) return null
   return (
     <Container position={[width / 2, height / 2]}>
       {textures.index < 0 ? null : (
