@@ -5,6 +5,7 @@ import { Screen } from './screen/Screen'
 import { Footer } from './footer/Footer'
 import { CRTFilter } from './postprocessing/CRTFilter'
 import { LensDistortionFilter } from './postprocessing/LensDistortionFilter'
+import { VisnettingFilter } from './postprocessing/VisnettingFilter'
 
 // the context bridge:
 const ContextBridge: VFC<{
@@ -37,6 +38,7 @@ export const Stage: VFC<{ children: ReactNode } & Record<string, unknown>> = ({
 
 const Filters = withFilters(Container, {
   // crt: CRTFilter,
+  visnetting: VisnettingFilter,
   lensDistortion: LensDistortionFilter
 })
 
