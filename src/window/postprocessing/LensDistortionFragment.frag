@@ -5,7 +5,7 @@ uniform sampler2D uSampler;
 varying vec2 vTextureCoord;
 
 #define PI 3.14159265
-const float viewAngle = PI / 5.0;
+const float viewAngle = PI / 8.0;
 const float viewAngleCos = 0.5 / tan(viewAngle / 2.0);
 vec2 lensDistortion(vec2 vUv, float colorScale) {
   float d = distance(vUv, vec2(0.5)) * colorScale;
