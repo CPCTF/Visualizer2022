@@ -40,7 +40,6 @@ const Filters = withFilters(Container, {
 
 export const AppInner = () => {
   const { width, height } = useContext(WindowSettingContext)
-  console.log(width, height)
   return (
     <Stage width={width} height={height}>
       <Filters crt={{ width, height }}>
