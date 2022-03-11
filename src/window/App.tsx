@@ -6,6 +6,7 @@ import { Footer } from './footer/Footer'
 import { CRTFilter } from './postprocessing/CRTFilter'
 import { LensDistortionFilter } from './postprocessing/LensDistortionFilter'
 import { VisnettingFilter } from './postprocessing/VisnettingFilter'
+import { PixelateFilter, RGBSplitFilter } from 'pixi-filters'
 
 // the context bridge:
 const ContextBridge: VFC<{
@@ -38,6 +39,8 @@ export const Stage: VFC<{ children: ReactNode } & Record<string, unknown>> = ({
 
 const Filters = withFilters(Container, {
   // crt: CRTFilter,
+  pixel: PixelateFilter,
+  colorshift: RGBSplitFilter,
   visnetting: VisnettingFilter,
   lensDistortion: LensDistortionFilter
 })
@@ -46,7 +49,11 @@ export const AppInner = () => {
   const { width, height } = useContext(WindowSettingContext)
   return (
     <Stage width={width} height={height}>
-      <Filters crt={{ width, height }}>
+      <Filters
+        pixel={{ size: 2 }}
+        colorshift={{ red: [-2, 0.0], green: [0.0, 0.0], blue: [2, 0.0] }}
+        visnetting={{ width, height }}
+      >
         <Footer />
         <Screen />
       </Filters>

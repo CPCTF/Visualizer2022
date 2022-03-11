@@ -6,7 +6,12 @@ varying vec2 vTextureCoord;
 
 #define PI 3.14159265
 
+uniform vec4 filterArea;
+uniform vec4 filterClamp;
+uniform vec2 dimensions;
+
 void main (void) {
-  float visnetting = mix(1.0, 0.8, smoothstep(0.4, 0.7, distance(vTextureCoord, vec2(0.5))));
+  vec2 uv = vTextureCoord * filterArea.xy / dimensions;
+  float visnetting = mix(1.0, 0.6, smoothstep(0.3, 0.6, distance(uv, vec2(0.5))));
   gl_FragColor = texture2D(uSampler, vTextureCoord) * vec4(vec3(visnetting), 1.0);
 }
