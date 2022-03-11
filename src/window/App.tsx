@@ -7,6 +7,7 @@ import { CRTFilter } from './postprocessing/CRTFilter'
 import { LensDistortionFilter } from './postprocessing/LensDistortionFilter'
 import { VisnettingFilter } from './postprocessing/VisnettingFilter'
 import { PixelateFilter, RGBSplitFilter } from 'pixi-filters'
+import { BleedingFilter } from './postprocessing/BleedingFilter'
 
 // the context bridge:
 const ContextBridge: VFC<{
@@ -38,8 +39,9 @@ export const Stage: VFC<{ children: ReactNode } & Record<string, unknown>> = ({
 }
 
 const Filters = withFilters(Container, {
-  // crt: CRTFilter,
-  pixel: PixelateFilter,
+  crt: CRTFilter,
+  // pixel: PixelateFilter,
+  // bleeding: BleedingFilter,
   colorshift: RGBSplitFilter,
   visnetting: VisnettingFilter,
   lensDistortion: LensDistortionFilter
@@ -50,9 +52,9 @@ export const AppInner = () => {
   return (
     <Stage width={width} height={height}>
       <Filters
-        pixel={{ size: 2 }}
-        colorshift={{ red: [-2, 0.0], green: [0.0, 0.0], blue: [2, 0.0] }}
-        visnetting={{ width, height }}
+        pixel={{ size: 1.5 }}
+        bleeding={{ size: 1.5 }}
+        colorshift={{ red: [-4.0, 0.0], green: [0.0, 0.0], blue: [4.0, 0.0] }}
       >
         <Footer />
         <Screen />
