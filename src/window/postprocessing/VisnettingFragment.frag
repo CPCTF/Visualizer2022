@@ -12,6 +12,6 @@ uniform vec2 dimensions;
 
 void main (void) {
   vec2 uv = vTextureCoord * filterArea.xy / dimensions;
-  float visnetting = mix(1.0, 0.6, smoothstep(0.3, 0.6, distance(uv, vec2(0.5))));
+  float visnetting = mix(1.0, 0.7, smoothstep(0.3, 0.6, distance(uv, vec2(0.5))));
   gl_FragColor = texture2D(uSampler, vTextureCoord) * vec4(vec3(visnetting), 1.0);
 }
