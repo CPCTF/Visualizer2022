@@ -114,7 +114,7 @@ export const MouseEventHandlerGenerator = (
         ? {
             x: 0,
             y: 0,
-            width: width,
+            width,
             height: height - footerHeight
           }
         : windowInfo.rect
