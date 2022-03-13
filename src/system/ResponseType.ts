@@ -1,16 +1,27 @@
 // TODO: 型修正
-export interface UserRaw {
-  id: string
-  displayName: string
-  iconPath: string
-}
-
 export interface UserRankingRaw {
   id: string
-  displayName: string
-  iconPath: string
+  name: string
+  iconUrl: string
+  rank: number
   point: number
-  ranking: number
+}
+
+export interface UserRaw {
+  id: string
+  name: string
+  iconUrl: string
+}
+export interface RecalculateRaw {
+  ranking: UserRankingRaw[]
+  circuit: any
+}
+
+export interface InitialRaw {
+  users: UserRaw[]
+  recalculate: RecalculateRaw
+  startTime: string
+  endTime: string
 }
 
 // TODO: ジャンル追加
