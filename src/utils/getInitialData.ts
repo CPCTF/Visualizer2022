@@ -3,6 +3,7 @@ import { ServerRequest } from '#/system/ServerRequest'
 import { globalSettings } from '#/system/SettingStore'
 import { UserManager } from '#/system/UserManager'
 
+// setup with initial data
 export const getInitialData = async () => {
   const data = (await ServerRequest.initial()) as InitialRaw
 

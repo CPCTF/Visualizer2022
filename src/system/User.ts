@@ -1,7 +1,7 @@
 import { Loaders } from './Loader'
 import type { Texture } from 'three'
 
-export class User {
+export class User extends EventTarget {
   public id
   private _point = 0
   public get point() {
@@ -27,6 +27,7 @@ export class User {
     return this._iconPath
   }
   constructor(id: string) {
+    super()
     this.id = id
   }
 
