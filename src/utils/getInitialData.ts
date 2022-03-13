@@ -18,7 +18,8 @@ export const getInitialData = async () => {
   const startDate = new Date()
   startDate.setHours(startDate.getHours() - 1)
   const endDate = new Date()
-  startDate.setHours(startDate.getHours() + 1)
+  endDate.setHours(endDate.getHours() + 1)
+  console.log(startDate, endDate)
   globalSettings.startTime = startDate
   globalSettings.endTime = endDate
 }
