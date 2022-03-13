@@ -1,4 +1,4 @@
-import { Container, Sprite, Text } from '@inlet/react-pixi'
+import { Container, Sprite, Text, useTick } from '@inlet/react-pixi'
 import { useContext, useEffect, useRef, useState, VFC } from 'react'
 import { footerHeight, windowHeaderHeight } from '../globals'
 import type { WindowInfo } from '../stores/WindowSystem'
@@ -12,6 +12,7 @@ import fullscreenSrc from './fullscreen.png'
 import minimizeSrc from './minimize.png'
 import barSrc from './bar.png'
 import { FrameBackground } from './FrameBackground'
+import { getCursorIcon, updateCursorIcon } from '../stores/cursorIcon'
 
 interface FrameProps {
   id: string
@@ -60,16 +61,34 @@ export const Frame: VFC<FrameProps> = ({ id, windowInfo }) => {
     cursorMouseMoveHandler:
       | ((_windowInfo: WindowInfo) => (_e: InteractionEvent) => void)
       | null
-  }>({ mouseDownHandler: null, cursorMouseMoveHandler: null })
+    mouseOverHandler: (() => void) | null
+    mouseOutHandler: (() => void) | null
+    getCursor: (() => string) | null
+  }>({
+    mouseDownHandler: null,
+    cursorMouseMoveHandler: null,
+    mouseOverHandler: null,
+    mouseOutHandler: null,
+    getCursor: null
+  })
 
   useEffect(() => {
     const {
       mouseDownHandler,
       mouseMoveHandler,
       mouseUpHandler,
-      cursorMouseMoveHandler
-    } = MouseEventHandlerGenerator(id, windowSettings)
-    setHandler({ mouseDownHandler, cursorMouseMoveHandler })
+      cursorMouseMoveHandler,
+      mouseOutHandler,
+      mouseOverHandler,
+      getCursor
+    } = MouseEventHandlerGenerator(id, windowSettings, width, height)
+    setHandler({
+      mouseDownHandler,
+      cursorMouseMoveHandler,
+      mouseOverHandler,
+      mouseOutHandler,
+      getCursor
+    })
     const mouseMoveHandlerWrapper = (e: MouseEvent) => {
       // document.body.style.cursor = cursorGetter()
       mouseMoveHandler(windowInfoRef.current || windowInfo)(e)
@@ -88,6 +107,12 @@ export const Frame: VFC<FrameProps> = ({ id, windowInfo }) => {
     }
   }, [])
 
+  useTick(() => {
+    if (handler.getCursor && handler.getCursor() && !getCursorIcon()) {
+      updateCursorIcon(handler.getCursor())
+    }
+  })
+
   return (
     <Container
       position={!visible ? [rect.x, -99999] : [rect.x, rect.y]}
@@ -102,6 +127,8 @@ export const Frame: VFC<FrameProps> = ({ id, windowInfo }) => {
           ? handler.cursorMouseMoveHandler(windowInfo)
           : () => ''
       }
+      mouseover={handler.mouseOverHandler ? handler.mouseOverHandler : () => ''}
+      mouseout={handler.mouseOutHandler ? handler.mouseOutHandler : () => ''}
     >
       <Container position={[0, 0]}>
         <Sprite
