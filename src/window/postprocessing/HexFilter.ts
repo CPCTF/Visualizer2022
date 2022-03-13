@@ -5,9 +5,9 @@ import {
   type CLEAR_MODES,
   type Rectangle
 } from 'pixi.js'
-import fragmentSrc from './LineFragment.frag?raw'
+import fragmentSrc from './HexFragment.frag?raw'
 
-export class LineFilter extends Filter {
+export class HexFilter extends Filter {
   constructor() {
     super(undefined, fragmentSrc, {
       dimensions: [0, 0],
