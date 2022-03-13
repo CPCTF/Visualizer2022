@@ -10,6 +10,8 @@ import { UserDisplayGroup } from './scene/UserDisplayGroup'
 import { MainCircuit } from './scene/MainCircuit'
 import { VisualizerCamera } from './camera/VisualizerCamera'
 import { Recalculate } from './scene/Recalculates'
+import { ServerRequest } from './system/ServerRequest'
+import { getInitialData } from './utils/getInitialData'
 
 export interface SetupVisualizerReturn {
   resizeHandler: (width: number, height: number) => void
@@ -88,6 +90,8 @@ export const SetupVisualizer = (
 
     renderer.render(scene, camera)
   }
+
+  getInitialData()
 
   return {
     resizeHandler,
