@@ -30,7 +30,12 @@ export class User {
     this.id = id
   }
 
-  public set(point: number, rank: number, displayName: string, iconPath: string) {
+  public set(
+    point: number,
+    rank: number,
+    displayName: string,
+    iconPath: string
+  ) {
     this._point = point
     this._rank = rank
     this._displayName = displayName
