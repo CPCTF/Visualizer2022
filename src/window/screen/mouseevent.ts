@@ -58,8 +58,8 @@ export const MouseEventHandlerGenerator = (
       WindowSystem.update(id, {
         ...windowInfo,
         rect: {
-          x: rect.x + e.clientX - basePos.x,
-          y: rect.y + e.clientY - basePos.y,
+          x: rect.x + e.offsetX - basePos.x,
+          y: rect.y + e.offsetY - basePos.y,
           width: windowInfo.rect.width,
           height: windowInfo.rect.height
         }
@@ -69,27 +69,27 @@ export const MouseEventHandlerGenerator = (
       const maxWidth = 200
       const maxHeight = 200
       if (downScaleMode[0] === 1) {
-        newRect.width = Math.max(maxWidth, rect.width - basePos.x + e.clientX)
+        newRect.width = Math.max(maxWidth, rect.width - basePos.x + e.offsetX)
       } else if (downScaleMode[0] === -1) {
-        newRect.width = Math.max(maxWidth, basePos.x + rect.width - e.clientX)
+        newRect.width = Math.max(maxWidth, basePos.x + rect.width - e.offsetX)
         newRect.x = Math.min(
           rect.x + rect.width - maxWidth,
-          rect.x - basePos.x + e.clientX
+          rect.x - basePos.x + e.offsetX
         )
       }
       if (downScaleMode[1] === 1) {
         newRect.height = Math.max(
           maxHeight,
-          rect.height - basePos.y + e.clientY
+          rect.height - basePos.y + e.offsetY
         )
       } else if (downScaleMode[1] === -1) {
         newRect.height = Math.max(
           maxHeight,
-          basePos.y + rect.height - e.clientY
+          basePos.y + rect.height - e.offsetY
         )
         newRect.y = Math.min(
           rect.y + rect.height - maxHeight,
-          rect.y - basePos.y + e.clientY
+          rect.y - basePos.y + e.offsetY
         )
       }
       newRect.width = Math.max(200, newRect.width)

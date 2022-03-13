@@ -8,6 +8,7 @@ import { LensDistortionFilter } from './postprocessing/LensDistortionFilter'
 import { VisnettingFilter } from './postprocessing/VisnettingFilter'
 import { RGBSplitFilter, AdvancedBloomFilter } from 'pixi-filters'
 import { HexFilter } from './postprocessing/HexFilter'
+import style from './main.module.css'
 
 // the context bridge:
 const ContextBridge: VFC<{
@@ -49,22 +50,28 @@ const Filters = withFilters(Container, {
 export const AppInner = () => {
   const { width, height } = useContext(WindowSettingContext)
   return (
-    <Stage width={width} height={height}>
-      <Filters
-        hex={{ lineWidth: [2, 2], blend: 0.5 }}
-        bloom={{
-          threshold: 0.1,
-          bloomScale: 0.5,
-          brightness: 1,
-          blur: 1,
-          quality: 4
-        }}
-        colorshift={{ red: [-2.0, 0.0], green: [0.0, 0.0], blue: [2.0, 0.0] }}
-      >
-        <Footer />
-        <Screen />
-      </Filters>
-    </Stage>
+    <main className={style.main}>
+      <Stage width={width} height={height} id="pixicanvas">
+        <Filters
+          hex={{ lineWidth: [2, 2], blend: 0.5 }}
+          bloom={{
+            threshold: 0.1,
+            bloomScale: 0.5,
+            brightness: 1,
+            blur: 1,
+            quality: 4
+          }}
+          colorshift={{
+            red: [-2.0, 0.0],
+            green: [0.0, 0.0],
+            blue: [2.0, 0.0]
+          }}
+        >
+          <Footer />
+          <Screen />
+        </Filters>
+      </Stage>
+    </main>
   )
 }
 

@@ -77,11 +77,14 @@ export const Frame: VFC<FrameProps> = ({ id, windowInfo }) => {
     const mouseUpHandlerWrapper = () => {
       mouseUpHandler()()
     }
-    window.addEventListener('mousemove', mouseMoveHandlerWrapper)
-    window.addEventListener('mouseup', mouseUpHandlerWrapper)
+
+    const pixicanvas = document.getElementById('pixicanvas')
+    if (!pixicanvas) return
+    pixicanvas.addEventListener('mousemove', mouseMoveHandlerWrapper)
+    pixicanvas.addEventListener('mouseup', mouseUpHandlerWrapper)
     return () => {
-      window.removeEventListener('mousemove', mouseMoveHandlerWrapper)
-      window.removeEventListener('mouseup', mouseUpHandlerWrapper)
+      pixicanvas.removeEventListener('mousemove', mouseMoveHandlerWrapper)
+      pixicanvas.removeEventListener('mouseup', mouseUpHandlerWrapper)
     }
   }, [])
 
