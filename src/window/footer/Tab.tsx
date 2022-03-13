@@ -3,10 +3,8 @@ import { WindowSettingContext } from '../GlobalSetting'
 import tabOnSrc from './tab-on.png'
 import tabOffSrc from './tab-off.png'
 import { BaseTexture, TextStyle, Texture } from 'pixi.js'
-import { footerHeight } from '../globals'
+import { footerHeight, tabWidth } from '../globals'
 import { Container, Sprite, Text } from '@inlet/react-pixi'
-
-const tabWidth = 200
 
 export const Tab: VFC<{ id: string; index: number }> = ({ id, index }) => {
   const {
