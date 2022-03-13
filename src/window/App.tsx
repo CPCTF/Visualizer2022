@@ -2,8 +2,13 @@ import { Container, Stage as PixiStage, withFilters } from '@inlet/react-pixi'
 import { ReactNode, useContext, VFC } from 'react'
 import { WindowSettingContext, WindowSettingProvider } from './GlobalSetting'
 import { Screen } from './screen/Screen'
-import { CRTFilter, RGBSplitFilter } from 'pixi-filters'
 import { Footer } from './footer/Footer'
+// import { CRTFilter } from './postprocessing/CRTFilter'
+import { LensDistortionFilter } from './postprocessing/LensDistortionFilter'
+import { VisnettingFilter } from './postprocessing/VisnettingFilter'
+import { RGBSplitFilter, AdvancedBloomFilter } from 'pixi-filters'
+import { HexFilter } from './postprocessing/HexFilter'
+import style from './main.module.css'
 
 // the context bridge:
 const ContextBridge: VFC<{
@@ -35,26 +40,38 @@ export const Stage: VFC<{ children: ReactNode } & Record<string, unknown>> = ({
 }
 
 const Filters = withFilters(Container, {
-  rgbsplit: RGBSplitFilter,
-  crt: CRTFilter
+  hex: HexFilter,
+  bloom: AdvancedBloomFilter,
+  colorshift: RGBSplitFilter,
+  lensDistortion: LensDistortionFilter,
+  visnetting: VisnettingFilter
 })
 
 export const AppInner = () => {
   const { width, height } = useContext(WindowSettingContext)
   return (
-    <Stage width={width} height={height}>
-      <Filters
-        crt={{ vignetting: 0.2, noiseSize: 5 }}
-        rgbsplit={{
-          red: [-2.4, 2.2],
-          blue: [2.68, 3.2],
-          green: [-0.26, 2.2]
-        }}
-      >
-        <Footer />
-        <Screen />
-      </Filters>
-    </Stage>
+    <main className={style.main}>
+      <Stage width={width} height={height} id="pixicanvas">
+        <Filters
+          hex={{ lineWidth: [2, 2], blend: 0.5 }}
+          bloom={{
+            threshold: 0.1,
+            bloomScale: 0.5,
+            brightness: 1,
+            blur: 1,
+            quality: 4
+          }}
+          colorshift={{
+            red: [-2.0, 0.0],
+            green: [0.0, 0.0],
+            blue: [2.0, 0.0]
+          }}
+        >
+          <Footer />
+          <Screen />
+        </Filters>
+      </Stage>
+    </main>
   )
 }
 

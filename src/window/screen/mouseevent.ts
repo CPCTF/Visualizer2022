@@ -4,11 +4,13 @@ import type { InteractionEvent } from 'pixi.js'
 
 export const MouseEventHandlerGenerator = (
   id: string,
-  WindowSystem: WindowSettingProps['windowSettings']
+  WindowSystem: WindowSettingProps['windowSettings'],
+  width: number,
+  height: number
 ) => {
   type DragMode = 'none' | 'move' | 'scale'
-  const headerHeight = 32
-  const scaleEdge = 8
+  const headerHeight = windowHeaderHeight
+  const scaleEdge = 16
   const scaleMode: [number, number] = [0, 0]
   const downScaleMode: [number, number] = [0, 0]
   let mode: DragMode = 'none'
@@ -16,6 +18,7 @@ export const MouseEventHandlerGenerator = (
     x: 0,
     y: 0
   }
+  let isHover = false
   let cursor = 'pointer'
   let rect = { x: 0, y: 0, width: 0, height: 0 }
   const mouseDownHandler =
@@ -26,8 +29,8 @@ export const MouseEventHandlerGenerator = (
         rect = {
           x: 0,
           y: 0,
-          width: window.innerWidth,
-          height: window.innerHeight - footerHeight
+          width,
+          height: height - footerHeight
         }
       } else {
         rect = windowInfo.rect
@@ -58,8 +61,8 @@ export const MouseEventHandlerGenerator = (
       WindowSystem.update(id, {
         ...windowInfo,
         rect: {
-          x: rect.x + e.clientX - basePos.x,
-          y: rect.y + e.clientY - basePos.y,
+          x: rect.x + e.offsetX - basePos.x,
+          y: rect.y + e.offsetY - basePos.y,
           width: windowInfo.rect.width,
           height: windowInfo.rect.height
         }
@@ -69,27 +72,27 @@ export const MouseEventHandlerGenerator = (
       const maxWidth = 200
       const maxHeight = 200
       if (downScaleMode[0] === 1) {
-        newRect.width = Math.max(maxWidth, rect.width - basePos.x + e.clientX)
+        newRect.width = Math.max(maxWidth, rect.width - basePos.x + e.offsetX)
       } else if (downScaleMode[0] === -1) {
-        newRect.width = Math.max(maxWidth, basePos.x + rect.width - e.clientX)
+        newRect.width = Math.max(maxWidth, basePos.x + rect.width - e.offsetX)
         newRect.x = Math.min(
           rect.x + rect.width - maxWidth,
-          rect.x - basePos.x + e.clientX
+          rect.x - basePos.x + e.offsetX
         )
       }
       if (downScaleMode[1] === 1) {
         newRect.height = Math.max(
           maxHeight,
-          rect.height - basePos.y + e.clientY
+          rect.height - basePos.y + e.offsetY
         )
       } else if (downScaleMode[1] === -1) {
         newRect.height = Math.max(
           maxHeight,
-          basePos.y + rect.height - e.clientY
+          basePos.y + rect.height - e.offsetY
         )
         newRect.y = Math.min(
           rect.y + rect.height - maxHeight,
-          rect.y - basePos.y + e.clientY
+          rect.y - basePos.y + e.offsetY
         )
       }
       newRect.width = Math.max(200, newRect.width)
@@ -111,8 +114,8 @@ export const MouseEventHandlerGenerator = (
         ? {
             x: 0,
             y: 0,
-            width: window.innerWidth,
-            height: window.innerHeight - footerHeight
+            width,
+            height: height - footerHeight
           }
         : windowInfo.rect
       if (e.data.global.x - nowRect.x < scaleEdge) {
@@ -144,14 +147,23 @@ export const MouseEventHandlerGenerator = (
         cursor = 'default'
       }
 
-      if (document.body.style.cursor === 'default')
-        document.body.style.cursor = cursor
+      // if (document.body.style.cursor === 'default')
+      // document.body.style.cursor = cursor
     }
 
   return {
     mouseDownHandler,
     mouseMoveHandler,
     mouseUpHandler,
-    cursorMouseMoveHandler
+    cursorMouseMoveHandler,
+    mouseOverHandler: () => {
+      isHover = true
+    },
+    mouseOutHandler: () => {
+      isHover = false
+    },
+    getCursor: () => {
+      return isHover ? cursor : ''
+    }
   }
 }
