@@ -7,8 +7,8 @@ export const MouseEventHandlerGenerator = (
   WindowSystem: WindowSettingProps['windowSettings']
 ) => {
   type DragMode = 'none' | 'move' | 'scale'
-  const headerHeight = 32
-  const scaleEdge = 8
+  const headerHeight = windowHeaderHeight
+  const scaleEdge = 16
   const scaleMode: [number, number] = [0, 0]
   const downScaleMode: [number, number] = [0, 0]
   let mode: DragMode = 'none'

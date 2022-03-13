@@ -1,15 +1,20 @@
 import {
-  CLEAR_MODES,
   Filter,
-  FilterSystem,
-  Rectangle,
-  RenderTexture
+  type FilterSystem,
+  type RenderTexture,
+  type CLEAR_MODES,
+  type Rectangle
 } from 'pixi.js'
-import fragmentSrc from './CRTFragment.frag?raw'
+import fragmentSrc from './LineFragment.frag?raw'
 
-export class CRTFilter extends Filter {
+export class LineFilter extends Filter {
   constructor() {
-    super(undefined, fragmentSrc, { dimensions: [0, 0], devicePixelRatio: 1 })
+    super(undefined, fragmentSrc, {
+      dimensions: [0, 0],
+      devicePixelRatio: 0,
+      lineWidth: [1, 0],
+      blend: 0.5
+    })
   }
   apply(
     filterManager: FilterSystem,
@@ -23,5 +28,13 @@ export class CRTFilter extends Filter {
     this.uniforms.dimensions[1] = height
     this.uniforms.devicePixelRatio = window.devicePixelRatio
     filterManager.applyFilter(this, input, output, clear)
+  }
+
+  set lineWidth(value: number[]) {
+    this.uniforms.lineWidth = value
+  }
+
+  set blend(value: number) {
+    this.uniforms.blend = value
   }
 }
