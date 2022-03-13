@@ -15,7 +15,7 @@ vec2 mapCoord( vec2 coord )
     coord *= filterArea.xy;
     coord += filterArea.zw;
 
-    return coord / 2.0 * devicePixelRatio;
+    return coord * devicePixelRatio;
 }
 
 vec2 unmapCoord( vec2 coord )
@@ -23,7 +23,7 @@ vec2 unmapCoord( vec2 coord )
     coord -= filterArea.zw;
     coord /= filterArea.xy;
 
-    return coord * 2.0 / devicePixelRatio;
+    return coord / devicePixelRatio;
 }
 
 vec4 getColor(vec2 index, vec2 size) {
