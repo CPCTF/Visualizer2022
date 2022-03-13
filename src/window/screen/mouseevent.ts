@@ -4,7 +4,9 @@ import type { InteractionEvent } from 'pixi.js'
 
 export const MouseEventHandlerGenerator = (
   id: string,
-  WindowSystem: WindowSettingProps['windowSettings']
+  WindowSystem: WindowSettingProps['windowSettings'],
+  width: number,
+  height: number
 ) => {
   type DragMode = 'none' | 'move' | 'scale'
   const headerHeight = windowHeaderHeight
@@ -16,6 +18,7 @@ export const MouseEventHandlerGenerator = (
     x: 0,
     y: 0
   }
+  let isHover = false
   let cursor = 'pointer'
   let rect = { x: 0, y: 0, width: 0, height: 0 }
   const mouseDownHandler =
@@ -26,8 +29,8 @@ export const MouseEventHandlerGenerator = (
         rect = {
           x: 0,
           y: 0,
-          width: window.innerWidth,
-          height: window.innerHeight - footerHeight
+          width,
+          height: height - footerHeight
         }
       } else {
         rect = windowInfo.rect
@@ -111,8 +114,8 @@ export const MouseEventHandlerGenerator = (
         ? {
             x: 0,
             y: 0,
-            width: window.innerWidth,
-            height: window.innerHeight - footerHeight
+            width: width,
+            height: height - footerHeight
           }
         : windowInfo.rect
       if (e.data.global.x - nowRect.x < scaleEdge) {
@@ -144,14 +147,23 @@ export const MouseEventHandlerGenerator = (
         cursor = 'default'
       }
 
-      if (document.body.style.cursor === 'default')
-        document.body.style.cursor = cursor
+      // if (document.body.style.cursor === 'default')
+      // document.body.style.cursor = cursor
     }
 
   return {
     mouseDownHandler,
     mouseMoveHandler,
     mouseUpHandler,
-    cursorMouseMoveHandler
+    cursorMouseMoveHandler,
+    mouseOverHandler: () => {
+      isHover = true
+    },
+    mouseOutHandler: () => {
+      isHover = false
+    },
+    getCursor: () => {
+      return isHover ? cursor : ''
+    }
   }
 }
