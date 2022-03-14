@@ -73,8 +73,12 @@ class EventManager extends EventTarget {
     }, 3000)
   }
 
-  public setupped() {
-    this.dispatchEvent(new CustomEvent('setupped'))
+  public initialized() {
+    this.dispatchEvent(new CustomEvent('initialized'))
+  }
+
+  public visualizerStart() {
+    this.dispatchEvent(new CustomEvent('visualizerstart'))
   }
 
   private messageHandler(event: MessageEvent<WebSocketMessage>) {
@@ -89,12 +93,12 @@ class EventManager extends EventTarget {
       }
       case 'start': {
         globalSettings.startTime = new Date()
-        this.dispatchEvent(new CustomEvent('start'))
+        this.dispatchEvent(new CustomEvent('ctfstart'))
         break
       }
       case 'end': {
         globalSettings.endTime = new Date()
-        this.dispatchEvent(new CustomEvent('end'))
+        this.dispatchEvent(new CustomEvent('ctfend'))
         break
       }
       case 'recalculate': {
@@ -117,6 +121,7 @@ class EventManager extends EventTarget {
     })
 
     UserManager.updateRanking()
+    console.log(UserManager.ranking)
 
     // TODO: set circuit structure
   }
