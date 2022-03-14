@@ -1,4 +1,5 @@
 import { apiBasePath } from '#/globals/serverInfos'
+import type { InitialRaw, RecalculateRaw } from './ResponseType'
 
 // TODO: URIは適当
 // 返り値も適当
@@ -11,16 +12,15 @@ const getJson = (response: Response) => {
 export class ServerRequest {
   // 初回ロード
   public static async initial() {
-    return fetch(`${apiBasePath}/initial`).then(getJson)
+    return (await fetch(`${apiBasePath}/initial`).then(getJson)) as InitialRaw
   }
   public static async recalculate() {
-    const result = await Promise.all([
-      fetch(`${apiBasePath}/ranking`).then(getJson),
-      fetch(`${apiBasePath}/circuit`).then(getJson)
-    ])
+    const { ranking, circuit } = (await fetch(
+      `${apiBasePath}/recalculate`
+    ).then(getJson)) as RecalculateRaw
     return {
-      ranking: result[0],
-      circuit: result[1]
+      ranking,
+      circuit
     }
   }
 }

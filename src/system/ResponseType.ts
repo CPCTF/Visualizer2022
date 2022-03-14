@@ -12,9 +12,12 @@ export interface UserRaw {
   name: string
   iconUrl: string
 }
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface CircuitRaw {}
 export interface RecalculateRaw {
   ranking: UserRankingRaw[]
-  circuit: any
+  circuit: CircuitRaw
 }
 
 export interface InitialRaw {

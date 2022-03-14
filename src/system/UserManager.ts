@@ -3,11 +3,12 @@ import { User } from './User'
 
 export class UserManager {
   private static users: Record<string, User> = {}
+  private static ranking: string[]
 
   public static addUser({ id, name, iconUrl }: UserRaw) {
     const user = new User(id)
     this.users[id] = user
-    user.set(99999999, -1, name, iconUrl)
+    user.set(-1, -1, name, iconUrl)
   }
 
   public static updateUser({
@@ -17,8 +18,15 @@ export class UserManager {
     point,
     rank
   }: UserRankingRaw): void {
-    if (!this.users[id]) throw new Error('Id is invalid')
+    if (!this.users[id]) {
+      this.addUser({ id, name, iconUrl })
+    }
     this.users[id]?.set(point, rank, name, iconUrl)
+  }
+
+  public static updateRanking() {
+    this.ranking = Object.keys(this.users)
+    this.ranking = this.ranking.sort((user1, user2) => user1.rank - user2.rank)
   }
 
   public static getUser(id: string): User | undefined {
