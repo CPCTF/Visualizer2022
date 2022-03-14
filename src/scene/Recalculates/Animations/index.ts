@@ -11,7 +11,7 @@ const getRandomPos = (): [number, number] => {
 
 export class RecalculateAnimations extends VisualizerGroup {
   public children: Tile[] = []
-  private animationTimeout: NodeJS.Timeout | null = null
+  private animationTimeout: ReturnType<typeof setTimeout> | null = null
   constructor() {
     super()
     for (let dy = -1; dy <= 1; dy++) {
