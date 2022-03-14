@@ -1,12 +1,16 @@
 // import type { QuestionGenre } from './ResponseType'
 
 import { websocketBasePath } from '#/globals/serverInfos'
-import { globalSettings } from './GlobalSettings'
+import {
+  generateSubmission,
+  generateWebSocketMessage
+} from '#/utils/generateDummyData'
+import { globalSettings, isDevelop } from './GlobalSettings'
 import { ServerRequest } from './ServerRequest'
 import { UserManager } from './UserManager'
 
 // TODO: tekito type
-type WebSocketMessage =
+export type WebSocketMessage =
   | {
       type: 'submit'
       result: {
@@ -36,18 +40,50 @@ class EventManager extends EventTarget {
       this.dispatchEvent(new CustomEvent('disconnect'))
     })
     // test
-    this.testEvent()
+    if (isDevelop) this.testEvent()
   }
   private testEvent() {
     setInterval(() => {
-      this.dispatchEvent(new CustomEvent('recalculate'))
+      this.messageHandler(
+        generateWebSocketMessage({
+          data: {
+            type: 'recalculate'
+          }
+        })
+      )
     }, 30000)
+    setInterval(() => {
+      this.messageHandler(
+        generateWebSocketMessage({
+          data: {
+            type: 'end'
+          }
+        })
+      )
+    }, 300000)
+    setInterval(() => {
+      this.messageHandler(
+        generateWebSocketMessage({
+          data: {
+            type: 'submission',
+            result: generateSubmission()
+          }
+        })
+      )
+    }, 3000)
   }
+
+  public setupped() {
+    this.dispatchEvent(new CustomEvent('setupped'))
+  }
+
   private messageHandler(event: MessageEvent<WebSocketMessage>) {
     switch (event.data.type) {
       case 'submit': {
         this.dispatchEvent(
-          new CustomEvent('submission', { detail: event.data.result })
+          new CustomEvent('submission', {
+            detail: event.data.result
+          })
         )
         break
       }
@@ -74,7 +110,6 @@ class EventManager extends EventTarget {
   }
 
   private async setRecalculateData() {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { ranking } = await ServerRequest.recalculate()
 
     ranking.forEach(user => {
