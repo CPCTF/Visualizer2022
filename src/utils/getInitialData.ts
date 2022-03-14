@@ -1,8 +1,7 @@
-import type { InitialRaw, UserRankingRaw } from '#/system/ResponseType'
+import type { InitialRaw } from '#/system/ResponseType'
 import { ServerRequest } from '#/system/ServerRequest'
 import { globalSettings } from '#/system/GlobalSettings'
 import { UserManager } from '#/system/UserManager'
-import { generateInitialData, wait } from './generateDummyData'
 
 // setup with initial data
 export const getInitialData = async () => {
