@@ -13,9 +13,6 @@ export class Recalculate extends VisualizerGroup {
     const animation = new RecalculateAnimations()
     animation.scale.set(0.5, 0.5, 0.5)
     this.add(animation)
-    EventManagerInstance.addEventListener('recalculate', () => {
-      ;(this.children[0] as RecalculateAnimations)?.animate()
-    })
     this.position.set(0, -10, 0)
 
     // 再計算ラベル
@@ -27,7 +24,14 @@ export class Recalculate extends VisualizerGroup {
     this.add(this.recLabel)
   }
 
-  // public start() {}
+  public start() {
+    EventManagerInstance.addEventListener('recalculatestart', () => {
+      ;(this.children[0] as RecalculateAnimations)?.animate()
+    })
+    EventManagerInstance.addEventListener('recalculateend', () => {
+      ;(this.children[0] as RecalculateAnimations)?.stop()
+    })
+  }
 
   public update() {
     super.update()

@@ -8,11 +8,11 @@ export class VisualizerCamera extends PerspectiveCamera implements IRenderable {
   constructor() {
     super(60, 1, 1, 2000)
 
-    EventManagerInstance.addEventListener('recalculate', () => {
+    EventManagerInstance.addEventListener('recalculatestart', () => {
       gsap.to(this.position, 2, { y: -8 })
-      setTimeout(() => {
-        gsap.to(this.position, 2, { y: 2 })
-      }, 10000)
+    })
+    EventManagerInstance.addEventListener('recalculateend', () => {
+      gsap.to(this.position, 2, { y: 2 })
     })
   }
 

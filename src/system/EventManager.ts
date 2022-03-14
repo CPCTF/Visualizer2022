@@ -121,7 +121,6 @@ class EventManager extends EventTarget {
     })
 
     UserManager.updateRanking()
-    console.log(UserManager.ranking)
 
     // TODO: set circuit structure
   }
