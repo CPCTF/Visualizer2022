@@ -26,7 +26,7 @@ export const ClockFrame: VFC<WindowComponentProps> = ({
     )
     if (!Visualizer.getInstance().isSetupped) return
     // minutes
-    const delta = Math.floor(
+    const delta = Math.ceil(
       (globalSettings.endTime.getTime() - now.getTime()) / 1000 / 60
     )
     // console.log(delta.getMilliseconds())
