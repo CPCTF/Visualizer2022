@@ -26,7 +26,11 @@ export class UserManager {
 
   public static updateRanking() {
     this.ranking = Object.keys(this.users)
-    this.ranking = this.ranking.sort((user1, user2) => user1.rank - user2.rank)
+    this.ranking = this.ranking.sort(
+      (user1, user2) =>
+        (this.users[user1]?.rank || 99999999) -
+        (this.users[user2]?.rank || 999999999)
+    )
   }
 
   public static getUser(id: string): User | undefined {

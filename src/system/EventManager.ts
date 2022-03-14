@@ -74,11 +74,14 @@ class EventManager extends EventTarget {
   }
 
   private async setRecalculateData() {
-    const { ranking, circuit } = await ServerRequest.recalculate()
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { ranking } = await ServerRequest.recalculate()
 
     ranking.forEach(user => {
       UserManager.updateUser(user)
     })
+
+    UserManager.updateRanking()
 
     // TODO: set circuit structure
   }
