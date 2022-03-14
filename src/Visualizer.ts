@@ -12,7 +12,7 @@ import { VisualizerCamera } from './camera/VisualizerCamera'
 import { Recalculate } from './scene/Recalculates'
 import { getInitialData } from './utils/getInitialData'
 
-export class Visualizer extends EventTarget {
+export class Visualizer {
   // singleton
   private static instance: Visualizer | null
   public static getInstance() {
@@ -26,11 +26,11 @@ export class Visualizer extends EventTarget {
   private tick: ((timestamp: number) => void) | null = null
 
   // flags
-  private _isSetupped = false
+  private _isInitialized = false
   // start called but not setupped
   private isStartCalled = false
-  public get isSetupped() {
-    return this._isSetupped
+  public get isInitialized() {
+    return this._isInitialized
   }
 
   public resize(width: number, height: number) {
@@ -108,18 +108,18 @@ export class Visualizer extends EventTarget {
     this.camera = camera
 
     getInitialData().then(() => {
-      this._isSetupped = true
-      this.dispatchEvent(new CustomEvent('setupped'))
+      this._isInitialized = true
+      EventManagerInstance.initialized()
       if (this.isStartCalled) this.start()
     })
   }
 
   public start() {
-    if (this._isSetupped && this.tick) {
+    if (this._isInitialized && this.tick) {
       Time.start(performance.now())
       this.camera?.start()
       requestAnimationFrame(this.tick)
-      this.dispatchEvent(new CustomEvent('started'))
+      EventManagerInstance.visualizerStart()
     } else {
       this.isStartCalled = true
     }

@@ -31,7 +31,7 @@ export const generateRecalculate = (): RecalculateRaw => {
   users.forEach(value => {
     value.point += Math.random() * 1000
   })
-  users.sort((user1, user2) => user1.rank - user2.rank)
+  users.sort((user1, user2) => user1.point - user2.point)
   users.forEach((value, index) => {
     value.rank = index + 1
   })

@@ -3,7 +3,10 @@ import { User } from './User'
 
 export class UserManager {
   private static users: Record<string, User> = {}
-  private static ranking: string[]
+  private static _ranking: string[]
+  public static get ranking() {
+    return this._ranking
+  }
 
   public static addUser({ id, name, iconUrl }: UserRaw) {
     const user = new User(id)
@@ -25,8 +28,8 @@ export class UserManager {
   }
 
   public static updateRanking() {
-    this.ranking = Object.keys(this.users)
-    this.ranking = this.ranking.sort(
+    this._ranking = Object.keys(this.users)
+    this._ranking = this._ranking.sort(
       (user1, user2) =>
         (this.users[user1]?.rank || 99999999) -
         (this.users[user2]?.rank || 999999999)
