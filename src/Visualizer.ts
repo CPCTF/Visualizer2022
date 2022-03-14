@@ -73,12 +73,14 @@ export class Visualizer {
     EventManagerInstance.addEventListener('end', () => {
       console.log('end ctf')
     })
-    EventManagerInstance.addEventListener('recalculate', async () => {
-      console.log('recalculate')
-      // const { ranking, circuit } = await ServerRequest.recalculate()
+    EventManagerInstance.addEventListener('recalculatestart', async () => {
+      console.log('recalculatestart')
+    })
+    EventManagerInstance.addEventListener('recalculateend', async () => {
+      console.log('recalculateend')
     })
     EventManagerInstance.addEventListener('submit', () => {
-      console.log('submit')
+      // console.log('submit', (e as CustomEvent).detail)
     })
 
     // const initialData = await ServerRequest.initial()

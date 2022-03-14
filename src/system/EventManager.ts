@@ -3,7 +3,8 @@
 import { websocketBasePath } from '#/globals/serverInfos'
 import {
   generateSubmission,
-  generateWebSocketMessage
+  generateWebSocketMessage,
+  wait
 } from '#/utils/generateDummyData'
 import { globalSettings, isDevelop } from './GlobalSettings'
 import { ServerRequest } from './ServerRequest'
@@ -65,7 +66,7 @@ class EventManager extends EventTarget {
       this.messageHandler(
         generateWebSocketMessage({
           data: {
-            type: 'submission',
+            type: 'submit',
             result: generateSubmission()
           }
         })
@@ -85,7 +86,7 @@ class EventManager extends EventTarget {
     switch (event.data.type) {
       case 'submit': {
         this.dispatchEvent(
-          new CustomEvent('submission', {
+          new CustomEvent('submit', {
             detail: event.data.result
           })
         )
@@ -121,6 +122,8 @@ class EventManager extends EventTarget {
     })
 
     UserManager.updateRanking()
+
+    await wait(4000)
 
     // TODO: set circuit structure
   }

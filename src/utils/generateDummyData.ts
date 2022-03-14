@@ -19,7 +19,7 @@ export const generateSubmission = () => {
   return {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    id: users.keys()[Math.floor(Math.random() * users.length)],
+    id: users[Math.floor(Math.random() * users.length)].id,
     point: Math.random() * 1000,
     genre:
       QuestionGenreList[Math.floor(Math.random() * QuestionGenreList.length)],

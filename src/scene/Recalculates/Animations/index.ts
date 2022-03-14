@@ -38,7 +38,7 @@ export class RecalculateAnimations extends VisualizerGroup {
     ;(this.children[p2] as Tile).to(
       new Vector3((p2 % 3) - 1, 0, Math.floor(p2 / 3) - 1)
     )
-    this.animationTimeout = setTimeout(this.exchange.bind(this), 2000)
+    this.animationTimeout = setTimeout(this.exchange.bind(this), 300)
   }
 
   public stop() {
