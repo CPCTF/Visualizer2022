@@ -11,6 +11,7 @@ const getRandomPos = (): [number, number] => {
 
 export class RecalculateAnimations extends VisualizerGroup {
   public children: Tile[] = []
+  private animationTimeout: NodeJS.Timeout | null = null
   constructor() {
     super()
     for (let dy = -1; dy <= 1; dy++) {
@@ -23,20 +24,27 @@ export class RecalculateAnimations extends VisualizerGroup {
   }
 
   public animate() {
-    for (let i = 0; i < 10; i++) {
-      setTimeout(() => {
-        const [p1, p2] = getRandomPos()
-        const temp = this.children[p1] as Tile
-        this.children[p1] = this.children[p2] as Tile
-        this.children[p2] = temp
-        ;(this.children[p1] as Tile).to(
-          new Vector3((p1 % 3) - 1, 0, Math.floor(p1 / 3) - 1)
-        )
-        ;(this.children[p2] as Tile).to(
-          new Vector3((p2 % 3) - 1, 0, Math.floor(p2 / 3) - 1)
-        )
-      }, 1000 * i)
-    }
+    this.exchange()
+  }
+
+  public exchange() {
+    const [p1, p2] = getRandomPos()
+    const temp = this.children[p1] as Tile
+    this.children[p1] = this.children[p2] as Tile
+    this.children[p2] = temp
+    ;(this.children[p1] as Tile).to(
+      new Vector3((p1 % 3) - 1, 0, Math.floor(p1 / 3) - 1)
+    )
+    ;(this.children[p2] as Tile).to(
+      new Vector3((p2 % 3) - 1, 0, Math.floor(p2 / 3) - 1)
+    )
+    this.animationTimeout = setTimeout(this.exchange.bind(this), 300)
+  }
+
+  public stop() {
+    if (!this.animationTimeout) return
+    clearTimeout(this.animationTimeout)
+    this.animationTimeout = null
   }
 
   // public stop() {}

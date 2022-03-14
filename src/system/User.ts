@@ -1,11 +1,15 @@
 import { Loaders } from './Loader'
 import type { Texture } from 'three'
 
-export class User {
+export class User extends EventTarget {
   public id
   private _point = 0
   public get point() {
     return this._point
+  }
+  private _rank = -1
+  public get rank() {
+    return this._rank
   }
   private _displayName = ''
   public get displayName(): string {
@@ -23,11 +27,18 @@ export class User {
     return this._iconPath
   }
   constructor(id: string) {
+    super()
     this.id = id
   }
 
-  public set(point: number, displayName: string, iconPath: string) {
+  public set(
+    point: number,
+    rank: number,
+    displayName: string,
+    iconPath: string
+  ) {
     this._point = point
+    this._rank = rank
     this._displayName = displayName
     if (!this._iconPath || this._iconPath !== iconPath) {
       this._iconPath = iconPath
