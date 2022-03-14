@@ -1,5 +1,5 @@
 import { Time } from '#/system/Time'
-import { WebSocketInstance } from '#/system/WebSocketReceiver'
+import { EventManagerInstance } from '#/system/EventManager'
 import type { IRenderable } from '#/templates/IRenderable'
 import gsap from 'gsap'
 import { PerspectiveCamera } from 'three'
@@ -8,11 +8,11 @@ export class VisualizerCamera extends PerspectiveCamera implements IRenderable {
   constructor() {
     super(60, 1, 1, 2000)
 
-    WebSocketInstance.addEventListener('recalculate', () => {
+    EventManagerInstance.addEventListener('recalculatestart', () => {
       gsap.to(this.position, 2, { y: -8 })
-      setTimeout(() => {
-        gsap.to(this.position, 2, { y: 2 })
-      }, 10000)
+    })
+    EventManagerInstance.addEventListener('recalculateend', () => {
+      gsap.to(this.position, 2, { y: 2 })
     })
   }
 

@@ -1,4 +1,11 @@
 import { apiBasePath } from '#/globals/serverInfos'
+import {
+  generateInitialData,
+  generateRecalculate,
+  wait
+} from '#/utils/generateDummyData'
+import { isDevelop } from './GlobalSettings'
+import type { InitialRaw, RecalculateRaw } from './ResponseType'
 
 // TODO: URIは適当
 // 返り値も適当
@@ -11,16 +18,23 @@ const getJson = (response: Response) => {
 export class ServerRequest {
   // 初回ロード
   public static async initial() {
-    return fetch(`${apiBasePath}/initial`).then(getJson)
+    if (isDevelop) {
+      await wait(1000)
+      return generateInitialData()
+    }
+    return (await fetch(`${apiBasePath}/initial`).then(getJson)) as InitialRaw
   }
   public static async recalculate() {
-    const result = await Promise.all([
-      fetch(`${apiBasePath}/ranking`).then(getJson),
-      fetch(`${apiBasePath}/circuit`).then(getJson)
-    ])
+    if (isDevelop) {
+      await wait(1000)
+      return generateRecalculate()
+    }
+    const { ranking, circuit } = (await fetch(
+      `${apiBasePath}/recalculate`
+    ).then(getJson)) as RecalculateRaw
     return {
-      ranking: result[0],
-      circuit: result[1]
+      ranking,
+      circuit
     }
   }
 }
