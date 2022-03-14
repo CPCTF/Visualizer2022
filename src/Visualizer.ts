@@ -4,7 +4,7 @@ import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import { Time } from './system/Time'
 import { VisualizerGroup } from './templates/VisualizerGroup'
 import { VisualizerObject } from './templates/VisualizerObject'
-import { WebSocketInstance } from './system/WebSocketReceiver'
+import { EventManagerInstance } from './system/EventManager'
 import { Effects } from './scene/Effects'
 import { UserDisplayGroup } from './scene/UserDisplayGroup'
 import { MainCircuit } from './scene/MainCircuit'
@@ -67,17 +67,17 @@ export class Visualizer extends EventTarget {
     // console.log('loaded')
 
     // server connection
-    WebSocketInstance.addEventListener('start', () => {
+    EventManagerInstance.addEventListener('start', () => {
       console.log('start ctf')
     })
-    WebSocketInstance.addEventListener('end', () => {
+    EventManagerInstance.addEventListener('end', () => {
       console.log('end ctf')
     })
-    WebSocketInstance.addEventListener('recalculate', async () => {
+    EventManagerInstance.addEventListener('recalculate', async () => {
       console.log('recalculate')
       // const { ranking, circuit } = await ServerRequest.recalculate()
     })
-    WebSocketInstance.addEventListener('submit', () => {
+    EventManagerInstance.addEventListener('submit', () => {
       console.log('submit')
     })
 

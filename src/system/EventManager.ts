@@ -1,6 +1,9 @@
 // import type { QuestionGenre } from './ResponseType'
 
 import { websocketBasePath } from '#/globals/serverInfos'
+import { globalSettings } from './GlobalSettings'
+import { ServerRequest } from './ServerRequest'
+import { UserManager } from './UserManager'
 
 // TODO: tekito type
 type WebSocketMessage =
@@ -23,7 +26,7 @@ type WebSocketMessage =
       type: 'recalculate'
     }
 
-class WebSocketReceiver extends EventTarget {
+class EventManager extends EventTarget {
   private websocket: WebSocket
   constructor() {
     super()
@@ -49,19 +52,36 @@ class WebSocketReceiver extends EventTarget {
         break
       }
       case 'start': {
+        globalSettings.startTime = new Date()
         this.dispatchEvent(new CustomEvent('start'))
         break
       }
       case 'end': {
+        globalSettings.endTime = new Date()
         this.dispatchEvent(new CustomEvent('end'))
         break
       }
       case 'recalculate': {
-        this.dispatchEvent(new CustomEvent('recalculate'))
+        const delay = async () => {
+          this.dispatchEvent(new CustomEvent('recalculatestart'))
+          await this.setRecalculateData()
+          this.dispatchEvent(new CustomEvent('recalculateend'))
+        }
+        delay()
         break
       }
     }
   }
+
+  private async setRecalculateData() {
+    const { ranking, circuit } = await ServerRequest.recalculate()
+
+    ranking.forEach(user => {
+      UserManager.updateUser(user)
+    })
+
+    // TODO: set circuit structure
+  }
 }
 
-export const WebSocketInstance = new WebSocketReceiver()
+export const EventManagerInstance = new EventManager()
