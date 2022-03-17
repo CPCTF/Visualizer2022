@@ -59,19 +59,26 @@ export class Basis {
         wirePoints.forEach((v, i) => {
             let nx = x
             let ny = y
+            const [dir, _] = this.IndexConvertToAroundIndex(v)
             while (true) {
-                let [dir, wireInd] = this.IndexConvertToAroundIndex(v)
-                nx += Basis.dx[dir]
-                ny += Basis.dy[dir]
+                let [ndir, wireInd] = this.IndexConvertToAroundIndex(v)
+                nx += Basis.dx[ndir]
+                ny += Basis.dy[ndir]
                 const nCell = this.GetCell(nx, ny)
                 if (nCell == undefined)
                     break
 
+                v = nCell.SetWire(wireInd, dir)
+                if (v == -1)
+                    break
             }
         })
     }
 
     //ここから補助的
+    private CreatePrioroty(dir: number, ndir: number): [number, number, number] {
+
+    }
 
     //座標にパーツがおけるかを確認する
     private CanPutParts(x: number, y: number, parts: CircuitParts): boolean {
@@ -116,6 +123,7 @@ export class Basis {
     }
 
     //つかってない
+    /*
     private CheckCellAround(x: number, y: number, cell: Cell): boolean {
         for (let i = 0; i < 4; i++) {
             const nx = x + Basis.dx[i]
@@ -130,6 +138,6 @@ export class Basis {
             }
         }
         return true
-    }
+    }*/
 
 }

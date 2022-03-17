@@ -6,6 +6,10 @@ export class Cell {
     private parts: CircuitParts | undefined
     private wires: Wire[] = new Array(4 * 8)
     private wirePoints: boolean[] = new Array(4 * 8)
+    //基本的なワイヤの向き
+    //private wireDir: number = -1
+    //ワイヤがwireDirに従うかどうかの確率
+    //private readonly wireFollowDirPer = 0.1
 
     constructor(x: number, y: number) {
         this.x = x
@@ -40,12 +44,34 @@ export class Cell {
         return inds
     }
 
-    //TODO:Wireを設置する
-    SetWire(wireInd: number) {
+    //Wireを設置し、toを返す
+    SetWire(wireInd: number, dir: number, curvePriority: [number, number, number]): number {
+        const wire = this.GetWire(wireInd)
+        const to = wire.SetTo(dir, curvePriority)
+        this.UpdateWires()
+        this.UpdateWirePoints()
+        return to
+    }
+
+    //ここから補助的
+
+    //wireを得る
+    private GetWire(ind: number): Wire {
+        return this.wires[ind]
+    }
+
+    //wiresの更新
+    private UpdateWires(): void {
+
+    }
+
+    //wirePointsの更新
+    private UpdateWirePoints(): void {
 
     }
 
     //配線点を設定 つかってない
+    /*
     SetWirePoints(wirePoints: number[] | boolean[], ind?: number | undefined): void {
         if (ind !== undefined) {
             for (let i = 8 * ind + 0; i < 8 * ind + 8; i++) {
@@ -64,8 +90,9 @@ export class Cell {
                 }
             })
         }
-    }
+    }*/
 
+    /*
     GetWirePoints(ind?: number | undefined): boolean[] {
         if (ind !== undefined) {
             const res = new Array<boolean>(0)
@@ -76,9 +103,10 @@ export class Cell {
         } else {
             return this.wirePoints
         }
-    }
+    }*/
 
-    GetWires(ind?: number | undefined): Wire[] {
+    /*
+    GetWire(ind?: number | undefined): Wire[] {
         if (ind !== undefined) {
             const res = new Array<Wire>(0)
             for (let i = 8 * ind + 0; i < 8 * ind + 8; i++) {
@@ -88,9 +116,9 @@ export class Cell {
         } else {
             return this.wires
         }
-    }
+    }*/
 
-
+    /*
     CompareWirePoints(acell: Cell, ind: number): boolean {
         const mywp = this.GetWirePoints(ind)
         const awp = acell.GetWirePoints((ind + 2) % 4)
@@ -98,7 +126,7 @@ export class Cell {
             if (mywp[i] !== awp[7 - i]) return false
         }
         return true
-    }
+    }*/
 
     /*
     CheckWireCanTo(acell: Cell, ind: number): boolean {
@@ -114,32 +142,54 @@ export class Cell {
 
 export class Wire {
     public from: number
-    public to: number | undefined
+    public to: number
     public canTo: number[] = new Array(0)
     constructor(from: number) {
         this.from = from
+        this.to = -1
         const mod = from % 8
         const shift = (from - mod) / 8
         this.canTo.push(31 - mod, 23 - mod, 15 - mod)
         this.Shift(shift)
     }
-    SetTo(to: number) {
-        this.to = to
-        this.canTo = new Array(0)
-    }
+
     IsCanTo(): boolean { return this.canTo.length != 0 }
+    CantTo(): void { this.canTo = new Array(0) }
+
+    SetTo(dir: number, curvePriority: [number, number, number]): number {
+        let res = -1
+        //どこへもいけない
+        if (!this.IsCanTo())
+            return -1
+        for (let i = 0; i < 3; i++) {
+            const ind = curvePriority[i]
+            if (this.canTo[ind] != -1 && ind != dir) {
+                res = this.canTo[ind]
+                break
+            }
+        }
+        this.CantTo()
+        return res
+    }
+
     UpdateCanTo(newWire: Wire): void {
-        if (this.to != undefined)
+        //伸ばす場所がない
+        if (this.IsCanTo())
             return
-        if (newWire.to == undefined)
+        //新たなワイヤのfromとtoを消しておく
+        this.canTo = this.canTo.filter(v => !(v == newWire.from || v == newWire.to))
+
+        //新たなワイヤが伸びていない
+        if (newWire.to == -1)
+            return
+
+        if (this.canTo.length == 0)
             return
         if (this.from == newWire.from || this.from == newWire.to)
             return
-        this.canTo = this.canTo.filter(v => !(v == newWire.from || v == newWire.to))
-        if (this.canTo.length == 0)
-            return
 
-        const uCanTo = new Array<number>(this.canTo.length)
+
+        const uCanTo = new Array<number>(3)
         let uFrom = 0
         let setId = 0
         for (let i = newWire.from; i != (newWire.from - 1 + 32) % 32; i = (i + 1) % 32) {
@@ -151,13 +201,18 @@ export class Wire {
             if (fInd != -1)
                 uCanTo[fInd] = setId
         }
-        const nCanTo = new Array<number>(0)
+        const nCanTo = new Array<number>(3)
         this.canTo.forEach((v, i) => {
-            if (uFrom == uCanTo[i])
-                nCanTo.push(v)
+            if (uFrom == uCanTo[i]) {
+                nCanTo[i] = v
+            } else {
+                nCanTo[i] = -1
+            }
         })
         this.canTo = nCanTo
     }
+
+    //cantoが全部正になるので注意
     Shift(shift: number): void {
         this.canTo.forEach((v, i) => {
             this.canTo[i] = ((v + 8 * shift) % 32 + 32) % 32
