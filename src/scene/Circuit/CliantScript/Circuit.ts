@@ -30,9 +30,12 @@ export class Circuit extends VisualizerGroup {
             if (v.isBig) {
                 objpath += "Big"
             }
+            //工事中
+            /*
             const obj = ThreeResourceLoader.get(objpath) as Object3D
             obj.position.set(v.x, 0, v.z)
             this.add(obj)
+            */
         })
         circuitWiresInfos.forEach(v => {
             const wire = new CircuitWireObject(v.wires)

@@ -65,7 +65,7 @@ export class Cell {
 
     //wiresの更新
     private UpdateWires(newWire: Wire): void {
-        this.wires.forEach(v => v.UpdateCanTo(newWire))
+        this.wires.forEach(v => { v.UpdateCanTo(newWire) })
     }
 
     //wirePointsの更新
@@ -144,7 +144,7 @@ export class WireExtendInfo {
     }
 
     private Rand(percent: number): boolean {
-        return Math.random() <= percent
+        return (Math.random() <= percent)
     }
 }
 
@@ -231,7 +231,7 @@ export class Wire {
         this.EraseCanTo(newWire.to)
 
         //領域で塗分けて、fromと違う領域は到達できないので行先から消す
-        const uCanTo = new Array<number>(3)
+        const uCanTo = new Array<number>(3).fill(-1)
         let uFrom = 0
         let setId = 0
         for (let i = newWire.from; i != (newWire.from - 1 + 32) % 32; i = (i + 1) % 32) {
@@ -244,10 +244,12 @@ export class Wire {
                 continue
             }
             const fInd = this.canTo.findIndex(v => v == i)
-            if (fInd != -1)
+            if (fInd != -1) {
                 uCanTo[fInd] = setId
+            }
         }
-        const nCanTo = new Array<number>(3)
+
+        const nCanTo = new Array<number>(3).fill(-1)
         this.canTo.forEach((v, i) => {
             //fromと同じ領域
             if (uFrom == uCanTo[i]) {
