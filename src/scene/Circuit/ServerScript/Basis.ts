@@ -60,6 +60,7 @@ export class Basis {
         const x = cell.x
         const y = cell.y
         const wirePoints = cell.GetActiveWirePointsIndex()
+
         //wire毎に処理
         wirePoints.forEach((v) => {
             let nx = x
@@ -122,7 +123,7 @@ export class Basis {
                     return false;
                 } else {
                     //パーツの一部
-                    if (!cell.IsParts())
+                    if (cell.IsParts())
                         return false;
                 }
             }
@@ -146,7 +147,7 @@ export class Basis {
         const mod = ind % 8
         const dir = (ind - mod) / 8
         const adir = (dir + 2) % 4
-        const aind = (adir + 1) * 8 - ind - 1
+        const aind = (adir + 1) * 8 - mod - 1
         return [dir, aind]
     }
 }

@@ -10,6 +10,8 @@ export class Circuit extends VisualizerGroup {
     constructor() {
         super()
         const [partsInfos, wiresInfos] = this.TestData()
+        console.log(partsInfos);
+        console.log(wiresInfos);
         this.ImportCircuitInfo(partsInfos, wiresInfos)
     }
 
@@ -42,6 +44,7 @@ export class Circuit extends VisualizerGroup {
     TestData(): [CircuitPartsInfo[], CircuitWiresInfo[]] {
         const serverTester = new ServerTester()
         const json = serverTester.GetJson()
+        console.log(json);
         return CircuitInfoUtils.JsonToInfo(json)
     }
 }
