@@ -7,9 +7,9 @@ import { VisualizerObject } from './templates/VisualizerObject'
 import { WebSocketInstance } from './system/WebSocketReceiver'
 import { Effects } from './scene/Effects'
 import { UserMonolithGroup } from './scene/UserMonolihGroup'
-import { MainCircuit } from './scene/MainCircuit'
 import { VisualizerCamera } from './camera/VisualizerCamera'
 import { Recalculate } from './scene/Recalculates'
+import { Circuit } from './scene/Circuit/CliantScript/Circuit'
 
 export const RunVisualizer = (canvas: HTMLCanvasElement) => {
   // setup variables
@@ -33,8 +33,8 @@ export const RunVisualizer = (canvas: HTMLCanvasElement) => {
   scene.add(
     new Effects(),
     new UserMonolithGroup(),
-    new MainCircuit(),
-    new Recalculate()
+    new Recalculate(),
+    new Circuit()
   )
 
   // load resources
