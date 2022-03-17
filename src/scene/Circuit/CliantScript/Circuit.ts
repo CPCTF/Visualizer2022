@@ -2,8 +2,9 @@ import { ThreeResourceLoader } from "#/system/Loader";
 import { VisualizerGroup } from "#/templates/VisualizerGroup";
 import type { Object3D } from "three/src/core/Object3D";
 import { ProblemCategory } from "../ServerScript/CircuitParts";
-import { CircuitPartsInfo, CircuitWiresInfo } from "./CircuitInfo";
+import { CircuitInfoUtils, CircuitPartsInfo, CircuitWiresInfo } from "../BothScript/CircuitInfo";
 import { CircuitWireObject } from "./CircuitObject";
+import { ServerTester } from "../ServerScript/ServerTester";
 
 export class Circuit extends VisualizerGroup {
     constructor() {
@@ -39,10 +40,8 @@ export class Circuit extends VisualizerGroup {
     }
 
     TestData(): [CircuitPartsInfo[], CircuitWiresInfo[]] {
-        const partsInfos: CircuitPartsInfo[] = new Array(0)
-        const wiresInfos: CircuitWiresInfo[] = new Array(0)
-        //追加
-        wiresInfos.push(new CircuitWiresInfo(0, 0, [[0, 23], [1, 22]]))
-        return [partsInfos, wiresInfos]
+        const serverTester = new ServerTester()
+        const json = serverTester.GetJson()
+        return CircuitInfoUtils.JsonToInfo(json)
     }
 }

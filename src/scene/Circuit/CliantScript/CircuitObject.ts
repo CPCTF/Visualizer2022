@@ -25,6 +25,10 @@ export class CircuitWireObject extends VisualizerGroup {
     CreateWireGeometry(fromto: [number, number]): BufferGeometry {
         const wireGeometry = new BufferGeometry()
         const [from, to] = fromto
+        if (to == -1) {
+            //TODO:holeを作る
+            return wireGeometry
+        }
         const [flpos, frpos] = this.WireIndexToPosition(from)
         const [tlpos, trpos] = this.WireIndexToPosition(to)
         const vertices = new Float32Array([

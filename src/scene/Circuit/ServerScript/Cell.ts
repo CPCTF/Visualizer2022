@@ -6,10 +6,6 @@ export class Cell {
     private parts: CircuitParts | undefined
     private wires: Wire[] = new Array(4 * 8)
     private wirePoints: boolean[] = new Array(4 * 8)
-    //基本的なワイヤの向き
-    //private wireDir: number = -1
-    //ワイヤがwireDirに従うかどうかの確率
-    //private readonly wireFollowDirPer = 0.1
 
     constructor(x: number, y: number) {
         this.x = x
@@ -33,6 +29,8 @@ export class Cell {
         this.wirePoints.forEach((_, i) => {
             this.wirePoints[i] = (wirePointsInt[i] == 1)
         })
+        //どこにも引けないように(holeにはなる可能性あり)
+        this.wires.forEach(v => v.CantTo())
     }
 
     //活性のある接続点の添え字を全て返す
@@ -46,11 +44,19 @@ export class Cell {
 
     //Wireを設置し、toを返す
     SetWire(info: WireExtendInfo): number {
+        if (this.IsParts()) {
+            //パーツなのでwire設置できない
+            return -1
+        }
         const wire = this.wires[info.wireInd]
         const to = wire.SetTo(info.notdir, info.priority, info.end)
         this.UpdateWires(wire)
         this.UpdateWirePoints(wire)
         return to
+    }
+
+    GetAllWires(): Wire[] {
+        return this.wires
     }
 
     //ここから補助的
@@ -158,20 +164,27 @@ export class Wire {
     IsCanTo(): boolean { return this.canTo.length != 0 }
     CantTo(): void { this.canTo = new Array(0) }
     EraseCanTo(to: number): void { this.canTo.forEach((v, i) => { if (v == to) { this.canTo[i] = -1 } }) }
+    IsFull(): boolean { return this.from == this.ind && this.to != -1 }
     IsHole(): boolean { return this.from == -1 }
+    IsEmpty(): boolean { return this.from == this.ind && this.to == -1 }
 
     SetTo(notdir: number, curvePriority: [number, number, number], end: boolean): number {
         let res = -1
 
-        //穴
+        //どこへもいけない
+        if (!this.IsCanTo()) {
+            if (this.IsHole() || this.IsFull()) {
+                return -1
+            } else if (this.IsEmpty()) {
+                this.from = -1
+                return -1
+            }
+        }
+
+        //穴にする
         if (end) {
             this.from = -1
             this.CantTo()
-            return -1
-        }
-        //どこへもいけない
-        if (!this.IsCanTo()) {
-            this.from = -1
             return -1
         }
 
@@ -185,7 +198,7 @@ export class Wire {
         }
 
         //穴
-        if (end) {
+        if (res == -1) {
             this.from = -1
             this.CantTo()
             return -1
@@ -194,9 +207,8 @@ export class Wire {
         return res
     }
 
-    //入れられてくるwireは伸びてる(to,fromあり)か、穴(to=from=-1)
+    //入れられてくるwireはFullか、Hole
     UpdateCanTo(newWire: Wire): void {
-        //伸びきっている
         if (this.IsCanTo())
             return
         //新たなワイヤが穴である

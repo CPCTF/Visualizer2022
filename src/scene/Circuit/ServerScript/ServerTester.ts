@@ -1,8 +1,9 @@
+import { CircuitInfoUtils } from '../BothScript/CircuitInfo'
 import { Basis } from './Basis'
-import { Capacitor } from './Capacitor'
+import { Capacitor } from './CircuitParts/Capacitor'
 
 
-export class index {
+export class ServerTester {
     private sizeX = 50
     private sizeY = 50
     private basis: Basis
@@ -11,11 +12,13 @@ export class index {
     }
 
     //基盤部品の配置
-    PutCircuitParts() {
-        const capacitor = new Capacitor()
+    GetJson(): string {
+        const capacitor = new Capacitor(false)
         //trueが帰らないとおかしい
         this.basis.PutParts(0, 0, capacitor)
         const partsCells = this.basis.GetPartsCells(capacitor)
         partsCells.forEach(v => this.basis.ExtendWires(v))
+        const [partsInfos, wiresInfos] = this.basis.ConvertToCircuitInfos()
+        return CircuitInfoUtils.InfoToJson(partsInfos, wiresInfos)
     }
 }

@@ -1,3 +1,4 @@
+import { CircuitPartsInfo, CircuitWiresInfo } from "../BothScript/CircuitInfo"
 import { Cell, WireExtendInfo } from "./Cell"
 import type { CircuitParts } from "./CircuitParts"
 
@@ -10,6 +11,7 @@ export class Basis {
     private cells: Cell[]
     //partsのid->cell[]の辞書
     private partsCellDict: { [id: number]: Cell[] } = {};
+    private parts: CircuitParts[] = new Array(0)
 
     constructor(sizeX: number, sizeY: number) {
         this.sizeX = sizeX
@@ -38,7 +40,9 @@ export class Basis {
                 allCells.push(cell)
             }
         }
+        parts.SetPosition(x, y)
         this.partsCellDict[parts.id] = allCells
+        this.parts.push(parts)
         return true
     }
 
@@ -77,6 +81,29 @@ export class Basis {
                 }
             }
         })
+    }
+
+    ConvertToCircuitInfos(): [CircuitPartsInfo[], CircuitWiresInfo[]] {
+        const partsInfos: CircuitPartsInfo[] = new Array(0)
+        const wiresInfos: CircuitWiresInfo[] = new Array(0)
+        //wire追加
+        this.cells.forEach(v => {
+            const wires = new Array<[number, number]>(0)
+            v.GetAllWires().forEach(w => {
+                if (!w.IsEmpty()) {
+                    wires.push([w.from, w.to])
+                }
+            })
+            if (wires.length != 0) {
+                wiresInfos.push(new CircuitWiresInfo(v.x, v.y, wires))
+            }
+        })
+        //parts追加
+        this.parts.forEach(v => {
+            const [x, y] = v.GetPosition()
+            partsInfos.push(new CircuitPartsInfo(x, y, v.isBig, v.problemCategory))
+        })
+        return [partsInfos, wiresInfos]
     }
 
     //ここから補助的
