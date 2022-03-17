@@ -15,10 +15,12 @@ export class ServerTester {
     GetJson(): string {
         const capacitor = new Capacitor(false)
         //trueが帰らないとおかしい
-        this.basis.PutParts(0, 0, capacitor)
+        this.basis.PutParts(1, 1, capacitor)
         const partsCells = this.basis.GetPartsCells(capacitor)
         partsCells.forEach(v => this.basis.ExtendWires(v))
         const [partsInfos, wiresInfos] = this.basis.ConvertToCircuitInfos()
+        console.log(partsInfos)
+        console.log(wiresInfos)//considered Array(0以上)
         return CircuitInfoUtils.InfoToJson(partsInfos, wiresInfos)
     }
 }

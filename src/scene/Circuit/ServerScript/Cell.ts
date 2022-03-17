@@ -4,17 +4,17 @@ export class Cell {
     public x: number
     public y: number
     private parts: CircuitParts | undefined
-    private wires: Wire[] = new Array(4 * 8)
-    private wirePoints: boolean[] = new Array(4 * 8)
+    private wires: Wire[]
+    private wirePoints: boolean[]
 
     constructor(x: number, y: number) {
         this.x = x
         this.y = y
         //4辺x8点の配線点を初期化
-        this.wirePoints.forEach((_, i) => {
-            this.wirePoints[i] = true
-        })
-        this.wires.forEach((_, i) => {
+        this.wirePoints = new Array<boolean>(4 * 8).fill(false)
+
+        this.wires = new Array<Wire>(4 * 8)
+        new Array(4 * 8).fill(null).forEach((_, i) => {
             this.wires[i] = new Wire(i)
         })
     }
@@ -26,11 +26,13 @@ export class Cell {
     SetParts(x: number, y: number, parts: CircuitParts): void {
         this.parts = parts
         const wirePointsInt = parts.GetWirePointsInt(x, y) as number[];
+
         this.wirePoints.forEach((_, i) => {
             this.wirePoints[i] = (wirePointsInt[i] == 1)
         })
+
         //どこにも引けないように(holeにはなる可能性あり)
-        this.wires.forEach(v => v.CantTo())
+        this.wires.forEach(v => { v.CantTo() })
     }
 
     //活性のある接続点の添え字を全て返す
@@ -49,10 +51,10 @@ export class Cell {
             return -1
         }
         const wire = this.wires[info.wireInd]
-        const to = wire.SetTo(info.notdir, info.priority, info.end)
+        const nto = wire.SetTo(info.notdir, info.priority, info.end)
         this.UpdateWires(wire)
         this.UpdateWirePoints(wire)
-        return to
+        return nto
     }
 
     GetAllWires(): Wire[] {
@@ -150,23 +152,23 @@ export class Wire {
     public ind: number
     public from: number
     public to: number
-    public canTo: number[] = new Array(0)
+    public canTo: number[]
     constructor(from: number) {
         this.ind = from
         this.from = from
         this.to = -1
         const mod = from % 8
         const shift = (from - mod) / 8
-        this.canTo.push(15 - mod, 23 - mod, 31 - mod)
+        this.canTo = [15 - mod, 23 - mod, 31 - mod]
         this.Shift(shift)
     }
 
     IsCanTo(): boolean { return this.canTo.length != 0 }
     CantTo(): void { this.canTo = new Array(0) }
     EraseCanTo(to: number): void { this.canTo.forEach((v, i) => { if (v == to) { this.canTo[i] = -1 } }) }
-    IsFull(): boolean { return this.from == this.ind && this.to != -1 }
+    IsFull(): boolean { return (this.from == this.ind && this.to != -1) }
     IsHole(): boolean { return this.from == -1 }
-    IsEmpty(): boolean { return this.from == this.ind && this.to == -1 }
+    IsEmpty(): boolean { return (this.from == this.ind && this.to == -1) }
 
     SetTo(notdir: number, curvePriority: [number, number, number], end: boolean): number {
         let res = -1
@@ -183,8 +185,8 @@ export class Wire {
 
         //穴にする
         if (end) {
-            this.from = -1
             this.CantTo()
+            this.from = -1
             return -1
         }
 
@@ -197,13 +199,15 @@ export class Wire {
             }
         }
 
-        //穴
+        this.CantTo()
+
+        //穴にする
         if (res == -1) {
             this.from = -1
-            this.CantTo()
             return -1
         }
 
+        this.to = res
         return res
     }
 
