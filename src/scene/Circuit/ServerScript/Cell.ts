@@ -45,164 +45,195 @@ export class Cell {
     }
 
     //Wireを設置し、toを返す
-    SetWire(wireInd: number, dir: number, curvePriority: [number, number, number]): number {
-        const wire = this.GetWire(wireInd)
-        const to = wire.SetTo(dir, curvePriority)
-        this.UpdateWires()
-        this.UpdateWirePoints()
+    SetWire(info: WireExtendInfo): number {
+        const wire = this.wires[info.wireInd]
+        const to = wire.SetTo(info.notdir, info.priority, info.end)
+        this.UpdateWires(wire)
+        this.UpdateWirePoints(wire)
         return to
     }
 
     //ここから補助的
 
-    //wireを得る
-    private GetWire(ind: number): Wire {
-        return this.wires[ind]
-    }
-
     //wiresの更新
-    private UpdateWires(): void {
-
+    private UpdateWires(newWire: Wire): void {
+        this.wires.forEach(v => v.UpdateCanTo(newWire))
     }
 
     //wirePointsの更新
-    private UpdateWirePoints(): void {
+    private UpdateWirePoints(newWire: Wire): void {
+        if (newWire.IsHole()) {
+            //穴である場合
+            this.wirePoints[newWire.ind] = true
+        } else {
+            this.wirePoints[newWire.from] = true
+            this.wirePoints[newWire.to] = true
+        }
+    }
+}
 
+export class WireExtendInfo {
+    constructor(dir: number) {
+        this.dir = dir
+        this.beforeDir = dir
+        this.notdir = (dir + 2) % 4
+    }
+    public notdir: number
+    public wireInd: number = 0
+    //left=0,straight=1,right=2
+    public priority: [number, number, number] = [0, 1, 2]
+    public end: boolean = false
+    private dir: number
+    private beforeDir: number
+    private counter: number = 0
+    private straightCounter: number = 0
+    private readonly straightMax = 4
+    private readonly counterMax = 10
+
+    Update(wireInd: number, ndir: number): void {
+        this.counter++
+        this.wireInd = wireInd
+        if (this.beforeDir == ndir) {
+            this.straightCounter++
+        } else {
+            //曲がった
+            this.straightCounter = 0
+        }
+
+        //伸びる限界
+        if (this.counter > this.counterMax) {
+            this.end = true
+            return
+        }
+
+        //真っすぐの限界
+        if (this.Rand(this.straightCounter / this.straightMax)) {
+            //曲げる
+            if (ndir == this.dir) {
+                //straight
+                if (this.Rand(0.5)) {
+                    this.priority = [0, 2, 1]
+                } else {
+                    this.priority = [2, 0, 1]
+                }
+            } else if (ndir == (this.dir + 1) % 4) {
+                //right
+                this.priority = [0, 1, 2]
+            } else {
+                //left
+                this.priority = [2, 1, 0]
+            }
+        } else {
+            //曲げない
+            if (this.Rand(0.5)) {
+                this.priority = [1, 0, 2]
+            } else {
+                this.priority = [1, 2, 0]
+            }
+        }
+
+        this.beforeDir = ndir
     }
 
-    //配線点を設定 つかってない
-    /*
-    SetWirePoints(wirePoints: number[] | boolean[], ind?: number | undefined): void {
-        if (ind !== undefined) {
-            for (let i = 8 * ind + 0; i < 8 * ind + 8; i++) {
-                if (typeof wirePoints[i] == "boolean") {
-                    this.wirePoints[i] = wirePoints[i] as boolean
-                } else {
-                    this.wirePoints[i] = (wirePoints[i] == 1)
-                }
-            }
-        } else {
-            this.wirePoints.forEach((_, i) => {
-                if (typeof wirePoints[i] == "boolean") {
-                    this.wirePoints[i] = wirePoints[i] as boolean
-                } else {
-                    this.wirePoints[i] = (wirePoints[i] == 1)
-                }
-            })
-        }
-    }*/
-
-    /*
-    GetWirePoints(ind?: number | undefined): boolean[] {
-        if (ind !== undefined) {
-            const res = new Array<boolean>(0)
-            for (let i = 8 * ind + 0; i < 8 * ind + 8; i++) {
-                res.push(this.wirePoints[i] as boolean)
-            }
-            return res
-        } else {
-            return this.wirePoints
-        }
-    }*/
-
-    /*
-    GetWire(ind?: number | undefined): Wire[] {
-        if (ind !== undefined) {
-            const res = new Array<Wire>(0)
-            for (let i = 8 * ind + 0; i < 8 * ind + 8; i++) {
-                res.push(this.wires[i] as Wire)
-            }
-            return res
-        } else {
-            return this.wires
-        }
-    }*/
-
-    /*
-    CompareWirePoints(acell: Cell, ind: number): boolean {
-        const mywp = this.GetWirePoints(ind)
-        const awp = acell.GetWirePoints((ind + 2) % 4)
-        for (let i = 0; i < 8; i++) {
-            if (mywp[i] !== awp[7 - i]) return false
-        }
-        return true
-    }*/
-
-    /*
-    CheckWireCanTo(acell: Cell, ind: number): boolean {
-        const myw = this.GetWires(ind)
-        const awp = acell.GetWirePoints((ind + 2) % 4)
-        awp.forEach((v, i) => {
-            if (v)
-        })
+    private Rand(percent: number): boolean {
+        return Math.random() <= percent
     }
-    */
-
 }
 
 export class Wire {
+    public ind: number
     public from: number
     public to: number
     public canTo: number[] = new Array(0)
     constructor(from: number) {
+        this.ind = from
         this.from = from
         this.to = -1
         const mod = from % 8
         const shift = (from - mod) / 8
-        this.canTo.push(31 - mod, 23 - mod, 15 - mod)
+        this.canTo.push(15 - mod, 23 - mod, 31 - mod)
         this.Shift(shift)
     }
 
     IsCanTo(): boolean { return this.canTo.length != 0 }
     CantTo(): void { this.canTo = new Array(0) }
+    EraseCanTo(to: number): void { this.canTo.forEach((v, i) => { if (v == to) { this.canTo[i] = -1 } }) }
+    IsHole(): boolean { return this.from == -1 }
 
-    SetTo(dir: number, curvePriority: [number, number, number]): number {
+    SetTo(notdir: number, curvePriority: [number, number, number], end: boolean): number {
         let res = -1
-        //どこへもいけない
-        if (!this.IsCanTo())
+
+        //穴
+        if (end) {
+            this.from = -1
+            this.CantTo()
             return -1
+        }
+        //どこへもいけない
+        if (!this.IsCanTo()) {
+            this.from = -1
+            return -1
+        }
+
+        //優先度に従ってその方向に伸ばせるか決定
         for (let i = 0; i < 3; i++) {
             const ind = curvePriority[i]
-            if (this.canTo[ind] != -1 && ind != dir) {
+            if (this.canTo[ind] != -1 && ind != notdir) {
                 res = this.canTo[ind]
                 break
             }
         }
-        this.CantTo()
+
+        //穴
+        if (end) {
+            this.from = -1
+            this.CantTo()
+            return -1
+        }
+
         return res
     }
 
+    //入れられてくるwireは伸びてる(to,fromあり)か、穴(to=from=-1)
     UpdateCanTo(newWire: Wire): void {
-        //伸ばす場所がない
+        //伸びきっている
         if (this.IsCanTo())
             return
-        //新たなワイヤのfromとtoを消しておく
-        this.canTo = this.canTo.filter(v => !(v == newWire.from || v == newWire.to))
-
-        //新たなワイヤが伸びていない
-        if (newWire.to == -1)
+        //新たなワイヤが穴である
+        if (newWire.IsHole()) {
+            //穴の位置を行き先から消しておく
+            this.EraseCanTo(newWire.ind)
             return
-
-        if (this.canTo.length == 0)
+        }
+        //自身の位置に伸びてきた場合or自身である場合
+        if (this.ind == newWire.ind || this.ind == newWire.to) {
+            this.CantTo()
             return
-        if (this.from == newWire.from || this.from == newWire.to)
-            return
+        }
+        //新たなワイヤのfromとtoを行き先から消しておく
+        this.EraseCanTo(newWire.from)
+        this.EraseCanTo(newWire.to)
 
-
+        //領域で塗分けて、fromと違う領域は到達できないので行先から消す
         const uCanTo = new Array<number>(3)
         let uFrom = 0
         let setId = 0
         for (let i = newWire.from; i != (newWire.from - 1 + 32) % 32; i = (i + 1) % 32) {
-            if (i == newWire.to)
+            if (i == newWire.to) {
                 setId++
-            if (i == this.from)
+                continue
+            }
+            if (i == this.from) {
                 uFrom = setId
+                continue
+            }
             const fInd = this.canTo.findIndex(v => v == i)
             if (fInd != -1)
                 uCanTo[fInd] = setId
         }
         const nCanTo = new Array<number>(3)
         this.canTo.forEach((v, i) => {
+            //fromと同じ領域
             if (uFrom == uCanTo[i]) {
                 nCanTo[i] = v
             } else {
