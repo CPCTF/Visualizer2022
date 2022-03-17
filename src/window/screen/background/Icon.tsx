@@ -6,7 +6,7 @@ import { TextStyle } from 'pixi.js'
 import { useContext, VFC } from 'react'
 import { frames } from '../frames'
 
-const fontSize = 12 as const
+const fontSize = iconSize / 4
 
 export const Icon: VFC<{ iconInfo: IconInfo; position: [number, number] }> = ({
   iconInfo,

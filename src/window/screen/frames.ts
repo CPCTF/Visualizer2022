@@ -26,7 +26,7 @@ export const frames: Record<string, WindowInfo> = {
       height: 500
     },
     visible: true,
-    fullscreen: false
+    fullscreen: true
   },
   clock: {
     Component: ClockFrame,

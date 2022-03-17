@@ -36,8 +36,8 @@ export interface WindowSettingProps {
 
 export const WindowSystemHooks = (): [WindowSettingProps, () => void] => {
   const [settings, setSettings] = useState<WindowSettingProps>({
-    width: window.innerWidth,
-    height: window.innerHeight,
+    width: Math.min(window.innerWidth, (window.innerHeight * 4) / 3),
+    height: Math.min(window.innerHeight, (window.innerWidth * 3) / 4),
     windowSettings: {
       windows: {},
       windowIndices: [],
@@ -143,8 +143,8 @@ export const WindowSystemHooks = (): [WindowSettingProps, () => void] => {
   const resizeHandler = () => {
     setSettings(nowSettings => ({
       ...nowSettings,
-      width: window.innerWidth,
-      height: window.innerHeight
+      width: Math.min(window.innerWidth, (window.innerHeight * 4) / 3),
+      height: Math.min(window.innerHeight, (window.innerWidth * 3) / 4)
     }))
   }
 
