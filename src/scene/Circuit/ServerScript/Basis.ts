@@ -1,4 +1,4 @@
-import { Cell, Wire } from "./Cell"
+import { Cell, WireExtendInfo } from "./Cell"
 import type { CircuitParts } from "./CircuitParts"
 
 export class Basis {
@@ -56,29 +56,30 @@ export class Basis {
         const x = cell.x
         const y = cell.y
         const wirePoints = cell.GetActiveWirePointsIndex()
-        wirePoints.forEach((v, i) => {
+        //wire毎に処理
+        wirePoints.forEach((v) => {
             let nx = x
             let ny = y
             const [dir, _] = this.IndexConvertToAroundIndex(v)
+            const wireExtendInfo = new WireExtendInfo(dir)
             while (true) {
                 let [ndir, wireInd] = this.IndexConvertToAroundIndex(v)
                 nx += Basis.dx[ndir]
                 ny += Basis.dy[ndir]
                 const nCell = this.GetCell(nx, ny)
-                if (nCell == undefined)
+                if (nCell == undefined) {
                     break
-
-                v = nCell.SetWire(wireInd, dir)
-                if (v == -1)
+                }
+                wireExtendInfo.Update(wireInd, ndir)
+                v = nCell.SetWire(wireExtendInfo)
+                if (v == -1) {
                     break
+                }
             }
         })
     }
 
     //ここから補助的
-    private CreatePrioroty(dir: number, ndir: number): [number, number, number] {
-
-    }
 
     //座標にパーツがおけるかを確認する
     private CanPutParts(x: number, y: number, parts: CircuitParts): boolean {
@@ -121,23 +122,4 @@ export class Basis {
         const aind = (adir + 1) * 8 - ind - 1
         return [dir, aind]
     }
-
-    //つかってない
-    /*
-    private CheckCellAround(x: number, y: number, cell: Cell): boolean {
-        for (let i = 0; i < 4; i++) {
-            const nx = x + Basis.dx[i]
-            const ny = y + Basis.dy[i]
-            const acell = this.GetCell(nx, ny)
-            if (acell?.IsParts()) {
-                if (!cell.CompareWirePoints(acell as Cell, i)) {
-                    return false
-                }
-            } else {
-
-            }
-        }
-        return true
-    }*/
-
 }

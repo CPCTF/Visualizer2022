@@ -10,7 +10,6 @@ export class index {
         this.basis = new Basis(this.sizeX, this.sizeY)
     }
 
-    //クライアントとサーバー側を分離
     //基盤部品の配置
     PutCircuitParts() {
         const capacitor = new Capacitor()
