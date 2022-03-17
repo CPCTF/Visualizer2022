@@ -68,7 +68,7 @@ export class Basis {
             const [dir, _] = this.IndexConvertToAroundIndex(v)
             const wireExtendInfo = new WireExtendInfo(dir)
             while (true) {
-                let [ndir, wireInd] = this.IndexConvertToAroundIndex(v)
+                const [ndir, wireInd] = this.IndexConvertToAroundIndex(v)
                 nx += Basis.dx[ndir]
                 ny += Basis.dy[ndir]
                 const nCell = this.GetCell(nx, ny)

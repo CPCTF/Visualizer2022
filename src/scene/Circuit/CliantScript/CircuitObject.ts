@@ -40,7 +40,6 @@ export class CircuitWireObject extends VisualizerGroup {
             trpos[0], 0, trpos[1],
             flpos[0], 0, flpos[1],
         ])
-        console.log(vertices)
         wireGeometry.setAttribute('position', new BufferAttribute(vertices, 3))
         return wireGeometry
     }
