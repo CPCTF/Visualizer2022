@@ -80,6 +80,7 @@ export class Basis {
                 if (v == -1) {
                     break
                 }
+                //nCell.LogWiresCanto()
             }
         })
     }
