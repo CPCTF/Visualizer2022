@@ -7,9 +7,9 @@ export class Capacitor extends CircuitParts {
     constructor(isBig: boolean) {
         super(isBig)
         //x=0,y=0のcellのwirePoints
-        this.wirePointsInts[0 + 0 * this.sizeX] = [1, 1, 1, 1, 1, 1, 1, 1,
-            0, 0, 0, 1, 0, 0, 0, 0,
-            1, 1, 1, 1, 1, 1, 1, 1,
+        this.wirePointsInts[0 + 0 * this.sizeX] = [1, 0, 1, 0, 1, 0, 1, 0,
+            1, 0, 1, 0, 1, 0, 1, 0,
+            0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0]
     }
 }

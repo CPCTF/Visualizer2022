@@ -78,6 +78,16 @@ export class Cell {
             this.wirePoints[newWire.to] = true
         }
     }
+
+    //デバッグ用
+    LogWiresCanto() {
+        console.log('(x:%d,y:%d)のセル', this.x, this.y)
+        this.wires.forEach(v => {
+            let logstr = 'Wire %d:\nCanTo:'
+            v.canTo.forEach(v => logstr += '\n' + v.toString())
+            console.log(logstr, v.ind)
+        })
+    }
 }
 
 export class WireExtendInfo {
@@ -208,12 +218,13 @@ export class Wire {
         }
 
         this.to = res
+        //console.log('Wire %d:\nFrom: %d\nTo: %d', this.ind, this.from, this.to);
         return res
     }
 
     //入れられてくるwireはFullか、Hole
     UpdateCanTo(newWire: Wire): void {
-        if (this.IsCanTo())
+        if (!this.IsCanTo())
             return
         //新たなワイヤが穴である
         if (newWire.IsHole()) {
@@ -234,16 +245,17 @@ export class Wire {
         const uCanTo = new Array<number>(3).fill(-1)
         let uFrom = 0
         let setId = 0
-        for (let i = newWire.from; i != (newWire.from - 1 + 32) % 32; i = (i + 1) % 32) {
-            if (i == newWire.to) {
+        for (let i = 0; i < 32; i++) {
+            const loopind = (newWire.from + i) % 32
+            if (loopind == newWire.to) {
                 setId++
                 continue
             }
-            if (i == this.from) {
+            if (loopind == this.from) {
                 uFrom = setId
                 continue
             }
-            const fInd = this.canTo.findIndex(v => v == i)
+            const fInd = this.canTo.findIndex(v => v == loopind)
             if (fInd != -1) {
                 uCanTo[fInd] = setId
             }
