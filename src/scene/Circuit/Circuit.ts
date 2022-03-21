@@ -9,7 +9,7 @@ import {
 import { CircuitWireObject } from './Parts/CircuitWireObject'
 import { ServerTester } from '../../circuit/ServerScript/ServerTester'
 import { ThreeResourceLoader } from '#/system/Loader'
-import type { Mesh, Object3D } from 'three'
+import type { Object3D } from 'three'
 import { CircuitModelPath } from '#/circuit/CliantScript/CircuitModelPath'
 
 export class Circuit extends VisualizerGroup {
