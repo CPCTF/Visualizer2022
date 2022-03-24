@@ -8,7 +8,7 @@ import graphicBoardSrc from '#/circuit/CircuitModels/graphicBoard.glb?url'
 import hddSrc from '#/circuit/CircuitModels/hdd.glb?url'
 import memorySrc from '#/circuit/CircuitModels/memory.glb?url'
 import powerSupplySrc from '#/circuit/CircuitModels/powerSupply.glb?url'
-import tipsetSrc from '#/circuit/CircuitModels/tipset.glb?url'
+import tipsetSrc from '#/circuit/CircuitModels/tipSet.glb?url'
 
 export const addLoadFiles = () => {
   ThreeResourceLoader.addGLTF(recalculationgGlb)
