@@ -1,9 +1,16 @@
 {
-  "include": ["src", "tests"],
+  "include": [
+    "src",
+    "tests"
+  ],
   "compilerOptions": {
     "target": "ESNext",
     "module": "esnext",
-    "lib": ["esnext", "dom", "DOM.Iterable"],
+    "lib": [
+      "esnext",
+      "dom",
+      "DOM.Iterable"
+    ],
     "declaration": true,
     "sourceMap": true,
     "rootDir": ".",
@@ -19,16 +26,21 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedIndexedAccess": true,
     "importsNotUsedAsValues": "error",
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
-      "#/*": ["src/*"]
+      "#/*": [
+        "src/*"
+      ]
     },
     "jsx": "react-jsx",
     "esModuleInterop": true,
     "downlevelIteration": true
   },
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
 }
