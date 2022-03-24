@@ -104,7 +104,12 @@ export class Basis {
       const wires = new Array<[number, number]>(0)
       v.getAllWires().forEach(w => {
         if (!w.isEmpty()) {
-          wires.push([w.from, w.to])
+          if (w.isHole()) {
+            //holeは[-1,-1]だと定義しているが、クライアント側で分からないため[ind,-1]に加工する
+            wires.push([w.ind, w.to])
+          } else {
+            wires.push([w.from, w.to])
+          }
         }
       })
       if (wires.length != 0) {

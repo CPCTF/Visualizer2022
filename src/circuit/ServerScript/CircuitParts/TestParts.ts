@@ -4,7 +4,7 @@ export class TestParts extends CircuitParts {
   public sizeX = 1
   public sizeY = 1
   public wirePointsInts: number[][] = new Array(this.sizeY * this.sizeX)
-  public problemCategory: ProblemCategory = 'Pwn'
+  public problemCategory: ProblemCategory = 'None'
   constructor(isBig: boolean) {
     super(isBig)
     //x=0,y=0のcellのwirePoints
