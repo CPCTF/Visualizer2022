@@ -20,7 +20,7 @@ export class CircuitWiresInfo {
 }
 
 export class CircuitInfoUtils {
-  static JsonToInfo(
+  static jsonToInfo(
     json: string
   ): [CircuitBasisInfo, CircuitPartsInfo[], CircuitWiresInfo[]] {
     const objs = JSON.parse(json) as ICircuit[]
@@ -44,7 +44,7 @@ export class CircuitInfoUtils {
     return [basisInfo, partsInfos, wiresInfos]
   }
 
-  static InfoToJson(
+  static infoToJson(
     circuitBasisInfo: CircuitBasisInfo,
     circuitPartsInfos: CircuitPartsInfo[],
     circuitWiresInfos: CircuitWiresInfo[]

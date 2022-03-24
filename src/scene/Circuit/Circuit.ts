@@ -15,11 +15,11 @@ import { CircuitModelPath } from '#/circuit/CliantScript/CircuitModelPath'
 export class Circuit extends VisualizerGroup {
   constructor() {
     super()
-    const [basisInfo, partsInfos, wiresInfos] = this.TestData()
+    const [basisInfo, partsInfos, wiresInfos] = this.testData()
     console.log(basisInfo)
     console.log(partsInfos)
     console.log(wiresInfos)
-    this.ImportCircuitInfo(basisInfo, partsInfos, wiresInfos)
+    this.importCircuitInfo(basisInfo, partsInfos, wiresInfos)
   }
 
   public start(): void {
@@ -31,7 +31,7 @@ export class Circuit extends VisualizerGroup {
   }
 
   //サーバーから送られてきたCircuitInfoを元に設置
-  ImportCircuitInfo(
+  importCircuitInfo(
     circuitBasisInfo: CircuitBasisInfo,
     circuitPartsInfos: CircuitPartsInfo[],
     circuitWiresInfos: CircuitWiresInfo[]
@@ -58,10 +58,10 @@ export class Circuit extends VisualizerGroup {
     this.position.set(offsetX, offsetY, offsetZ)
   }
 
-  TestData(): [CircuitBasisInfo, CircuitPartsInfo[], CircuitWiresInfo[]] {
+  testData(): [CircuitBasisInfo, CircuitPartsInfo[], CircuitWiresInfo[]] {
     const serverTester = new ServerTester()
-    const json = serverTester.GetJson()
+    const json = serverTester.getJson()
     console.log(json)
-    return CircuitInfoUtils.JsonToInfo(json)
+    return CircuitInfoUtils.jsonToInfo(json)
   }
 }

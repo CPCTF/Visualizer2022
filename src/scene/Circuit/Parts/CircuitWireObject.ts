@@ -9,7 +9,7 @@ export class CircuitWireObject extends VisualizerGroup {
   constructor(wires: [number, number][]) {
     super()
     wires.forEach(v => {
-      const geometry = this.CreateWireGeometry(v)
+      const geometry = this.createWireGeometry(v)
       this.add(new Mesh(geometry, new MeshBasicMaterial({ color: 0x000000 })))
     })
   }
@@ -22,15 +22,15 @@ export class CircuitWireObject extends VisualizerGroup {
     super.update()
   }
 
-  CreateWireGeometry(fromto: [number, number]): BufferGeometry {
+  createWireGeometry(fromto: [number, number]): BufferGeometry {
     const wireGeometry = new BufferGeometry()
     const [from, to] = fromto
     if (to == -1) {
       //TODO:holeを作る
       return wireGeometry
     }
-    const [flpos, frpos] = this.WireIndexToPosition(from)
-    const [tlpos, trpos] = this.WireIndexToPosition(to)
+    const [flpos, frpos] = this.wireIndexToPosition(from)
+    const [tlpos, trpos] = this.wireIndexToPosition(to)
     const vertices = new Float32Array([
       flpos[0],
       0,
@@ -55,7 +55,7 @@ export class CircuitWireObject extends VisualizerGroup {
     wireGeometry.setAttribute('position', new BufferAttribute(vertices, 3))
     return wireGeometry
   }
-  WireIndexToPosition(
+  wireIndexToPosition(
     wireInd: number,
     size = 1,
     a = 0.5

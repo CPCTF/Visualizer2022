@@ -20,14 +20,14 @@ export class Cell {
   }
 
   //パーツかどうか
-  IsParts(): boolean {
+  isParts(): boolean {
     return this.parts != undefined
   }
 
   //パーツを配置
-  SetParts(x: number, y: number, parts: CircuitParts): void {
+  setParts(x: number, y: number, parts: CircuitParts): void {
     this.parts = parts
-    const wirePointsInt = parts.GetWirePointsInt(x, y) as number[]
+    const wirePointsInt = parts.getWirePointsInt(x, y) as number[]
 
     this.wirePoints.forEach((_, i) => {
       this.wirePoints[i] = wirePointsInt[i] == 1
@@ -35,12 +35,12 @@ export class Cell {
 
     //どこにも引けないように(holeにはなる可能性あり)
     this.wires.forEach(v => {
-      v.CantTo()
+      v.cantTo()
     })
   }
 
   //活性のある接続点の添え字を全て返す
-  GetActiveWirePointsIndex(): number[] {
+  getActiveWirePointsIndex(): number[] {
     const inds = new Array<number>(0)
     this.wirePoints.forEach((v, i) => {
       if (v) inds.push(i)
@@ -49,34 +49,34 @@ export class Cell {
   }
 
   //Wireを設置し、toを返す
-  SetWire(info: WireExtendInfo): number {
-    if (this.IsParts()) {
+  setWire(info: WireExtendInfo): number {
+    if (this.isParts()) {
       //パーツなのでwire設置できない
       return -1
     }
     const wire = this.wires[info.wireInd]
-    const nto = wire.SetTo(info.notdir, info.priority, info.end)
-    this.UpdateWires(wire)
-    this.UpdateWirePoints(wire)
+    const nto = wire.setTo(info.notdir, info.priority, info.end)
+    this.updateWires(wire)
+    this.updateWirePoints(wire)
     return nto
   }
 
-  GetAllWires(): Wire[] {
+  getAllWires(): Wire[] {
     return this.wires
   }
 
   //ここから補助的
 
   //wiresの更新
-  private UpdateWires(newWire: Wire): void {
+  private updateWires(newWire: Wire): void {
     this.wires.forEach(v => {
-      v.UpdateCanTo(newWire)
+      v.updateCanTo(newWire)
     })
   }
 
   //wirePointsの更新
-  private UpdateWirePoints(newWire: Wire): void {
-    if (newWire.IsHole()) {
+  private updateWirePoints(newWire: Wire): void {
+    if (newWire.isHole()) {
       //穴である場合
       this.wirePoints[newWire.ind] = true
     } else {
@@ -86,7 +86,7 @@ export class Cell {
   }
 
   //デバッグ用
-  LogWiresCanto() {
+  logWiresCanto() {
     console.log('(x:%d,y:%d)のセル', this.x, this.y)
     this.wires.forEach(v => {
       let logstr = 'Wire %d:\nCanTo:'
@@ -114,7 +114,7 @@ export class WireExtendInfo {
   private readonly straightMax = 4
   private readonly counterMax = 10
 
-  Update(wireInd: number, ndir: number): void {
+  update(wireInd: number, ndir: number): void {
     this.counter++
     this.wireInd = wireInd
     if (this.beforeDir == ndir) {
@@ -131,11 +131,11 @@ export class WireExtendInfo {
     }
 
     //真っすぐの限界
-    if (this.Rand(this.straightCounter / this.straightMax)) {
+    if (this.rand(this.straightCounter / this.straightMax)) {
       //曲げる
       if (ndir == this.dir) {
         //straight
-        if (this.Rand(0.5)) {
+        if (this.rand(0.5)) {
           this.priority = [0, 2, 1]
         } else {
           this.priority = [2, 0, 1]
@@ -149,7 +149,7 @@ export class WireExtendInfo {
       }
     } else {
       //曲げない
-      if (this.Rand(0.5)) {
+      if (this.rand(0.5)) {
         this.priority = [1, 0, 2]
       } else {
         this.priority = [1, 2, 0]
@@ -159,7 +159,7 @@ export class WireExtendInfo {
     this.beforeDir = ndir
   }
 
-  private Rand(percent: number): boolean {
+  private rand(percent: number): boolean {
     return Math.random() <= percent
   }
 }
@@ -176,33 +176,33 @@ export class Wire {
     const mod = from % 8
     const shift = (from - mod) / 8
     this.canTo = [15 - mod, 23 - mod, 31 - mod]
-    this.Shift(shift)
+    this.shift(shift)
   }
 
-  IsCanTo(): boolean {
+  isCanTo(): boolean {
     return this.canTo.length != 0
   }
-  CantTo(): void {
+  cantTo(): void {
     this.canTo = new Array(0)
   }
-  EraseCanTo(to: number): void {
+  eraseCanTo(to: number): void {
     this.canTo.forEach((v, i) => {
       if (v == to) {
         this.canTo[i] = -1
       }
     })
   }
-  IsFull(): boolean {
+  isFull(): boolean {
     return this.from == this.ind && this.to != -1
   }
-  IsHole(): boolean {
+  isHole(): boolean {
     return this.from == -1
   }
-  IsEmpty(): boolean {
+  isEmpty(): boolean {
     return this.from == this.ind && this.to == -1
   }
 
-  SetTo(
+  setTo(
     notdir: number,
     curvePriority: [number, number, number],
     end: boolean
@@ -210,10 +210,10 @@ export class Wire {
     let res = -1
 
     //どこへもいけない
-    if (!this.IsCanTo()) {
-      if (this.IsHole() || this.IsFull()) {
+    if (!this.isCanTo()) {
+      if (this.isHole() || this.isFull()) {
         return -1
-      } else if (this.IsEmpty()) {
+      } else if (this.isEmpty()) {
         this.from = -1
         return -1
       }
@@ -221,7 +221,7 @@ export class Wire {
 
     //穴にする
     if (end) {
-      this.CantTo()
+      this.cantTo()
       this.from = -1
       return -1
     }
@@ -235,7 +235,7 @@ export class Wire {
       }
     }
 
-    this.CantTo()
+    this.cantTo()
 
     //穴にする
     if (res == -1) {
@@ -249,22 +249,22 @@ export class Wire {
   }
 
   //入れられてくるwireはFullか、Hole
-  UpdateCanTo(newWire: Wire): void {
-    if (!this.IsCanTo()) return
+  updateCanTo(newWire: Wire): void {
+    if (!this.isCanTo()) return
     //新たなワイヤが穴である
-    if (newWire.IsHole()) {
+    if (newWire.isHole()) {
       //穴の位置を行き先から消しておく
-      this.EraseCanTo(newWire.ind)
+      this.eraseCanTo(newWire.ind)
       return
     }
     //自身の位置に伸びてきた場合or自身である場合
     if (this.ind == newWire.ind || this.ind == newWire.to) {
-      this.CantTo()
+      this.cantTo()
       return
     }
     //新たなワイヤのfromとtoを行き先から消しておく
-    this.EraseCanTo(newWire.from)
-    this.EraseCanTo(newWire.to)
+    this.eraseCanTo(newWire.from)
+    this.eraseCanTo(newWire.to)
 
     //領域で塗分けて、fromと違う領域は到達できないので行先から消す
     const uCanTo = new Array<number>(3).fill(-1)
@@ -299,7 +299,7 @@ export class Wire {
   }
 
   //cantoが全部正になるので注意
-  Shift(shift: number): void {
+  shift(shift: number): void {
     this.canTo.forEach((v, i) => {
       this.canTo[i] = (((v + 8 * shift) % 32) + 32) % 32
     })
