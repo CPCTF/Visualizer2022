@@ -68,7 +68,8 @@ export class Basis {
     wirePoints.forEach(v => {
       let nx = x
       let ny = y
-      const dir = v % 4
+      const mod = v % 8
+      const dir = (v - mod) / 8
       const wireExtendInfo = new WireExtendInfo(dir)
       while (v != -1) {
         const [ndir, wireInd] = this.indexConvertToAroundIndex(v)

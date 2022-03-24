@@ -9,7 +9,7 @@ export class TestParts extends CircuitParts {
     super(isBig)
     //x=0,y=0のcellのwirePoints
     this.wirePointsInts[0 + 0 * this.sizeX] = [
-      1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
       0, 0, 0, 0, 0, 0, 0
     ]
   }
