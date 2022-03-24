@@ -7,10 +7,10 @@ import { VisualizerObject } from './templates/VisualizerObject'
 import { EventManagerInstance } from './system/EventManager'
 import { Effects } from './scene/Effects'
 import { UserDisplayGroup } from './scene/UserDisplayGroup'
-import { MainCircuit } from './scene/MainCircuit'
 import { VisualizerCamera } from './camera/VisualizerCamera'
 import { Recalculate } from './scene/Recalculates'
 import { getInitialData } from './utils/getInitialData'
+import { Circuit } from './scene/Circuit/Circuit'
 
 export class Visualizer {
   // singleton
@@ -54,8 +54,8 @@ export class Visualizer {
     scene.add(
       new Effects(),
       new UserDisplayGroup(),
-      new MainCircuit(),
-      new Recalculate()
+      new Recalculate(),
+      new Circuit()
     )
 
     // load resources
