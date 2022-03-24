@@ -7,7 +7,7 @@ export class CircuitPartsInfo {
     public x: number,
     public z: number,
     public isBig: boolean,
-    public category: number
+    public category: string
   ) {}
 }
 
@@ -92,7 +92,7 @@ interface IPartsInfo extends ICircuit {
   x: number
   z: number
   isBig: boolean
-  category: number
+  category: string
 }
 
 interface IWiresInfo extends ICircuit {
@@ -101,15 +101,17 @@ interface IWiresInfo extends ICircuit {
   wires: [number, number][]
 }
 
-export enum ProblemCategory {
-  None,
-  Reversing,
-  Pwn,
-  PPC,
-  Crypto,
-  Shell,
-  Forensics,
-  Web,
-  OSINT,
-  Misc
-}
+export const problemCategory = [
+  'None',
+  'Reversing',
+  'Pwn',
+  'PPC',
+  'Crypto',
+  'Shell',
+  'Forensics',
+  'Web',
+  'OSINT',
+  'Misc'
+] as const
+
+export type ProblemCategory = typeof problemCategory[number]
