@@ -29,8 +29,8 @@ export class Basis {
   }
 
   //パーツを置く
-  PutParts(x: number, y: number, parts: CircuitParts): boolean {
-    if (!this.CanPutParts(x, y, parts)) return false
+  putParts(x: number, y: number, parts: CircuitParts): boolean {
+    if (!this.canPutParts(x, y, parts)) return false
     const sy = parts.sizeY
     const sx = parts.sizeX
     const allCells = new Array<Cell>(0)
@@ -38,19 +38,19 @@ export class Basis {
       for (let j = 0; j < sx; j++) {
         const ny = y + i
         const nx = x + j
-        const cell = this.GetCell(nx, ny) as Cell
-        cell.SetParts(j, i, parts)
+        const cell = this.getCell(nx, ny) as Cell
+        cell.setParts(j, i, parts)
         allCells.push(cell)
       }
     }
-    parts.SetPosition(x, y)
+    parts.setPosition(x, y)
     this.partsCellDict[parts.id] = allCells
     this.parts.push(parts)
     return true
   }
 
   //パーツが占める全てのセルを得る
-  GetPartsCells(parts: CircuitParts): Cell[] {
+  getPartsCells(parts: CircuitParts): Cell[] {
     if (parts.id in this.partsCellDict) {
       return this.partsCellDict[parts.id] as Cell[]
     } else {
@@ -59,10 +59,10 @@ export class Basis {
   }
 
   //指定したセルからwireを伸ばす
-  ExtendWires(cell: Cell) {
+  extendWires(cell: Cell) {
     const x = cell.x
     const y = cell.y
-    const wirePoints = cell.GetActiveWirePointsIndex()
+    const wirePoints = cell.getActiveWirePointsIndex()
 
     //wire毎に処理
     wirePoints.forEach(v => {
@@ -71,15 +71,15 @@ export class Basis {
       const dir = v % 4
       const wireExtendInfo = new WireExtendInfo(dir)
       while (v != -1) {
-        const [ndir, wireInd] = this.IndexConvertToAroundIndex(v)
+        const [ndir, wireInd] = this.indexConvertToAroundIndex(v)
         nx += Basis.dx[ndir]
         ny += Basis.dy[ndir]
-        const nCell = this.GetCell(nx, ny)
+        const nCell = this.getCell(nx, ny)
         if (nCell == undefined) {
           break
         }
-        wireExtendInfo.Update(wireInd, ndir)
-        v = nCell.SetWire(wireExtendInfo)
+        wireExtendInfo.update(wireInd, ndir)
+        v = nCell.setWire(wireExtendInfo)
         if (v == -1) {
           break
         }
@@ -88,7 +88,7 @@ export class Basis {
     })
   }
 
-  ConvertToCircuitInfos(): [
+  convertToCircuitInfos(): [
     CircuitBasisInfo,
     CircuitPartsInfo[],
     CircuitWiresInfo[]
@@ -102,8 +102,8 @@ export class Basis {
     //wire追加
     this.cells.forEach(v => {
       const wires = new Array<[number, number]>(0)
-      v.GetAllWires().forEach(w => {
-        if (!w.IsEmpty()) {
+      v.getAllWires().forEach(w => {
+        if (!w.isEmpty()) {
           wires.push([w.from, w.to])
         }
       })
@@ -113,7 +113,7 @@ export class Basis {
     })
     //parts追加
     this.parts.forEach(v => {
-      const [x, y] = v.GetPosition()
+      const [x, y] = v.getPosition()
       partsInfos.push(new CircuitPartsInfo(x, y, v.isBig, v.problemCategory))
     })
     return [basisInfo, partsInfos, wiresInfos]
@@ -122,20 +122,20 @@ export class Basis {
   //ここから補助的
 
   //座標にパーツがおけるかを確認する
-  private CanPutParts(x: number, y: number, parts: CircuitParts): boolean {
+  private canPutParts(x: number, y: number, parts: CircuitParts): boolean {
     const sy = parts.sizeY
     const sx = parts.sizeX
     for (let i = 0; i < sy; i++) {
       for (let j = 0; j < sx; j++) {
         const ny = y + i
         const nx = x + j
-        const cell = this.GetCell(nx, ny)
+        const cell = this.getCell(nx, ny)
         if (cell == undefined) {
           //そんなセルはない
           return false
         } else {
           //パーツの一部
-          if (cell.IsParts()) return false
+          if (cell.isParts()) return false
         }
       }
     }
@@ -143,7 +143,7 @@ export class Basis {
   }
 
   //座標のセルを得る
-  private GetCell(x: number, y: number): Cell | undefined {
+  private getCell(x: number, y: number): Cell | undefined {
     if (0 <= y && y < this.sizeY) {
       if (0 <= x && x < this.sizeX) {
         return this.cells[y * this.sizeX + x]
@@ -154,7 +154,7 @@ export class Basis {
 
   //隣接するセルに向けた形式へ変換する
   //dir,wireInd
-  private IndexConvertToAroundIndex(ind: number): [number, number] {
+  private indexConvertToAroundIndex(ind: number): [number, number] {
     const mod = ind % 8
     const dir = (ind - mod) / 8
     const adir = (dir + 2) % 4

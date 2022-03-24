@@ -16,14 +16,14 @@ export abstract class CircuitParts {
     CircuitParts.counter++
   }
 
-  GetWirePointsInt(x: number, y: number): number[] | undefined {
+  getWirePointsInt(x: number, y: number): number[] | undefined {
     return this.wirePointsInts[x + y * this.sizeX]
   }
 
-  GetPosition(): [number, number] {
+  getPosition(): [number, number] {
     return [this.x, this.y]
   }
-  SetPosition(x: number, y: number) {
+  setPosition(x: number, y: number) {
     this.x = x
     this.y = y
   }

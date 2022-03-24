@@ -10,17 +10,17 @@ export class ServerTester {
   }
 
   //基盤部品の配置
-  GetJson(): string {
+  getJson(): string {
     const testParts = new TestParts(false)
     //trueが帰らないとおかしい
-    this.basis.PutParts(25, 25, testParts)
-    const partsCells = this.basis.GetPartsCells(testParts)
-    partsCells.forEach(v => this.basis.ExtendWires(v))
+    this.basis.putParts(25, 25, testParts)
+    const partsCells = this.basis.getPartsCells(testParts)
+    partsCells.forEach(v => this.basis.extendWires(v))
     const [basisInfo, partsInfos, wiresInfos] =
-      this.basis.ConvertToCircuitInfos()
+      this.basis.convertToCircuitInfos()
     console.log(basisInfo)
     console.log(partsInfos)
     console.log(wiresInfos) //considered Array(0以上)
-    return CircuitInfoUtils.InfoToJson(basisInfo, partsInfos, wiresInfos)
+    return CircuitInfoUtils.infoToJson(basisInfo, partsInfos, wiresInfos)
   }
 }
