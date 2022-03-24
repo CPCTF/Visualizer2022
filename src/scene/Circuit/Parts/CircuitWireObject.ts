@@ -31,9 +31,9 @@ export class CircuitWireObject extends VisualizerGroup {
   createWireGeometry(fromto: [number, number]): BufferGeometry {
     let wireGeometry = new BufferGeometry()
     const size = 1
-    const a = 0.5
-    const bout = 0.8
-    const bin = 0.4
+    const a = 0.25
+    const bout = 0.5
+    const bin = 0.25
     const thetaSeg = 16
     const [from, to] = fromto
     if (to == -1) {
