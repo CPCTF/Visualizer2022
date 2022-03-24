@@ -45,6 +45,8 @@ export class Circuit extends VisualizerGroup {
       }
       const obj = ThreeResourceLoader.get(path) as Object3D
       obj.position.set(v.x, 0, v.z)
+      //パーツを見えなくする
+      obj.scale.set(0, 0, 0)
       this.add(obj)
     })
     circuitWiresInfos.forEach(v => {
