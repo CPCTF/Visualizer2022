@@ -44,9 +44,10 @@ export class CircuitWireObject extends VisualizerGroup {
       const ringGeometry = new RingBufferGeometry(rin, rout, thetaSeg)
       ringGeometry.rotateX(-Math.PI / 2)
       let [offsetX, offsetZ] = this.wireIndexToPosition(from, size)
-      if (offsetX == 0) {
+      const dir = (from - (from % 8)) / 8
+      if (dir == 0 || dir == 2) {
         offsetZ -= Math.sign(offsetZ) * (rout - rin)
-      } else if (offsetZ == 0) {
+      } else {
         offsetX -= Math.sign(offsetX) * (rout - rin)
       }
       const length = ringGeometry.attributes.position.count
