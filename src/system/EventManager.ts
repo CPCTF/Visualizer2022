@@ -6,26 +6,17 @@ import {
   generateWebSocketMessage,
   wait
 } from '#/utils/generateDummyData'
+import {
+  RecalculateEndEvent,
+  RecalculateStartEvent,
+  VisualizerEndEvent,
+  VisualizerStartEvent,
+  VisualizerSubmitEvent
+} from './EventManager/events'
 import { globalSettings, isDevelop } from './GlobalSettings'
-import type { SubmissionRaw } from './ResponseType'
+import type { RecalculateRaw, SubmissionRaw } from './ResponseType'
 import { ServerRequest } from './ServerRequest'
 import { UserManager } from './UserManager'
-
-// TODO: tekito type
-export type WebSocketMessage =
-  | {
-      type: 'submit'
-      result: SubmissionRaw
-    }
-  | {
-      type: 'start'
-    }
-  | {
-      type: 'end'
-    }
-  | {
-      type: 'recalculate'
-    }
 
 class EventManager extends EventTarget {
   private websocket: WebSocket
@@ -78,11 +69,11 @@ class EventManager extends EventTarget {
     this.dispatchEvent(new CustomEvent('visualizerstart'))
   }
 
-  private messageHandler(event: MessageEvent<WebSocketMessage>) {
+  private messageHandler(event: MessageEvent<{ type: string; result: any }>) {
     switch (event.data.type) {
       case 'submit': {
         this.dispatchEvent(
-          new CustomEvent('submit', {
+          new VisualizerSubmitEvent('submit', {
             detail: event.data.result
           })
         )
@@ -90,19 +81,27 @@ class EventManager extends EventTarget {
       }
       case 'start': {
         globalSettings.startTime = new Date()
-        this.dispatchEvent(new CustomEvent('ctfstart'))
+        this.dispatchEvent(new VisualizerStartEvent('ctfstart'))
         break
       }
       case 'end': {
         globalSettings.endTime = new Date()
-        this.dispatchEvent(new CustomEvent('ctfend'))
+        this.dispatchEvent(new VisualizerEndEvent('ctfend'))
         break
       }
       case 'recalculate': {
         const delay = async () => {
-          this.dispatchEvent(new CustomEvent('recalculatestart'))
+          this.dispatchEvent(
+            new RecalculateStartEvent('recalculatestart', {
+              detail: event.data.result as RecalculateRaw
+            })
+          )
           await this.setRecalculateData()
-          this.dispatchEvent(new CustomEvent('recalculateend'))
+          this.dispatchEvent(
+            new RecalculateEndEvent('recalculatestart', {
+              detail: event.data.result as RecalculateRaw
+            })
+          )
         }
         delay()
         break
