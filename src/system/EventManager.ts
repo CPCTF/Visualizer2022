@@ -69,12 +69,14 @@ class EventManager extends EventTarget {
     this.dispatchEvent(new CustomEvent('visualizerstart'))
   }
 
-  private messageHandler(event: MessageEvent<{ type: string; result: any }>) {
+  private messageHandler(
+    event: MessageEvent<{ type: string; result: unknown }>
+  ) {
     switch (event.data.type) {
       case 'submit': {
         this.dispatchEvent(
           new VisualizerSubmitEvent('submit', {
-            detail: event.data.result
+            detail: event.data.result as SubmissionRaw
           })
         )
         break
