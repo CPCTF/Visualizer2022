@@ -6,7 +6,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "check": "stylelint \"src/**/*.css\" && eslint .",
+    "check": "stylelint \"src/**/*.css\" && eslint . && tsc",
     "format": "stylelint \"src/**/*.css\" --fix && eslint . --fix"
   },
   "devDependencies": {
@@ -43,6 +43,7 @@
     "@inlet/react-pixi": "^6.6.5",
     "@types/three": "^0.137.0",
     "gsap": "^3.9.1",
+    "mitt": "^3.0.0",
     "pixi-filters": "^4.1.6",
     "pixi.js": "^6.2.2",
     "react": "^17.0.2",
