@@ -7,6 +7,7 @@ import {
   wait
 } from '#/utils/generateDummyData'
 import { globalSettings, isDevelop } from './GlobalSettings'
+import type { SubmissionRaw } from './ResponseType'
 import { ServerRequest } from './ServerRequest'
 import { UserManager } from './UserManager'
 
@@ -14,12 +15,7 @@ import { UserManager } from './UserManager'
 export type WebSocketMessage =
   | {
       type: 'submit'
-      result: {
-        // userid: string
-        // point: number
-        // genre: QuestionGenre
-        // questionName: string
-      }
+      result: SubmissionRaw
     }
   | {
       type: 'start'
