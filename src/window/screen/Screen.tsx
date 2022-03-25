@@ -1,4 +1,4 @@
-import { EventManagerInstance } from '#/system/EventManager'
+import { EventEmitter } from '#/system/EventEmitter'
 import { globalSettings } from '#/system/GlobalSettings'
 import { useTick } from '@inlet/react-pixi'
 import { useContext, useEffect, useState } from 'react'
@@ -29,12 +29,12 @@ export const Screen = () => {
     const ctfend = () => {
       setIsEnded(true)
     }
-    EventManagerInstance.addEventListener('initialized', initialized)
-    EventManagerInstance.addEventListener('ctfend', ctfend)
+    EventEmitter.on('initialized', initialized)
+    EventEmitter.on('end', ctfend)
 
     return () => {
-      EventManagerInstance.removeEventListener('initialized', initialized)
-      EventManagerInstance.removeEventListener('ctfend', ctfend)
+      EventEmitter.off('initialized', initialized)
+      EventEmitter.off('end', ctfend)
     }
   }, [])
   return (

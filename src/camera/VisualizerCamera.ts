@@ -1,5 +1,5 @@
 import { Time } from '#/system/Time'
-import { EventManagerInstance } from '#/system/EventManager'
+import { EventEmitter } from '#/system/EventEmitter'
 import type { IRenderable } from '#/templates/IRenderable'
 import gsap from 'gsap'
 import { PerspectiveCamera } from 'three'
@@ -8,10 +8,10 @@ export class VisualizerCamera extends PerspectiveCamera implements IRenderable {
   constructor() {
     super(60, 1, 1, 2000)
 
-    EventManagerInstance.addEventListener('recalculatestart', () => {
+    EventEmitter.on('recalculatestart', () => {
       gsap.to(this.position, 2, { y: -8 })
     })
-    EventManagerInstance.addEventListener('recalculateend', () => {
+    EventEmitter.on('recalculateend', () => {
       gsap.to(this.position, 2, { y: 2 })
     })
   }

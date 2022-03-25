@@ -13,6 +13,7 @@ import { UserManager } from './UserManager'
 import mitt from 'mitt'
 
 export type VisualizerEvents = {
+  initialized: void
   submit: SubmissionRaw
   start: void
   end: void
@@ -31,6 +32,10 @@ export const initializeEventEmitter = () => {
   })
   // test
   if (isDevelop) testEvent()
+}
+
+export const emitInitializedEvent = () => {
+  EventEmitter.emit('initialized')
 }
 
 const testEvent = () => {
