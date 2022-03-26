@@ -9,6 +9,8 @@ import hddSrc from '#/circuit/CircuitModels/hdd.glb?url'
 import memorySrc from '#/circuit/CircuitModels/memory.glb?url'
 import powerSupplySrc from '#/circuit/CircuitModels/powerSupply.glb?url'
 import tipsetSrc from '#/circuit/CircuitModels/tipSet.glb?url'
+import exclamationSrc from '#/scene/Circuit/SubmissionEffect/exclamation.glb?url'
+import questionSrc from '#/scene/Circuit/SubmissionEffect/question.glb?url'
 
 export const addLoadFiles = () => {
   ThreeResourceLoader.addGLTF(recalculationgGlb)
@@ -21,4 +23,6 @@ export const addLoadFiles = () => {
   ThreeResourceLoader.addGLTF(memorySrc)
   ThreeResourceLoader.addGLTF(powerSupplySrc)
   ThreeResourceLoader.addGLTF(tipsetSrc)
+  ThreeResourceLoader.addGLTF(exclamationSrc)
+  ThreeResourceLoader.addGLTF(questionSrc)
 }
