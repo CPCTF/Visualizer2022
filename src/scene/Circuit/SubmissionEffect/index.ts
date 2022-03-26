@@ -5,10 +5,9 @@ import { Time } from '#/system/Time'
 import { UserManager } from '#/system/UserManager'
 import { VisualizerGroup } from '#/templates/VisualizerGroup'
 import gsap, { Elastic } from 'gsap'
-import { Color, Group, Mesh, Object3D, ShaderMaterial } from 'three'
-import exclamationSrc from './exclamation.glb?url'
+import { Color, Group, Mesh, ShaderMaterial } from 'three'
+import symbolsSrc from './symbols.glb?url'
 import { moldingMesh } from './molding'
-import questionSrc from './question.glb?url'
 import { SubmissionInfo } from './SubmissionInfo'
 
 export class SubmissionEffect extends VisualizerGroup {
@@ -20,10 +19,10 @@ export class SubmissionEffect extends VisualizerGroup {
     super()
     this.objects = new Group()
     // add icons
-    this.question = (ThreeResourceLoader.get(questionSrc) as Group)
+    this.question = (ThreeResourceLoader.get(symbolsSrc) as Group)
       .children[0] as Mesh
-    this.exclamation = (ThreeResourceLoader.get(exclamationSrc) as Group)
-      .children[0] as Mesh
+    this.exclamation = (ThreeResourceLoader.get(symbolsSrc) as Group)
+      .children[1] as Mesh
     this.question.position.y = 0.4
     this.exclamation.position.y = 0.4
     this.question.visible = false
