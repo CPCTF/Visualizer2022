@@ -6,6 +6,7 @@ export abstract class VisualizerGroup extends Group implements IRenderable {
   private initialized = false
   constructor() {
     super()
+    this.name = this.constructor.name
   }
   public start(): void {
     // no impl
