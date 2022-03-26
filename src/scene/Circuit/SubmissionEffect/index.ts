@@ -5,7 +5,7 @@ import { Time } from '#/system/Time'
 import { UserManager } from '#/system/UserManager'
 import { VisualizerGroup } from '#/templates/VisualizerGroup'
 import gsap, { Elastic } from 'gsap'
-import { Color, Group, Mesh, ShaderMaterial } from 'three'
+import { Color, Group, Mesh, Object3D, ShaderMaterial } from 'three'
 import exclamationSrc from './exclamation.glb?url'
 import { moldingMesh } from './molding'
 import questionSrc from './question.glb?url'
@@ -15,22 +15,24 @@ export class SubmissionEffect extends VisualizerGroup {
   private question: Mesh
   private exclamation: Mesh
   private submissionInfo: SubmissionInfo
+  private objects: Group
   constructor() {
     super()
-
+    this.objects = new Group()
     // add icons
     this.question = (ThreeResourceLoader.get(questionSrc) as Group)
       .children[0] as Mesh
     this.exclamation = (ThreeResourceLoader.get(exclamationSrc) as Group)
       .children[0] as Mesh
-    this.question.position.y = 0.3
-    this.exclamation.position.y = 0.3
+    this.question.position.y = 0.4
+    this.exclamation.position.y = 0.4
     this.question.visible = false
     this.exclamation.visible = false
     moldingMesh(this.question, new Color(0xff0000))
     moldingMesh(this.exclamation, new Color(0x00ff00))
-    this.add(this.question)
-    this.add(this.exclamation)
+    this.objects.add(this.question)
+    this.objects.add(this.exclamation)
+    this.add(this.objects)
 
     // add submission info
     this.add((this.submissionInfo = new SubmissionInfo()))
@@ -45,40 +47,44 @@ export class SubmissionEffect extends VisualizerGroup {
       tl.timeScale(1 / 2.5)
       tl.call(() => {
         this.question.visible = true
-        this.rotation.x = Math.PI * 0.3
+        this.objects.rotation.x = Math.PI * 0.3
         this.submissionInfo.visible = true
         this.submissionInfo.redraw(
-          `${UserManager.getUser(submission.userid)?.displayName as string} - ${
-            submission.title
-          }`,
+          UserManager.getUser(submission.userid)?.displayName as string,
+          submission.title,
           new Color(0xff0000)
         )
       })
-      tl.to(this.rotation, 0.3, {
+      tl.to(this.objects.rotation, 0.3, {
         x: 0,
         ease: Elastic.easeOut.config(1, 0.3)
       })
-      tl.to(this.position, 0.15, {
-        z: 0.1,
-        ease: Elastic.easeIn.config(1, 0.3)
-      })
+      tl.to(
+        this.objects.position,
+        0.15,
+        {
+          z: 0.1,
+          ease: Elastic.easeIn.config(1, 0.3)
+        },
+        '+=0.1'
+      )
       tl.call(() => {
         this.question.visible = false
         this.exclamation.visible = true
-        this.submissionInfo.redraw('Solved!', new Color(0x00ff00))
+        this.submissionInfo.redraw('Solved!', '', new Color(0x00ff00))
       })
-      tl.to(this.position, 0.15, {
+      tl.to(this.objects.position, 0.15, {
         z: 0,
         ease: Elastic.easeOut.config(1, 0.3)
       })
       tl.to(
-        this.position,
+        this.objects.position,
         0.15,
         {
           z: -0.1,
           ease: Elastic.easeIn.config(1, 0.3)
         },
-        `+=${0.25}`
+        `+=0.15`
       )
       tl.call(() => {
         this.exclamation.visible = false
@@ -94,6 +100,10 @@ export class SubmissionEffect extends VisualizerGroup {
     ;(this.question.material as ShaderMaterial[])[0].uniforms.time.value =
       Time.time
     ;(this.exclamation.material as ShaderMaterial[])[0].uniforms.time.value =
+      Time.time
+    ;(this.question.material as ShaderMaterial[])[1].uniforms.time.value =
+      Time.time
+    ;(this.exclamation.material as ShaderMaterial[])[1].uniforms.time.value =
       Time.time
   }
 }

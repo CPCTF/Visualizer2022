@@ -26,7 +26,9 @@ varying vec4 vViewPos;
 varying vec4 vScreenPos;
 
 void main() {
-  gl_FragColor = vec4(colorA, mix(0.55, 0.7, step(0.0, sin(vScreenPos.y / vScreenPos.w * 50.0 + time))));
+  float dark = mix(0.7, 1.0, step(0.0, sin(vScreenPos.y / vScreenPos.w * 300.0 + time * 20.0)));
+  float alpha = mix(0.8, 1.0, step(0.05, mod(vScreenPos.y / vScreenPos.w + time * 10000.0, 1.0)));
+  gl_FragColor = vec4(colorA * dark, alpha * 0.7);
 }
 `
 const vertexOutlineShader = `
@@ -57,7 +59,9 @@ varying vec4 vScreenPos;
 varying vec3 vNormal;
 
 void main() {
-  gl_FragColor = vec4(colorA * 0.7, mix(0.55, 0.7, step(0.0, sin(vScreenPos.y / vScreenPos.w * 50.0 + time))));
+  float dark = mix(0.5, 0.7, step(0.0, sin(vScreenPos.y / vScreenPos.w * 300.0 + time * 20.0)));
+  float alpha = mix(0.8, 1.0, step(0.05, mod(vScreenPos.y / vScreenPos.w + time * 10000.0, 1.0)));
+  gl_FragColor = vec4(colorA * dark, alpha * 0.7);
 }
 `
 
