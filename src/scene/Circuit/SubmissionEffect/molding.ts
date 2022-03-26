@@ -1,4 +1,4 @@
-import { BackSide, Color, DoubleSide, Mesh, ShaderMaterial } from 'three'
+import { BackSide, Color, Mesh, ShaderMaterial } from 'three'
 
 const vertexShader = `
 uniform float time;
