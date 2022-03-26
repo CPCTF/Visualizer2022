@@ -3,7 +3,8 @@
 import {
   InitialRaw,
   QuestionGenreList,
-  RecalculateRaw
+  RecalculateRaw,
+  SubmissionRaw
 } from '#/system/ResponseType'
 import dummyIcon from './testicon.jpg'
 const users = new Array(100).fill(null).map((_, index) => ({
@@ -14,11 +15,9 @@ const users = new Array(100).fill(null).map((_, index) => ({
   rank: -1
 }))
 
-export const generateSubmission = () => {
+export const generateSubmission = (): SubmissionRaw => {
   return {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    id: users[Math.floor(Math.random() * users.length)].id,
+    userid: users[Math.floor(Math.random() * users.length)].id,
     point: Math.random() * 1000,
     genre:
       QuestionGenreList[Math.floor(Math.random() * QuestionGenreList.length)],

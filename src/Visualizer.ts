@@ -4,7 +4,11 @@ import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import { Time } from './system/Time'
 import { VisualizerGroup } from './templates/VisualizerGroup'
 import { VisualizerObject } from './templates/VisualizerObject'
-import { emitInitializedEvent, EventEmitter } from './system/EventEmitter'
+import {
+  emitInitializedEvent,
+  EventEmitter,
+  initializeEventEmitter
+} from './system/EventEmitter'
 import { Effects } from './scene/Effects'
 import { UserDisplayGroup } from './scene/UserDisplayGroup'
 import { VisualizerCamera } from './camera/VisualizerCamera'
@@ -67,6 +71,7 @@ export class Visualizer {
     // console.log('loaded')
 
     // server connection
+    initializeEventEmitter()
     EventEmitter.on('start', () => {
       console.log('start ctf')
     })
@@ -79,9 +84,9 @@ export class Visualizer {
     EventEmitter.on('recalculateend', async () => {
       console.log('recalculateend')
     })
-    EventEmitter.on('submit', () => {
-      // console.log('submit', (e as CustomEvent).detail)
-    })
+    // EventEmitter.on('submit', data => {
+    //   console.log('submit', data)
+    // })
 
     // const initialData = await ServerRequest.initial()
 
