@@ -17,6 +17,7 @@ import {
   Vector3
 } from 'three'
 import { CircuitModelPath } from '#/circuit/CliantScript/CircuitModelPath'
+import { SubmissionEffect } from './SubmissionEffect'
 
 export class Circuit extends VisualizerGroup {
   constructor() {
@@ -26,6 +27,7 @@ export class Circuit extends VisualizerGroup {
     console.log(partsInfos)
     console.log(wiresInfos)
     this.importCircuitInfo(basisInfo, partsInfos, wiresInfos, true)
+    this.add(new SubmissionEffect())
   }
 
   public start(): void {
