@@ -84,9 +84,9 @@ export class Visualizer {
     EventEmitter.on('recalculateend', async () => {
       console.log('recalculateend')
     })
-    EventEmitter.on('submit', data => {
-      console.log('submit', data)
-    })
+    // EventEmitter.on('submit', data => {
+    //   console.log('submit', data)
+    // })
 
     // const initialData = await ServerRequest.initial()
 
