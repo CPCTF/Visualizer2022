@@ -1,6 +1,6 @@
 import { ThreeResourceLoader } from '#/system/Loader'
 import { Time } from '#/system/Time'
-import { EventManagerInstance } from '#/system/EventManager'
+import { EventEmitter } from '#/system/EventEmitter'
 import { VisualizerGroup } from '#/templates/VisualizerGroup'
 import type { Material, Mesh, Object3D } from 'three'
 import { RecalculateAnimations } from './Animations'
@@ -25,10 +25,10 @@ export class Recalculate extends VisualizerGroup {
   }
 
   public start() {
-    EventManagerInstance.addEventListener('recalculatestart', () => {
+    EventEmitter.on('recalculatestart', () => {
       ;(this.children[0] as RecalculateAnimations)?.animate()
     })
-    EventManagerInstance.addEventListener('recalculateend', () => {
+    EventEmitter.on('recalculateend', () => {
       ;(this.children[0] as RecalculateAnimations)?.stop()
     })
   }

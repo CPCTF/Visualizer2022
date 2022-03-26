@@ -68,7 +68,8 @@ export class Basis {
     wirePoints.forEach(v => {
       let nx = x
       let ny = y
-      const dir = v % 4
+      const mod = v % 8
+      const dir = (v - mod) / 8
       const wireExtendInfo = new WireExtendInfo(dir)
       while (v != -1) {
         const [ndir, wireInd] = this.indexConvertToAroundIndex(v)
@@ -104,7 +105,12 @@ export class Basis {
       const wires = new Array<[number, number]>(0)
       v.getAllWires().forEach(w => {
         if (!w.isEmpty()) {
-          wires.push([w.from, w.to])
+          if (w.isHole()) {
+            //holeは[-1,-1]だと定義しているが、クライアント側で分からないため[ind,-1]に加工する
+            wires.push([w.ind, w.to])
+          } else {
+            wires.push([w.from, w.to])
+          }
         }
       })
       if (wires.length != 0) {
