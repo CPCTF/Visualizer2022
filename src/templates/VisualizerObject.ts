@@ -1,9 +1,14 @@
-import { Mesh } from 'three'
+import { BufferGeometry, Material, Mesh } from 'three'
 import type { IRenderable } from './IRenderable'
 import { VisualizerGroup } from './VisualizerGroup'
 
 export abstract class VisualizerObject extends Mesh implements IRenderable {
   private initialized = false
+
+  constructor(geom: BufferGeometry, mat: Material | Material[]) {
+    super(geom, mat)
+    this.name = this.constructor.name
+  }
 
   public start(): void {
     // no impl
