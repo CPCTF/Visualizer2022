@@ -9,7 +9,6 @@ import { Color, Group, Mesh, ShaderMaterial } from 'three'
 import symbolsSrc from './symbols.glb?url'
 import { moldingMesh } from './molding'
 import { SubmissionInfo } from './SubmissionInfo'
-import { to } from 'react-spring'
 
 export class SubmissionEffect extends VisualizerGroup {
   private question: Mesh
