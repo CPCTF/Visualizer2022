@@ -9,6 +9,7 @@ import { Color, Group, Mesh, ShaderMaterial } from 'three'
 import symbolsSrc from './symbols.glb?url'
 import { moldingMesh } from './molding'
 import { SubmissionInfo } from './SubmissionInfo'
+import { to } from 'react-spring'
 
 export class SubmissionEffect extends VisualizerGroup {
   private question: Mesh
@@ -47,6 +48,7 @@ export class SubmissionEffect extends VisualizerGroup {
       tl.call(() => {
         this.question.visible = true
         this.objects.rotation.x = Math.PI * 0.3
+        this.objects.position.z = 0
         this.submissionInfo.visible = true
         this.submissionInfo.redraw(
           UserManager.getUser(submission.userid)?.displayName as string,
