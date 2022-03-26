@@ -4,7 +4,7 @@ import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import { Time } from './system/Time'
 import { VisualizerGroup } from './templates/VisualizerGroup'
 import { VisualizerObject } from './templates/VisualizerObject'
-import { EventManagerInstance } from './system/EventManager'
+import { emitInitializedEvent, EventEmitter } from './system/EventEmitter'
 import { Effects } from './scene/Effects'
 import { UserDisplayGroup } from './scene/UserDisplayGroup'
 import { VisualizerCamera } from './camera/VisualizerCamera'
@@ -67,19 +67,19 @@ export class Visualizer {
     // console.log('loaded')
 
     // server connection
-    EventManagerInstance.addEventListener('start', () => {
+    EventEmitter.on('start', () => {
       console.log('start ctf')
     })
-    EventManagerInstance.addEventListener('end', () => {
+    EventEmitter.on('end', () => {
       console.log('end ctf')
     })
-    EventManagerInstance.addEventListener('recalculatestart', async () => {
+    EventEmitter.on('recalculatestart', async () => {
       console.log('recalculatestart')
     })
-    EventManagerInstance.addEventListener('recalculateend', async () => {
+    EventEmitter.on('recalculateend', async () => {
       console.log('recalculateend')
     })
-    EventManagerInstance.addEventListener('submit', () => {
+    EventEmitter.on('submit', () => {
       // console.log('submit', (e as CustomEvent).detail)
     })
 
@@ -111,7 +111,7 @@ export class Visualizer {
 
     getInitialData().then(() => {
       this._isInitialized = true
-      EventManagerInstance.initialized()
+      emitInitializedEvent()
       if (this.isStartCalled) this.start()
     })
   }
@@ -121,7 +121,6 @@ export class Visualizer {
       Time.start(performance.now())
       this.camera?.start()
       requestAnimationFrame(this.tick)
-      EventManagerInstance.visualizerStart()
     } else {
       this.isStartCalled = true
     }

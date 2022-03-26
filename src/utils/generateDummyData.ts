@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import type { WebSocketMessage } from '#/system/EventManager'
 import {
   InitialRaw,
   QuestionGenreList,
@@ -61,10 +60,11 @@ export const generateInitialData = (): InitialRaw => {
 
 export const generateWebSocketMessage = (
   info: Record<string, any>
-): MessageEvent<WebSocketMessage> => {
+): MessageEvent<{ type: string; result: unknown }> => {
   return {
     data: {
-      type: 'recalculate'
+      type: 'recalculate',
+      result: null
     },
     lastEventId: '',
     origin: '',
