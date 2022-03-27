@@ -1,4 +1,4 @@
-import { Scene, WebGLRenderer } from 'three'
+import { Color, Scene, WebGLRenderer } from 'three'
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer'
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import { Time } from './system/Time'
@@ -48,9 +48,9 @@ export class Visualizer {
   public setup(canvas: HTMLCanvasElement) {
     const renderer = new WebGLRenderer({
       canvas,
-      alpha: true,
       antialias: true
     })
+    renderer.setClearColor(new Color(0x110011))
     const composer = new EffectComposer(renderer)
     const camera = new VisualizerCamera()
 

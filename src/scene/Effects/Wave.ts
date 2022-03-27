@@ -13,7 +13,7 @@ void main() {
   vUv = position; 
 
   vWorldPos =  modelMatrix * vec4(position, 1.0);
-  vViewPos = viewMatrix * (vWorldPos + vec4(0.0, sin(vWorldPos.x * vWorldPos.z + time) * pow(length(vWorldPos) / 20.0, 2.0), 0.0, 0.0));
+  vViewPos = viewMatrix * (vWorldPos + vec4(0.0, sin(vWorldPos.x * vWorldPos.z + time) * pow(length(vWorldPos) / 30.0, 2.0), 0.0, 0.0));
   vec4 pos = projectionMatrix * vViewPos;
   vScreenPos = gl_Position = pos;
 }
@@ -28,8 +28,9 @@ varying vec4 vViewPos;
 varying vec4 vScreenPos;
 
 void main() {
-  float dark = max(step(mod(vUv.x * 2.0, 1.0), 0.1), step(mod(vUv.y * 2.0, 1.0), 0.1));
-  gl_FragColor = vec4(colorA * dark, 1.0);
+  float dark = mix(0.1, 1.0, max(pow(mod(vUv.x, 1.0) * 2.0 - 1.0, 16.0), pow(mod(vUv.y, 1.0) * 2.0 - 1.0, 16.0)));
+  vec3 bright = pow(max(0.0, length(vWorldPos) / 50.0), 4.0) * colorB;
+  gl_FragColor = vec4(colorA * dark + bright, 1.0);
 }
 `
 
@@ -39,7 +40,8 @@ export class Wave extends VisualizerObject {
       new PlaneBufferGeometry(100, 100, 200, 200),
       new ShaderMaterial({
         uniforms: {
-          colorA: { value: new Color(0xff00ff) },
+          colorA: { value: new Color(0xff44ff) },
+          colorB: { value: new Color(0x55aaff) },
           time: { value: 0 }
         },
         vertexShader,
