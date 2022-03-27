@@ -16,8 +16,6 @@ type ResourceType =
       data: Object3D
     }
 
-type CallbackType = (data: ResourceType['data']) => void
-
 export const Loaders = {
   texture: new TextureLoader(),
   gltf: new GLTFLoader(),
@@ -26,23 +24,38 @@ export const Loaders = {
 
 const createResources = (
   path: string,
-  type: ResourceType['type'],
-  callback: CallbackType
-) => {
-  switch (type) {
-    case 'gltf': {
-      Loaders.gltf.load(path, gltf => {
-        callback(gltf.scene)
-      })
-      break
+  type: ResourceType['type']
+): Promise<ResourceType['data']> => {
+  return new Promise<ResourceType['data']>((resolve, reject) => {
+    switch (type) {
+      case 'gltf': {
+        Loaders.gltf.load(
+          path,
+          gltf => {
+            resolve(gltf.scene as Object3D)
+          },
+          () => 0,
+          e => {
+            reject(e)
+          }
+        )
+        break
+      }
+      case 'texture': {
+        Loaders.texture.load(
+          path,
+          texture => {
+            resolve(texture as Texture)
+          },
+          () => 0,
+          e => {
+            reject(e)
+          }
+        )
+        break
+      }
     }
-    case 'texture': {
-      Loaders.texture.load(path, texture => {
-        callback(texture)
-      })
-      break
-    }
-  }
+  })
 }
 
 export class ThreeResourceLoader {
@@ -69,28 +82,36 @@ export class ThreeResourceLoader {
       count: number
     }) => void
   ) {
-    return new Promise(resolve => {
-      let count = 0
-      const total = this.queue.length
-      if (total === 0) resolve({})
-      this.queue.map(([path, type]) => {
-        createResources(path, type, data => {
-          count += 1
-          this.resources[path] = {
-            type,
-            data
-          } as ResourceType
-          onProgress({
-            path,
-            data: data,
-            total,
-            count
-          })
-          if (count === total) resolve({})
+    let chain: Promise<ResourceType['data'] | void> | null = null
+    let count = 0
+    const total = this.queue.length
+    if (total === 0) return
+    this.queue.map(([path, type]) => {
+      if (!chain) chain = createResources(path, type)
+      else chain = chain.then(() => createResources(path, type))
+      chain = chain
+        .then(
+          ((data: unknown) => {
+            count += 1
+            this.resources[path] = {
+              type,
+              data
+            } as ResourceType
+            console.log(this.resources)
+            onProgress({
+              path,
+              data: data as ResourceType['data'],
+              total,
+              count
+            })
+          }).bind(this)
+        )
+        .catch(e => {
+          console.log('loaderror', e)
         })
-      })
-      this.queue = []
     })
+    this.queue = []
+    return chain
   }
 
   public static get(path: string): ResourceType['data'] | undefined {
