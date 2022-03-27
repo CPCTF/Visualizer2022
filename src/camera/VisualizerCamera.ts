@@ -9,7 +9,7 @@ export class VisualizerCamera extends PerspectiveCamera implements IRenderable {
     super(60, 1, 1, 2000)
 
     EventEmitter.on('recalculatestart', () => {
-      gsap.to(this.position, 2, { y: -9 })
+      gsap.to(this.position, 2, { y: -3 })
     })
     EventEmitter.on('recalculateend', () => {
       gsap.to(this.position, 2, { y: 1 })
