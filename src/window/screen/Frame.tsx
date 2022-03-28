@@ -21,6 +21,7 @@ interface FrameProps {
 export const Frame: VFC<FrameProps> = ({ id, windowInfo }) => {
   const { width, height } = useContext(WindowSettingContext)
   const { title, visible, fullscreen, Component } = windowInfo
+  const [contentVisible, setContextVisible] = useState(false)
 
   const rect = !fullscreen
     ? windowInfo.rect
@@ -71,6 +72,12 @@ export const Frame: VFC<FrameProps> = ({ id, windowInfo }) => {
   })
 
   useEffect(() => {
+    // delay content load
+    const delayContentLoadTimeout = setTimeout(() => {
+      setContextVisible(true)
+    }, 1500)
+
+    // register mouse events
     const {
       mouseDownHandler,
       mouseMoveHandler,
@@ -100,6 +107,7 @@ export const Frame: VFC<FrameProps> = ({ id, windowInfo }) => {
     pixicanvas.addEventListener('mousemove', mouseMoveHandlerWrapper)
     pixicanvas.addEventListener('mouseup', mouseUpHandlerWrapper)
     return () => {
+      clearTimeout(delayContentLoadTimeout)
       pixicanvas.removeEventListener('mousemove', mouseMoveHandlerWrapper)
       pixicanvas.removeEventListener('mouseup', mouseUpHandlerWrapper)
     }
@@ -136,7 +144,7 @@ export const Frame: VFC<FrameProps> = ({ id, windowInfo }) => {
         onMaximize={fullScreenHandler}
         onKill={id === 'visualizer' ? undefined : killHandler}
       >
-        {Component ? (
+        {!contentVisible ? null : Component ? (
           <Component
             x={rect.x}
             y={rect.y + windowHeaderHeight}

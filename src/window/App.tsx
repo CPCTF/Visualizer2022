@@ -1,5 +1,5 @@
-import { Container, Stage as PixiStage, withFilters } from '@inlet/react-pixi'
-import { ReactNode, useContext, useRef, VFC } from 'react'
+import { Container, Stage as PixiStage, useApp, withFilters } from '@inlet/react-pixi'
+import { ReactNode, useContext, useEffect, VFC } from 'react'
 import { WindowSettingContext, WindowSettingProvider } from './GlobalSetting'
 import { Screen } from './screen/Screen'
 import { Footer } from './footer/Footer'
@@ -31,10 +31,15 @@ export const Stage: VFC<{ children: ReactNode } & Record<string, unknown>> = ({
   children,
   ...props
 }) => {
+  const { width, height } = useContext(WindowSettingContext)
   return (
     <ContextBridge
       Context={WindowSettingContext}
-      render={children => <PixiStage {...props}>{children}</PixiStage>}
+      render={children => (
+        <PixiStage width={width} height={height} {...props}>
+          {children}
+        </PixiStage>
+      )}
     >
       {children}
     </ContextBridge>
@@ -50,8 +55,6 @@ const Filters = withFilters(Container, {
 })
 
 export const AppInner = () => {
-  const { width, height } = useContext(WindowSettingContext)
-
   const mousedownHandler = () => {
     playSound('mousedown')
   }
@@ -59,43 +62,48 @@ export const AppInner = () => {
     playSound('mouseup')
   }
 
+  const app = useApp()
+  useEffect(() => {
+    app.ticker.maxFPS = 30
+  }, [])
+
   return (
-    <main className={style.main}>
-      <Stage width={width} height={height} id="pixicanvas">
-        <Filters
-          hex={{ lineWidth: [2, 2], blend: 0.5 }}
-          bloom={{
-            threshold: 0.1,
-            bloomScale: 0.5,
-            brightness: 1,
-            blur: 1,
-            quality: 4
-          }}
-          colorshift={{
-            red: [-2.0, 0.0],
-            green: [0.0, 0.0],
-            blue: [2.0, 0.0]
-          }}
-        >
-          <Container
-            mousedown={mousedownHandler}
-            mouseup={mouseupHandler}
-            interactive
-          >
-            <Footer />
-            <Screen />
-            <Startup />
-          </Container>
-        </Filters>
-      </Stage>
-    </main>
+    <Filters
+      hex={{ lineWidth: [2, 2], blend: 0.5 }}
+      bloom={{
+        threshold: 0.1,
+        bloomScale: 0.5,
+        brightness: 1,
+        blur: 1,
+        quality: 4
+      }}
+      colorshift={{
+        red: [-2.0, 0.0],
+        green: [0.0, 0.0],
+        blue: [2.0, 0.0]
+      }}
+    >
+      <Container
+        mousedown={mousedownHandler}
+        mouseup={mouseupHandler}
+        interactive
+      >
+        <Footer />
+        <Screen />
+        <Startup />
+      </Container>
+    </Filters>
   )
 }
 
 export const App = () => {
   return (
     <WindowSettingProvider>
-      <AppInner />
+      <main className={style.main}>
+        <Stage id="pixicanvas">
+          <AppInner />
+        </Stage>
+      </main>
     </WindowSettingProvider>
   )
 }
