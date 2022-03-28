@@ -6,7 +6,11 @@ import { MouseEventHandlerGenerator } from './mouseevent'
 import { WindowSettingContext } from '../GlobalSetting'
 import type { InteractionEvent } from 'pixi.js'
 import { getCursorIcon, updateCursorIcon } from '../stores/cursorIcon'
-import { FrameTemplate } from '../utils/FrameTemplate'
+import {
+  FrameTemplate,
+  getFrameHeight,
+  getFrameWidth
+} from '../utils/FrameTemplate'
 
 interface FrameProps {
   id: string
@@ -136,8 +140,8 @@ export const Frame: VFC<FrameProps> = ({ id, windowInfo }) => {
           <Component
             x={rect.x}
             y={rect.y + windowHeaderHeight}
-            width={rect.width}
-            height={rect.height - windowHeaderHeight}
+            width={getFrameWidth(rect.width)}
+            height={getFrameHeight(rect.height)}
           />
         ) : (
           <Container />

@@ -7,7 +7,7 @@ import barSrc from './bar.png'
 import { FrameBackground } from '../utils/FrameBackground'
 import { TextStyle } from 'pixi.js'
 import { Container, Sprite, Text } from '@inlet/react-pixi'
-import { windowHeaderHeight } from '../globals'
+import { windowEdge, windowHeaderHeight } from '../globals'
 
 interface FrameTemplate {
   width: number
@@ -17,6 +17,13 @@ interface FrameTemplate {
   onMaximize?: () => void
   onKill?: () => void
   children: ReactNode
+}
+
+export const getFrameWidth = (width: number) => {
+  return width - windowEdge * 2
+}
+export const getFrameHeight = (height: number) => {
+  return height - windowHeaderHeight - windowEdge * 2
 }
 
 export const FrameTemplate: VFC<FrameTemplate> = ({
