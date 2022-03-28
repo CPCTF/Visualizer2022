@@ -5,6 +5,10 @@ import hddSrc from '#/circuit/CircuitModels/hdd.glb?url'
 import memorySrc from '#/circuit/CircuitModels/memory.glb?url'
 import powerSupplySrc from '#/circuit/CircuitModels/powerSupply.glb?url'
 import tipsetSrc from '#/circuit/CircuitModels/tipSet.glb?url'
+import audioSrc from '#/circuit/CircuitModels/audio.glb?url'
+import condenserSrc from '#/circuit/CircuitModels/condenser.glb?url'
+import portsSrc from '#/circuit/CircuitModels/ports.glb?url'
+import ssdSrc from '#/circuit/CircuitModels/ssd.glb?url'
 
 export class CircuitModelPath {
   public static cpuPath: string = cpuSrc
@@ -15,10 +19,10 @@ export class CircuitModelPath {
     PPC: memorySrc,
     Crypto: powerSupplySrc,
     Shell: tipsetSrc,
-    Forensics: '',
-    Web: '',
-    OSINT: '',
-    Misc: ''
+    Forensics: audioSrc,
+    Web: condenserSrc,
+    OSINT: portsSrc,
+    Misc: ssdSrc
   }
   public static partsBigPath: Record<ProblemCategory, string> = {
     None: '',
