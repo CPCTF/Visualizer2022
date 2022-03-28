@@ -13,7 +13,7 @@ export class Recalculate extends VisualizerGroup {
     const animation = new RecalculateAnimations()
     animation.scale.set(0.5, 0.5, 0.5)
     this.add(animation)
-    this.position.set(0, -10, 0)
+    this.position.set(0, -4, 0)
 
     // 再計算ラベル
     this.recLabel = ThreeResourceLoader.get(recalculatingSrc) as Mesh

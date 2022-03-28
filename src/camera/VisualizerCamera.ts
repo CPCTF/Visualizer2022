@@ -9,17 +9,17 @@ export class VisualizerCamera extends PerspectiveCamera implements IRenderable {
     super(60, 1, 1, 2000)
 
     EventEmitter.on('recalculatestart', () => {
-      gsap.to(this.position, 2, { y: -8 })
+      gsap.to(this.position, 2, { y: -3 })
     })
     EventEmitter.on('recalculateend', () => {
-      gsap.to(this.position, 2, { y: 2 })
+      gsap.to(this.position, 2, { y: 1 })
     })
   }
 
   public start(): void {
     this.position.set(
       Math.sin(Time.time * 0.1) * 4,
-      2,
+      1,
       Math.cos(Time.time * 0.1) * 4
     )
   }
@@ -30,6 +30,6 @@ export class VisualizerCamera extends PerspectiveCamera implements IRenderable {
       this.position.y,
       Math.cos(Time.time * 0.1) * 4
     )
-    this.lookAt(0, this.position.y - 2, 0)
+    this.lookAt(0, this.position.y + 0.5, 0)
   }
 }
