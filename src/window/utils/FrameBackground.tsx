@@ -4,15 +4,17 @@ import { useCallback, VFC } from 'react'
 interface FrameBackgroundProps {
   width: number
   height: number
+  bgColor?: number
 }
 export const FrameBackground: VFC<FrameBackgroundProps> = ({
   width,
-  height
+  height,
+  bgColor = 0xffffff
 }) => {
   const draw = useCallback(
     g => {
       g.clear()
-      g.beginFill(0xffffff)
+      g.beginFill(bgColor)
       g.drawRect(0, 0, width, height)
       g.endFill()
     },

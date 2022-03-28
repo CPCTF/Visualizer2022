@@ -2,17 +2,11 @@ import { Container, Sprite, Text, useTick } from '@inlet/react-pixi'
 import { useContext, useEffect, useRef, useState, VFC } from 'react'
 import { footerHeight, windowHeaderHeight } from '../globals'
 import type { WindowInfo } from '../stores/WindowSystem'
-import { TextStyle } from 'pixi.js'
 import { MouseEventHandlerGenerator } from './mouseevent'
 import { WindowSettingContext } from '../GlobalSetting'
 import type { InteractionEvent } from 'pixi.js'
-
-import closeSrc from './close.png'
-import fullscreenSrc from './fullscreen.png'
-import minimizeSrc from './minimize.png'
-import barSrc from './bar.png'
-import { FrameBackground } from './FrameBackground'
 import { getCursorIcon, updateCursorIcon } from '../stores/cursorIcon'
+import { FrameTemplate } from '../utils/FrameTemplate'
 
 interface FrameProps {
   id: string
@@ -130,65 +124,14 @@ export const Frame: VFC<FrameProps> = ({ id, windowInfo }) => {
       mouseover={handler.mouseOverHandler ? handler.mouseOverHandler : () => ''}
       mouseout={handler.mouseOutHandler ? handler.mouseOutHandler : () => ''}
     >
-      <Container position={[0, 0]}>
-        <Sprite
-          anchor={[0, 0]}
-          image={barSrc}
-          width={rect.width}
-          height={windowHeaderHeight}
-          position={[0, 0]}
-        />
-        <Text
-          text={title}
-          anchor={[0, 0.5]}
-          position={[5, windowHeaderHeight / 2]}
-          style={
-            new TextStyle({
-              align: 'center',
-              fontFamily: '"Source Sans Pro", Helvetica, sans-serif',
-              fontSize: windowHeaderHeight * 0.5,
-              fill: '#000'
-            })
-          }
-        />
-        <Container position={[rect.width, windowHeaderHeight / 2]}>
-          <Sprite
-            anchor={[1, 0.5]}
-            image={minimizeSrc}
-            width={windowHeaderHeight}
-            height={windowHeaderHeight}
-            position={[-windowHeaderHeight * (id === 'visualizer' ? 1 : 2), 0]}
-            interactive
-            click={closeHandler}
-          />
-          <Sprite
-            anchor={[1, 0.5]}
-            image={fullscreenSrc}
-            width={windowHeaderHeight}
-            height={windowHeaderHeight}
-            position={[-windowHeaderHeight * (id === 'visualizer' ? 0 : 1), 0]}
-            interactive
-            click={fullScreenHandler}
-          />
-          {id !== 'visualizer' ? (
-            <Sprite
-              anchor={[1, 0.5]}
-              image={closeSrc}
-              width={windowHeaderHeight}
-              height={windowHeaderHeight}
-              position={[0, 0]}
-              interactive
-              click={killHandler}
-            />
-          ) : null}
-        </Container>
-      </Container>
-
-      <Container position={[0, windowHeaderHeight]}>
-        <FrameBackground
-          width={rect.width}
-          height={rect.height - windowHeaderHeight}
-        />
+      <FrameTemplate
+        width={rect.width}
+        height={rect.height}
+        title={title}
+        onMinimize={closeHandler}
+        onMaximize={fullScreenHandler}
+        onKill={id === 'visualizer' ? undefined : killHandler}
+      >
         {Component ? (
           <Component
             x={rect.x}
@@ -199,7 +142,7 @@ export const Frame: VFC<FrameProps> = ({ id, windowInfo }) => {
         ) : (
           <Container />
         )}
-      </Container>
+      </FrameTemplate>
     </Container>
   )
 }
