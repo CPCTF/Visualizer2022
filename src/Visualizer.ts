@@ -27,14 +27,18 @@ export class Visualizer {
 
   private renderer: WebGLRenderer | null = null
   private camera: VisualizerCamera | null = null
-  private tick: ((timestamp: number) => void) | null = null
+  private _tick: (() => void) | null = null
+  public get tick() {
+    return this._tick
+  }
 
   // flags
-  private _isInitialized = false
-  // start called but not setupped
+  private isLoaded = false
+  // start start called
   private isStartCalled = false
+  private isFirstTickCalled = false
   public get isInitialized() {
-    return this._isInitialized
+    return this.isLoaded
   }
 
   public resize(width: number, height: number) {
@@ -94,10 +98,14 @@ export class Visualizer {
     composer.addPass(new RenderPass(scene, camera))
 
     // animation loop
-    this.tick = (timestamp: number) => {
-      if (this.tick) requestAnimationFrame(this.tick)
-      Time.update(timestamp)
-
+    this._tick = () => {
+      if (!this.isLoaded || !this.isStartCalled) return
+      if (!this.isFirstTickCalled) {
+        Time.start(performance.now())
+        this.camera?.start()
+        this.isFirstTickCalled = true
+      }
+      Time.update(performance.now())
       camera.update()
       scene.children.map(value => {
         if (
@@ -115,19 +123,12 @@ export class Visualizer {
     this.camera = camera
 
     getInitialData().then(() => {
-      this._isInitialized = true
+      this.isLoaded = true
       emitInitializedEvent()
-      if (this.isStartCalled) this.start()
     })
   }
 
   public start() {
-    if (this._isInitialized && this.tick) {
-      Time.start(performance.now())
-      this.camera?.start()
-      requestAnimationFrame(this.tick)
-    } else {
-      this.isStartCalled = true
-    }
+    this.isStartCalled = true
   }
 }

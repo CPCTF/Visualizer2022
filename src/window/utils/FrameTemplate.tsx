@@ -111,7 +111,10 @@ export const FrameTemplate: VFC<FrameTemplate> = ({
       </Container>
 
       <Container position={[0, windowHeaderHeight]}>
-        <FrameBackground width={width} height={height - windowHeaderHeight} />
+        {/* for delay load */}
+        {!children ? null : (
+          <FrameBackground width={width} height={height - windowHeaderHeight} />
+        )}
         {children}
       </Container>
     </>
