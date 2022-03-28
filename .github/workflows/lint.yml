@@ -1,4 +1,4 @@
-name: lint
+name: Check
 on:
   pull_request:
     branches:
@@ -9,8 +9,8 @@ on:
       - '.eslintrc.js'
       - '.github/workflows/lint.yml'
 jobs:
-  eslint:
-    name: run eslint
+  check:
+    name: run check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -25,4 +25,5 @@ jobs:
             ${{ runner.os }}-node-
       - run: npm install
       - run: npm run check
+      - run: npm run build
 

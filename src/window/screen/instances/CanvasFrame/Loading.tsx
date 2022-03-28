@@ -58,7 +58,7 @@ export const LoadingCanvas: VFC<LoadingCanvasProps> = ({
           textures: nowTextures.textures
         }
       })
-    }, 100)
+    }, 200)
 
     return () => {
       clearInterval(textureAnimation)
