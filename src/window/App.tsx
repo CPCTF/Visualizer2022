@@ -1,5 +1,5 @@
 import { Container, Stage as PixiStage, withFilters } from '@inlet/react-pixi'
-import { ReactNode, useContext, VFC } from 'react'
+import { ReactNode, useContext, useRef, VFC } from 'react'
 import { WindowSettingContext, WindowSettingProvider } from './GlobalSetting'
 import { Screen } from './screen/Screen'
 import { Footer } from './footer/Footer'
@@ -10,6 +10,7 @@ import { RGBSplitFilter, AdvancedBloomFilter } from 'pixi-filters'
 import { HexFilter } from './postprocessing/HexFilter'
 import style from './main.module.css'
 import { Startup } from './startup/Startup'
+import { playSound } from './utils/sounds/sound'
 
 // the context bridge:
 const ContextBridge: VFC<{
@@ -50,6 +51,15 @@ const Filters = withFilters(Container, {
 
 export const AppInner = () => {
   const { width, height } = useContext(WindowSettingContext)
+  const clickRef = useRef(0)
+
+  const mousedownHandler = () => {
+    playSound('mousedown')
+  }
+  const mouseupHandler = () => {
+    playSound('mouseup')
+  }
+
   return (
     <main className={style.main}>
       <Stage width={width} height={height} id="pixicanvas">
@@ -68,9 +78,15 @@ export const AppInner = () => {
             blue: [2.0, 0.0]
           }}
         >
-          <Footer />
-          <Screen />
-          <Startup />
+          <Container
+            mousedown={mousedownHandler}
+            mouseup={mouseupHandler}
+            interactive
+          >
+            <Footer />
+            <Screen />
+            <Startup />
+          </Container>
         </Filters>
       </Stage>
     </main>
