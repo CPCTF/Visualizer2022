@@ -13,10 +13,12 @@ export const Screen = () => {
   const {
     width,
     height,
-    windowSettings: { windows, windowIndices: windowIndices }
+    windowSettings: { windows, windowIndices: windowIndices, starting }
   } = useContext(WindowSettingContext)
   useTick(() => {
-    document.body.style.cursor = getCursorIcon() || 'default'
+    document.body.style.cursor = starting
+      ? 'wait'
+      : getCursorIcon() || 'default'
     clearCursorIcon()
   })
   const [isEnded, setIsEnded] = useState(false)

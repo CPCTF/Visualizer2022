@@ -18,6 +18,8 @@ export const CanvasFrame: VFC<WindowComponentProps> = ({ width, height }) => {
 
   useTick(() => {
     texture.update()
+    const tick = Visualizer.getInstance().tick
+    if (tick) tick()
   })
 
   useEffect(() => {
@@ -28,6 +30,7 @@ export const CanvasFrame: VFC<WindowComponentProps> = ({ width, height }) => {
 
   const callVisualizer = () => {
     const canvas = document.createElement('canvas') as HTMLCanvasElement
+    document.body.appendChild(canvas)
     canvasRef.current = canvas
 
     Visualizer.getInstance().setup(canvas)

@@ -2,7 +2,7 @@ import { Container, Sprite } from '@inlet/react-pixi'
 import { useContext } from 'react'
 import { footerHeight } from '../globals'
 import { WindowSettingContext } from '../GlobalSetting'
-import barSrc from '../screen/bar.png'
+import barSrc from '../utils/bar.png'
 import { Tab } from './Tab'
 
 export const Footer = () => {
