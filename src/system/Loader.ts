@@ -97,7 +97,6 @@ export class ThreeResourceLoader {
               type,
               data
             } as ResourceType
-            console.log(this.resources)
             onProgress({
               path,
               data: data as ResourceType['data'],
