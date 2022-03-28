@@ -65,6 +65,7 @@ export const Startup = () => {
               getFrameHeight(rect.width) - 5,
               getFrameHeight(rect.height) - 5
             ]}
+            interactive
             click={() => {
               setVolume(0)
               setVisible(false)
