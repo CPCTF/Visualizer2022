@@ -1,4 +1,4 @@
-import { Container, Sprite, Text, useTick } from '@inlet/react-pixi'
+import { Container, useTick } from '@inlet/react-pixi'
 import { useContext, useEffect, useRef, useState, VFC } from 'react'
 import { footerHeight, windowHeaderHeight } from '../globals'
 import type { WindowInfo } from '../stores/WindowSystem'
