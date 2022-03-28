@@ -26,8 +26,9 @@ export class Circuit extends VisualizerGroup {
     console.log(basisInfo)
     console.log(partsInfos)
     console.log(wiresInfos)
-    this.importCircuitInfo(basisInfo, partsInfos, wiresInfos, true)
+    this.importCircuitInfo(basisInfo, partsInfos, wiresInfos, false)
     this.add(new SubmissionEffect())
+    this.position.add(new Vector3(0, 0.1, 0))
   }
 
   public start(): void {
@@ -45,9 +46,9 @@ export class Circuit extends VisualizerGroup {
     circuitWiresInfos: CircuitWiresInfo[],
     isDebug: boolean
   ): void {
-    const offsetX = -circuitBasisInfo.sizeX / 2
+    const offsetX = -circuitBasisInfo.sizeX / 2 + 0.5
     const offsetY = 0
-    const offsetZ = -circuitBasisInfo.sizeY / 2
+    const offsetZ = -circuitBasisInfo.sizeY / 2 + 0.5
 
     circuitPartsInfos.forEach(v => {
       let path = ''

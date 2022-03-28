@@ -58,6 +58,10 @@ export class Basis {
     }
   }
 
+  getAllPartsCells(): Cell[][] {
+    return this.partsCellDict as Cell[][]
+  }
+
   //指定したセルからwireを伸ばす
   extendWires(cell: Cell) {
     const x = cell.x
