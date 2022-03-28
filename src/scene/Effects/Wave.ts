@@ -13,7 +13,7 @@ void main() {
   vUv = position; 
 
   vWorldPos =  modelMatrix * vec4(position, 1.0);
-  vViewPos = viewMatrix * (vWorldPos + vec4(0.0, sin(vWorldPos.x * vWorldPos.z + time) * pow(length(vWorldPos) / 30.0, 2.0), 0.0, 0.0));
+  vViewPos = viewMatrix * (vWorldPos + vec4(0.0, sin(vWorldPos.x * vWorldPos.z * 0.1 + time) * pow(length(vWorldPos) / 30.0, 2.0), 0.0, 0.0));
   vec4 pos = projectionMatrix * vViewPos;
   vScreenPos = gl_Position = pos;
 }
@@ -29,7 +29,7 @@ varying vec4 vScreenPos;
 
 void main() {
   float dark = mix(0.1, 1.0, max(pow(mod(vUv.x, 1.0) * 2.0 - 1.0, 16.0), pow(mod(vUv.y, 1.0) * 2.0 - 1.0, 16.0)));
-  vec3 bright = pow(max(0.0, length(vWorldPos) / 50.0), 4.0) * colorB;
+  vec3 bright = pow(max(0.0, length(vWorldPos) / 40.0), 4.0) * colorB;
   gl_FragColor = vec4(colorA * dark + bright, 1.0);
 }
 `
