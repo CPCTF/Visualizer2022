@@ -11,8 +11,9 @@ const iconMargin = 12
 export const Background = () => {
   const { width, height } = useContext(WindowSettingContext)
 
-  const row = Math.floor(
-    (height - footerHeight - (iconSize + iconMargin)) / iconSize
+  const row = Math.max(
+    1.0,
+    Math.floor((height - footerHeight - (iconSize + iconMargin)) / iconSize)
   )
   return (
     <>

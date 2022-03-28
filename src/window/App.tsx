@@ -9,6 +9,7 @@ import { VisnettingFilter } from './postprocessing/VisnettingFilter'
 import { RGBSplitFilter, AdvancedBloomFilter } from 'pixi-filters'
 import { HexFilter } from './postprocessing/HexFilter'
 import style from './main.module.css'
+import { Startup } from './startup/Startup'
 
 // the context bridge:
 const ContextBridge: VFC<{
@@ -69,6 +70,7 @@ export const AppInner = () => {
         >
           <Footer />
           <Screen />
+          <Startup />
         </Filters>
       </Stage>
     </main>
