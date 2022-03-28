@@ -5,6 +5,7 @@ import { setVolume, windowHeaderHeight } from '../globals'
 import { WindowSettingContext } from '../GlobalSetting'
 import { FrameBackground } from '../utils/FrameBackground'
 import { FrameTemplate, getFrameHeight } from '../utils/FrameTemplate'
+import { playLongSound, playSound } from '../utils/sounds/sound'
 
 export const Startup = () => {
   const { width, height } = useContext(WindowSettingContext)
@@ -48,6 +49,9 @@ export const Startup = () => {
             click={() => {
               setVolume(1)
               setVisible(false)
+              playSound('mousedown')
+              playSound('mouseup')
+              playLongSound('hdd')
             }}
             style={
               new TextStyle({

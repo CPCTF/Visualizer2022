@@ -51,7 +51,6 @@ const Filters = withFilters(Container, {
 
 export const AppInner = () => {
   const { width, height } = useContext(WindowSettingContext)
-  const clickRef = useRef(0)
 
   const mousedownHandler = () => {
     playSound('mousedown')

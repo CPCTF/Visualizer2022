@@ -1,4 +1,5 @@
 import { useState, VFC } from 'react'
+import { playLongSound } from '../utils/sounds/sound'
 
 export interface WindowComponentProps {
   x: number
@@ -27,6 +28,7 @@ export interface WindowSettingProps {
     windowIndices: string[]
     windowStack: string[]
     focused: string
+    starting: boolean
     update: (id: string, info: WindowInfo) => void
     kill: (id: string) => void
     focus: (id: string) => void
@@ -35,7 +37,7 @@ export interface WindowSettingProps {
 }
 
 export const WindowSystemHooks = (): [WindowSettingProps, () => void] => {
-  const [settings, setSettings] = useState<WindowSettingProps>({
+  const [settings, setSettings] = useState<WindowSettingProps>(() => ({
     width: Math.min(window.innerWidth, (window.innerHeight * 4) / 3),
     height: Math.min(window.innerHeight, (window.innerWidth * 3) / 4),
     windowSettings: {
@@ -43,8 +45,47 @@ export const WindowSystemHooks = (): [WindowSettingProps, () => void] => {
       windowIndices: [],
       windowStack: [],
       focused: '',
+      starting: false,
       update: (id: string, info: WindowInfo) => {
         setSettings(nowSetting => {
+          if (nowSetting.windowSettings.starting) return nowSetting
+          if (!nowSetting.windowSettings.windowIndices.includes(id)) {
+            // プログラムの起動の場合かつほかのプログラムが開始中ではない場合は2秒後に実行
+            // 処理重表現のため
+            playLongSound('hdd')
+            setTimeout(() => {
+              setSettings(nowSetting => {
+                const windows = { ...nowSetting.windowSettings.windows }
+                windows[id] = info
+                const windowIndices = [
+                  ...nowSetting.windowSettings.windowIndices
+                ]
+                const windowStack = [...nowSetting.windowSettings.windowStack]
+                if (!windowIndices.includes(id)) {
+                  windowStack.push(id)
+                  windowIndices.push(id)
+                }
+                return {
+                  ...nowSetting,
+                  windowSettings: {
+                    ...nowSetting.windowSettings,
+                    windows,
+                    windowIndices,
+                    windowStack,
+                    starting: false
+                  }
+                }
+              })
+            }, 2000)
+            return {
+              ...nowSetting,
+              windowSettings: {
+                ...nowSetting.windowSettings,
+                starting: true
+              }
+            }
+          }
+          // プログラムの起動ではない場合は即時実行
           const windows = { ...nowSetting.windowSettings.windows }
           windows[id] = info
           const windowIndices = [...nowSetting.windowSettings.windowIndices]
@@ -52,6 +93,7 @@ export const WindowSystemHooks = (): [WindowSettingProps, () => void] => {
           if (!windowIndices.includes(id)) {
             windowStack.push(id)
             windowIndices.push(id)
+            playLongSound('hdd')
           }
           return {
             ...nowSetting,
@@ -138,7 +180,7 @@ export const WindowSystemHooks = (): [WindowSettingProps, () => void] => {
         })
       }
     }
-  })
+  }))
 
   const resizeHandler = () => {
     setSettings(nowSettings => ({
