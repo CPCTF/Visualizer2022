@@ -32,7 +32,9 @@ const createResources = (
         Loaders.gltf.load(
           path,
           gltf => {
-            resolve(gltf.scene as Object3D)
+            setTimeout(() => {
+              resolve(gltf.scene as Object3D)
+            }, 500 * Math.random() + 500)
           },
           () => 0,
           e => {
@@ -45,7 +47,9 @@ const createResources = (
         Loaders.texture.load(
           path,
           texture => {
-            resolve(texture as Texture)
+            setTimeout(() => {
+              resolve(texture as Texture)
+            }, 500 * Math.random() + 500)
           },
           () => 0,
           e => {

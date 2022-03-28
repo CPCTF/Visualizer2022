@@ -1,4 +1,9 @@
-import { Container, Stage as PixiStage, useApp, withFilters } from '@inlet/react-pixi'
+import {
+  Container,
+  Stage as PixiStage,
+  useApp,
+  withFilters
+} from '@inlet/react-pixi'
 import { ReactNode, useContext, useEffect, VFC } from 'react'
 import { WindowSettingContext, WindowSettingProvider } from './GlobalSetting'
 import { Screen } from './screen/Screen'
