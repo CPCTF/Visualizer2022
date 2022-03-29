@@ -14,7 +14,7 @@ export const YouAreAnIdiotWindow: VFC<{
   height: number
   index: number
   trans: boolean
-}> = ({ index, width, height, trans }) => {
+}> = ({ width, height, trans }) => {
   const windowWidth = width * 0.7
   const windowHeight = (windowWidth / 1576) * 994
   const containerRef = useRef<PixiContainer | null>(null)
@@ -23,13 +23,13 @@ export const YouAreAnIdiotWindow: VFC<{
 
   useEffect(() => {
     const dir = Math.PI * Math.random()
-    directionRef.current = [Math.cos(dir) * 3.0, Math.sin(dir) * 3.0]
+    directionRef.current = [Math.cos(dir) * 90.0, Math.sin(dir) * 90.0]
   }, [])
 
   useTick(delta => {
     if (!containerRef.current || !positionRef.current || !directionRef.current)
       return
-    directionRef.current[1] += (9.8 * delta) / 30.0
+    directionRef.current[1] += (98 * delta) / 30.0
     const pos = [
       positionRef.current[0] + (directionRef.current[0] * delta) / 30,
       positionRef.current[1] + (directionRef.current[1] * delta) / 30
@@ -48,13 +48,7 @@ export const YouAreAnIdiotWindow: VFC<{
     containerRef.current.position.set(pos[0], pos[1])
   })
   return (
-    <Container
-      ref={containerRef}
-      position={[
-        (index * 1204) % (width - windowWidth),
-        (index * 23459) % Math.max(1, height - windowHeight)
-      ]}
-    >
+    <Container ref={containerRef}>
       <FrameTemplate
         width={windowWidth}
         height={windowHeight}
