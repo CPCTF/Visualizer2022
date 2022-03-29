@@ -11,7 +11,7 @@ export const icons: IconInfo[] = [
   {
     src: visualizerSrc,
     id: 'visualizer',
-    title: 'Visualizer.exe'
+    title: 'Visualizer'
   },
   {
     src: iconSrc,
