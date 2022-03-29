@@ -17,5 +17,10 @@ export const icons: IconInfo[] = [
     src: iconSrc,
     id: 'clock',
     title: 'Clock.exe'
+  },
+  {
+    src: iconSrc,
+    id: 'readme',
+    title: 'Readme.txt'
   }
 ]
