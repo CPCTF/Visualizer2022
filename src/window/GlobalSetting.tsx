@@ -8,7 +8,7 @@ export const WindowSettingContext = createContext<WindowSettingProps>({
     windows: {},
     windowIndices: [],
     windowStack: [],
-    starting: false,
+    starting: '',
     focused: '',
     update: () => '',
     kill: () => '',
