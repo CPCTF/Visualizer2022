@@ -11,11 +11,16 @@ export const icons: IconInfo[] = [
   {
     src: visualizerSrc,
     id: 'visualizer',
-    title: 'Visualizer.exe'
+    title: 'Visualizer'
   },
   {
     src: iconSrc,
     id: 'clock',
     title: 'Clock.exe'
+  },
+  {
+    src: iconSrc,
+    id: 'readme',
+    title: 'Readme.txt'
   }
 ]
