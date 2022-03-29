@@ -22,7 +22,11 @@ export const playSound = (id: string) => {
 
 export const playLongSound = (id: string) => {
   if (getVolume() === 0) return
-  if (!sounds[id] || !sounds[id].paused) return
+  if (!sounds[id]) return
+  if (!sounds[id].paused) {
+    sounds[id].pause()
+    sounds[id].currentTime = Math.min(sounds[id].currentTime, 5)
+  }
   sounds[id].volume = getVolume()
   sounds[id].play()
 }
