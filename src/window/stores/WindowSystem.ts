@@ -28,7 +28,7 @@ export interface WindowSettingProps {
     windowIndices: string[]
     windowStack: string[]
     focused: string
-    starting: boolean
+    starting: string
     update: (id: string, info: WindowInfo) => void
     kill: (id: string) => void
     focus: (id: string) => void
@@ -45,7 +45,7 @@ export const WindowSystemHooks = (): [WindowSettingProps, () => void] => {
       windowIndices: [],
       windowStack: [],
       focused: '',
-      starting: false,
+      starting: '',
       update: (id: string, info: WindowInfo) => {
         setSettings(nowSetting => {
           if (nowSetting.windowSettings.starting) return nowSetting
@@ -72,7 +72,7 @@ export const WindowSystemHooks = (): [WindowSettingProps, () => void] => {
                     windows,
                     windowIndices,
                     windowStack,
-                    starting: false
+                    starting: ''
                   }
                 }
               })
@@ -81,7 +81,7 @@ export const WindowSystemHooks = (): [WindowSettingProps, () => void] => {
               ...nowSetting,
               windowSettings: {
                 ...nowSetting.windowSettings,
-                starting: true
+                starting: id
               }
             }
           }
