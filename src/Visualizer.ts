@@ -15,6 +15,7 @@ import { VisualizerCamera } from './camera/VisualizerCamera'
 import { Recalculate } from './scene/Recalculates'
 import { getInitialData } from './utils/getInitialData'
 import { Circuit } from './scene/Circuit/Circuit'
+import { StartupPass } from './postprocess/StartupPass'
 
 export class Visualizer {
   // singleton
@@ -27,6 +28,7 @@ export class Visualizer {
 
   private renderer: WebGLRenderer | null = null
   private camera: VisualizerCamera | null = null
+  private composer: EffectComposer | null = null
   private _tick: (() => void) | null = null
   public get tick() {
     return this._tick
@@ -42,11 +44,12 @@ export class Visualizer {
   }
 
   public resize(width: number, height: number) {
-    if (!this.renderer || !this.camera) return
+    if (!this.renderer || !this.camera || !this.composer) return
     this.renderer.setSize(width, height)
     this.renderer.setPixelRatio(window.devicePixelRatio)
     this.camera.aspect = width / height
     this.camera.updateProjectionMatrix()
+    this.composer.setSize(width, height)
   }
 
   public setup(canvas: HTMLCanvasElement) {
@@ -56,6 +59,7 @@ export class Visualizer {
     })
     renderer.setClearColor(new Color(0x110011))
     const composer = new EffectComposer(renderer)
+    this.composer = composer
     const camera = new VisualizerCamera()
 
     const scene = new Scene()
@@ -96,6 +100,13 @@ export class Visualizer {
 
     // set render path
     composer.addPass(new RenderPass(scene, camera))
+    const startupPass = new StartupPass(
+      scene,
+      camera,
+      canvas.width,
+      canvas.height
+    )
+    composer.addPass(startupPass)
 
     // animation loop
     this._tick = () => {
@@ -116,7 +127,8 @@ export class Visualizer {
         }
       })
 
-      renderer.render(scene, camera)
+      // renderer.render(scene, camera)
+      composer.render()
     }
 
     this.renderer = renderer
