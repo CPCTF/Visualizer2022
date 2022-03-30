@@ -32,9 +32,10 @@ const createResources = (
         Loaders.gltf.load(
           path,
           gltf => {
-            setTimeout(() => {
-              resolve(gltf.scene as Object3D)
-            }, 500 * Math.random() + 500)
+            // TODO: uncomment delay load
+            // setTimeout(() => {
+            resolve(gltf.scene as Object3D)
+            // }, 500 * Math.random() + 500)
           },
           () => 0,
           e => {
@@ -47,9 +48,9 @@ const createResources = (
         Loaders.texture.load(
           path,
           texture => {
-            setTimeout(() => {
-              resolve(texture as Texture)
-            }, 500 * Math.random() + 500)
+            // setTimeout(() => {
+            resolve(texture as Texture)
+            // }, 500 * Math.random() + 500)
           },
           () => 0,
           e => {
