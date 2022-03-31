@@ -13,8 +13,9 @@ export interface UserRaw {
   iconUrl: string
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface CircuitRaw {}
+export interface CircuitRaw {
+  data: string
+}
 export interface RecalculateRaw {
   ranking: UserRankingRaw[]
   circuit: CircuitRaw

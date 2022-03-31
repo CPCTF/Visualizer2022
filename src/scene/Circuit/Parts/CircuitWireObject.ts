@@ -16,7 +16,7 @@ export class CircuitWireObject extends VisualizerGroup {
     super()
     wires.forEach(v => {
       const geometry = this.createWireGeometry(v)
-      this.add(new Mesh(geometry, new MeshBasicMaterial({ color: 0xffffff })))
+      this.add(new Mesh(geometry, new MeshBasicMaterial({ color: 0x000000 })))
     })
   }
 
@@ -37,7 +37,6 @@ export class CircuitWireObject extends VisualizerGroup {
     const thetaSeg = 16
     const [from, to] = fromto
     if (to == -1) {
-      console.log('hole from' + from.toString())
       //TODO:holeを作る
       const rout = (size * bout) / 8 / 2
       const rin = (size * bin) / 8 / 2

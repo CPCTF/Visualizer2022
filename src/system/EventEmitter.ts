@@ -11,6 +11,7 @@ import type { SubmissionRaw } from './ResponseType'
 import { ServerRequest } from './ServerRequest'
 import { UserManager } from './UserManager'
 import mitt from 'mitt'
+import { CircuitManager } from '#/circuit/CliantScript/CircuitManager'
 
 export type VisualizerEvents = {
   initialized: void
@@ -100,7 +101,7 @@ const messageHandler = (
 }
 
 const setRecalculateData = async () => {
-  const { ranking } = await ServerRequest.recalculate()
+  const { ranking, circuit } = await ServerRequest.recalculate()
 
   ranking.forEach(user => {
     UserManager.updateUser(user)
@@ -111,4 +112,5 @@ const setRecalculateData = async () => {
   await wait(4000)
 
   // TODO: set circuit structure
+  CircuitManager.setCircuitInfo(circuit.data)
 }
