@@ -1,13 +1,5 @@
 import { VisualizerGroup } from '#/templates/VisualizerGroup'
-import {
-  CircuitBasisInfo,
-  CircuitInfoUtils,
-  CircuitPartsInfo,
-  CircuitWiresInfo,
-  ProblemCategory
-} from '../../circuit/BothScript/CircuitInfo'
 import { CircuitWireObject } from './Parts/CircuitWireObject'
-import { ServerTester } from '../../circuit/ServerScript/ServerTester'
 import { ThreeResourceLoader } from '#/system/Loader'
 import {
   Mesh,
@@ -18,21 +10,25 @@ import {
 } from 'three'
 import { CircuitModelPath } from '#/circuit/CliantScript/CircuitModelPath'
 import { SubmissionEffect } from './SubmissionEffect'
+import { CircuitManager } from '#/circuit/CliantScript/CircuitManager'
+import { EventEmitter } from '#/system/EventEmitter'
+import type { ProblemCategory } from '../../circuit/BothScript/CircuitInfo'
 
 export class Circuit extends VisualizerGroup {
   constructor() {
     super()
-    const [basisInfo, partsInfos, wiresInfos] = this.testData()
-    console.log(basisInfo)
-    console.log(partsInfos)
-    console.log(wiresInfos)
-    this.importCircuitInfo(basisInfo, partsInfos, wiresInfos, false)
     this.add(new SubmissionEffect())
     this.position.add(new Vector3(0, 0.1, 0))
   }
 
   public start(): void {
     super.start()
+    EventEmitter.on('recalculatestart', () => {
+      this.children.forEach(child => this.remove(child))
+    })
+    EventEmitter.on('recalculateend', () => {
+      this.createCircuit()
+    })
   }
 
   public update(): void {
@@ -40,17 +36,15 @@ export class Circuit extends VisualizerGroup {
   }
 
   //サーバーから送られてきたCircuitInfoを元に設置
-  importCircuitInfo(
-    circuitBasisInfo: CircuitBasisInfo,
-    circuitPartsInfos: CircuitPartsInfo[],
-    circuitWiresInfos: CircuitWiresInfo[],
-    isDebug: boolean
-  ): void {
-    const offsetX = -circuitBasisInfo.sizeX / 2 + 0.5
+  createCircuit(): void {
+    const isDebug = true
+    const [basisInfo, partsInfos, wiresInfos] = CircuitManager.getCircuitInfo()
+    console.log(basisInfo, partsInfos, wiresInfos)
+    const offsetX = -basisInfo.sizeX / 2
     const offsetY = 0
-    const offsetZ = -circuitBasisInfo.sizeY / 2 + 0.5
+    const offsetZ = -basisInfo.sizeY / 2
 
-    circuitPartsInfos.forEach(v => {
+    partsInfos.forEach(v => {
       let path = ''
       if (v.isBig) {
         path = CircuitModelPath.partsBigPath[v.category as ProblemCategory]
@@ -59,11 +53,9 @@ export class Circuit extends VisualizerGroup {
       }
       const obj = ThreeResourceLoader.get(path) as Object3D
       obj.position.set(v.x + offsetX, 0 + offsetY, v.z + offsetZ)
-      //パーツを見えなくする
-      if (isDebug) obj.scale.set(0, 0, 0)
       this.add(obj)
     })
-    circuitWiresInfos.forEach(v => {
+    wiresInfos.forEach(v => {
       const wire = new CircuitWireObject(v.wires)
       wire.position.set(v.x + offsetX, 0 + offsetY, v.z + offsetZ)
       this.add(wire)
@@ -71,10 +63,10 @@ export class Circuit extends VisualizerGroup {
     //グリッド線を表示
     if (isDebug) {
       const geometry = new PlaneGeometry(
-        circuitBasisInfo.sizeX,
-        circuitBasisInfo.sizeY,
-        circuitBasisInfo.sizeX,
-        circuitBasisInfo.sizeY
+        basisInfo.sizeX,
+        basisInfo.sizeY,
+        basisInfo.sizeX,
+        basisInfo.sizeY
       )
       geometry.rotateX(-Math.PI / 2)
       const material = new MeshPhongMaterial({
@@ -85,12 +77,5 @@ export class Circuit extends VisualizerGroup {
       mesh.position.add(new Vector3(0.5, 0, 0.5))
       this.add(mesh)
     }
-  }
-
-  testData(): [CircuitBasisInfo, CircuitPartsInfo[], CircuitWiresInfo[]] {
-    const serverTester = new ServerTester()
-    const json = serverTester.getJson()
-    console.log(json)
-    return CircuitInfoUtils.jsonToInfo(json)
   }
 }
