@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { ServerTester } from '#/circuit/ServerScript/ServerTester'
 import {
   InitialRaw,
   QuestionGenreList,
@@ -35,7 +36,7 @@ export const generateRecalculate = (): RecalculateRaw => {
   })
   return {
     ranking: users,
-    circuit: {}
+    circuit: { data: ServerTester.getJson() }
   }
 }
 
