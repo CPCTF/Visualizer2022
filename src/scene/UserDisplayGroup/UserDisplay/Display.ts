@@ -47,17 +47,24 @@ export class Display extends VisualizerObject {
     progress.value = 1
     const tl = gsap.timeline()
     tl.to(progress, 0.3, { value: 0 })
-    tl.set({}, {}, 1.7)
-    tl.call(() => {
-      mode.value = Math.random() < 0.5 ? 0 : 2
-      progress.value = 1
-    })
+    tl.call(
+      () => {
+        mode.value = Math.random() < 0.5 ? 0 : 2
+        progress.value = 1
+      },
+      [],
+      '+=1.7'
+    )
     tl.to(progress, 0.3, { value: 0 })
     tl.set({}, {}, 1.7)
-    tl.call(() => {
-      mode.value = -1
-      progress.value = 1
-    })
+    tl.call(
+      () => {
+        mode.value = -1
+        progress.value = 1
+      },
+      [],
+      '+=1.7'
+    )
     tl.to(progress, 0.3, { value: 0 })
   }
 
