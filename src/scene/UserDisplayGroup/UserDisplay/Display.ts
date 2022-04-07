@@ -29,26 +29,29 @@ export class Display extends VisualizerObject {
   }
 
   public start() {
+    // no impl
+  }
+
+  public animation() {
     const mode = (this.material as ShaderMaterial).uniforms.mode
     const progress = (this.material as ShaderMaterial).uniforms.progress
     if (!mode || !progress) return
-    setTimeout(() => {
-      setInterval(() => {
-        mode.value = 1
-        progress.value = 1
-        gsap.to(progress, 0.3, { value: 0 })
-        setTimeout(() => {
-          mode.value = Math.random() < 0.5 ? 0 : 2
-          progress.value = 1
-          gsap.to(progress, 0.3, { value: 0 })
-        }, 2000)
-        setTimeout(() => {
-          mode.value = -1
-          progress.value = 1
-          gsap.to(progress, 0.3, { value: 0 })
-        }, 4000)
-      }, 10000)
-    }, Math.random() * 10000)
+    mode.value = 1
+    progress.value = 1
+    const tl = gsap.timeline()
+    tl.to(progress, 0.3, { value: 0 })
+    tl.set({}, {}, 1.7)
+    tl.call(() => {
+      mode.value = Math.random() < 0.5 ? 0 : 2
+      progress.value = 1
+    })
+    tl.to(progress, 0.3, { value: 0 })
+    tl.set({}, {}, 1.7)
+    tl.call(() => {
+      mode.value = -1
+      progress.value = 1
+    })
+    tl.to(progress, 0.3, { value: 0 })
   }
 
   public update() {
