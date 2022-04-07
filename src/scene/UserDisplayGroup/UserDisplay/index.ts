@@ -25,7 +25,7 @@ export class UserDisplay extends VisualizerGroup {
   }
 
   public updateUser(userid: string) {
-    // update animation
+    // TODO: update animation
     const user = UserManager.getUser(userid)
     if (!user) this.user = null
     else {
