@@ -8,7 +8,7 @@ import {
   SubmissionRaw
 } from '#/system/ResponseType'
 import dummyIcon from './testicon.jpg'
-const users = new Array(100).fill(null).map((_, index) => ({
+const users = new Array(10).fill(null).map((_, index) => ({
   id: `user${index}`,
   name: `USER${index}`,
   iconUrl: dummyIcon,

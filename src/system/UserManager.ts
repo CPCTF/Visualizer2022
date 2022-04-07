@@ -3,7 +3,7 @@ import { User } from './User'
 
 export class UserManager {
   private static users: Record<string, User> = {}
-  private static _ranking: string[]
+  private static _ranking: string[] = []
   public static get ranking() {
     return this._ranking
   }
