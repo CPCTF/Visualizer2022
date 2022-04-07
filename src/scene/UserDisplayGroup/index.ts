@@ -49,12 +49,18 @@ export class UserDisplayGroup extends VisualizerGroup {
   public start() {
     UserManager.ranking.forEach((id, index) => {
       if (index >= this.users.length) return
-      this.users[index].userid = id
+      this.users[index].updateUser(id)
     })
     EventEmitter.on('submit', ({ userid }) => {
       const user = this.users.filter(user => user.userid === userid)
       if (!user.length) return
       user[0].animation()
+    })
+
+    EventEmitter.on('recalculateend', () => {
+      UserManager.ranking.forEach((id, index) => {
+        this.users[index].updateUser(id)
+      })
     })
   }
 }
