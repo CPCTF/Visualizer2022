@@ -24,7 +24,11 @@ export class Circuit extends VisualizerGroup {
   public start(): void {
     super.start()
     EventEmitter.on('recalculatestart', () => {
-      this.children.forEach(child => this.remove(child))
+      this.children.forEach(child => {
+        if (!(child instanceof SubmissionEffect)) {
+          this.remove(child)
+        }
+      })
     })
     EventEmitter.on('recalculateend', () => {
       this.createCircuit()
