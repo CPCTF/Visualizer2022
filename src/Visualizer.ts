@@ -14,7 +14,7 @@ import { UserDisplayGroup } from './scene/UserDisplayGroup'
 import { VisualizerCamera } from './camera/VisualizerCamera'
 import { Recalculate } from './scene/Recalculates'
 import { getInitialData } from './utils/getInitialData'
-import { Circuit } from './scene/Circuit/Circuit'
+import { Circuit } from './scene/Circuit'
 import { StartupPass } from './postprocess/StartupPass'
 
 export class Visualizer {
