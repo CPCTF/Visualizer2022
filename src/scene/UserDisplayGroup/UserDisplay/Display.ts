@@ -6,7 +6,7 @@ import fragmentShader from './DisplayFragment.frag?raw'
 import vertexShader from './DisplayVertex.vert?raw'
 import faceSrc from './face.png'
 import gsap from 'gsap'
-import testIcon from '#/src/utils/testicon.jpg'
+import testIcon from '#/utils/testicon.jpg'
 
 export class Display extends VisualizerObject {
   constructor() {
