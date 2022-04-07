@@ -21,9 +21,6 @@ export class ServerTester {
     condenserCells.forEach(v => basis.extendWires(v))
     graphicBoardCells.forEach(v => basis.extendWires(v))
     const [basisInfo, partsInfos, wiresInfos] = basis.convertToCircuitInfos()
-    console.log(basisInfo)
-    console.log(partsInfos)
-    console.log(wiresInfos)
     return CircuitInfoUtils.infoToJson(basisInfo, partsInfos, wiresInfos)
   }
 }
