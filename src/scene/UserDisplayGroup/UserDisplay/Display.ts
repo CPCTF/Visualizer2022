@@ -6,7 +6,7 @@ import fragmentShader from './DisplayFragment.frag?raw'
 import vertexShader from './DisplayVertex.vert?raw'
 import faceSrc from './face.png'
 import gsap from 'gsap'
-import testIconSrc from '#/utils/testicon.jpg'
+import testIcon from '#/utils/testicon.jpg'
 
 export class Display extends VisualizerObject {
   constructor() {
@@ -17,7 +17,7 @@ export class Display extends VisualizerObject {
         fragmentShader,
         uniforms: {
           face: { value: ThreeResourceLoader.get(faceSrc) as Texture },
-          icon: { value: ThreeResourceLoader.get(testIconSrc) as Texture },
+          icon: { value: null },
           mode: { value: -1 },
           progress: { value: 0 },
           time: { value: 0 }
@@ -28,27 +28,44 @@ export class Display extends VisualizerObject {
     this.rotation.set(-0.03 + Math.PI, -Math.PI, Math.PI)
   }
 
+  public setIcon(iconTex: Texture | null) {
+    // ;(this.material as ShaderMaterial).uniforms.icon.value = iconTex
+    ;(this.material as ShaderMaterial).uniforms.icon.value = iconTex
+      ? iconTex
+      : (ThreeResourceLoader.get(testIcon) as Texture) // iconTex
+  }
+
   public start() {
+    // no impl
+  }
+
+  public animation() {
     const mode = (this.material as ShaderMaterial).uniforms.mode
     const progress = (this.material as ShaderMaterial).uniforms.progress
     if (!mode || !progress) return
-    setTimeout(() => {
-      setInterval(() => {
-        mode.value = 1
+    mode.value = 1
+    progress.value = 1
+    const tl = gsap.timeline()
+    tl.to(progress, 0.3, { value: 0 })
+    tl.call(
+      () => {
+        mode.value = Math.random() < 0.5 ? 0 : 2
         progress.value = 1
-        gsap.to(progress, 0.3, { value: 0 })
-        setTimeout(() => {
-          mode.value = Math.random() < 0.5 ? 0 : 2
-          progress.value = 1
-          gsap.to(progress, 0.3, { value: 0 })
-        }, 2000)
-        setTimeout(() => {
-          mode.value = -1
-          progress.value = 1
-          gsap.to(progress, 0.3, { value: 0 })
-        }, 4000)
-      }, 10000)
-    }, Math.random() * 10000)
+      },
+      [],
+      '+=1.7'
+    )
+    tl.to(progress, 0.3, { value: 0 })
+    tl.set({}, {}, 1.7)
+    tl.call(
+      () => {
+        mode.value = -1
+        progress.value = 1
+      },
+      [],
+      '+=1.7'
+    )
+    tl.to(progress, 0.3, { value: 0 })
   }
 
   public update() {

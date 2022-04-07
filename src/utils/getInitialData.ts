@@ -11,6 +11,8 @@ export const getInitialData = async () => {
     UserManager.addUser(value)
   })
 
+  UserManager.updateRanking()
+
   // TODO: Recalculate
 
   globalSettings.startTime = new Date(data.startTime)
