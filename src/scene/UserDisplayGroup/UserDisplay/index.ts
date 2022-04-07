@@ -1,4 +1,6 @@
 import { ThreeResourceLoader } from '#/system/Loader'
+import type { User } from '#/system/User'
+import { UserManager } from '#/system/UserManager'
 import { VisualizerGroup } from '#/templates/VisualizerGroup'
 import type { Mesh } from 'three'
 import { Display } from './Display'
@@ -6,7 +8,10 @@ import monitorSrc from './monitor.glb?url'
 
 export class UserDisplay extends VisualizerGroup {
   private display: Display
-  public userid = ''
+  private user: User | null = null
+  public get userid() {
+    return this.user?.id
+  }
   constructor() {
     super()
     const displayModel = (ThreeResourceLoader.get(monitorSrc) as Mesh).clone()
@@ -17,6 +22,16 @@ export class UserDisplay extends VisualizerGroup {
 
   public animation() {
     this.display.animation()
+  }
+
+  public updateUser(userid: string) {
+    // update animation
+    const user = UserManager.getUser(userid)
+    if (!user) this.user = null
+    else {
+      this.user = user
+      this.display.setIcon(user.icon)
+    }
   }
 
   public start() {

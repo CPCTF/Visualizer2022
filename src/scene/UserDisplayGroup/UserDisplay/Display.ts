@@ -6,7 +6,7 @@ import fragmentShader from './DisplayFragment.frag?raw'
 import vertexShader from './DisplayVertex.vert?raw'
 import faceSrc from './face.png'
 import gsap from 'gsap'
-import testIconSrc from '#/utils/testicon.jpg'
+import testIcon from '#/src/utils/testicon.jpg'
 
 export class Display extends VisualizerObject {
   constructor() {
@@ -17,7 +17,7 @@ export class Display extends VisualizerObject {
         fragmentShader,
         uniforms: {
           face: { value: ThreeResourceLoader.get(faceSrc) as Texture },
-          icon: { value: ThreeResourceLoader.get(testIconSrc) as Texture },
+          icon: { value: null },
           mode: { value: -1 },
           progress: { value: 0 },
           time: { value: 0 }
@@ -26,6 +26,13 @@ export class Display extends VisualizerObject {
     )
     this.position.set(0, 1.5, 1.1)
     this.rotation.set(-0.03 + Math.PI, -Math.PI, Math.PI)
+  }
+
+  public setIcon(iconTex: Texture | null) {
+    // ;(this.material as ShaderMaterial).uniforms.icon.value = iconTex
+    ;(this.material as ShaderMaterial).uniforms.icon.value = iconTex
+      ? iconTex
+      : (ThreeResourceLoader.get(testIcon) as Texture) // iconTex
   }
 
   public start() {
