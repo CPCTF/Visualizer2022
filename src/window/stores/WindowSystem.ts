@@ -1,3 +1,4 @@
+import type { Texture } from 'pixi.js'
 import { useState, VFC } from 'react'
 import { playLongSound } from '../utils/sounds/sound'
 
@@ -9,6 +10,7 @@ export interface WindowComponentProps {
 }
 export interface WindowInfo {
   title: string
+  icon: Texture
   rect: {
     x: number
     y: number
