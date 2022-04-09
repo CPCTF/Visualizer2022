@@ -1,9 +1,12 @@
-import { windowHeaderHeight } from '#/window/globals'
 import type { ReactNode, VFC } from 'react'
 import { Sprite } from '@inlet/react-pixi'
 import closeSrc from './close.png'
 import fullscreenSrc from './fullscreen.png'
 import minimizeSrc from './minimize.png'
+import { windowHeaderEdge, windowHeaderHeight } from '#/window/globals'
+
+export const getFrameIconSize = () =>
+  (windowHeaderHeight - windowHeaderEdge * 2) * 0.9
 
 export const FrameIcons: VFC<{
   onKill?: () => void
@@ -18,9 +21,9 @@ export const FrameIcons: VFC<{
         key="kill"
         anchor={[1, 0.5]}
         image={closeSrc}
-        width={windowHeaderHeight}
-        height={windowHeaderHeight}
-        position={[-iconIndex * windowHeaderHeight, 0]}
+        width={getFrameIconSize()}
+        height={getFrameIconSize()}
+        position={[-iconIndex * getFrameIconSize(), 0]}
         interactive
         click={onKill}
       />
@@ -33,9 +36,9 @@ export const FrameIcons: VFC<{
         key="maximize"
         anchor={[1, 0.5]}
         image={fullscreenSrc}
-        width={windowHeaderHeight}
-        height={windowHeaderHeight}
-        position={[-iconIndex * windowHeaderHeight, 0]}
+        width={getFrameIconSize()}
+        height={getFrameIconSize()}
+        position={[-iconIndex * getFrameIconSize(), 0]}
         interactive
         click={onMaximize}
       />
@@ -48,9 +51,9 @@ export const FrameIcons: VFC<{
         key="minimize"
         anchor={[1, 0.5]}
         image={minimizeSrc}
-        width={windowHeaderHeight}
-        height={windowHeaderHeight}
-        position={[-iconIndex * windowHeaderHeight, 0]}
+        width={getFrameIconSize()}
+        height={getFrameIconSize()}
+        position={[-iconIndex * getFrameIconSize(), 0]}
         interactive
         click={onMinimize}
       />
