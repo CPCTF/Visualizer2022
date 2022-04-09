@@ -4,8 +4,9 @@ import closeSrc from './close.png'
 import fullscreenSrc from './fullscreen.png'
 import minimizeSrc from './minimize.png'
 import barSrc from './bar.png'
+import barInactiveSrc from './bar-inactive.png'
 import { FrameBackground } from '../MonoColorBG'
-import { BaseTexture, Rectangle, TextStyle, Texture } from 'pixi.js'
+import { TextStyle } from 'pixi.js'
 import { Container, Sprite, Text } from '@inlet/react-pixi'
 import { windowEdge, windowHeaderEdge, windowHeaderHeight } from '../../globals'
 import { FrameEdge } from './FrameEdge'
@@ -14,6 +15,7 @@ interface FrameTemplate {
   width: number
   height: number
   title: string
+  isActive?: boolean
   onMinimize?: () => void
   onMaximize?: () => void
   onKill?: () => void
@@ -24,13 +26,14 @@ export const getFrameWidth = (width: number) => {
   return width - windowEdge * 2
 }
 export const getFrameHeight = (height: number) => {
-  return height - windowHeaderHeight - windowEdge * 2
+  return height - windowHeaderHeight - windowEdge
 }
 
 export const FrameTemplate: VFC<FrameTemplate> = ({
   width,
   height,
   title,
+  isActive = true,
   onMinimize,
   onMaximize,
   onKill,
@@ -88,7 +91,7 @@ export const FrameTemplate: VFC<FrameTemplate> = ({
       <Container position={[0, 0]}>
         <FrameEdge width={width} height={height} />
         <Sprite
-          image={barSrc}
+          image={isActive ? barSrc : barInactiveSrc}
           width={width - windowEdge * 2}
           height={windowHeaderHeight - windowHeaderEdge * 2}
           position={[windowEdge, windowHeaderEdge]}

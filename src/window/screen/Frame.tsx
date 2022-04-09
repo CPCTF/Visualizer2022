@@ -18,7 +18,7 @@ interface FrameProps {
   focus: boolean
 }
 
-export const Frame: VFC<FrameProps> = ({ id, windowInfo }) => {
+export const Frame: VFC<FrameProps> = ({ id, windowInfo, focus }) => {
   const { width, height } = useContext(WindowSettingContext)
   const { title, visible, fullscreen, Component } = windowInfo
   const [contentVisible, setContextVisible] = useState(false)
@@ -140,6 +140,7 @@ export const Frame: VFC<FrameProps> = ({ id, windowInfo }) => {
         width={rect.width}
         height={rect.height}
         title={title}
+        isActive={focus}
         onMinimize={closeHandler}
         onMaximize={fullScreenHandler}
         onKill={id === 'visualizer' ? undefined : killHandler}
