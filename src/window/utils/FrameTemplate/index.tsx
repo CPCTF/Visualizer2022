@@ -7,20 +7,8 @@ import barSrc from './bar.png'
 import { FrameBackground } from '../MonoColorBG'
 import { BaseTexture, Rectangle, TextStyle, Texture } from 'pixi.js'
 import { Container, Sprite, Text } from '@inlet/react-pixi'
-import { windowEdge, windowHeaderHeight } from '../../globals'
-import frameEdgeSrc from './frame-edge.png'
-
-const frameEdgeSprites = new BaseTexture(frameEdgeSrc)
-const frameEdge = {
-  topLeft: new Texture(frameEdgeSprites, new Rectangle(0, 0, 6, 26)),
-  top: new Texture(frameEdgeSprites, new Rectangle(6, 0, 3, 26)),
-  topRight: new Texture(frameEdgeSprites, new Rectangle(9, 0, 6, 26)),
-  right: new Texture(frameEdgeSprites, new Rectangle(9, 26, 6, 3)),
-  bottomRight: new Texture(frameEdgeSprites, new Rectangle(9, 29, 6, 6)),
-  bottom: new Texture(frameEdgeSprites, new Rectangle(6, 29, 3, 6)),
-  bottomLeft: new Texture(frameEdgeSprites, new Rectangle(0, 0, 6, 6)),
-  left: new Texture(frameEdgeSprites, new Rectangle(0, 26, 6, 3))
-}
+import { windowEdge, windowHeaderEdge, windowHeaderHeight } from '../../globals'
+import { FrameEdge } from './FrameEdge'
 
 interface FrameTemplate {
   width: number
@@ -98,12 +86,12 @@ export const FrameTemplate: VFC<FrameTemplate> = ({
   return (
     <>
       <Container position={[0, 0]}>
+        <FrameEdge width={width} height={height} />
         <Sprite
-          anchor={[0, 0]}
           image={barSrc}
-          width={width}
-          height={windowHeaderHeight}
-          position={[0, 0]}
+          width={width - windowEdge * 2}
+          height={windowHeaderHeight - windowHeaderEdge * 2}
+          position={[windowEdge, windowHeaderEdge]}
         />
         <Text
           text={title}
@@ -123,10 +111,13 @@ export const FrameTemplate: VFC<FrameTemplate> = ({
         </Container>
       </Container>
 
-      <Container position={[0, windowHeaderHeight]}>
+      <Container position={[windowEdge, windowHeaderHeight]}>
         {/* for delay load */}
         {!children ? null : (
-          <FrameBackground width={width} height={height - windowHeaderHeight} />
+          <FrameBackground
+            width={width - windowEdge * 2}
+            height={height - windowHeaderHeight - windowEdge}
+          />
         )}
         {children}
       </Container>
