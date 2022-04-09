@@ -1,8 +1,4 @@
 import type { ReactNode, VFC } from 'react'
-
-import closeSrc from './close.png'
-import fullscreenSrc from './fullscreen.png'
-import minimizeSrc from './minimize.png'
 import barSrc from './bar.png'
 import barInactiveSrc from './bar-inactive.png'
 import { FrameBackground } from '../MonoColorBG'
@@ -10,6 +6,7 @@ import { TextStyle } from 'pixi.js'
 import { Container, Sprite, Text } from '@inlet/react-pixi'
 import { windowEdge, windowHeaderEdge, windowHeaderHeight } from '../../globals'
 import { FrameEdge } from './FrameEdge'
+import { FrameIcons } from './frameIcons'
 
 interface FrameTemplate {
   width: number
@@ -39,53 +36,6 @@ export const FrameTemplate: VFC<FrameTemplate> = ({
   onKill,
   children
 }) => {
-  const icons: ReactNode[] = []
-  let iconIndex = 0
-  if (onKill) {
-    icons.push(
-      <Sprite
-        key="kill"
-        anchor={[1, 0.5]}
-        image={closeSrc}
-        width={windowHeaderHeight}
-        height={windowHeaderHeight}
-        position={[-iconIndex * windowHeaderHeight, 0]}
-        interactive
-        click={onKill}
-      />
-    )
-    iconIndex++
-  }
-  if (onMaximize) {
-    icons.push(
-      <Sprite
-        key="maximize"
-        anchor={[1, 0.5]}
-        image={fullscreenSrc}
-        width={windowHeaderHeight}
-        height={windowHeaderHeight}
-        position={[-iconIndex * windowHeaderHeight, 0]}
-        interactive
-        click={onMaximize}
-      />
-    )
-    iconIndex++
-  }
-  if (onMinimize) {
-    icons.push(
-      <Sprite
-        key="minimize"
-        anchor={[1, 0.5]}
-        image={minimizeSrc}
-        width={windowHeaderHeight}
-        height={windowHeaderHeight}
-        position={[-iconIndex * windowHeaderHeight, 0]}
-        interactive
-        click={onMinimize}
-      />
-    )
-    iconIndex++
-  }
   return (
     <>
       <Container position={[0, 0]}>
@@ -110,7 +60,11 @@ export const FrameTemplate: VFC<FrameTemplate> = ({
           }
         />
         <Container position={[width, windowHeaderHeight / 2]}>
-          {icons}
+          <FrameIcons
+            onKill={onKill}
+            onMaximize={onMaximize}
+            onMinimize={onMinimize}
+          />
         </Container>
       </Container>
 
