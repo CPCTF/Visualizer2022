@@ -12,7 +12,7 @@ export const Tab: VFC<{ id: string; index: number }> = ({ id, index }) => {
   } = useContext(WindowSettingContext)
   const target = windows[id]
 
-  if (!target) return <>null</>
+  if (!target) return <>{null}</>
 
   const { title, visible } = target
 
@@ -32,10 +32,17 @@ export const Tab: VFC<{ id: string; index: number }> = ({ id, index }) => {
         anchor={[0, 0.5]}
         position={[0, 0]}
       />
+      <Sprite
+        width={footerHeight * 0.6}
+        height={footerHeight * 0.6}
+        texture={target.icon}
+        anchor={[0, 0.5]}
+        position={[7, 0]}
+      />
       <Text
         text={title}
         anchor={[0, 0.5]}
-        position={[5, 0]}
+        position={[14 + footerHeight * 0.6, 0]}
         style={
           new TextStyle({
             align: 'center',
