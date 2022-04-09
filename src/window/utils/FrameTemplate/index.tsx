@@ -4,10 +4,23 @@ import closeSrc from './close.png'
 import fullscreenSrc from './fullscreen.png'
 import minimizeSrc from './minimize.png'
 import barSrc from './bar.png'
-import { FrameBackground } from '../utils/FrameBackground'
-import { TextStyle } from 'pixi.js'
+import { FrameBackground } from '../MonoColorBG'
+import { BaseTexture, Rectangle, TextStyle, Texture } from 'pixi.js'
 import { Container, Sprite, Text } from '@inlet/react-pixi'
-import { windowEdge, windowHeaderHeight } from '../globals'
+import { windowEdge, windowHeaderHeight } from '../../globals'
+import frameEdgeSrc from './frame-edge.png'
+
+const frameEdgeSprites = new BaseTexture(frameEdgeSrc)
+const frameEdge = {
+  topLeft: new Texture(frameEdgeSprites, new Rectangle(0, 0, 6, 26)),
+  top: new Texture(frameEdgeSprites, new Rectangle(6, 0, 3, 26)),
+  topRight: new Texture(frameEdgeSprites, new Rectangle(9, 0, 6, 26)),
+  right: new Texture(frameEdgeSprites, new Rectangle(9, 26, 6, 3)),
+  bottomRight: new Texture(frameEdgeSprites, new Rectangle(9, 29, 6, 6)),
+  bottom: new Texture(frameEdgeSprites, new Rectangle(6, 29, 3, 6)),
+  bottomLeft: new Texture(frameEdgeSprites, new Rectangle(0, 0, 6, 6)),
+  left: new Texture(frameEdgeSprites, new Rectangle(0, 26, 6, 3))
+}
 
 interface FrameTemplate {
   width: number
