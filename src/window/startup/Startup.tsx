@@ -3,7 +3,7 @@ import { TextStyle } from 'pixi.js'
 import { useContext, useState } from 'react'
 import { setVolume, windowHeaderHeight } from '../globals'
 import { WindowSettingContext } from '../GlobalSetting'
-import { FrameBackground } from '../utils/FrameBackground'
+import { FrameBackground } from '../utils/MonoColorBG'
 import { FrameTemplate, getFrameHeight } from '../utils/FrameTemplate'
 import { playLongSound, playSound } from '../utils/sounds/sound'
 

@@ -1,6 +1,6 @@
 import { Container, useTick } from '@inlet/react-pixi'
 import { useContext, useEffect, useRef, useState, VFC } from 'react'
-import { footerHeight, windowHeaderHeight } from '../globals'
+import { footerHeight, windowEdge, windowHeaderHeight } from '../globals'
 import type { WindowInfo } from '../stores/WindowSystem'
 import { MouseEventHandlerGenerator } from './mouseevent'
 import { WindowSettingContext } from '../GlobalSetting'
@@ -18,7 +18,7 @@ interface FrameProps {
   focus: boolean
 }
 
-export const Frame: VFC<FrameProps> = ({ id, windowInfo }) => {
+export const Frame: VFC<FrameProps> = ({ id, windowInfo, focus }) => {
   const { width, height } = useContext(WindowSettingContext)
   const { title, visible, fullscreen, Component } = windowInfo
   const [contentVisible, setContextVisible] = useState(false)
@@ -140,13 +140,15 @@ export const Frame: VFC<FrameProps> = ({ id, windowInfo }) => {
         width={rect.width}
         height={rect.height}
         title={title}
+        icon={windowInfo.icon}
+        isActive={focus}
         onMinimize={closeHandler}
         onMaximize={fullScreenHandler}
         onKill={id === 'visualizer' ? undefined : killHandler}
       >
         {!contentVisible ? null : Component ? (
           <Component
-            x={rect.x}
+            x={rect.x + windowEdge}
             y={rect.y + windowHeaderHeight}
             width={getFrameWidth(rect.width)}
             height={getFrameHeight(rect.height)}

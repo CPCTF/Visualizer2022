@@ -1,10 +1,10 @@
 import { footerHeight, iconSize } from '#/window/globals'
 import { WindowSettingContext } from '#/window/GlobalSetting'
-import { icons } from '#/window/stores/Icons'
 import { Container, Sprite } from '@inlet/react-pixi'
 import { useContext } from 'react'
 import { Icon } from './Icon'
 import bgImgSrc from './xp.jpg'
+import { frames } from '../frames'
 
 const iconMargin = 12
 
@@ -26,9 +26,10 @@ export const Background = () => {
         height={height - footerHeight}
       />
       <Container position={[iconSize / 2, iconSize / 2]}>
-        {icons.map((iconInfo, index) => (
+        {Object.entries(frames).map(([id, iconInfo], index) => (
           <Icon
-            key={iconInfo.id}
+            key={id}
+            id={id}
             iconInfo={iconInfo}
             position={[
               Math.floor(index / row) * (iconSize + iconMargin),

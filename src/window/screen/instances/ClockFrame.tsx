@@ -1,5 +1,5 @@
 import type { WindowComponentProps } from '#/window/stores/WindowSystem'
-import { useState, VFC } from 'react'
+import { useMemo, useState, VFC } from 'react'
 import { Graphics, TextStyle } from 'pixi.js'
 import { Container, Text, useTick } from '@inlet/react-pixi'
 import { Visualizer } from '#/Visualizer'
@@ -36,7 +36,12 @@ export const ClockFrame: VFC<WindowComponentProps> = ({
   })
 
   return (
-    <Container mask={new Graphics().drawRect(x, y, width, height)}>
+    <Container
+      mask={useMemo(
+        () => new Graphics().drawRect(x, y, width, height),
+        [x, y, width, height]
+      )}
+    >
       <Text
         text={time}
         anchor={0.5}
