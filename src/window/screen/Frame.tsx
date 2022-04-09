@@ -1,6 +1,6 @@
 import { Container, useTick } from '@inlet/react-pixi'
 import { useContext, useEffect, useRef, useState, VFC } from 'react'
-import { footerHeight, windowHeaderHeight } from '../globals'
+import { footerHeight, windowEdge, windowHeaderHeight } from '../globals'
 import type { WindowInfo } from '../stores/WindowSystem'
 import { MouseEventHandlerGenerator } from './mouseevent'
 import { WindowSettingContext } from '../GlobalSetting'
@@ -147,7 +147,7 @@ export const Frame: VFC<FrameProps> = ({ id, windowInfo, focus }) => {
       >
         {!contentVisible ? null : Component ? (
           <Component
-            x={rect.x}
+            x={rect.x + windowEdge}
             y={rect.y + windowHeaderHeight}
             width={getFrameWidth(rect.width)}
             height={getFrameHeight(rect.height)}

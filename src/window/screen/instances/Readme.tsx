@@ -1,5 +1,5 @@
 import type { WindowComponentProps } from '#/window/stores/WindowSystem'
-import type { VFC } from 'react'
+import { useMemo, VFC } from 'react'
 import { Graphics, TextStyle } from 'pixi.js'
 import { Container, Text } from '@inlet/react-pixi'
 
@@ -24,7 +24,12 @@ export const ReadmeFrame: VFC<WindowComponentProps> = ({
   height
 }) => {
   return (
-    <Container mask={new Graphics().drawRect(x, y, width, height)}>
+    <Container
+      mask={useMemo(
+        () => new Graphics().drawRect(x, y, width, height),
+        [x, y, width, height]
+      )}
+    >
       <Text
         text={readmeText}
         anchor={0}
