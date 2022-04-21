@@ -101,7 +101,9 @@ const messageHandler = (
 }
 
 const setRecalculateData = async () => {
-  const { ranking, circuit } = await ServerRequest.recalculate()
+  const recalculateData = await ServerRequest.recalculate()
+  if (!recalculateData) return
+  const { ranking, circuit } = recalculateData
 
   ranking.forEach(user => {
     UserManager.updateUser(user)
