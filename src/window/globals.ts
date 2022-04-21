@@ -1,4 +1,4 @@
-const scaling = 1.5
+export const scaling = 1.5
 export const iconSize = 64 * scaling
 export const tabWidth = 200 * scaling
 export const windowEdge = 6 * scaling
