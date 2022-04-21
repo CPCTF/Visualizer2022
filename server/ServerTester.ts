@@ -1,4 +1,4 @@
-import { CircuitInfoUtils } from '../BothScript/CircuitInfo'
+import { CircuitInfoUtils } from '../src/circuit/BothScript/CircuitInfo'
 import { Basis } from './Basis'
 import { Condenser } from './CircuitParts/Condenser'
 import { CPU } from './CircuitParts/CPU'
