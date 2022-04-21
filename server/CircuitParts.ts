@@ -1,4 +1,4 @@
-import type { ProblemCategory } from '../BothScript/CircuitInfo'
+import type { ProblemCategory } from '../src/circuit/BothScript/CircuitInfo'
 
 export abstract class CircuitParts {
   abstract sizeX: number

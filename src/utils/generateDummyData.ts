@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { ServerTester } from '#/circuit/ServerScript/ServerTester'
+import { ServerTester } from '../../server/ServerTester'
 import {
   InitialRaw,
   QuestionGenreList,

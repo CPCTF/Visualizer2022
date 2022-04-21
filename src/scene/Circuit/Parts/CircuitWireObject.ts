@@ -6,7 +6,7 @@ import {
   MeshBasicMaterial,
   RingBufferGeometry
 } from 'three'
-import { Basis } from '../../../circuit/ServerScript/Basis'
+import { Basis } from '../../../../server/Basis'
 
 export class CircuitWireObject extends VisualizerGroup {
   static sx = [1, 0, -1, 0]

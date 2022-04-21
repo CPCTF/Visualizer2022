@@ -1,4 +1,4 @@
-import type { ProblemCategory } from '#/circuit/BothScript/CircuitInfo'
+import type { ProblemCategory } from '../../src/circuit/BothScript/CircuitInfo'
 import { CircuitParts } from '../CircuitParts'
 export class Condenser extends CircuitParts {
   public sizeX = 1
