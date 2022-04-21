@@ -7,9 +7,6 @@ import {
 import { isDevelop } from './GlobalSettings'
 import type { InitialRaw, RecalculateRaw } from './ResponseType'
 
-// TODO: URIは適当
-// 返り値も適当
-
 const getJson = (response: Response) => {
   if (response.status !== 200) throw new Error('通信エラー')
   return response.json()
@@ -17,24 +14,45 @@ const getJson = (response: Response) => {
 
 export class ServerRequest {
   // 初回ロード
-  public static async initial() {
+  public static async initial(): Promise<InitialRaw> {
     if (isDevelop) {
       await wait(1000)
       return generateInitialData()
     }
-    return (await fetch(`${apiBasePath}/initial`).then(getJson)) as InitialRaw
+    const usersFetch = fetch(`${apiBasePath}/users`).then(getJson)
+    const recalculateFetch = this.recalculate()
+    const timeFetch = fetch(`${apiBasePath}/schedule`).then(getJson)
+
+    const [users, recalculate, time] = await Promise.all([
+      usersFetch,
+      recalculateFetch,
+      timeFetch
+    ])
+
+    return {
+      users,
+      recalculate,
+      startTime: time.starttime,
+      endTime: time.endtime
+    }
   }
-  public static async recalculate() {
+  public static async recalculate(): Promise<RecalculateRaw | null> {
     if (isDevelop) {
       await wait(1000)
       return generateRecalculate()
     }
-    const { ranking, circuit } = (await fetch(
-      `${apiBasePath}/recalculate`
-    ).then(getJson)) as RecalculateRaw
-    return {
-      ranking,
-      circuit
+    try {
+      const circuitFetch = fetch(`${apiBasePath}/circuit`).then(getJson)
+      const rankingFetch = fetch(`${apiBasePath}/ranking`).then(getJson)
+
+      const [circuit, ranking] = await Promise.all([circuitFetch, rankingFetch])
+
+      return {
+        circuit,
+        ranking
+      }
+    } catch (e) {
+      return null
     }
   }
 }
