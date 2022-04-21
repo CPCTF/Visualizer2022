@@ -6,7 +6,7 @@ import { TextStyle, Texture } from 'pixi.js'
 import { Container, Sprite, Text } from '@inlet/react-pixi'
 import { windowEdge, windowHeaderEdge, windowHeaderHeight } from '../../globals'
 import { FrameEdge } from './FrameEdge'
-import { FrameIcons, getFrameIconSize } from './FrameIcon'
+import { FrameIcons, getFrameIconSize } from './FrameIcons'
 
 interface FrameTemplate {
   icon?: Texture
