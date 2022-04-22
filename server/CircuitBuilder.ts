@@ -23,7 +23,7 @@ export class CircuitBuilder {
   //パーツ設置最大試行回数
   static maxAttempts = 50
 
-  static dummyServerResponse: ServerResponse = {
+  public static dummyServerResponse: ServerResponse = {
     total: 0,
     genre: {
       Newbie: 3,
@@ -39,7 +39,7 @@ export class CircuitBuilder {
     }
   }
 
-  public static createPartsClass(genre: Genre, isBig: boolean): CircuitParts {
+  private static createPartsClass(genre: Genre, isBig: boolean): CircuitParts {
     let res: CircuitParts
     switch (genre) {
       case 'Newbie':
