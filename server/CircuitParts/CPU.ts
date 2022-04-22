@@ -1,10 +1,9 @@
-import type { ProblemCategory } from '../../src/circuit/BothScript/CircuitInfo'
 import { CircuitParts } from '../CircuitParts'
 export class CPU extends CircuitParts {
   public sizeX = 2
   public sizeY = 2
   public wirePointsInts: number[][] = new Array(this.sizeY * this.sizeX)
-  public problemCategory: ProblemCategory = 'None'
+  public problemCategory = undefined
   constructor(isBig: boolean) {
     super(isBig)
     this.wirePointsInts.forEach(

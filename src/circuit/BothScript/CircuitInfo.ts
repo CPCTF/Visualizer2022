@@ -66,18 +66,3 @@ interface IWiresInfo extends ICircuit {
   z: number
   wires: [number, number][]
 }
-
-export const problemCategory = [
-  'None',
-  'Reversing',
-  'Pwn',
-  'PPC',
-  'Crypto',
-  'Shell',
-  'Forensics',
-  'Web',
-  'OSINT',
-  'Misc'
-] as const
-
-export type ProblemCategory = typeof problemCategory[number]

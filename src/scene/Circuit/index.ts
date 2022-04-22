@@ -12,17 +12,17 @@ import { CircuitModelPath } from '#/circuit/CliantScript/CircuitModelPath'
 import { SubmissionEffect } from './SubmissionEffect'
 import { CircuitManager } from '#/circuit/CliantScript/CircuitManager'
 import { EventEmitter } from '#/system/EventEmitter'
-import type { ProblemCategory } from '../../circuit/BothScript/CircuitInfo'
+import type { QuestionGenre } from '../../system/ResponseType'
 
 export class Circuit extends VisualizerGroup {
   constructor() {
     super()
     this.add(new SubmissionEffect())
-    this.position.add(new Vector3(0, 0.1, 0))
   }
 
   public start(): void {
     super.start()
+    this.position.add(new Vector3(0, 0.1, 0))
     EventEmitter.on('recalculatestart', () => {
       this.children.forEach(child => {
         if (!(child instanceof SubmissionEffect)) {
@@ -41,20 +41,26 @@ export class Circuit extends VisualizerGroup {
 
   //サーバーから送られてきたCircuitInfoを元に設置
   createCircuit(): void {
-    const isDebug = true
+    const isDebug = false
     const [basisInfo, partsInfos, wiresInfos] = CircuitManager.getCircuitInfo()
     console.log(basisInfo, partsInfos, wiresInfos)
-    const offsetX = -basisInfo.sizeX / 2
+    const offsetX = -basisInfo.sizeX / 2 - 0.5
     const offsetY = 0
-    const offsetZ = -basisInfo.sizeY / 2
+    const offsetZ = -basisInfo.sizeY / 2 - 0.5
 
     partsInfos.forEach(v => {
       let path = ''
-      if (v.isBig) {
-        path = CircuitModelPath.partsBigPath[v.category as ProblemCategory]
+      //問題種類と結びついてついていないパーツ
+      if (v.category == '') {
+        path = CircuitModelPath.cpuPath
       } else {
-        path = CircuitModelPath.partsPath[v.category as ProblemCategory]
+        if (v.isBig) {
+          path = CircuitModelPath.partsBigPath[v.category as QuestionGenre]
+        } else {
+          path = CircuitModelPath.partsPath[v.category as QuestionGenre]
+        }
       }
+
       const obj = ThreeResourceLoader.get(path) as Object3D
       obj.position.set(v.x + offsetX, 0 + offsetY, v.z + offsetZ)
       this.add(obj)
@@ -64,6 +70,7 @@ export class Circuit extends VisualizerGroup {
       wire.position.set(v.x + offsetX, 0 + offsetY, v.z + offsetZ)
       this.add(wire)
     })
+
     //グリッド線を表示
     if (isDebug) {
       const geometry = new PlaneGeometry(

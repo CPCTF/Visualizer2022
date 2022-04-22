@@ -3,24 +3,27 @@
 //   // @ts-ignore
 //   import('node-fetch').then(({ default: fetch }) => fetch(...args))
 import * as fs from 'fs'
-import { ServerTester } from './ServerTester'
+import { CircuitBuilder } from './CircuitBuilder'
 
-// const genres = [
-//   'reversing',
-//   'pwn',
-//   'ppc',
-//   'crypto',
-//   'shell',
-//   'forensics',
-//   'web',
-//   'osint',
-//   'misc'
-// ] as const
+const genres = [
+  'Newbie',
+  'PPC',
+  'Web',
+  'Crypto',
+  'Binary',
+  'Pwn',
+  'Misc',
+  'Shell',
+  'Forensics',
+  'OSINT'
+] as const
 
-// interface ServerResponse {
-//   total: number
-//   genre: Record<typeof genres[number], number>
-// }
+export type Genre = typeof genres[number]
+
+export interface ServerResponse {
+  total: number
+  genre: Record<Genre, number>
+}
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -30,7 +33,7 @@ const serverMain = async () => {
   // const json = (await res.json()) as ServerResponse
 
   // implementation
-  const result = ServerTester.getJson()
+  const result = CircuitBuilder.build(CircuitBuilder.dummyServerResponse)
   // TODO: !!generated in local!!
   const basepath = process.env.EXPORT_DIR ?? './'
   const filepath = `${basepath}/circuit.json`
