@@ -7,6 +7,8 @@ import {
   SubmissionRaw
 } from '#/system/ResponseType'
 import dummyIcon from './testicon.jpg'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import circuitJson from './circuit.json'
 
 const users = new Array(100).fill(null).map((_, index) => ({
@@ -37,7 +39,7 @@ export const generateRecalculate = (): RecalculateRaw => {
   })
   return {
     ranking: users,
-    circuit: { data: circuitJson }
+    circuit: { data: JSON.stringify(circuitJson) }
   }
 }
 
