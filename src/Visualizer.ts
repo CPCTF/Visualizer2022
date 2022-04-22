@@ -16,6 +16,7 @@ import { Recalculate } from './scene/Recalculates'
 import { getInitialData } from './utils/getInitialData'
 import { Circuit } from './scene/Circuit'
 import { StartupPass } from './postprocess/StartupPass'
+import { WaterAnimation } from './scene/Recalculates/Water'
 
 export class Visualizer {
   // singleton
@@ -67,7 +68,8 @@ export class Visualizer {
       new Effects(),
       new UserDisplayGroup(),
       new Recalculate(),
-      new Circuit()
+      new Circuit(),
+      new WaterAnimation()
     )
 
     // load resources
