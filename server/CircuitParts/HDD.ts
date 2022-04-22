@@ -1,10 +1,10 @@
-import type { ProblemCategory } from '../../src/circuit/BothScript/CircuitInfo'
+import type { QuestionGenre } from '../../src/system/ResponseType'
 import { CircuitParts } from '../CircuitParts'
 export class HDD extends CircuitParts {
   public sizeX = 4
   public sizeY = 4
   public wirePointsInts: number[][] = new Array(this.sizeY * this.sizeX)
-  public problemCategory: ProblemCategory = 'Pwn'
+  public problemCategory: QuestionGenre = 'Pwn'
   constructor(isBig: boolean) {
     super(isBig)
     this.wirePointsInts.forEach(

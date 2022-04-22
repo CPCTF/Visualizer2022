@@ -16,7 +16,7 @@ export class CircuitWireObject extends VisualizerGroup {
     super()
     wires.forEach(v => {
       const geometry = this.createWireGeometry(v)
-      this.add(new Mesh(geometry, new MeshBasicMaterial({ color: 0x000000 })))
+      this.add(new Mesh(geometry, new MeshBasicMaterial({ color: 0xffffff })))
     })
   }
 
