@@ -1,10 +1,10 @@
-import type { ProblemCategory } from '../src/circuit/BothScript/CircuitInfo'
+import type { QuestionGenre } from '../src/system/ResponseType'
 
 export abstract class CircuitParts {
   abstract sizeX: number
   abstract sizeY: number
   abstract wirePointsInts: number[][]
-  abstract problemCategory: ProblemCategory
+  abstract problemCategory: QuestionGenre | undefined
   public id: number
   static counter = 0
   public isBig: boolean

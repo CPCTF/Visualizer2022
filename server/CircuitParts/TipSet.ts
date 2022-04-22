@@ -1,10 +1,10 @@
-import type { ProblemCategory } from '../../src/circuit/BothScript/CircuitInfo'
+import type { QuestionGenre } from '../../src/system/ResponseType'
 import { CircuitParts } from '../CircuitParts'
 export class TipSet extends CircuitParts {
   public sizeX = 2
   public sizeY = 2
   public wirePointsInts: number[][] = new Array(this.sizeY * this.sizeX)
-  public problemCategory: ProblemCategory = 'Shell'
+  public problemCategory: QuestionGenre = 'Shell'
   constructor(isBig: boolean) {
     super(isBig)
     this.wirePointsInts.forEach(
