@@ -124,7 +124,14 @@ export class Basis {
     //parts追加
     this.parts.forEach(v => {
       const [x, y] = v.getPosition()
-      partsInfos.push(new CircuitPartsInfo(x, y, v.isBig, v.problemCategory))
+      partsInfos.push(
+        new CircuitPartsInfo(
+          x,
+          y,
+          v.isBig,
+          v.problemCategory != undefined ? v.problemCategory : ''
+        )
+      )
     })
     return [basisInfo, partsInfos, wiresInfos]
   }

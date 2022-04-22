@@ -5,22 +5,25 @@
 import * as fs from 'fs'
 import { ServerTester } from './ServerTester'
 
-// const genres = [
-//   'reversing',
-//   'pwn',
-//   'ppc',
-//   'crypto',
-//   'shell',
-//   'forensics',
-//   'web',
-//   'osint',
-//   'misc'
-// ] as const
+const genres = [
+  'Newbie',
+  'PPC',
+  'Web',
+  'Crypto',
+  'Binary',
+  'Pwn',
+  'Misc',
+  'Shell',
+  'Forensics',
+  'OSINT'
+] as const
 
-// interface ServerResponse {
-//   total: number
-//   genre: Record<typeof genres[number], number>
-// }
+export type Genre = typeof genres[number]
+
+export interface ServerResponse {
+  total: number
+  genre: Record<Genre, number>
+}
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore

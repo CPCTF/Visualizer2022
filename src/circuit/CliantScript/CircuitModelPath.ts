@@ -14,15 +14,15 @@ export class CircuitModelPath {
   public static cpuPath: string = cpuSrc
   public static partsPath: Record<QuestionGenre, string> = {
     Newbie: graphicBoardSrc,
-    Pwn: hddSrc,
-    PPC: memorySrc,
+    PPC: hddSrc,
+    Web: memorySrc,
     Crypto: powerSupplySrc,
-    Shell: tipsetSrc,
-    Forensics: audioSrc,
-    Web: condenserSrc,
-    OSINT: portsSrc,
-    Misc: ssdSrc,
-    Binary: ''
+    Binary: tipsetSrc,
+    Pwn: audioSrc,
+    Misc: condenserSrc,
+    Shell: portsSrc,
+    Forensics: ssdSrc,
+    OSINT: ''
   }
   public static partsBigPath: Record<QuestionGenre, string> = {
     Newbie: '',
