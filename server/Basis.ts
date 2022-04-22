@@ -59,7 +59,11 @@ export class Basis {
   }
 
   getAllPartsCells(): Cell[][] {
-    return this.partsCellDict as Cell[][]
+    const cellss = new Array<Cell[]>(0)
+    for (const key in this.partsCellDict) {
+      cellss.push(this.partsCellDict[key])
+    }
+    return cellss
   }
 
   //指定したセルからwireを伸ばす
