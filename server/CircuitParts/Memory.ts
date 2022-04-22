@@ -1,10 +1,10 @@
-import type { ProblemCategory } from '#/circuit/BothScript/CircuitInfo'
+import type { ProblemCategory } from '../../src/circuit/BothScript/CircuitInfo'
 import { CircuitParts } from '../CircuitParts'
-export class SSD extends CircuitParts {
+export class Memory extends CircuitParts {
   public sizeX = 8
   public sizeY = 2
   public wirePointsInts: number[][] = new Array(this.sizeY * this.sizeX)
-  public problemCategory: ProblemCategory = 'Misc'
+  public problemCategory: ProblemCategory = 'PPC'
   constructor(isBig: boolean) {
     super(isBig)
     this.wirePointsInts.forEach(
