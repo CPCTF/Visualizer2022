@@ -3,7 +3,7 @@
 //   // @ts-ignore
 //   import('node-fetch').then(({ default: fetch }) => fetch(...args))
 import * as fs from 'fs'
-import { ServerTester } from './ServerTester'
+import { CircuitBuilder } from './CircuitBuilder'
 
 const genres = [
   'Newbie',
@@ -33,7 +33,7 @@ const serverMain = async () => {
   // const json = (await res.json()) as ServerResponse
 
   // implementation
-  const result = ServerTester.getJson()
+  const result = CircuitBuilder.build(CircuitBuilder.dummyServerResponse)
   // TODO: !!generated in local!!
   const basepath = process.env.EXPORT_DIR ?? './'
   const filepath = `${basepath}/circuit.json`
