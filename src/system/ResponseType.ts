@@ -35,6 +35,17 @@ export interface SubmissionRaw {
   title: string
 }
 
-export const QuestionGenreList = ['nanika', 'doreka', 'soreka'] as const
+export const QuestionGenreList = [
+  'Newbie',
+  'PPC',
+  'Web',
+  'Crypto',
+  'Binary',
+  'Pwn',
+  'Misc',
+  'Shell',
+  'Forensics',
+  'OSINT'
+] as const
 // TODO: ジャンル追加
 export type QuestionGenre = typeof QuestionGenreList[number]
