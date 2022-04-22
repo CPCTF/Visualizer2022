@@ -3,7 +3,7 @@
 import {
   InitialRaw,
   QuestionGenreList,
-  RecalculateRaw,
+  RecalculateRaw
 } from '#/system/ResponseType'
 import dummyIcon from './testicon.jpg'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
