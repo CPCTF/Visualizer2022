@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { ServerTester } from '../../server/ServerTester'
 import {
   InitialRaw,
   QuestionGenreList,
@@ -8,6 +7,8 @@ import {
   SubmissionRaw
 } from '#/system/ResponseType'
 import dummyIcon from './testicon.jpg'
+import circuitJson from './circuit.json'
+
 const users = new Array(100).fill(null).map((_, index) => ({
   id: `user${index}`,
   name: `USER${index}`,
@@ -36,7 +37,7 @@ export const generateRecalculate = (): RecalculateRaw => {
   })
   return {
     ranking: users,
-    circuit: { data: ServerTester.getJson() }
+    circuit: { data: circuitJson }
   }
 }
 

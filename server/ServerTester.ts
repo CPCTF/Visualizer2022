@@ -1,8 +1,8 @@
-import { CircuitInfoUtils } from '../src/circuit/BothScript/CircuitInfo'
 import { Basis } from './Basis'
 import { Condenser } from './CircuitParts/Condenser'
 import { CPU } from './CircuitParts/CPU'
 import { GraphicBoard } from './CircuitParts/GraphicBoard'
+import { CircuitUtils } from './CircuitUtils'
 
 export class ServerTester {
   //基盤部品の配置
@@ -21,9 +21,6 @@ export class ServerTester {
     condenserCells.forEach(v => basis.extendWires(v))
     graphicBoardCells.forEach(v => basis.extendWires(v))
     const [basisInfo, partsInfos, wiresInfos] = basis.convertToCircuitInfos()
-    console.log(basisInfo)
-    console.log(partsInfos)
-    console.log(wiresInfos)
-    return CircuitInfoUtils.infoToJson(basisInfo, partsInfos, wiresInfos)
+    return CircuitUtils.infoToJson(basisInfo, partsInfos, wiresInfos)
   }
 }
