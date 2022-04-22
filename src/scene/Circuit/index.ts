@@ -12,7 +12,7 @@ import { CircuitModelPath } from '#/circuit/CliantScript/CircuitModelPath'
 import { SubmissionEffect } from './SubmissionEffect'
 import { CircuitManager } from '#/circuit/CliantScript/CircuitManager'
 import { EventEmitter } from '#/system/EventEmitter'
-import type { ProblemCategory } from '../../circuit/BothScript/CircuitInfo'
+import type { QuestionGenre } from '../../system/ResponseType'
 
 export class Circuit extends VisualizerGroup {
   constructor() {
@@ -51,9 +51,9 @@ export class Circuit extends VisualizerGroup {
     partsInfos.forEach(v => {
       let path = ''
       if (v.isBig) {
-        path = CircuitModelPath.partsBigPath[v.category as ProblemCategory]
+        path = CircuitModelPath.partsBigPath[v.category as QuestionGenre]
       } else {
-        path = CircuitModelPath.partsPath[v.category as ProblemCategory]
+        path = CircuitModelPath.partsPath[v.category as QuestionGenre]
       }
       const obj = ThreeResourceLoader.get(path) as Object3D
       obj.position.set(v.x + offsetX, 0 + offsetY, v.z + offsetZ)

@@ -1,10 +1,10 @@
-import type { ProblemCategory } from '../../src/circuit/BothScript/CircuitInfo'
+import type { QuestionGenre } from '../../src/system/ResponseType'
 import { CircuitParts } from '../CircuitParts'
 export class GraphicBoard extends CircuitParts {
   public sizeX = 1
   public sizeY = 6
   public wirePointsInts: number[][] = new Array(this.sizeY * this.sizeX)
-  public problemCategory: ProblemCategory = 'Reversing'
+  public problemCategory: QuestionGenre = 'Newbie'
   constructor(isBig: boolean) {
     super(isBig)
     this.wirePointsInts.forEach(
