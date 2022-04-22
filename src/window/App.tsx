@@ -16,6 +16,7 @@ import { HexFilter } from './postprocessing/HexFilter'
 import style from './main.module.css'
 import { Startup } from './startup/Startup'
 import { playSound } from './utils/sounds/sound'
+import { Pointer } from '#/window/pointer/Pointer'
 
 // the context bridge:
 const ContextBridge: VFC<{
@@ -97,11 +98,15 @@ export const AppInner = () => {
         <Screen />
         <Startup />
       </Container>
+      <Pointer />
     </Filters>
   )
 }
 
 export const App = () => {
+  useEffect(() => {
+    document.body.style.cursor = 'none'
+  }, [])
   return (
     <WindowSettingProvider>
       <main className={style.main}>

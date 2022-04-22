@@ -5,6 +5,7 @@ export const windowEdge = 6 * scaling
 export const windowHeaderEdge = (windowEdge / 3) * 2
 export const windowHeaderHeight = (windowEdge / 6) * 26
 export const footerHeight = windowHeaderHeight * 1.2
+export const pointerSize = 20 * scaling
 
 let volume = 0
 export const setVolume = (v: number) => {

@@ -1,9 +1,7 @@
 import { EventEmitter } from '#/system/EventEmitter'
 import { globalSettings } from '#/system/GlobalSettings'
-import { useTick } from '@inlet/react-pixi'
 import { useContext, useEffect, useState } from 'react'
 import { WindowSettingContext } from '../GlobalSetting'
-import { clearCursorIcon, getCursorIcon } from '../stores/cursorIcon'
 import { Background } from './background/Background'
 import { Frame } from './Frame'
 import { dummyWindow } from './frames'
@@ -13,14 +11,9 @@ export const Screen = () => {
   const {
     width,
     height,
-    windowSettings: { windows, windowIndices: windowIndices, starting }
+    windowSettings: { windows, windowIndices: windowIndices }
   } = useContext(WindowSettingContext)
-  useTick(() => {
-    document.body.style.cursor = starting
-      ? 'wait'
-      : getCursorIcon() || 'default'
-    clearCursorIcon()
-  })
+
   const [isEnded, setIsEnded] = useState(false)
   useEffect(() => {
     const initialized = () => {
