@@ -2,7 +2,7 @@ import {
   CircuitBasisInfo,
   CircuitPartsInfo,
   CircuitWiresInfo
-} from '../BothScript/CircuitInfo'
+} from '../src/circuit/BothScript/CircuitInfo'
 import { Cell, WireExtendInfo } from './Cell'
 import type { CircuitParts } from './CircuitParts'
 
