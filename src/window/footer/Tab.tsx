@@ -19,6 +19,7 @@ export const Tab: VFC<{ id: string; index: number }> = ({ id, index }) => {
   const tabOn = useMemo(() => new Texture(new BaseTexture(tabOnSrc)), [])
   const tabOff = useMemo(() => new Texture(new BaseTexture(tabOffSrc)), [])
 
+  const icon = target.icon()
   return (
     <Container
       position={[index * tabWidth, footerHeight / 2]}
@@ -32,13 +33,15 @@ export const Tab: VFC<{ id: string; index: number }> = ({ id, index }) => {
         anchor={[0, 0.5]}
         position={[0, 0]}
       />
-      <Sprite
-        width={footerHeight * 0.6}
-        height={footerHeight * 0.6}
-        texture={target.icon}
-        anchor={[0, 0.5]}
-        position={[7, 0]}
-      />
+      {icon ? (
+        <Sprite
+          width={footerHeight * 0.6}
+          height={footerHeight * 0.6}
+          texture={icon}
+          anchor={[0, 0.5]}
+          position={[7, 0]}
+        />
+      ) : null}
       <Text
         text={title}
         anchor={[0, 0.5]}
