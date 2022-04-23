@@ -1,0 +1,193 @@
+{
+	"meta": {
+		"image": "spritesheet.png",
+		"size": {"w":192,"h":188},
+		"scale": "1"
+	},
+	"frames": {
+		"WindowTitleBarActive.png":
+		{
+			"frame": {"x":0,"y":0,"w":192,"h":18},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":192,"h":18},
+			"sourceSize": {"w":192,"h":18}
+		},
+		"WindowTitleBarInactive.png":
+		{
+			"frame": {"x":0,"y":18,"w":192,"h":18},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":192,"h":18},
+			"sourceSize": {"w":192,"h":18}
+		},
+		"TaskbarButtonActive.png":
+		{
+			"frame": {"x":0,"y":36,"w":160,"h":22},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":160,"h":22},
+			"sourceSize": {"w":160,"h":22}
+		},
+		"TaskbarButtonInactive.png":
+		{
+			"frame": {"x":0,"y":58,"w":160,"h":22},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":160,"h":22},
+			"sourceSize": {"w":160,"h":22}
+		},
+		"CursorDefault.png":
+		{
+			"frame": {"x":0,"y":80,"w":38,"h":38},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":38,"h":38},
+			"sourceSize": {"w":38,"h":38}
+		},
+		"CursorEwResize.png":
+		{
+			"frame": {"x":38,"y":80,"w":38,"h":38},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":38,"h":38},
+			"sourceSize": {"w":38,"h":38}
+		},
+		"CursorGrab.png":
+		{
+			"frame": {"x":76,"y":80,"w":38,"h":38},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":38,"h":38},
+			"sourceSize": {"w":38,"h":38}
+		},
+		"CursorGrabbing.png":
+		{
+			"frame": {"x":114,"y":80,"w":38,"h":38},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":38,"h":38},
+			"sourceSize": {"w":38,"h":38}
+		},
+		"CursorNeswResize.png":
+		{
+			"frame": {"x":152,"y":80,"w":38,"h":38},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":38,"h":38},
+			"sourceSize": {"w":38,"h":38}
+		},
+		"CursorNsResize.png":
+		{
+			"frame": {"x":0,"y":118,"w":38,"h":38},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":38,"h":38},
+			"sourceSize": {"w":38,"h":38}
+		},
+		"CursorNwseResize.png":
+		{
+			"frame": {"x":38,"y":118,"w":38,"h":38},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":38,"h":38},
+			"sourceSize": {"w":38,"h":38}
+		},
+		"CursorWait.png":
+		{
+			"frame": {"x":76,"y":118,"w":38,"h":38},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":38,"h":38},
+			"sourceSize": {"w":38,"h":38}
+		},
+		"Clock.png":
+		{
+			"frame": {"x":114,"y":118,"w":32,"h":32},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+			"sourceSize": {"w":32,"h":32}
+		},
+		"ReadMe.png":
+		{
+			"frame": {"x":146,"y":118,"w":32,"h":32},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+			"sourceSize": {"w":32,"h":32}
+		},
+		"Visualizer.png":
+		{
+			"frame": {"x":0,"y":156,"w":32,"h":32},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+			"sourceSize": {"w":32,"h":32}
+		},
+		"WindowBorderUpperLeft.png":
+		{
+			"frame": {"x":178,"y":118,"w":6,"h":26},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":6,"h":26},
+			"sourceSize": {"w":6,"h":26}
+		},
+		"WindowBorderUpperRight.png":
+		{
+			"frame": {"x":184,"y":118,"w":6,"h":26},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":6,"h":26},
+			"sourceSize": {"w":6,"h":26}
+		},
+		"WindowButtonClose.png":
+		{
+			"frame": {"x":160,"y":36,"w":16,"h":14},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":16,"h":14},
+			"sourceSize": {"w":16,"h":14}
+		},
+		"WindowButtonMaximize.png":
+		{
+			"frame": {"x":176,"y":36,"w":16,"h":14},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":16,"h":14},
+			"sourceSize": {"w":16,"h":14}
+		},
+		"WindowButtonMinimize.png":
+		{
+			"frame": {"x":160,"y":58,"w":16,"h":14},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":16,"h":14},
+			"sourceSize": {"w":16,"h":14}
+		},
+		"WindowBorderBottom.png":
+		{
+			"frame": {"x":160,"y":50,"w":3,"h":6},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":3,"h":6},
+			"sourceSize": {"w":3,"h":6}
+		},
+		"WindowBorderMiddle.png":
+		{
+			"frame": {"x":163,"y":50,"w":3,"h":4},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":3,"h":4},
+			"sourceSize": {"w":3,"h":4}
+		},
+		"WindowBorderTop.png":
+		{
+			"frame": {"x":166,"y":50,"w":3,"h":4},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":3,"h":4},
+			"sourceSize": {"w":3,"h":4}
+		}
+	}
+}
