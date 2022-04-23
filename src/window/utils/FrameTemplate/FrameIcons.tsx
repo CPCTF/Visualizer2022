@@ -1,18 +1,11 @@
 import type { ReactNode, VFC } from 'react'
 import { Sprite } from '@inlet/react-pixi'
-import headerIcon from './header-icon.png'
 import { scaling, windowHeaderEdge, windowHeaderHeight } from '#/window/globals'
-import { BaseTexture, Rectangle, Texture } from 'pixi.js'
+import { SpriteHolder } from '#/window/stores/SpriteHolder'
 
 export const getFrameIconSize = () =>
   (windowHeaderHeight - windowHeaderEdge * 2) * 0.9
 
-const headerIconTexture = new BaseTexture(headerIcon)
-const iconTextures = {
-  kill: new Texture(headerIconTexture, new Rectangle(32, 0, 16, 14)),
-  maximize: new Texture(headerIconTexture, new Rectangle(16, 0, 16, 14)),
-  minimize: new Texture(headerIconTexture, new Rectangle(0, 0, 16, 14))
-}
 const iconAspect = 16 / 14
 
 export const FrameIcons: VFC<{
@@ -23,12 +16,17 @@ export const FrameIcons: VFC<{
   const icons: ReactNode[] = []
   let iconIndex = 0
   let killGap = 0
+  const killIcon = SpriteHolder.get('WindowButtonClose.png')
+  const maximizeIcon = SpriteHolder.get('WindowButtonMaximize.png')
+  const minimizeIcon = SpriteHolder.get('WindowButtonMinimize.png')
+  if (!killIcon || !maximizeIcon || !minimizeIcon) return <>{null}</>
+
   if (onKill) {
     icons.push(
       <Sprite
         key="kill"
         anchor={[1, 0.5]}
-        texture={iconTextures.kill}
+        texture={killIcon}
         width={getFrameIconSize() * iconAspect}
         height={getFrameIconSize()}
         position={[-iconIndex * getFrameIconSize() * iconAspect, 0]}
@@ -44,7 +42,7 @@ export const FrameIcons: VFC<{
       <Sprite
         key="maximize"
         anchor={[1, 0.5]}
-        texture={iconTextures.maximize}
+        texture={maximizeIcon}
         width={getFrameIconSize() * iconAspect}
         height={getFrameIconSize()}
         position={[-iconIndex * getFrameIconSize() * iconAspect + killGap, 0]}
@@ -59,7 +57,7 @@ export const FrameIcons: VFC<{
       <Sprite
         key="minimize"
         anchor={[1, 0.5]}
-        texture={iconTextures.minimize}
+        texture={minimizeIcon}
         width={getFrameIconSize() * iconAspect}
         height={getFrameIconSize()}
         position={[-iconIndex * getFrameIconSize() * iconAspect + killGap, 0]}

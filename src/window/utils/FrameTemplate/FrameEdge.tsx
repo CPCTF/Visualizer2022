@@ -1,4 +1,5 @@
 import { windowEdge, windowHeaderHeight } from '#/window/globals'
+// import { SpriteHolder } from '#/window/stores/SpriteHolder'
 import { Sprite } from '@inlet/react-pixi'
 import { BaseTexture, Rectangle, Texture } from 'pixi.js'
 import type { VFC } from 'react'
@@ -20,6 +21,16 @@ export const FrameEdge: VFC<{ width: number; height: number }> = ({
   width,
   height
 }) => {
+  // const frameEdge = {
+  //   topLeft: SpriteHolder.get('WindowBorderUpperLeft.png'),
+  //   top: SpriteHolder.get('WindowBorderTop.png'),
+  //   topRight: SpriteHolder.get('WindowBorderUpperRight.png'),
+  //   right: SpriteHolder.get('WindowBorderRight.png'),
+  //   bottomRight: SpriteHolder.get('WindowBorderLowerLeft.png'),
+  //   bottom: SpriteHolder.get('WindowBorderUpperLeft.png'),
+  //   bottomLeft: SpriteHolder.get('WindowBorderUpperLeft.png'),
+  //   left: SpriteHolder.get('WindowBorderUpperLeft.png'),
+  // }
   return (
     <>
       <Sprite
