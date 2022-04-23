@@ -4,7 +4,7 @@ import {
   useApp,
   withFilters
 } from '@inlet/react-pixi'
-import { ReactNode, useContext, useEffect, VFC } from 'react'
+import { ReactNode, useContext, useEffect, useState, VFC } from 'react'
 import { WindowSettingContext, WindowSettingProvider } from './GlobalSetting'
 import { Screen } from './screen/Screen'
 import { Footer } from './footer/Footer'
@@ -17,6 +17,7 @@ import style from './main.module.css'
 import { Startup } from './startup/Startup'
 import { playSound } from './utils/sounds/sound'
 import { Pointer } from '#/window/pointer/Pointer'
+import { SpriteHolder } from './stores/SpriteHolder'
 
 // the context bridge:
 const ContextBridge: VFC<{
@@ -68,10 +69,17 @@ export const AppInner = () => {
     playSound('mouseup')
   }
 
+  const [loaded, setLoaded] = useState(false)
+
   const app = useApp()
   useEffect(() => {
     app.ticker.maxFPS = 30
+    SpriteHolder.onLoad(() => {
+      setLoaded(true)
+    })
   }, [])
+
+  if (!loaded) return <></>
 
   return (
     <Filters
