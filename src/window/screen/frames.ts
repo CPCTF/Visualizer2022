@@ -2,15 +2,11 @@ import type { WindowInfo } from '../stores/WindowSystem'
 import { CanvasFrame } from './instances/CanvasFrame'
 import { ClockFrame } from './instances/ClockFrame'
 import { ReadmeFrame } from './instances/Readme'
-import iconSrc from './icons/clock-icon.png'
-import { Texture } from 'pixi.js'
 import { SpriteHolder } from '../stores/SpriteHolder'
-
-const testIcon = Texture.from(iconSrc)
 
 export const dummyWindow = {
   Component: null,
-  icon: testIcon,
+  icon: () => SpriteHolder.get('Clock.png'),
   title: 'Clock',
   rect: {
     x: 0,
