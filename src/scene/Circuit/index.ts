@@ -33,6 +33,9 @@ export class Circuit extends VisualizerGroup {
     EventEmitter.on('recalculateend', () => {
       this.createCircuit()
     })
+    const obj = ThreeResourceLoader.get(CircuitModelPath.cpuPath) as Object3D
+    obj.position.set(-0.5, 0, -0.5)
+    this.add(obj)
   }
 
   public update(): void {
