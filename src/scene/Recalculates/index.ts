@@ -1,40 +1,42 @@
-import { ThreeResourceLoader } from '#/system/Loader'
-import { Time } from '#/system/Time'
 import { EventEmitter } from '#/system/EventEmitter'
 import { VisualizerGroup } from '#/templates/VisualizerGroup'
-import type { Material, Mesh, Object3D } from 'three'
-import { RecalculateAnimations } from './Animations'
-import recalculatingSrc from './recalculating.glb?url'
+import { EmergencyAnimation } from './Emergency'
+import { WaterAnimation } from './Water'
+import gsap from 'gsap'
 
 export class Recalculate extends VisualizerGroup {
-  private recLabel: Object3D
+  private startY = -2
+  private endY = 2
+  private emergencyAnimation: EmergencyAnimation
+  private waterAnimation: WaterAnimation
+
   constructor() {
     super()
-    const animation = new RecalculateAnimations()
-    animation.scale.set(0.5, 0.5, 0.5)
-    this.add(animation)
-    this.position.set(0, -4, 0)
-
-    // 再計算ラベル
-    this.recLabel = ThreeResourceLoader.get(recalculatingSrc) as Mesh
-    ;((this.recLabel.children[0] as Mesh).material as Material).transparent =
-      true
-    this.recLabel.position.set(0, 0.5, 0)
-    this.recLabel.scale.set(1.5, 1.5, 1.5)
-    this.add(this.recLabel)
+    this.emergencyAnimation = new EmergencyAnimation()
+    this.waterAnimation = new WaterAnimation()
+    this.add(this.emergencyAnimation)
+    this.add(this.waterAnimation)
   }
 
   public start() {
+    super.start()
+    this.visible = false
+    this.emergencyAnimation.position.y = 0.5
+    this.position.y = this.startY
     EventEmitter.on('recalculatestart', () => {
-      ;(this.children[0] as RecalculateAnimations)?.animate()
+      this.visible = true
+      gsap.to(this.position, 1, { y: this.endY })
     })
     EventEmitter.on('recalculateend', () => {
-      ;(this.children[0] as RecalculateAnimations)?.stop()
+      gsap
+        .to(this.position, 1, { y: this.startY })
+        .eventCallback('onComplete', () => {
+          this.visible = false
+        })
     })
   }
 
   public update() {
     super.update()
-    this.recLabel.rotation.y += Time.deltaTime
   }
 }

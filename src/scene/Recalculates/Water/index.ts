@@ -1,17 +1,8 @@
-import { EventEmitter } from '#/system/EventEmitter'
 import { Time } from '#/system/Time'
 import { VisualizerGroup } from '#/templates/VisualizerGroup'
-import {
-  DoubleSide,
-  FrontSide,
-  RepeatWrapping,
-  ShaderMaterial,
-  TextureLoader
-} from 'three'
-import { Pass } from 'three/examples/jsm/postprocessing/Pass'
+import { FrontSide, RepeatWrapping, ShaderMaterial, TextureLoader } from 'three'
 import { IWaterOptions, Water } from './Water'
 import WaterNormalTextureSrc from './Water_1_M_Normal.jpg?url'
-import gsap from 'gsap'
 
 export class WaterAnimation extends VisualizerGroup {
   private water: Water
@@ -42,15 +33,7 @@ export class WaterAnimation extends VisualizerGroup {
     this.add(this.water)
   }
   public start(): void {
-    this.position.setY(-1)
-    this.visible = false
-    EventEmitter.on('recalculatestart', () => {
-      this.visible = true
-      gsap.to(this.position, 4, { y: 2 })
-    })
-    EventEmitter.on('recalculateend', () => {
-      gsap.to(this.position, 4, { y: -1 })
-    })
+    super.start()
   }
   public update(): void {
     super.update()
