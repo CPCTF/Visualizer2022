@@ -17,6 +17,7 @@ import { getInitialData } from './utils/getInitialData'
 import { Circuit } from './scene/Circuit'
 import { StartupPass } from './postprocess/StartupPass'
 import { WaterAnimation } from './scene/Recalculates/Water'
+import { Emergency } from './scene/Recalculates/Emergency/Emergency'
 
 export class Visualizer {
   // singleton
@@ -69,7 +70,8 @@ export class Visualizer {
       new UserDisplayGroup(),
       new Recalculate(),
       new Circuit(),
-      new WaterAnimation()
+      new WaterAnimation(),
+      new Emergency()
     )
 
     // load resources

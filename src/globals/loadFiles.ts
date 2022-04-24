@@ -14,6 +14,7 @@ import condenserSrc from '#/circuit/CircuitModels/condenser.glb?url'
 import portsSrc from '#/circuit/CircuitModels/ports.glb?url'
 import ssdSrc from '#/circuit/CircuitModels/ssd.glb?url'
 import symbolSrc from '#/scene/Circuit/SubmissionEffect/symbols.glb?url'
+import emergencySrc from '#scene/Recalculates/Emergency/emergency.glb?url'
 
 export const addLoadFiles = () => {
   ThreeResourceLoader.addGLTF(recalculationgGlb)
@@ -31,4 +32,5 @@ export const addLoadFiles = () => {
   ThreeResourceLoader.addGLTF(portsSrc)
   ThreeResourceLoader.addGLTF(ssdSrc)
   ThreeResourceLoader.addGLTF(symbolSrc)
+  ThreeResourceLoader.addGLTF(emergencySrc)
 }
