@@ -70,7 +70,7 @@ class Water extends VisualizerObject {
 
     const mirrorCamera = new PerspectiveCamera()
 
-    const renderTarget = new WebGLRenderTarget(textureWidth, textureHeight)
+    //const renderTarget = new WebGLRenderTarget(textureWidth, textureHeight)
 
     const mirrorShader = {
       uniforms: UniformsUtils.merge([
@@ -114,7 +114,6 @@ class Water extends VisualizerObject {
 			}`,
 
       fragmentShader: /* glsl */ `
-				uniform sampler2D mirrorSampler;
 				uniform float alpha;
 				uniform float time;
 				uniform float size;
@@ -162,7 +161,7 @@ class Water extends VisualizerObject {
 					sunLight( surfaceNormal, eyeDirection, 100.0, 2.0, 0.5, diffuseLight, specularLight );
 					float distance = length(worldToEye);
 					vec2 distortion = surfaceNormal.xz * ( 0.001 + 1.0 / distance ) * distortionScale;
-					vec3 reflectionSample = vec3( texture2D( mirrorSampler, mirrorCoord.xy / mirrorCoord.w + distortion ) );
+					vec3 reflectionSample = vec3( 0.0 , 0.0 , 0.0 );
 					float theta = max( dot( eyeDirection, surfaceNormal ), 0.0 );
 					float rf0 = 0.3;
 					float reflectance = rf0 + ( 1.0 - rf0 ) * pow( ( 1.0 - theta ), 5.0 );
@@ -184,7 +183,7 @@ class Water extends VisualizerObject {
       fog: fog
     })
 
-    material.uniforms['mirrorSampler'].value = renderTarget.texture
+    //material.uniforms['mirrorSampler'].value = renderTarget.texture
     material.uniforms['textureMatrix'].value = textureMatrix
     material.uniforms['alpha'].value = alpha
     material.uniforms['time'].value = time
@@ -296,6 +295,7 @@ class Water extends VisualizerObject {
       eye.setFromMatrixPosition(camera.matrixWorld)
 
       // Render
+      /*
       const viewport = new Vector4()
       renderer.getViewport(viewport)
 
@@ -308,7 +308,7 @@ class Water extends VisualizerObject {
 
       renderer.xr.enabled = false // Avoid camera modification and recursion
       renderer.shadowMap.autoUpdate = false // Avoid re-computing shadows
-
+      
       renderer.setRenderTarget(renderTarget)
 
       renderer.state.buffers.depth.setMask(true) // make sure the depth buffer is writable so it can be properly cleared, see #18897
@@ -328,6 +328,7 @@ class Water extends VisualizerObject {
       if (viewport !== undefined) {
         renderer.state.viewport(viewport)
       }
+      */
     }
   }
 }
