@@ -25,3 +25,7 @@ dist-ssr
 .eslintcache
 
 /build
+
+src/**/*.js
+server/**/*.js
+src/utils/circuit.json

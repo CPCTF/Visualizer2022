@@ -1,4 +1,3 @@
-import type { ProblemCategory } from '../BothScript/CircuitInfo'
 import cpuSrc from '#/circuit/CircuitModels/cpu.glb?url'
 import graphicBoardSrc from '#/circuit/CircuitModels/graphicBoard.glb?url'
 import hddSrc from '#/circuit/CircuitModels/hdd.glb?url'
@@ -9,31 +8,32 @@ import audioSrc from '#/circuit/CircuitModels/audio.glb?url'
 import condenserSrc from '#/circuit/CircuitModels/condenser.glb?url'
 import portsSrc from '#/circuit/CircuitModels/ports.glb?url'
 import ssdSrc from '#/circuit/CircuitModels/ssd.glb?url'
+import type { QuestionGenre } from '#/system/ResponseType'
 
 export class CircuitModelPath {
   public static cpuPath: string = cpuSrc
-  public static partsPath: Record<ProblemCategory, string> = {
-    None: cpuSrc,
-    Reversing: graphicBoardSrc,
-    Pwn: hddSrc,
-    PPC: memorySrc,
+  public static partsPath: Record<QuestionGenre, string> = {
+    Newbie: graphicBoardSrc,
+    PPC: hddSrc,
+    Web: memorySrc,
     Crypto: powerSupplySrc,
-    Shell: tipsetSrc,
-    Forensics: audioSrc,
-    Web: condenserSrc,
-    OSINT: portsSrc,
-    Misc: ssdSrc
+    Binary: tipsetSrc,
+    Pwn: audioSrc,
+    Misc: condenserSrc,
+    Shell: portsSrc,
+    Forensics: ssdSrc,
+    OSINT: ''
   }
-  public static partsBigPath: Record<ProblemCategory, string> = {
-    None: '',
-    Reversing: '',
-    Pwn: '',
+  public static partsBigPath: Record<QuestionGenre, string> = {
+    Newbie: '',
     PPC: '',
+    Web: '',
     Crypto: '',
+    Binary: '',
+    Pwn: '',
+    Misc: '',
     Shell: '',
     Forensics: '',
-    Web: '',
-    OSINT: '',
-    Misc: ''
+    OSINT: ''
   }
 }

@@ -1,10 +1,10 @@
-import type { ProblemCategory } from '#/circuit/BothScript/CircuitInfo'
+import type { QuestionGenre } from '../../src/system/ResponseType'
 import { CircuitParts } from '../CircuitParts'
 export class Condenser extends CircuitParts {
   public sizeX = 1
   public sizeY = 1
   public wirePointsInts: number[][] = new Array(this.sizeY * this.sizeX)
-  public problemCategory: ProblemCategory = 'Web'
+  public problemCategory: QuestionGenre = 'Web'
   constructor(isBig: boolean) {
     super(isBig)
     this.wirePointsInts.forEach(

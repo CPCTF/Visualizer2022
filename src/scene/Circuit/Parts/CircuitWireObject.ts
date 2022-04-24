@@ -6,7 +6,7 @@ import {
   MeshBasicMaterial,
   RingBufferGeometry
 } from 'three'
-import { Basis } from '../../../circuit/ServerScript/Basis'
+import { Basis } from '../../../../server/Basis'
 
 export class CircuitWireObject extends VisualizerGroup {
   static sx = [1, 0, -1, 0]
@@ -16,7 +16,7 @@ export class CircuitWireObject extends VisualizerGroup {
     super()
     wires.forEach(v => {
       const geometry = this.createWireGeometry(v)
-      this.add(new Mesh(geometry, new MeshBasicMaterial({ color: 0x000000 })))
+      this.add(new Mesh(geometry, new MeshBasicMaterial({ color: 0xffffff })))
     })
   }
 
