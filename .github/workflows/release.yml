@@ -1,4 +1,4 @@
-name: GitHub Pages auto deploy
+name: Release and upload
 on:
   push:
     tags:
