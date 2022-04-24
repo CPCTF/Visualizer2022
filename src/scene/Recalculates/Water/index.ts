@@ -3,6 +3,7 @@ import { Time } from '#/system/Time'
 import { VisualizerGroup } from '#/templates/VisualizerGroup'
 import {
   DoubleSide,
+  FrontSide,
   RepeatWrapping,
   ShaderMaterial,
   TextureLoader
@@ -28,13 +29,13 @@ export class WaterAnimation extends VisualizerGroup {
       alpha: 1.0,
       waterColor: 0x3e89ce,
       distortionScale: 2.7,
-      fog: false,
+      fog: undefined,
       sunDirection: undefined,
       sunColor: undefined,
       clipBias: undefined,
       time: undefined,
       eye: undefined,
-      side: undefined
+      side: FrontSide
     }
     this.water = new Water(options)
     this.water.rotation.x = -Math.PI / 2
