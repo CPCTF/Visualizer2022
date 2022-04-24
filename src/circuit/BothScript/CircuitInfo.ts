@@ -43,40 +43,6 @@ export class CircuitInfoUtils {
     })
     return [basisInfo, partsInfos, wiresInfos]
   }
-
-  static infoToJson(
-    circuitBasisInfo: CircuitBasisInfo,
-    circuitPartsInfos: CircuitPartsInfo[],
-    circuitWiresInfos: CircuitWiresInfo[]
-  ): string {
-    const objs = new Array<ICircuit>(0)
-    const basisObj: IBasisInfo = {
-      class: 'basis',
-      sizeX: circuitBasisInfo.sizeX,
-      sizeY: circuitBasisInfo.sizeY
-    }
-    objs.push(basisObj)
-    circuitPartsInfos.forEach(v => {
-      const obj: IPartsInfo = {
-        class: 'parts',
-        x: v.x,
-        z: v.z,
-        isBig: v.isBig,
-        category: v.category
-      }
-      objs.push(obj)
-    })
-    circuitWiresInfos.forEach(v => {
-      const obj: IWiresInfo = {
-        class: 'wires',
-        x: v.x,
-        z: v.z,
-        wires: v.wires
-      }
-      objs.push(obj)
-    })
-    return JSON.stringify(objs)
-  }
 }
 
 interface ICircuit {
@@ -100,18 +66,3 @@ interface IWiresInfo extends ICircuit {
   z: number
   wires: [number, number][]
 }
-
-export const problemCategory = [
-  'None',
-  'Reversing',
-  'Pwn',
-  'PPC',
-  'Crypto',
-  'Shell',
-  'Forensics',
-  'Web',
-  'OSINT',
-  'Misc'
-] as const
-
-export type ProblemCategory = typeof problemCategory[number]

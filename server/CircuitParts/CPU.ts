@@ -1,10 +1,9 @@
-import type { ProblemCategory } from '#/circuit/BothScript/CircuitInfo'
 import { CircuitParts } from '../CircuitParts'
-export class Audio extends CircuitParts {
-  public sizeX = 3
+export class CPU extends CircuitParts {
+  public sizeX = 2
   public sizeY = 2
   public wirePointsInts: number[][] = new Array(this.sizeY * this.sizeX)
-  public problemCategory: ProblemCategory = 'Forensics'
+  public problemCategory = undefined
   constructor(isBig: boolean) {
     super(isBig)
     this.wirePointsInts.forEach(
@@ -16,10 +15,6 @@ export class Audio extends CircuitParts {
       1, 1, 1, 1, 1, 1, 1
     ]
     this.wirePointsInts[1 + 0 * this.sizeX] = [
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0,
-      0, 0, 0, 0, 0, 0, 0
-    ]
-    this.wirePointsInts[2 + 0 * this.sizeX] = [
       0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
       0, 0, 0, 0, 0, 0, 0
     ]
@@ -28,10 +23,6 @@ export class Audio extends CircuitParts {
       1, 1, 1, 1, 1, 1, 1
     ]
     this.wirePointsInts[1 + 1 * this.sizeX] = [
-      1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0
-    ]
-    this.wirePointsInts[2 + 1 * this.sizeX] = [
       1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
       0, 0, 0, 0, 0, 0, 0
     ]
