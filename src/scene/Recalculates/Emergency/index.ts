@@ -3,7 +3,7 @@ import { Emergency } from './Emergency'
 
 export class EmergencyAnimation extends VisualizerGroup {
   private size = 30
-  private positionOffset = 1
+  private positionOffset = 2 / Math.sqrt(3)
   private offsetTimeUnit = 0.1
   private emergencies: Array<Emergency> = new Array(0)
   constructor() {
