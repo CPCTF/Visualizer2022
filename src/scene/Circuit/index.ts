@@ -62,9 +62,12 @@ export class Circuit extends VisualizerGroup {
       }
     })
     wiresInfos.forEach(v => {
-      const wire = new CircuitWireObject(v.wires)
-      wire.position.set(v.x + offsetX, 0 + offsetY, v.z + offsetZ)
-      this.add(wire)
+      v.wires.forEach(wire => {
+        const wireMesh = this.createObject('Wire' + wire.toString())
+        if (wireMesh != undefined) {
+          wireMesh.position.set(v.x + offsetX, 0 + offsetY, v.z + offsetZ)
+        }
+      })
     })
 
     //グリッド線を表示
@@ -86,10 +89,12 @@ export class Circuit extends VisualizerGroup {
     }
   }
   private setPrefabs(): void {
+    //cpu
     const cpuPrefab = ThreeResourceLoader.get(CircuitModelPath.cpuPath) as Mesh
     cpuPrefab.visible = false
     this.objectPool['CPU'] = [[cpuPrefab], 1]
     this.add(cpuPrefab)
+    //big parts
     for (const key in CircuitModelPath.partsBigPath) {
       const prefab = ThreeResourceLoader.get(
         CircuitModelPath.partsBigPath[key as QuestionGenre]
@@ -99,6 +104,7 @@ export class Circuit extends VisualizerGroup {
       this.objectPool['Big' + key] = [[prefab], 1]
       this.add(prefab)
     }
+    //parts
     for (const key in CircuitModelPath.partsPath) {
       const prefab = ThreeResourceLoader.get(
         CircuitModelPath.partsPath[key as QuestionGenre]
@@ -107,6 +113,26 @@ export class Circuit extends VisualizerGroup {
       prefab.visible = false
       this.objectPool[key] = [[prefab], 1]
       this.add(prefab)
+    }
+    //wire
+    const createWirePrefab = (wire: [number, number]) => {
+      const pref = new CircuitWireObject(wire)
+      const prefab = new Mesh(pref.geometry, pref.material)
+      prefab.visible = false
+      this.objectPool['Wire' + wire.toString()] = [[prefab], 1]
+      this.add(prefab)
+    }
+    for (let i = 0; i < 32; i++) {
+      let wire: [number, number] = [i, -1]
+      createWirePrefab(wire)
+      const mod = i % 8
+      const shift = (i - mod) / 8
+      const canTo = [15 - mod, 23 - mod, 31 - mod]
+      canTo.forEach(v => {
+        const newWire = (((v + 8 * shift) % 32) + 32) % 32
+        wire = [i, newWire]
+        createWirePrefab(wire)
+      })
     }
   }
 
