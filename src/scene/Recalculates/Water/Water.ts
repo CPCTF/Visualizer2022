@@ -12,8 +12,7 @@ import {
   UniformsLib,
   UniformsUtils,
   Vector3,
-  Vector4,
-  WebGLRenderTarget
+  Vector4
 } from 'three'
 
 /**
@@ -26,11 +25,6 @@ import {
 class Water extends VisualizerObject {
   isWater = true
   constructor(options: IWaterOptions) {
-    const textureWidth =
-      options.textureWidth !== undefined ? options.textureWidth : 512
-    const textureHeight =
-      options.textureHeight !== undefined ? options.textureHeight : 512
-
     const clipBias = options.clipBias !== undefined ? options.clipBias : 0.0
     const alpha = options.alpha !== undefined ? options.alpha : 1.0
     const time = options.time !== undefined ? options.time : 0.0
@@ -198,7 +192,7 @@ class Water extends VisualizerObject {
     const geometry = new PlaneGeometry(1000, 1000)
     super(geometry, material)
 
-    this.onBeforeRender = function (renderer, scene, camera) {
+    this.onBeforeRender = function (_renderer, _scene, camera) {
       mirrorWorldPosition.setFromMatrixPosition(this.matrixWorld)
       cameraWorldPosition.setFromMatrixPosition(camera.matrixWorld)
 
