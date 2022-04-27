@@ -1,7 +1,7 @@
-// const fetch = (...args: any[]) =>
-//   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//   // @ts-ignore
-//   import('node-fetch').then(({ default: fetch }) => fetch(...args))
+const fetch = (...args: any[]) =>
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  import('node-fetch').then(({ default: fetch }) => fetch(...args))
 import * as fs from 'fs'
 import { CircuitBuilder } from './CircuitBuilder'
 
@@ -29,7 +29,7 @@ export interface ServerResponse {
 // @ts-ignore
 const serverMain = async () => {
   // TODO: fix url
-  const res = await fetch('https://cpctf.space/api/visualizer')
+  const res = await fetch('https://dev.cpctf.space/api/visualizer')
   const json = (await res.json()) as ServerResponse
 
   // implementation
