@@ -30,7 +30,7 @@ export class CircuitBuilder {
       PPC: 10,
       Web: 10,
       Crypto: 10,
-      Binary: 0,
+      Reversing: 0,
       Pwn: 0,
       Misc: 0,
       Shell: 0,
@@ -54,7 +54,7 @@ export class CircuitBuilder {
       case 'Crypto':
         res = new PowerSupply(isBig)
         break
-      case 'Binary':
+      case 'Reversing':
         res = new TipSet(isBig)
         break
       case 'Pwn':
@@ -92,7 +92,7 @@ export class CircuitBuilder {
       PPC: new Array(0),
       Web: new Array(0),
       Crypto: new Array(0),
-      Binary: new Array(0),
+      Reversing: new Array(0),
       Pwn: new Array(0),
       Misc: new Array(0),
       Shell: new Array(0),

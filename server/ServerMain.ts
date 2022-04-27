@@ -10,7 +10,7 @@ const genres = [
   'PPC',
   'Web',
   'Crypto',
-  'Binary',
+  'Reversing',
   'Pwn',
   'Misc',
   'Shell',
@@ -29,11 +29,11 @@ export interface ServerResponse {
 // @ts-ignore
 const serverMain = async () => {
   // TODO: fix url
-  // const res = await fetch('https://localhost:3000/api/users')
-  // const json = (await res.json()) as ServerResponse
+  const res = await fetch('https://cpctf.space/api/visualizer')
+  const json = (await res.json()) as ServerResponse
 
   // implementation
-  const result = CircuitBuilder.build(CircuitBuilder.dummyServerResponse)
+  const result = CircuitBuilder.build(json)
   // TODO: !!generated in local!!
   const basepath = process.env.EXPORT_DIR ?? './'
   const filepath = `${basepath}/circuit.json`
