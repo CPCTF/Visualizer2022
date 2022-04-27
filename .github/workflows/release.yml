@@ -23,8 +23,9 @@ jobs:
       - uses: google-github-actions/auth@v0
         with:
           credentials_json: ${{ secrets.GOOGLE_VISUALIZER_REPOSITORY_ACCOUNT }}
+      - run: zip -r build.zip build
       - uses: google-github-actions/upload-cloud-storage@v0
         with:
-          path: ./build
+          path: ./build.zip
           destination: visualizer
           gzip: true
