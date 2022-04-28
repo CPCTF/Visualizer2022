@@ -1,15 +1,14 @@
 import type { ReactNode, VFC } from 'react'
-import barSrc from './bar.png'
-import barInactiveSrc from './bar-inactive.png'
 import { FrameBackground } from '../MonoColorBG'
 import { TextStyle, Texture } from 'pixi.js'
 import { Container, Sprite, Text } from '@inlet/react-pixi'
 import { windowEdge, windowHeaderEdge, windowHeaderHeight } from '../../globals'
 import { FrameEdge } from './FrameEdge'
-import { FrameIcons, getFrameIconSize } from './FrameIcon'
+import { FrameIcons, getFrameIconSize } from './FrameIcons'
+import { SpriteHolder } from '#/window/stores/SpriteHolder'
 
 interface FrameTemplate {
-  icon?: Texture
+  icon?: Texture | null
   width: number
   height: number
   title: string
@@ -38,16 +37,21 @@ export const FrameTemplate: VFC<FrameTemplate> = ({
   onKill,
   children
 }) => {
+  const barTexture = SpriteHolder.get(
+    isActive ? 'WindowTitleBarActive.png' : 'WindowTitleBarInactive.png'
+  )
   return (
     <>
       <Container position={[0, 0]}>
         <FrameEdge width={width} height={height} />
-        <Sprite
-          image={isActive ? barSrc : barInactiveSrc}
-          width={width - windowEdge * 2}
-          height={windowHeaderHeight - windowHeaderEdge * 2}
-          position={[windowEdge, windowHeaderEdge]}
-        />
+        {barTexture ? (
+          <Sprite
+            texture={barTexture}
+            width={width - windowEdge * 2}
+            height={windowHeaderHeight - windowHeaderEdge * 2}
+            position={[windowEdge, windowHeaderEdge]}
+          />
+        ) : null}
         {icon ? (
           <Sprite
             texture={icon}
@@ -66,7 +70,8 @@ export const FrameTemplate: VFC<FrameTemplate> = ({
           style={
             new TextStyle({
               align: 'center',
-              fontFamily: '"Source Sans Pro", Helvetica, sans-serif',
+              fontFamily:
+                'GNUUnifont, "Source Sans Pro", Helvetica, sans-serif',
               fontSize: windowHeaderHeight * 0.5,
               fill: '#000'
             })

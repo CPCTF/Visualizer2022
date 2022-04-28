@@ -27,7 +27,7 @@ export class CircuitModelPath {
     PPC: '',
     Web: '',
     Crypto: '',
-    Binary: '',
+    Reversing: '',
     Pwn: '',
     Misc: '',
     Shell: '',
