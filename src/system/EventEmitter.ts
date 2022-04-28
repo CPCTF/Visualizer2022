@@ -51,39 +51,32 @@ const testEvent = () => {
   setInterval(() => {
     messageHandler(
       generateWebSocketMessage({
-        data: {
-          type: 7
-        }
+        data: '{ type: 7 }'
       })
     )
   }, 30000)
   setInterval(() => {
     messageHandler(
       generateWebSocketMessage({
-        data: {
-          type: 6
-        }
+        data: '{ type: 6 }'
       })
     )
   }, 300000)
   setInterval(() => {
     messageHandler(
       generateWebSocketMessage({
-        data: {
-          type: 2,
-          data: generateSubmission()
-        }
+        data: `{ type: 2, data: "${JSON.stringify(generateSubmission())}"}`
       })
     )
   }, 3000)
 }
 
-const messageHandler = (
-  event: MessageEvent<{ type: number; data: unknown }>
-) => {
-  const { type, data } = event.data
+const messageHandler = (event: MessageEvent<string>) => {
+  if (!event.data) return
+  const { type, data } = JSON.parse(event.data as string)
+  console.log(type, data, event.data)
   if (!type) return
-  switch (event.data.type) {
+  switch (Number(type)) {
     case 0: {
       timeAdjuster()
       break
