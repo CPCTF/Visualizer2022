@@ -28,7 +28,6 @@ export class Cell {
   setParts(x: number, y: number, parts: CircuitParts): void {
     this.parts = parts
     const wirePointsInt = parts.getWirePointsInt(x, y) as number[]
-
     this.wirePoints.forEach((_, i) => {
       this.wirePoints[i] = wirePointsInt[i] == 1
     })

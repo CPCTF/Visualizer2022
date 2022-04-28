@@ -31,8 +31,8 @@ export class Basis {
   //パーツを置く
   putParts(x: number, y: number, parts: CircuitParts): boolean {
     if (!this.canPutParts(x, y, parts)) return false
-    const sy = parts.sizeY
-    const sx = parts.sizeX
+    const sy = parts.SizeY()
+    const sx = parts.SizeX()
     const allCells = new Array<Cell>(0)
     for (let i = 0; i < sy; i++) {
       for (let j = 0; j < sx; j++) {
@@ -144,8 +144,8 @@ export class Basis {
 
   //座標にパーツがおけるかを確認する
   private canPutParts(x: number, y: number, parts: CircuitParts): boolean {
-    const sy = parts.sizeY
-    const sx = parts.sizeX
+    const sy = parts.SizeY()
+    const sx = parts.SizeX()
     for (let i = 0; i < sy; i++) {
       for (let j = 0; j < sx; j++) {
         const ny = y + i
