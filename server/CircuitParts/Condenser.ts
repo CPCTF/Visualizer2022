@@ -39,5 +39,6 @@ export class Condenser extends CircuitParts {
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
       0, 0, 0, 0, 0, 0, 0
     ]
+    this.setBigWirePointsInts()
   }
 }

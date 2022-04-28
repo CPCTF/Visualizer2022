@@ -35,5 +35,6 @@ export class GraphicBoard extends CircuitParts {
       1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
       0, 1, 0, 1, 0, 1, 0
     ]
+    this.setBigWirePointsInts()
   }
 }
