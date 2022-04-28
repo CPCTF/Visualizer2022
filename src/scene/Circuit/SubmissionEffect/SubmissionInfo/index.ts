@@ -25,21 +25,12 @@ export class SubmissionInfo extends VisualizerGroup {
       autoStart: false,
       backgroundAlpha: 0
     })
-    const style = new TextStyle({
-      dropShadowAngle: 6.7,
-      dropShadowDistance: 3,
-      fill: 'red',
-      fontSize: 20,
-      lineJoin: 'round',
-      stroke: '#8a0000',
-      strokeThickness: 2
-    })
-    this.nameText = new Text('string', style)
+    this.nameText = new Text('string')
     this.nameText.anchor.set(0.5, 0)
     this.nameText.position.set(width / 2, 0)
     this.app.stage.addChild(this.nameText)
 
-    this.titleText = new Text('string', style.clone())
+    this.titleText = new Text('string')
     this.titleText.anchor.set(0.5, 0)
     this.titleText.position.set(width / 2, 24)
     this.app.stage.addChild(this.titleText)
@@ -62,11 +53,29 @@ export class SubmissionInfo extends VisualizerGroup {
     const bright = color.getStyle()
     const dark = color.clone().multiplyScalar(0.8).getStyle()
     this.nameText.text = name
+    this.nameText.style = new TextStyle({
+      fontFamily: 'GNUUnifont',
+      dropShadowAngle: 6.7,
+      dropShadowDistance: 3,
+      fill: bright,
+      fontSize: 20,
+      lineJoin: 'round',
+      stroke: dark,
+      strokeThickness: 2
+    })
     this.nameText.style.fill = bright
     this.nameText.style.stroke = dark
     this.titleText.text = title
-    this.titleText.style.fill = bright
-    this.titleText.style.stroke = dark
+    this.titleText.style = new TextStyle({
+      fontFamily: 'GNUUnifont',
+      dropShadowAngle: 6.7,
+      dropShadowDistance: 3,
+      fill: bright,
+      fontSize: 20,
+      lineJoin: 'round',
+      stroke: dark,
+      strokeThickness: 2
+    })
     this.needsUpdate = true
   }
 

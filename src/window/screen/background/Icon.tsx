@@ -54,7 +54,7 @@ export const Icon: VFC<{
         style={
           new TextStyle({
             align: 'center',
-            fontFamily: '"Source Sans Pro", Helvetica, sans-serif',
+            fontFamily: 'GNUUnifont, "Source Sans Pro", Helvetica, sans-serif',
             fontSize: fontSize,
             fill: '#000'
           })
