@@ -140,7 +140,7 @@ export const Frame: VFC<FrameProps> = ({ id, windowInfo, focus }) => {
         width={rect.width}
         height={rect.height}
         title={title}
-        icon={windowInfo.icon}
+        icon={windowInfo.icon()}
         isActive={focus}
         onMinimize={closeHandler}
         onMaximize={fullScreenHandler}

@@ -17,7 +17,6 @@ const setRecalculateData = async () => {
   const recalculateData = await ServerRequest.recalculate()
   if (!recalculateData) return
   const { ranking, circuit } = recalculateData
-
   ranking.forEach(user => {
     UserManager.updateUser(user)
   })
@@ -26,5 +25,5 @@ const setRecalculateData = async () => {
 
   await wait(4000)
 
-  CircuitManager.setCircuitInfo(circuit.data)
+  CircuitManager.setCircuitInfo(JSON.stringify(circuit))
 }

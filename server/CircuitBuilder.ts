@@ -86,7 +86,7 @@ export class CircuitBuilder {
       PPC: new Array(0),
       Web: new Array(0),
       Crypto: new Array(0),
-      Binary: new Array(0),
+      Reversing: new Array(0),
       Pwn: new Array(0),
       Misc: new Array(0),
       Shell: new Array(0),

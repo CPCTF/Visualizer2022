@@ -62,12 +62,9 @@ export const generateInitialData = (): InitialRaw => {
 
 export const generateWebSocketMessage = (
   info: Record<string, any>
-): MessageEvent<{ type: number; data: unknown }> => {
+): MessageEvent<string> => {
   return {
-    data: {
-      type: 0,
-      data: null
-    },
+    data: `{ type: 0, data: null }`,
     lastEventId: '',
     origin: '',
     ports: [],

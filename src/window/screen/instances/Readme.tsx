@@ -37,8 +37,9 @@ export const ReadmeFrame: VFC<WindowComponentProps> = ({
         style={
           new TextStyle({
             align: 'left',
-            fontFamily: 'Roboto, Helvetica, sans-serif',
+            fontFamily: 'GNUUnifont, Roboto, Helvetica, sans-serif',
             fontSize: 32,
+            lineHeight: 43,
             fill: '#000000'
           })
         }
