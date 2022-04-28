@@ -40,7 +40,7 @@ export class User extends EventTarget {
     this._point = point
     this._rank = rank
     this._displayName = displayName
-    if (!this._iconPath || this._iconPath !== iconPath) {
+    if (iconPath && (!this._iconPath || this._iconPath !== iconPath)) {
       const pathname = new URL(iconPath).pathname
       this._iconPath = pathname
       this._icon?.dispose()
