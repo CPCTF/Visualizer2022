@@ -30,7 +30,7 @@ export const EventEmitter = mitt<VisualizerEvents>()
 
 export const initializeEventEmitter = () => {
   try {
-    const websocket = new WebSocket('/ws/visualizer')
+    const websocket = new WebSocket(`ws://${location.host}/ws/visualizer`)
     websocket.addEventListener('message', messageHandler.bind(this))
     websocket.addEventListener('error', e => {
       console.error(e)
