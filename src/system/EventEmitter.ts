@@ -3,15 +3,20 @@
 import { websocketBasePath } from '#/globals/serverInfos'
 import {
   generateSubmission,
-  generateWebSocketMessage,
-  wait
+  generateWebSocketMessage
 } from '#/utils/generateDummyData'
-import { globalSettings, isDevelop } from './GlobalSettings'
+import { isDevelop } from './GlobalSettings'
 import type { SubmissionRaw } from './ResponseType'
-import { ServerRequest } from './ServerRequest'
-import { UserManager } from './UserManager'
 import mitt from 'mitt'
-import { CircuitManager } from '#/circuit/CliantScript/CircuitManager'
+import { timeAdjuster } from '#/system/events/TimeAdjuster'
+import { eventStarted } from '#/system/events/EventStarted'
+import { eventEnded } from '#/system/events/EventEnded'
+import { userCreated, UserCreatedData } from '#/system/events/UserCreated'
+import { problemSolved, ProblemSolvedData } from '#/system/events/ProblemSolved'
+import { rankingUpdated } from '#/system/events/RankingUpdated'
+import type { UserUpdatedData } from '#/system/events/UserUpdated'
+import { userUpdated } from '#/system/events/UserUpdated'
+import { scoreRecalculated } from '#/system/events/ScoreRecalculated'
 
 export type VisualizerEvents = {
   initialized: void
@@ -44,7 +49,7 @@ const testEvent = () => {
     messageHandler(
       generateWebSocketMessage({
         data: {
-          type: 'recalculate'
+          type: 7
         }
       })
     )
@@ -53,7 +58,7 @@ const testEvent = () => {
     messageHandler(
       generateWebSocketMessage({
         data: {
-          type: 'end'
+          type: 6
         }
       })
     )
@@ -62,8 +67,8 @@ const testEvent = () => {
     messageHandler(
       generateWebSocketMessage({
         data: {
-          type: 'submit',
-          result: generateSubmission()
+          type: 2,
+          data: generateSubmission()
         }
       })
     )
@@ -71,46 +76,42 @@ const testEvent = () => {
 }
 
 const messageHandler = (
-  event: MessageEvent<{ type: string; result: unknown }>
+  event: MessageEvent<{ type: number; data: unknown }>
 ) => {
+  const { type, data } = event.data
+  if (!type) return
   switch (event.data.type) {
-    case 'submit': {
-      EventEmitter.emit('submit', event.data.result as SubmissionRaw)
+    case 0: {
+      timeAdjuster()
       break
     }
-    case 'start': {
-      globalSettings.startTime = new Date()
-      EventEmitter.emit('start')
+    case 1: {
+      userCreated(data as UserCreatedData)
       break
     }
-    case 'end': {
-      globalSettings.endTime = new Date()
-      EventEmitter.emit('end')
+    case 2: {
+      problemSolved(data as ProblemSolvedData)
       break
     }
-    case 'recalculate': {
-      const delay = async () => {
-        EventEmitter.emit('recalculatestart')
-        await setRecalculateData()
-        EventEmitter.emit('recalculateend')
-      }
-      delay()
+    case 3: {
+      rankingUpdated()
+      break
+    }
+    case 4: {
+      userUpdated(data as UserUpdatedData)
+      break
+    }
+    case 5: {
+      eventStarted()
+      break
+    }
+    case 6: {
+      eventEnded()
+      break
+    }
+    case 7: {
+      scoreRecalculated()
       break
     }
   }
-}
-
-const setRecalculateData = async () => {
-  const { ranking, circuit } = await ServerRequest.recalculate()
-
-  ranking.forEach(user => {
-    UserManager.updateUser(user)
-  })
-
-  UserManager.updateRanking()
-
-  await wait(4000)
-
-  // TODO: set circuit structure
-  CircuitManager.setCircuitInfo(circuit.data)
 }

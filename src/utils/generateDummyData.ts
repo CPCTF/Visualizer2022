@@ -1,13 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { ServerTester } from '#/circuit/ServerScript/ServerTester'
 import {
   InitialRaw,
   QuestionGenreList,
-  RecalculateRaw,
-  SubmissionRaw
+  RecalculateRaw
 } from '#/system/ResponseType'
 import dummyIcon from './testicon.jpg'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import circuitJson from './circuit.json'
+import type { ProblemSolvedData } from '#/system/events/ProblemSolved'
+
 const users = new Array(100).fill(null).map((_, index) => ({
   id: `user${index}`,
   name: `USER${index}`,
@@ -16,12 +19,11 @@ const users = new Array(100).fill(null).map((_, index) => ({
   rank: -1
 }))
 
-export const generateSubmission = (): SubmissionRaw => {
+export const generateSubmission = (): ProblemSolvedData => {
   return {
-    userid: users[Math.floor(Math.random() * users.length)].id,
+    userId: users[Math.floor(Math.random() * users.length)].id,
     point: Math.random() * 1000,
-    genre:
-      QuestionGenreList[Math.floor(Math.random() * QuestionGenreList.length)],
+    genre: Math.floor(Math.random() * QuestionGenreList.length),
     title: `オモシロ問題 -これは適当に考えたタイトル-`
   }
 }
@@ -36,7 +38,7 @@ export const generateRecalculate = (): RecalculateRaw => {
   })
   return {
     ranking: users,
-    circuit: { data: ServerTester.getJson() }
+    circuit: { data: JSON.stringify(circuitJson) }
   }
 }
 
@@ -60,11 +62,11 @@ export const generateInitialData = (): InitialRaw => {
 
 export const generateWebSocketMessage = (
   info: Record<string, any>
-): MessageEvent<{ type: string; result: unknown }> => {
+): MessageEvent<{ type: number; data: unknown }> => {
   return {
     data: {
-      type: 'recalculate',
-      result: null
+      type: 0,
+      data: null
     },
     lastEventId: '',
     origin: '',

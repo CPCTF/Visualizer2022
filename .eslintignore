@@ -2,3 +2,6 @@ build
 dist
 node_modules
 scripts
+server/node_modules
+src/**/*.js
+server/**/*.js

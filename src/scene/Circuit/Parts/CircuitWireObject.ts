@@ -1,23 +1,19 @@
-import { VisualizerGroup } from '#/templates/VisualizerGroup'
+import { VisualizerObject } from '#/templates/VisualizerObject'
 import {
   BufferAttribute,
   BufferGeometry,
-  Mesh,
   MeshBasicMaterial,
   RingBufferGeometry
 } from 'three'
-import { Basis } from '../../../circuit/ServerScript/Basis'
+import { Basis } from '../../../../server/Basis'
 
-export class CircuitWireObject extends VisualizerGroup {
+export class CircuitWireObject extends VisualizerObject {
   static sx = [1, 0, -1, 0]
   static sy = [0, -1, 0, 1]
-
-  constructor(wires: [number, number][]) {
-    super()
-    wires.forEach(v => {
-      const geometry = this.createWireGeometry(v)
-      this.add(new Mesh(geometry, new MeshBasicMaterial({ color: 0x000000 })))
-    })
+  static material = new MeshBasicMaterial({ color: 0xffffff })
+  constructor(wires: [number, number]) {
+    const geometry = CircuitWireObject.createWireGeometry(wires)
+    super(geometry, CircuitWireObject.material)
   }
 
   public start() {
@@ -28,13 +24,14 @@ export class CircuitWireObject extends VisualizerGroup {
     super.update()
   }
 
-  createWireGeometry(fromto: [number, number]): BufferGeometry {
+  static createWireGeometry(fromto: [number, number]): BufferGeometry {
     let wireGeometry = new BufferGeometry()
     const size = 1
     const a = 0.25
     const bout = 0.5
     const bin = 0.25
     const thetaSeg = 16
+    console.log(fromto)
     const [from, to] = fromto
     if (to == -1) {
       //TODO:holeを作る
@@ -62,8 +59,16 @@ export class CircuitWireObject extends VisualizerGroup {
       }
       wireGeometry = ringGeometry
     } else {
-      const [flpos, frpos] = this.wireIndexToPositionPair(from, size, a)
-      const [tlpos, trpos] = this.wireIndexToPositionPair(to, size, a)
+      const [flpos, frpos] = CircuitWireObject.wireIndexToPositionPair(
+        from,
+        size,
+        a
+      )
+      const [tlpos, trpos] = CircuitWireObject.wireIndexToPositionPair(
+        to,
+        size,
+        a
+      )
       const vertices = new Float32Array([
         flpos[0],
         0,
@@ -91,7 +96,7 @@ export class CircuitWireObject extends VisualizerGroup {
     return wireGeometry
   }
 
-  wireIndexToPosition(wireInd: number, size = 1): [number, number] {
+  static wireIndexToPosition(wireInd: number, size = 1): [number, number] {
     const ind = wireInd % 8
     const dir = (wireInd - ind) / 8
     const pad = size / 8
@@ -101,7 +106,7 @@ export class CircuitWireObject extends VisualizerGroup {
     return [x, y]
   }
 
-  wireIndexToPositionPair(
+  static wireIndexToPositionPair(
     wireInd: number,
     size = 1,
     a = 0.5
