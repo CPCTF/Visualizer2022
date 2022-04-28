@@ -26,7 +26,6 @@ export class CircuitBuilder {
   public static dummyServerResponse: ServerResponse = {
     total: 90,
     genre: {
-      Newbie: 10,
       PPC: 10,
       Web: 10,
       Crypto: 10,
@@ -35,18 +34,15 @@ export class CircuitBuilder {
       Misc: 10,
       Shell: 10,
       Forensics: 10,
-      OSINT: 0
+      OSINT: 10
     }
   }
 
   private static createPartsClass(genre: Genre, isBig: boolean): CircuitParts {
     let res: CircuitParts
     switch (genre) {
-      case 'Newbie':
-        res = new GraphicBoard(isBig)
-        break
       case 'PPC':
-        res = new HDD(isBig)
+        res = new TipSet(isBig)
         break
       case 'Web':
         res = new Memory(isBig)
@@ -55,22 +51,22 @@ export class CircuitBuilder {
         res = new PowerSupply(isBig)
         break
       case 'Binary':
-        res = new TipSet(isBig)
+        res = new HDD(isBig)
         break
       case 'Pwn':
-        res = new Audio(isBig)
-        break
-      case 'Misc':
-        res = new Condenser(isBig)
-        break
-      case 'Shell':
         res = new Ports(isBig)
         break
-      case 'Forensics':
+      case 'Misc':
+        res = new Audio(isBig)
+        break
+      case 'Shell':
         res = new SSD(isBig)
         break
+      case 'Forensics':
+        res = new Condenser(isBig)
+        break
       case 'OSINT':
-        res = new SSD(isBig)
+        res = new GraphicBoard(isBig)
         break
     }
     return res
@@ -87,7 +83,6 @@ export class CircuitBuilder {
     const cpu = new CPU(false)
 
     const partsInstance: Record<Genre, Array<CircuitParts>> = {
-      Newbie: new Array(0),
       PPC: new Array(0),
       Web: new Array(0),
       Crypto: new Array(0),

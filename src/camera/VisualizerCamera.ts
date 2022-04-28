@@ -1,7 +1,7 @@
 import { Time } from '#/system/Time'
 import { EventEmitter } from '#/system/EventEmitter'
 import type { IRenderable } from '#/templates/IRenderable'
-import gsap from 'gsap'
+//import gsap from 'gsap'
 import { PerspectiveCamera } from 'three'
 
 export class VisualizerCamera extends PerspectiveCamera implements IRenderable {
@@ -33,8 +33,7 @@ export class VisualizerCamera extends PerspectiveCamera implements IRenderable {
       Math.sin(Time.time * 0.1) * 8,
       this.position.y,
       Math.cos(Time.time * 0.1) * 8
-    )
-    this.lookAt(0, 0, 0)
-    */
+    )*/
+    //this.lookAt(0, 0, 0)
   }
 }

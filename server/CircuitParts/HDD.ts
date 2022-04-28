@@ -4,7 +4,7 @@ export class HDD extends CircuitParts {
   public sizeX = 4
   public sizeY = 2
   public wirePointsInts: number[][] = new Array(this.sizeY * this.sizeX)
-  public problemCategory: QuestionGenre = 'Pwn'
+  public problemCategory: QuestionGenre = 'Binary'
   constructor(isBig: boolean) {
     super(isBig)
     this.wirePointsInts.forEach(

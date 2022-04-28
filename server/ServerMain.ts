@@ -6,7 +6,6 @@ import * as fs from 'fs'
 import { CircuitBuilder } from './CircuitBuilder'
 
 const genres = [
-  'Newbie',
   'PPC',
   'Web',
   'Crypto',

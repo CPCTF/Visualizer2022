@@ -36,7 +36,6 @@ export interface SubmissionRaw {
 }
 
 export const QuestionGenreList = [
-  'Newbie',
   'PPC',
   'Web',
   'Crypto',
