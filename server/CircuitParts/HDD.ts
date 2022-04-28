@@ -29,7 +29,7 @@ export class HDD extends CircuitParts {
     ]
     this.wirePointsInts[0 + 1 * this.sizeX] = [
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 1, 1, 1, 1
+      0, 0, 1, 1, 1, 1, 1
     ]
     this.wirePointsInts[1 + 1 * this.sizeX] = [
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
