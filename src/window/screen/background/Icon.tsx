@@ -35,15 +35,18 @@ export const Icon: VFC<{
     },
     [starting]
   )
+  const icon = iconInfo.icon()
   return (
     <Container position={position} interactive click={clickHandler}>
       <Graphics draw={draw} />
-      <Sprite
-        texture={iconInfo.icon}
-        position={[fontSize / 2, 0]}
-        width={iconSize - fontSize}
-        height={iconSize - fontSize}
-      />
+      {icon ? (
+        <Sprite
+          texture={icon}
+          position={[fontSize / 2, 0]}
+          width={iconSize - fontSize}
+          height={iconSize - fontSize}
+        />
+      ) : null}
       <Text
         text={iconInfo.title}
         anchor={[0.5, 0]}
@@ -51,7 +54,7 @@ export const Icon: VFC<{
         style={
           new TextStyle({
             align: 'center',
-            fontFamily: '"Source Sans Pro", Helvetica, sans-serif',
+            fontFamily: 'GNUUnifont, "Source Sans Pro", Helvetica, sans-serif',
             fontSize: fontSize,
             fill: '#000'
           })

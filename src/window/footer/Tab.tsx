@@ -1,10 +1,9 @@
-import { useContext, useMemo, VFC } from 'react'
+import { useContext, VFC } from 'react'
 import { WindowSettingContext } from '../GlobalSetting'
-import tabOnSrc from './tab-on.png'
-import tabOffSrc from './tab-off.png'
-import { BaseTexture, TextStyle, Texture } from 'pixi.js'
+import { TextStyle } from 'pixi.js'
 import { footerHeight, tabWidth } from '../globals'
 import { Container, Sprite, Text } from '@inlet/react-pixi'
+import { SpriteHolder } from '../stores/SpriteHolder'
 
 export const Tab: VFC<{ id: string; index: number }> = ({ id, index }) => {
   const {
@@ -16,29 +15,35 @@ export const Tab: VFC<{ id: string; index: number }> = ({ id, index }) => {
 
   const { title, visible } = target
 
-  const tabOn = useMemo(() => new Texture(new BaseTexture(tabOnSrc)), [])
-  const tabOff = useMemo(() => new Texture(new BaseTexture(tabOffSrc)), [])
+  const taskbar = visible
+    ? SpriteHolder.get('TaskbarButtonActive.png')
+    : SpriteHolder.get('TaskbarButtonInactive.png')
 
+  const icon = target.icon()
   return (
     <Container
       position={[index * tabWidth, footerHeight / 2]}
       interactive
       click={() => (focused === id ? minimize(id) : focus(id))}
     >
-      <Sprite
-        width={tabWidth * 0.9}
-        height={footerHeight * 0.9}
-        texture={visible ? tabOn : tabOff}
-        anchor={[0, 0.5]}
-        position={[0, 0]}
-      />
-      <Sprite
-        width={footerHeight * 0.6}
-        height={footerHeight * 0.6}
-        texture={target.icon}
-        anchor={[0, 0.5]}
-        position={[7, 0]}
-      />
+      {taskbar ? (
+        <Sprite
+          width={tabWidth * 0.9}
+          height={footerHeight * 0.9}
+          texture={taskbar}
+          anchor={[0, 0.5]}
+          position={[0, 0]}
+        />
+      ) : null}
+      {icon ? (
+        <Sprite
+          width={footerHeight * 0.6}
+          height={footerHeight * 0.6}
+          texture={icon}
+          anchor={[0, 0.5]}
+          position={[7, 0]}
+        />
+      ) : null}
       <Text
         text={title}
         anchor={[0, 0.5]}
@@ -46,7 +51,7 @@ export const Tab: VFC<{ id: string; index: number }> = ({ id, index }) => {
         style={
           new TextStyle({
             align: 'center',
-            fontFamily: '"Source Sans Pro", Helvetica, sans-serif',
+            fontFamily: 'GNUUnifont, "Source Sans Pro", Helvetica, sans-serif',
             fontSize: footerHeight * 0.5 * 0.8,
             fill: '#000'
           })
