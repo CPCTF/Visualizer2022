@@ -38,7 +38,6 @@ export class Circuit extends VisualizerGroup {
   createCircuit(): void {
     const isDebug = false
     const [basisInfo, partsInfos, wiresInfos] = CircuitManager.getCircuitInfo()
-    console.log(basisInfo, partsInfos, wiresInfos)
     const offsetX = -basisInfo.sizeX / 2 - 0.5
     const offsetY = 0
     const offsetZ = -basisInfo.sizeY / 2 - 0.5

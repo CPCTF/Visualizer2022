@@ -4,7 +4,7 @@ export class GraphicBoard extends CircuitParts {
   public sizeX = 1
   public sizeY = 6
   public wirePointsInts: number[][] = new Array(this.sizeY * this.sizeX)
-  public problemCategory: QuestionGenre = 'Newbie'
+  public problemCategory: QuestionGenre = 'OSINT'
   constructor(isBig: boolean) {
     super(isBig)
     this.wirePointsInts.forEach(
@@ -12,28 +12,28 @@ export class GraphicBoard extends CircuitParts {
     )
     //x=0,y=0のcellのwirePoints
     this.wirePointsInts[0 + 0 * this.sizeX] = [
-      0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-      1, 1, 1, 1, 1, 1, 1
+      0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1,
+      0, 1, 0, 1, 0, 1, 0
     ]
-    this.wirePointsInts[1 + 0 * this.sizeX] = [
-      0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-      1, 1, 1, 1, 1, 1, 1
+    this.wirePointsInts[0 + 1 * this.sizeX] = [
+      0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+      0, 1, 0, 1, 0, 1, 0
     ]
-    this.wirePointsInts[2 + 0 * this.sizeX] = [
-      0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-      1, 1, 1, 1, 1, 1, 1
+    this.wirePointsInts[0 + 2 * this.sizeX] = [
+      0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+      0, 1, 0, 1, 0, 1, 0
     ]
-    this.wirePointsInts[3 + 0 * this.sizeX] = [
-      0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-      1, 1, 1, 1, 1, 1, 1
+    this.wirePointsInts[0 + 3 * this.sizeX] = [
+      0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+      0, 1, 0, 1, 0, 1, 0
     ]
-    this.wirePointsInts[4 + 0 * this.sizeX] = [
-      0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-      1, 1, 1, 1, 1, 1, 1
+    this.wirePointsInts[0 + 4 * this.sizeX] = [
+      0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+      0, 1, 0, 1, 0, 1, 0
     ]
-    this.wirePointsInts[5 + 0 * this.sizeX] = [
-      1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-      1, 1, 1, 1, 1, 1, 1
+    this.wirePointsInts[0 + 5 * this.sizeX] = [
+      1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+      0, 1, 0, 1, 0, 1, 0
     ]
   }
 }

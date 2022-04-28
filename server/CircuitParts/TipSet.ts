@@ -4,7 +4,7 @@ export class TipSet extends CircuitParts {
   public sizeX = 2
   public sizeY = 2
   public wirePointsInts: number[][] = new Array(this.sizeY * this.sizeX)
-  public problemCategory: QuestionGenre = 'Shell'
+  public problemCategory: QuestionGenre = 'PPC'
   constructor(isBig: boolean) {
     super(isBig)
     this.wirePointsInts.forEach(

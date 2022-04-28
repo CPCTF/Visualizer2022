@@ -8,7 +8,7 @@ export class MainCircuit extends VisualizerObject {
   }
 
   public start() {
-    console.log('circuit')
+    //console.log('circuit')
   }
   public update() {
     super.update()

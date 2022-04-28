@@ -24,29 +24,25 @@ export class CircuitBuilder {
   static maxAttempts = 50
 
   public static dummyServerResponse: ServerResponse = {
-    total: 45,
+    total: 90,
     genre: {
-      Newbie: 15,
       PPC: 10,
       Web: 10,
       Crypto: 10,
-      Reversing: 0,
-      Pwn: 0,
-      Misc: 0,
-      Shell: 0,
-      Forensics: 0,
-      OSINT: 0
+      Binary: 10,
+      Pwn: 10,
+      Misc: 10,
+      Shell: 10,
+      Forensics: 10,
+      OSINT: 10
     }
   }
 
   private static createPartsClass(genre: Genre, isBig: boolean): CircuitParts {
     let res: CircuitParts
     switch (genre) {
-      case 'Newbie':
-        res = new GraphicBoard(isBig)
-        break
       case 'PPC':
-        res = new HDD(isBig)
+        res = new TipSet(isBig)
         break
       case 'Web':
         res = new Memory(isBig)
@@ -54,23 +50,23 @@ export class CircuitBuilder {
       case 'Crypto':
         res = new PowerSupply(isBig)
         break
-      case 'Reversing':
-        res = new TipSet(isBig)
+      case 'Binary':
+        res = new HDD(isBig)
         break
       case 'Pwn':
-        res = new Audio(isBig)
-        break
-      case 'Misc':
-        res = new Condenser(isBig)
-        break
-      case 'Shell':
         res = new Ports(isBig)
         break
-      case 'Forensics':
+      case 'Misc':
+        res = new Audio(isBig)
+        break
+      case 'Shell':
         res = new SSD(isBig)
         break
+      case 'Forensics':
+        res = new Condenser(isBig)
+        break
       case 'OSINT':
-        res = new SSD(isBig)
+        res = new GraphicBoard(isBig)
         break
     }
     return res
@@ -80,7 +76,6 @@ export class CircuitBuilder {
   public static build(info: ServerResponse): string {
     const totalNum = Math.floor(info.total / this.subUnit)
     let side = Math.floor(totalNum * this.sidePerParts)
-    //console.log(side)
     //sideを偶数にする
     side += side % 2 == 0 ? 0 : 1
     const center = Math.floor(side / 2)
@@ -88,11 +83,10 @@ export class CircuitBuilder {
     const cpu = new CPU(false)
 
     const partsInstance: Record<Genre, Array<CircuitParts>> = {
-      Newbie: new Array(0),
       PPC: new Array(0),
       Web: new Array(0),
       Crypto: new Array(0),
-      Reversing: new Array(0),
+      Binary: new Array(0),
       Pwn: new Array(0),
       Misc: new Array(0),
       Shell: new Array(0),
@@ -129,12 +123,10 @@ export class CircuitBuilder {
           x = Math.floor(Math.random() * side)
           y = Math.floor(Math.random() * side)
         }
-        //console.log(attempts)
       })
     }
 
     const cellss = basis.getAllPartsCells()
-    console.log(cellss.length)
     cellss.forEach(cells => cells.forEach(cell => basis.extendWires(cell)))
 
     const [basisInfo, partsInfos, wiresInfos] = basis.convertToCircuitInfos()
