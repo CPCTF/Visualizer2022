@@ -39,7 +39,7 @@ export const QuestionGenreList = [
   'PPC',
   'Web',
   'Crypto',
-  'Binary',
+  'Reversing',
   'Pwn',
   'Misc',
   'Shell',

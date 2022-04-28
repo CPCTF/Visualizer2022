@@ -3,7 +3,7 @@ import { WindowSettingContext } from '#/window/GlobalSetting'
 import { Container, Sprite } from '@inlet/react-pixi'
 import { useContext } from 'react'
 import { Icon } from './Icon'
-import bgImgSrc from './xp.jpg'
+import bgImgSrc from './BackGround.png'
 import { frames } from '../frames'
 
 const iconMargin = 12
