@@ -74,7 +74,6 @@ const testEvent = () => {
 const messageHandler = (event: MessageEvent<string>) => {
   if (!event.data) return
   const { type, data } = JSON.parse(event.data as string)
-  console.log(type, data, event.data)
   if (!type) return
   switch (Number(type)) {
     case 0: {
