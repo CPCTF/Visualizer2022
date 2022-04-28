@@ -8,6 +8,7 @@ import { isDevelop } from './GlobalSettings'
 import type { InitialRaw, RecalculateRaw } from './ResponseType'
 
 const getJson = (response: Response) => {
+  console.log(response)
   if (response.status !== 200) throw new Error('通信エラー')
   return response.json()
 }
@@ -19,9 +20,13 @@ export class ServerRequest {
       await wait(1000)
       return generateInitialData()
     }
-    const usersFetch = fetch(`${apiBasePath}/users`).then(getJson)
+    const usersFetch = fetch(`${apiBasePath}/users`, { mode: 'no-cors' }).then(
+      getJson
+    )
     const recalculateFetch = this.recalculate()
-    const timeFetch = fetch(`${apiBasePath}/schedule`).then(getJson)
+    const timeFetch = fetch(`${apiBasePath}/schedule`, {
+      mode: 'no-cors'
+    }).then(getJson)
 
     const [users, recalculate, time] = await Promise.all([
       usersFetch,
@@ -42,8 +47,12 @@ export class ServerRequest {
       return generateRecalculate()
     }
     try {
-      const circuitFetch = fetch(`${apiBasePath}/circuit`).then(getJson)
-      const rankingFetch = fetch(`${apiBasePath}/ranking`).then(getJson)
+      const circuitFetch = fetch(`./circuit.json`, {
+        mode: 'no-cors'
+      }).then(getJson)
+      const rankingFetch = fetch(`${apiBasePath}/ranking`, {
+        mode: 'no-cors'
+      }).then(getJson)
 
       const [circuit, ranking] = await Promise.all([circuitFetch, rankingFetch])
 

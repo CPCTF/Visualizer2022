@@ -24,12 +24,13 @@ export class Display extends VisualizerObject {
         }
       })
     )
-    this.position.set(0, 1.5, 1.1)
+    this.position.set(0, 1.5, 1.0)
     this.rotation.set(-0.03 + Math.PI, -Math.PI, Math.PI)
   }
 
   public setIcon(iconTex: Texture | null) {
     // ;(this.material as ShaderMaterial).uniforms.icon.value = iconTex
+
     ;(this.material as ShaderMaterial).uniforms.icon.value = iconTex
       ? iconTex
       : (ThreeResourceLoader.get(testIcon) as Texture) // iconTex

@@ -9,4 +9,4 @@ export const globalSettings: GlobalSettings = {
 }
 
 // TODO: set false in production build
-export const isDevelop = true as const
+export const isDevelop = false as const

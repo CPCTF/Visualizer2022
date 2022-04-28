@@ -41,6 +41,7 @@ export class User extends EventTarget {
     this._rank = rank
     this._displayName = displayName
     if (!this._iconPath || this._iconPath !== iconPath) {
+      console.log(iconPath)
       this._iconPath = iconPath
       this._icon?.dispose()
       this._icon = Loaders.texture.load(iconPath)
