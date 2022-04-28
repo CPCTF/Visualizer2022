@@ -51,7 +51,7 @@ export const Tab: VFC<{ id: string; index: number }> = ({ id, index }) => {
         style={
           new TextStyle({
             align: 'center',
-            fontFamily: '"Source Sans Pro", Helvetica, sans-serif',
+            fontFamily: 'GNUUnifont, "Source Sans Pro", Helvetica, sans-serif',
             fontSize: footerHeight * 0.5 * 0.8,
             fill: '#000'
           })

@@ -70,7 +70,8 @@ export const FrameTemplate: VFC<FrameTemplate> = ({
           style={
             new TextStyle({
               align: 'center',
-              fontFamily: '"Source Sans Pro", Helvetica, sans-serif',
+              fontFamily:
+                'GNUUnifont, "Source Sans Pro", Helvetica, sans-serif',
               fontSize: windowHeaderHeight * 0.5,
               fill: '#000'
             })
