@@ -43,5 +43,6 @@ export class HDD extends CircuitParts {
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
       0, 0, 0, 0, 0, 0, 0
     ]
+    this.setBigWirePointsInts()
   }
 }
