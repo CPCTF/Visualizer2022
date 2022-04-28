@@ -1,7 +1,7 @@
 {
 	"meta": {
 		"image": "spritesheet.png",
-		"size": {"w":640,"h":106},
+		"size": {"w":640,"h":288},
 		"scale": "1"
 	},
 	"frames": {
@@ -13,9 +13,17 @@
 			"spriteSourceSize": {"x":0,"y":0,"w":640,"h":28},
 			"sourceSize": {"w":640,"h":28}
 		},
+		"WindowBorderTop.png":
+		{
+			"frame": {"x":0,"y":28,"w":30,"h":260},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":30,"h":260},
+			"sourceSize": {"w":30,"h":260}
+		},
 		"WindowTitleBarActive.png":
 		{
-			"frame": {"x":0,"y":28,"w":192,"h":18},
+			"frame": {"x":30,"y":28,"w":192,"h":18},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":192,"h":18},
@@ -23,7 +31,7 @@
 		},
 		"WindowTitleBarInactive.png":
 		{
-			"frame": {"x":192,"y":28,"w":192,"h":18},
+			"frame": {"x":222,"y":28,"w":192,"h":18},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":192,"h":18},
@@ -31,7 +39,7 @@
 		},
 		"TaskbarButtonActive.png":
 		{
-			"frame": {"x":0,"y":46,"w":160,"h":22},
+			"frame": {"x":30,"y":46,"w":160,"h":22},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":160,"h":22},
@@ -39,15 +47,39 @@
 		},
 		"TaskbarButtonInactive.png":
 		{
-			"frame": {"x":160,"y":46,"w":160,"h":22},
+			"frame": {"x":190,"y":46,"w":160,"h":22},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":160,"h":22},
 			"sourceSize": {"w":160,"h":22}
 		},
+		"WindowBorderBottom.png":
+		{
+			"frame": {"x":30,"y":68,"w":30,"h":60},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":30,"h":60},
+			"sourceSize": {"w":30,"h":60}
+		},
+		"WindowBorderLeft.png":
+		{
+			"frame": {"x":60,"y":68,"w":60,"h":30},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":60,"h":30},
+			"sourceSize": {"w":60,"h":30}
+		},
+		"WindowBorderRight.png":
+		{
+			"frame": {"x":120,"y":68,"w":60,"h":30},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":60,"h":30},
+			"sourceSize": {"w":60,"h":30}
+		},
 		"CursorDefault.png":
 		{
-			"frame": {"x":0,"y":68,"w":38,"h":38},
+			"frame": {"x":30,"y":128,"w":38,"h":38},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":38,"h":38},
@@ -55,7 +87,7 @@
 		},
 		"CursorEwResize.png":
 		{
-			"frame": {"x":38,"y":68,"w":38,"h":38},
+			"frame": {"x":68,"y":128,"w":38,"h":38},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":38,"h":38},
@@ -63,7 +95,7 @@
 		},
 		"CursorGrab.png":
 		{
-			"frame": {"x":76,"y":68,"w":38,"h":38},
+			"frame": {"x":106,"y":128,"w":38,"h":38},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":38,"h":38},
@@ -71,7 +103,7 @@
 		},
 		"CursorGrabbing.png":
 		{
-			"frame": {"x":114,"y":68,"w":38,"h":38},
+			"frame": {"x":144,"y":128,"w":38,"h":38},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":38,"h":38},
@@ -79,7 +111,7 @@
 		},
 		"CursorNeswResize.png":
 		{
-			"frame": {"x":152,"y":68,"w":38,"h":38},
+			"frame": {"x":182,"y":128,"w":38,"h":38},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":38,"h":38},
@@ -87,7 +119,7 @@
 		},
 		"CursorNsResize.png":
 		{
-			"frame": {"x":190,"y":68,"w":38,"h":38},
+			"frame": {"x":220,"y":128,"w":38,"h":38},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":38,"h":38},
@@ -95,7 +127,7 @@
 		},
 		"CursorNwseResize.png":
 		{
-			"frame": {"x":228,"y":68,"w":38,"h":38},
+			"frame": {"x":258,"y":128,"w":38,"h":38},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":38,"h":38},
@@ -103,7 +135,7 @@
 		},
 		"CursorWait.png":
 		{
-			"frame": {"x":266,"y":68,"w":38,"h":38},
+			"frame": {"x":296,"y":128,"w":38,"h":38},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":38,"h":38},
@@ -111,7 +143,7 @@
 		},
 		"Clock.png":
 		{
-			"frame": {"x":304,"y":68,"w":32,"h":32},
+			"frame": {"x":334,"y":128,"w":32,"h":32},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -119,7 +151,7 @@
 		},
 		"ReadMe.png":
 		{
-			"frame": {"x":336,"y":68,"w":32,"h":32},
+			"frame": {"x":366,"y":128,"w":32,"h":32},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -127,7 +159,7 @@
 		},
 		"Visualizer.png":
 		{
-			"frame": {"x":368,"y":68,"w":32,"h":32},
+			"frame": {"x":398,"y":128,"w":32,"h":32},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -135,7 +167,7 @@
 		},
 		"WindowBorderUpperLeft.png":
 		{
-			"frame": {"x":400,"y":68,"w":6,"h":26},
+			"frame": {"x":180,"y":68,"w":6,"h":26},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":6,"h":26},
@@ -143,23 +175,15 @@
 		},
 		"WindowBorderUpperRight.png":
 		{
-			"frame": {"x":406,"y":68,"w":6,"h":26},
+			"frame": {"x":186,"y":68,"w":6,"h":26},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":6,"h":26},
 			"sourceSize": {"w":6,"h":26}
 		},
-		"WindowBorderTop.png":
-		{
-			"frame": {"x":412,"y":68,"w":3,"h":26},
-			"rotated": false,
-			"trimmed": false,
-			"spriteSourceSize": {"x":0,"y":0,"w":3,"h":26},
-			"sourceSize": {"w":3,"h":26}
-		},
 		"WindowButtonClose.png":
 		{
-			"frame": {"x":384,"y":28,"w":16,"h":14},
+			"frame": {"x":414,"y":28,"w":16,"h":14},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":16,"h":14},
@@ -167,7 +191,7 @@
 		},
 		"WindowButtonMaximize.png":
 		{
-			"frame": {"x":400,"y":28,"w":16,"h":14},
+			"frame": {"x":430,"y":28,"w":16,"h":14},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":16,"h":14},
@@ -175,7 +199,7 @@
 		},
 		"WindowButtonMinimize.png":
 		{
-			"frame": {"x":416,"y":28,"w":16,"h":14},
+			"frame": {"x":446,"y":28,"w":16,"h":14},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":16,"h":14},
@@ -183,7 +207,7 @@
 		},
 		"WindowBorderLowerLeft.png":
 		{
-			"frame": {"x":432,"y":28,"w":6,"h":6},
+			"frame": {"x":462,"y":28,"w":6,"h":6},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":6,"h":6},
@@ -191,43 +215,11 @@
 		},
 		"WindowBorderLowerRight.png":
 		{
-			"frame": {"x":438,"y":28,"w":6,"h":6},
+			"frame": {"x":468,"y":28,"w":6,"h":6},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":6,"h":6},
 			"sourceSize": {"w":6,"h":6}
-		},
-		"WindowBorderBottom.png":
-		{
-			"frame": {"x":444,"y":28,"w":3,"h":6},
-			"rotated": false,
-			"trimmed": false,
-			"spriteSourceSize": {"x":0,"y":0,"w":3,"h":6},
-			"sourceSize": {"w":3,"h":6}
-		},
-		"WindowBorderLeft.png":
-		{
-			"frame": {"x":447,"y":28,"w":6,"h":3},
-			"rotated": false,
-			"trimmed": false,
-			"spriteSourceSize": {"x":0,"y":0,"w":6,"h":3},
-			"sourceSize": {"w":6,"h":3}
-		},
-		"WindowBorderRight.png":
-		{
-			"frame": {"x":453,"y":28,"w":6,"h":3},
-			"rotated": false,
-			"trimmed": false,
-			"spriteSourceSize": {"x":0,"y":0,"w":6,"h":3},
-			"sourceSize": {"w":6,"h":3}
-		},
-		"WindowBorderMiddle.png":
-		{
-			"frame": {"x":432,"y":34,"w":3,"h":4},
-			"rotated": false,
-			"trimmed": false,
-			"spriteSourceSize": {"x":0,"y":0,"w":3,"h":4},
-			"sourceSize": {"w":3,"h":4}
 		}
 	}
 }
