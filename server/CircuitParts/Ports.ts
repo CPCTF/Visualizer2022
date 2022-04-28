@@ -4,7 +4,7 @@ export class Ports extends CircuitParts {
   public sizeX = 2
   public sizeY = 3
   public wirePointsInts: number[][] = new Array(this.sizeY * this.sizeX)
-  public problemCategory: QuestionGenre = 'OSINT'
+  public problemCategory: QuestionGenre = 'Pwn'
   constructor(isBig: boolean) {
     super(isBig)
     this.wirePointsInts.forEach(

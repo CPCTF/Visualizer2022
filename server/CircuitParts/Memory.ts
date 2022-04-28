@@ -4,7 +4,7 @@ export class Memory extends CircuitParts {
   public sizeX = 8
   public sizeY = 4
   public wirePointsInts: number[][] = new Array(this.sizeY * this.sizeX)
-  public problemCategory: QuestionGenre = 'PPC'
+  public problemCategory: QuestionGenre = 'Web'
   constructor(isBig: boolean) {
     super(isBig)
     this.wirePointsInts.forEach(

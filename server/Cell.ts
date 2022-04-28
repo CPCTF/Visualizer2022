@@ -111,8 +111,8 @@ export class WireExtendInfo {
   private beforeDir: number
   private counter = 0
   private straightCounter = 0
-  private readonly straightMax = 2
-  private readonly counterMax = 2
+  private readonly straightMax = 4
+  private readonly counterMax = 10
 
   update(wireInd: number, ndir: number): void {
     this.counter++

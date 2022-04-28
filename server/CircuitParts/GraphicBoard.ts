@@ -4,7 +4,7 @@ export class GraphicBoard extends CircuitParts {
   public sizeX = 1
   public sizeY = 6
   public wirePointsInts: number[][] = new Array(this.sizeY * this.sizeX)
-  public problemCategory: QuestionGenre = 'Newbie'
+  public problemCategory: QuestionGenre = 'OSINT'
   constructor(isBig: boolean) {
     super(isBig)
     this.wirePointsInts.forEach(

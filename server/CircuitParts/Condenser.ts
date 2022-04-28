@@ -4,7 +4,7 @@ export class Condenser extends CircuitParts {
   public sizeX = 1
   public sizeY = 7
   public wirePointsInts: number[][] = new Array(this.sizeY * this.sizeX)
-  public problemCategory: QuestionGenre = 'Web'
+  public problemCategory: QuestionGenre = 'Forensics'
   constructor(isBig: boolean) {
     super(isBig)
     this.wirePointsInts.forEach(

@@ -4,7 +4,7 @@ export class Audio extends CircuitParts {
   public sizeX = 5
   public sizeY = 2
   public wirePointsInts: number[][] = new Array(this.sizeY * this.sizeX)
-  public problemCategory: QuestionGenre = 'Forensics'
+  public problemCategory: QuestionGenre = 'Misc'
   constructor(isBig: boolean) {
     super(isBig)
     this.wirePointsInts.forEach(
