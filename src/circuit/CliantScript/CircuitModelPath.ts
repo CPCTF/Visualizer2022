@@ -24,14 +24,14 @@ export class CircuitModelPath {
     OSINT: graphicBoardSrc
   }
   public static partsBigPath: Record<QuestionGenre, string> = {
-    PPC: '',
-    Web: '',
-    Crypto: '',
-    Reversing: '',
-    Pwn: '',
-    Misc: '',
-    Shell: '',
-    Forensics: '',
-    OSINT: ''
+    PPC: tipsetSrc,
+    Web: memorySrc,
+    Crypto: powerSupplySrc,
+    Binary: hddSrc,
+    Pwn: portsSrc,
+    Misc: audioSrc,
+    Shell: ssdSrc,
+    Forensics: condenserSrc,
+    OSINT: graphicBoardSrc
   }
 }
