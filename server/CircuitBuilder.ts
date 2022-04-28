@@ -24,9 +24,9 @@ export class CircuitBuilder {
   static maxAttempts = 50
 
   public static dummyServerResponse: ServerResponse = {
-    total: 140,
+    total: 90,
     genre: {
-      PPC: 60,
+      PPC: 10,
       Web: 10,
       Crypto: 10,
       Binary: 10,
