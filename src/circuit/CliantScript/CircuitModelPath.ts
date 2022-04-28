@@ -13,27 +13,25 @@ import type { QuestionGenre } from '#/system/ResponseType'
 export class CircuitModelPath {
   public static cpuPath: string = cpuSrc
   public static partsPath: Record<QuestionGenre, string> = {
-    Newbie: graphicBoardSrc,
-    PPC: hddSrc,
+    PPC: tipsetSrc,
     Web: memorySrc,
     Crypto: powerSupplySrc,
-    Reversing: tipsetSrc,
-    Pwn: audioSrc,
-    Misc: condenserSrc,
-    Shell: portsSrc,
-    Forensics: ssdSrc,
-    OSINT: ''
+    Binary: hddSrc,
+    Pwn: portsSrc,
+    Misc: audioSrc,
+    Shell: ssdSrc,
+    Forensics: condenserSrc,
+    OSINT: graphicBoardSrc
   }
   public static partsBigPath: Record<QuestionGenre, string> = {
-    Newbie: '',
-    PPC: '',
-    Web: '',
-    Crypto: '',
-    Reversing: '',
-    Pwn: '',
-    Misc: '',
-    Shell: '',
-    Forensics: '',
-    OSINT: ''
+    PPC: tipsetSrc,
+    Web: memorySrc,
+    Crypto: powerSupplySrc,
+    Binary: hddSrc,
+    Pwn: portsSrc,
+    Misc: audioSrc,
+    Shell: ssdSrc,
+    Forensics: condenserSrc,
+    OSINT: graphicBoardSrc
   }
 }

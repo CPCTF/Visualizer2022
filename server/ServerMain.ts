@@ -1,4 +1,4 @@
-const fetch = (...args: any[]) =>
+const fetch = (...args: unknown[]) =>
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   import('node-fetch').then(({ default: fetch }) => fetch(...args))
@@ -6,11 +6,10 @@ import * as fs from 'fs'
 import { CircuitBuilder } from './CircuitBuilder'
 
 const genres = [
-  'Newbie',
   'PPC',
   'Web',
   'Crypto',
-  'Reversing',
+  'Binary',
   'Pwn',
   'Misc',
   'Shell',
