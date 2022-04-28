@@ -2,7 +2,7 @@ import {
   CircuitBasisInfo,
   CircuitPartsInfo,
   CircuitWiresInfo
-} from '../BothScript/CircuitInfo'
+} from '../src/circuit/BothScript/CircuitInfo'
 import { Cell, WireExtendInfo } from './Cell'
 import type { CircuitParts } from './CircuitParts'
 
@@ -59,7 +59,11 @@ export class Basis {
   }
 
   getAllPartsCells(): Cell[][] {
-    return this.partsCellDict as Cell[][]
+    const cellss = new Array<Cell[]>(0)
+    for (const key in this.partsCellDict) {
+      cellss.push(this.partsCellDict[key])
+    }
+    return cellss
   }
 
   //指定したセルからwireを伸ばす
@@ -124,7 +128,14 @@ export class Basis {
     //parts追加
     this.parts.forEach(v => {
       const [x, y] = v.getPosition()
-      partsInfos.push(new CircuitPartsInfo(x, y, v.isBig, v.problemCategory))
+      partsInfos.push(
+        new CircuitPartsInfo(
+          x,
+          y,
+          v.isBig,
+          v.problemCategory != undefined ? v.problemCategory : ''
+        )
+      )
     })
     return [basisInfo, partsInfos, wiresInfos]
   }

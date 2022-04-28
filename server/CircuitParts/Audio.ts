@@ -1,10 +1,10 @@
-import type { ProblemCategory } from '#/circuit/BothScript/CircuitInfo'
+import type { QuestionGenre } from '../../src/system/ResponseType'
 import { CircuitParts } from '../CircuitParts'
-export class TipSet extends CircuitParts {
-  public sizeX = 2
+export class Audio extends CircuitParts {
+  public sizeX = 3
   public sizeY = 2
   public wirePointsInts: number[][] = new Array(this.sizeY * this.sizeX)
-  public problemCategory: ProblemCategory = 'Shell'
+  public problemCategory: QuestionGenre = 'Forensics'
   constructor(isBig: boolean) {
     super(isBig)
     this.wirePointsInts.forEach(
@@ -16,6 +16,10 @@ export class TipSet extends CircuitParts {
       1, 1, 1, 1, 1, 1, 1
     ]
     this.wirePointsInts[1 + 0 * this.sizeX] = [
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0,
+      0, 0, 0, 0, 0, 0, 0
+    ]
+    this.wirePointsInts[2 + 0 * this.sizeX] = [
       0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
       0, 0, 0, 0, 0, 0, 0
     ]
@@ -24,6 +28,10 @@ export class TipSet extends CircuitParts {
       1, 1, 1, 1, 1, 1, 1
     ]
     this.wirePointsInts[1 + 1 * this.sizeX] = [
+      1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0
+    ]
+    this.wirePointsInts[2 + 1 * this.sizeX] = [
       1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
       0, 0, 0, 0, 0, 0, 0
     ]
