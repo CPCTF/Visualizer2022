@@ -244,7 +244,6 @@ export class Wire {
     }
 
     this.to = res
-    //console.log('Wire %d:\nFrom: %d\nTo: %d', this.ind, this.from, this.to);
     return res
   }
 

@@ -24,9 +24,9 @@ export class CircuitBuilder {
   static maxAttempts = 50
 
   public static dummyServerResponse: ServerResponse = {
-    total: 45,
+    total: 90,
     genre: {
-      Newbie: 15,
+      Newbie: 10,
       PPC: 10,
       Web: 10,
       Crypto: 10,
@@ -80,7 +80,6 @@ export class CircuitBuilder {
   public static build(info: ServerResponse): string {
     const totalNum = Math.floor(info.total / this.subUnit)
     let side = Math.floor(totalNum * this.sidePerParts)
-    //console.log(side)
     //sideを偶数にする
     side += side % 2 == 0 ? 0 : 1
     const center = Math.floor(side / 2)
@@ -129,12 +128,10 @@ export class CircuitBuilder {
           x = Math.floor(Math.random() * side)
           y = Math.floor(Math.random() * side)
         }
-        //console.log(attempts)
       })
     }
 
     const cellss = basis.getAllPartsCells()
-    console.log(cellss.length)
     cellss.forEach(cells => cells.forEach(cell => basis.extendWires(cell)))
 
     const [basisInfo, partsInfos, wiresInfos] = basis.convertToCircuitInfos()
