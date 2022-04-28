@@ -30,11 +30,11 @@ export class CircuitBuilder {
       PPC: 10,
       Web: 10,
       Crypto: 10,
-      Binary: 0,
-      Pwn: 0,
-      Misc: 0,
-      Shell: 0,
-      Forensics: 0,
+      Binary: 10,
+      Pwn: 10,
+      Misc: 10,
+      Shell: 10,
+      Forensics: 10,
       OSINT: 0
     }
   }
