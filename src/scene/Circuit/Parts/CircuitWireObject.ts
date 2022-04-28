@@ -31,7 +31,6 @@ export class CircuitWireObject extends VisualizerObject {
     const bout = 0.5
     const bin = 0.25
     const thetaSeg = 16
-    console.log(fromto)
     const [from, to] = fromto
     if (to == -1) {
       //TODO:holeを作る

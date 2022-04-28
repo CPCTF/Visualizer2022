@@ -1,4 +1,3 @@
-import { apiBasePath } from '#/globals/serverInfos'
 import {
   generateInitialData,
   generateRecalculate,
@@ -19,9 +18,9 @@ export class ServerRequest {
       await wait(1000)
       return generateInitialData()
     }
-    const usersFetch = fetch(`${apiBasePath}/users`).then(getJson)
+    const usersFetch = fetch(`/api/users`).then(getJson)
     const recalculateFetch = this.recalculate()
-    const timeFetch = fetch(`${apiBasePath}/schedule`).then(getJson)
+    const timeFetch = fetch(`/api/schedule`).then(getJson)
 
     const [users, recalculate, time] = await Promise.all([
       usersFetch,
@@ -42,8 +41,8 @@ export class ServerRequest {
       return generateRecalculate()
     }
     try {
-      const circuitFetch = fetch(`${apiBasePath}/circuit`).then(getJson)
-      const rankingFetch = fetch(`${apiBasePath}/ranking`).then(getJson)
+      const circuitFetch = fetch(`./circuit.json`).then(getJson)
+      const rankingFetch = fetch(`/api/ranking`).then(getJson)
 
       const [circuit, ranking] = await Promise.all([circuitFetch, rankingFetch])
 
