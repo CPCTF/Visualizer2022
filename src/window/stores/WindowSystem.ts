@@ -10,7 +10,7 @@ export interface WindowComponentProps {
 }
 export interface WindowInfo {
   title: string
-  icon: Texture
+  icon: () => Texture | null
   rect: {
     x: number
     y: number

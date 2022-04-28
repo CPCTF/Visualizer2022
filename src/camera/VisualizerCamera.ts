@@ -7,29 +7,28 @@ import { PerspectiveCamera } from 'three'
 export class VisualizerCamera extends PerspectiveCamera implements IRenderable {
   constructor() {
     super(60, 1, 1, 2000)
-
     EventEmitter.on('recalculatestart', () => {
-      gsap.to(this.position, 2, { y: -3 })
+      gsap.to(this.position, 2, { y: 10 })
     })
     EventEmitter.on('recalculateend', () => {
-      gsap.to(this.position, 2, { y: 1 })
+      gsap.to(this.position, 2, { y: 4 })
     })
   }
 
   public start(): void {
     this.position.set(
-      Math.sin(Time.time * 0.1) * 4,
-      1,
-      Math.cos(Time.time * 0.1) * 4
+      Math.sin(Time.time * 0.1) * 8,
+      4,
+      Math.cos(Time.time * 0.1) * 8
     )
   }
 
   public update(): void {
     this.position.set(
-      Math.sin(Time.time * 0.1) * 4,
+      Math.sin(Time.time * 0.1) * 8,
       this.position.y,
-      Math.cos(Time.time * 0.1) * 4
+      Math.cos(Time.time * 0.1) * 8
     )
-    this.lookAt(0, this.position.y + 0.5, 0)
+    this.lookAt(0, 0, 0)
   }
 }
