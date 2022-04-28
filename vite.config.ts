@@ -12,5 +12,29 @@ export default defineConfig({
       '#/': `${__dirname}/src/`
     }
   },
-  plugins: [react(), tsconfigPaths()]
+  plugins: [react(), tsconfigPaths()],
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://dev.cpctf.space',
+        changeOrigin: true
+      },
+      '/ws': {
+        target: 'https://dev.cpctf.space',
+        changeOrigin: true,
+        ws: true,
+        headers: {
+          origin: 'https://dev.cpctf.space'
+        }
+      },
+      '/images': {
+        target: 'https://dev.cpctf.space',
+        changeOrigin: true,
+        ws: true,
+        headers: {
+          origin: 'https://dev.cpctf.space'
+        }
+      }
+    }
+  }
 })
