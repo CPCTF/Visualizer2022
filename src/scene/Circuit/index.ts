@@ -1,12 +1,21 @@
 import { VisualizerGroup } from '#/templates/VisualizerGroup'
 import { CircuitWireObject } from './Parts/CircuitWireObject'
 import { ThreeResourceLoader } from '#/system/Loader'
-import { Mesh, MeshPhongMaterial, PlaneGeometry, Vector3 } from 'three'
+import { Mesh, Vector3 } from 'three'
 import { CircuitModelPath } from '#/circuit/CliantScript/CircuitModelPath'
 import { SubmissionEffect } from './SubmissionEffect'
 import { CircuitManager } from '#/circuit/CliantScript/CircuitManager'
 import { EventEmitter } from '#/system/EventEmitter'
-import type { QuestionGenre } from '../../system/ResponseType'
+import type { QuestionGenre } from '#/system/ResponseType'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import jsonSrc from '../../../public/circuit.json'
+import {
+  CircuitBasisInfo,
+  CircuitInfoUtils,
+  CircuitPartsInfo,
+  CircuitWiresInfo
+} from '#/circuit/BothScript/CircuitInfo'
 
 export class Circuit extends VisualizerGroup {
   private objectPool: Record<string, [Array<Mesh>, number]> = {}
@@ -37,19 +46,32 @@ export class Circuit extends VisualizerGroup {
   //サーバーから送られてきたCircuitInfoを元に設置
   createCircuit(): void {
     const isDebug = false
-    const [basisInfo, partsInfos, wiresInfos] = CircuitManager.getCircuitInfo()
+    let [basisInfo, partsInfos, wiresInfos]: [
+      CircuitBasisInfo,
+      CircuitPartsInfo[],
+      CircuitWiresInfo[]
+    ] = CircuitManager.getCircuitInfo()
+    if (isDebug) {
+      ;[basisInfo, partsInfos, wiresInfos] = CircuitInfoUtils.jsonToInfo(
+        JSON.stringify(jsonSrc)
+      )
+    }
     const offsetX = -basisInfo.sizeX / 2 - 0.5
     const offsetY = 0
     const offsetZ = -basisInfo.sizeY / 2 - 0.5
 
     partsInfos.forEach(v => {
       let key = ''
+      let partsOffsetX = 0
+      let partsOffsetZ = 0
       //問題種類と結びついてついていないパーツ
       if (v.category == '') {
         key = 'CPU'
       } else {
         if (v.isBig) {
           key = 'Big' + v.category
+          partsOffsetX = 0.5
+          partsOffsetZ = 0.5
         } else {
           key = v.category
         }
@@ -57,7 +79,11 @@ export class Circuit extends VisualizerGroup {
 
       const obj = this.createObject(key)
       if (obj != undefined) {
-        obj.position.set(v.x + offsetX, 0 + offsetY, v.z + offsetZ)
+        obj.position.set(
+          v.x + offsetX + partsOffsetX,
+          0 + offsetY,
+          v.z + offsetZ + partsOffsetZ
+        )
       }
     })
     wiresInfos.forEach(v => {
@@ -70,6 +96,7 @@ export class Circuit extends VisualizerGroup {
     })
 
     //グリッド線を表示
+    /*
     if (isDebug) {
       const geometry = new PlaneGeometry(
         basisInfo.sizeX,
@@ -85,11 +112,13 @@ export class Circuit extends VisualizerGroup {
       const mesh = new Mesh(geometry, material)
       mesh.position.add(new Vector3(0.5, 0, 0.5))
       this.add(mesh)
-    }
+    }*/
   }
   private setPrefabs(): void {
     //cpu
-    const cpuPrefab = ThreeResourceLoader.get(CircuitModelPath.cpuPath) as Mesh
+    const cpuPrefab = ThreeResourceLoader.get(
+      CircuitModelPath.cpuPath
+    )?.clone() as Mesh
     cpuPrefab.visible = false
     this.objectPool['CPU'] = [[cpuPrefab], 1]
     this.add(cpuPrefab)
@@ -97,9 +126,10 @@ export class Circuit extends VisualizerGroup {
     for (const key in CircuitModelPath.partsBigPath) {
       const prefab = ThreeResourceLoader.get(
         CircuitModelPath.partsBigPath[key as QuestionGenre]
-      ) as Mesh
+      )?.clone() as Mesh
       if (prefab == undefined) continue
       prefab.visible = false
+      prefab.scale.set(2, 2, 2)
       this.objectPool['Big' + key] = [[prefab], 1]
       this.add(prefab)
     }
@@ -107,7 +137,7 @@ export class Circuit extends VisualizerGroup {
     for (const key in CircuitModelPath.partsPath) {
       const prefab = ThreeResourceLoader.get(
         CircuitModelPath.partsPath[key as QuestionGenre]
-      ) as Mesh
+      )?.clone() as Mesh
       if (prefab == undefined) continue
       prefab.visible = false
       this.objectPool[key] = [[prefab], 1]

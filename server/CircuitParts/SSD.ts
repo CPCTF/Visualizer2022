@@ -131,5 +131,6 @@ export class SSD extends CircuitParts {
       0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
       0, 0, 0, 0, 0, 0, 0
     ]
+    this.setBigWirePointsInts()
   }
 }

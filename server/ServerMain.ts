@@ -27,12 +27,16 @@ export interface ServerResponse {
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 const serverMain = async () => {
+  const isDebug = false
   // TODO: fix url
   const res = await fetch('https://dev.cpctf.space/api/visualizer')
   const json = (await res.json()) as ServerResponse
 
   // implementation
-  const result = CircuitBuilder.build(json)
+  let result = CircuitBuilder.build(json)
+  if (isDebug) {
+    result = CircuitBuilder.build(CircuitBuilder.dummyServerResponse)
+  }
   // TODO: !!generated in local!!
   const basepath = process.env.EXPORT_DIR ?? './'
   const filepath = `${basepath}/circuit.json`
