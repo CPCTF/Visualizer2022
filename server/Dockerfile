@@ -6,7 +6,7 @@ COPY . /app/client/
 
 WORKDIR /app/client/server
 
-RUN npm install
+RUN npm ci
 RUN npm run build
 
 FROM busybox:1
