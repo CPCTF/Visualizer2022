@@ -1,6 +1,4 @@
 // import type { QuestionGenre } from './ResponseType'
-
-import { websocketBasePath } from '#/globals/serverInfos'
 import {
   generateSubmission,
   generateWebSocketMessage
@@ -32,9 +30,10 @@ export const EventEmitter = mitt<VisualizerEvents>()
 
 export const initializeEventEmitter = () => {
   try {
-    const websocket = new WebSocket(websocketBasePath)
+    const websocket = new WebSocket('/ws/visualizer')
     websocket.addEventListener('message', messageHandler.bind(this))
-    websocket.addEventListener('error', () => {
+    websocket.addEventListener('error', e => {
+      console.error(e)
       EventEmitter.emit('disconnect')
     })
     // test
