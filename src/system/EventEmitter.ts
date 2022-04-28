@@ -31,13 +31,17 @@ export type VisualizerEvents = {
 export const EventEmitter = mitt<VisualizerEvents>()
 
 export const initializeEventEmitter = () => {
-  const websocket = new WebSocket(websocketBasePath)
-  websocket.addEventListener('message', messageHandler.bind(this))
-  websocket.addEventListener('error', () => {
-    EventEmitter.emit('disconnect')
-  })
-  // test
-  if (isDevelop) testEvent()
+  try {
+    const websocket = new WebSocket(websocketBasePath)
+    websocket.addEventListener('message', messageHandler.bind(this))
+    websocket.addEventListener('error', () => {
+      EventEmitter.emit('disconnect')
+    })
+    // test
+    if (isDevelop) testEvent()
+  } catch (e) {
+    console.log(e)
+  }
 }
 
 export const emitInitializedEvent = () => {
