@@ -7,7 +7,8 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "check": "stylelint \"src/**/*.css\" && eslint .",
-    "format": "stylelint \"src/**/*.css\" --fix && eslint . --fix"
+    "format": "stylelint \"src/**/*.css\" --fix && eslint . --fix",
+    "texture-pack": "node ./scripts/texture-packer.js"
   },
   "devDependencies": {
     "@types/gsap": "^3.0.0",
@@ -31,6 +32,7 @@
     "postcss-simple-vars": "^6.0.3",
     "prettier": "^2.5.1",
     "sass": "^1.49.9",
+    "spritesheet-js": "^1.2.6",
     "stylelint": "^14.5.3",
     "stylelint-config-html": "^1.0.0",
     "stylelint-config-recess-order": "^3.0.0",

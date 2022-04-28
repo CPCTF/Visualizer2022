@@ -2,15 +2,11 @@ import type { WindowInfo } from '../stores/WindowSystem'
 import { CanvasFrame } from './instances/CanvasFrame'
 import { ClockFrame } from './instances/ClockFrame'
 import { ReadmeFrame } from './instances/Readme'
-import iconSrc from './icons/clock-icon.png'
-import visualizerSrc from './icons/visualizer-icon.png'
-import { Texture } from 'pixi.js'
-
-const testIcon = Texture.from(iconSrc)
+import { SpriteHolder } from '../stores/SpriteHolder'
 
 export const dummyWindow = {
   Component: null,
-  icon: testIcon,
+  icon: () => SpriteHolder.get('Clock.png'),
   title: 'Clock',
   rect: {
     x: 0,
@@ -25,7 +21,7 @@ export const dummyWindow = {
 export const frames: Record<string, WindowInfo> = {
   visualizer: {
     Component: CanvasFrame,
-    icon: Texture.from(visualizerSrc),
+    icon: () => SpriteHolder.get('Visualizer.png'),
     title: 'Visualizer',
     rect: {
       x: 0,
@@ -38,7 +34,7 @@ export const frames: Record<string, WindowInfo> = {
   },
   clock: {
     Component: ClockFrame,
-    icon: testIcon,
+    icon: () => SpriteHolder.get('Clock.png'),
     title: 'Clock.exe',
     rect: {
       x: 0,
@@ -51,7 +47,7 @@ export const frames: Record<string, WindowInfo> = {
   },
   readme: {
     Component: ReadmeFrame,
-    icon: testIcon,
+    icon: () => SpriteHolder.get('ReadMe.png'),
     title: 'Readme.txt',
     rect: {
       x: 0,

@@ -6,7 +6,7 @@
   "output_path": "../public/dummy",
   "scripts": {
     "build": "tsc ServerMain.ts --outdir ./build",
-    "start": "EXPORT_DIR=\"../src/utils\" ts-node ServerMain.ts"
+    "start": "EXPORT_DIR=\"../public\" ts-node ServerMain.ts"
   },
   "author": "",
   "license": "ISC",

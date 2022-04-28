@@ -1,6 +1,4 @@
 // import type { QuestionGenre } from './ResponseType'
-
-import { websocketBasePath } from '#/globals/serverInfos'
 import {
   generateSubmission,
   generateWebSocketMessage
@@ -31,13 +29,18 @@ export type VisualizerEvents = {
 export const EventEmitter = mitt<VisualizerEvents>()
 
 export const initializeEventEmitter = () => {
-  const websocket = new WebSocket(websocketBasePath)
-  websocket.addEventListener('message', messageHandler.bind(this))
-  websocket.addEventListener('error', () => {
-    EventEmitter.emit('disconnect')
-  })
-  // test
-  if (isDevelop) testEvent()
+  try {
+    const websocket = new WebSocket(`ws://${location.host}/ws/visualizer`)
+    websocket.addEventListener('message', messageHandler.bind(this))
+    websocket.addEventListener('error', e => {
+      console.error(e)
+      EventEmitter.emit('disconnect')
+    })
+    // test
+    if (isDevelop) testEvent()
+  } catch (e) {
+    console.log(e)
+  }
 }
 
 export const emitInitializedEvent = () => {
@@ -48,39 +51,31 @@ const testEvent = () => {
   setInterval(() => {
     messageHandler(
       generateWebSocketMessage({
-        data: {
-          type: 7
-        }
+        data: '{ type: 7 }'
       })
     )
   }, 30000)
   setInterval(() => {
     messageHandler(
       generateWebSocketMessage({
-        data: {
-          type: 6
-        }
+        data: '{ type: 6 }'
       })
     )
   }, 300000)
   setInterval(() => {
     messageHandler(
       generateWebSocketMessage({
-        data: {
-          type: 2,
-          data: generateSubmission()
-        }
+        data: `{ type: 2, data: "${JSON.stringify(generateSubmission())}"}`
       })
     )
   }, 3000)
 }
 
-const messageHandler = (
-  event: MessageEvent<{ type: number; data: unknown }>
-) => {
-  const { type, data } = event.data
+const messageHandler = (event: MessageEvent<string>) => {
+  if (!event.data) return
+  const { type, data } = JSON.parse(event.data as string)
   if (!type) return
-  switch (event.data.type) {
+  switch (Number(type)) {
     case 0: {
       timeAdjuster()
       break
