@@ -5,13 +5,13 @@ import { UserManager } from '#/system/UserManager'
 
 // setup with initial data
 export const getInitialData = async () => {
-  const data = (await ServerRequest.initial()) as InitialRaw
+  const data = await ServerRequest.initial()
 
   data.users.forEach(value => {
     UserManager.addUser(value)
   })
 
-  UserManager.updateRanking()
+  UserManager.updateRanking(data.recalculate?.ranking)
 
   // TODO: Recalculate
 
