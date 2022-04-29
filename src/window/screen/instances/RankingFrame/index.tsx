@@ -6,6 +6,25 @@ import { Visualizer } from '#/Visualizer'
 import { EventEmitter } from '#/system/EventEmitter'
 import { UserManager } from '#/system/UserManager'
 import type { User } from '#/system/User'
+import { FrameBackground } from '#/window/utils/MonoColorBG'
+
+const twoPadding = (time: number) => {
+  return ('00' + time).slice(-2)
+}
+
+const getBaseText = (isUpdated: boolean) => {
+  const now = new Date()
+  return `C:¥CPCTF¥Visualizer¥apps> .¥ranking
+Welcome to Visualizer, USERNAME !
+
+${
+  isUpdated
+    ? `Ranking (Last Updated ${now.getHours()}:${twoPadding(
+        now.getMinutes()
+      )}):`
+    : 'Fetching...'
+}`
+}
 
 export const RankingFrame: VFC<WindowComponentProps> = ({
   x,
@@ -39,48 +58,48 @@ export const RankingFrame: VFC<WindowComponentProps> = ({
     [x, y, width, height]
   )
 
-  if (updating || !Visualizer.getInstance().isInitialized) {
-    return (
-      <Container mask={mask}>
-        <Text
-          text={'更新待ち'}
-          anchor={0.5}
-          position={[width / 2, height / 2]}
-          style={
-            new TextStyle({
-              align: 'right',
-              fontFamily: 'GNUUnifont, Roboto, Helvetica, sans-serif',
-              fontSize: 50,
-              fill: '#000000'
-            })
-          }
-        />
-      </Container>
-    )
-  }
+  const updated = !updating && Visualizer.getInstance().isInitialized
 
   return (
     <Container mask={mask}>
-      {ranking.map((user, index) => {
-        return (
-          <Text
-            key={user.id}
-            text={`${index + 1} : ${user.displayName} / ${Math.floor(
-              user.score
-            )}pts`}
-            anchor={0.5}
-            position={[width / 2, 30 + index * 30]}
-            style={
-              new TextStyle({
-                align: 'right',
-                fontFamily: 'GNUUnifont, Roboto, Helvetica, sans-serif',
-                fontSize: 30,
-                fill: '#000000'
-              })
-            }
-          />
-        )
-      })}
+      <FrameBackground width={width} height={height} bgColor={0x000000} />
+      <Text
+        text={getBaseText(updated)}
+        anchor={0.0}
+        position={[0, 0]}
+        style={
+          new TextStyle({
+            align: 'left',
+            fontFamily: 'GNUUnifont, Roboto, Helvetica, sans-serif',
+            fontSize: 30,
+            fill: '#ffffff'
+          })
+        }
+      />
+      {updated
+        ? ranking.slice(0, 10).map((user, index) => {
+            const textColor =
+              index == 0 ? 'red' : index == 1 || index == 2 ? 'yellow' : 'white'
+            return (
+              <Text
+                key={user.id}
+                text={`${index + 1} : ${user.displayName} / ${Math.floor(
+                  user.score
+                )}pts`}
+                anchor={0}
+                position={[0, 124 + index * 26]}
+                style={
+                  new TextStyle({
+                    align: 'left',
+                    fontFamily: 'GNUUnifont, Roboto, Helvetica, sans-serif',
+                    fontSize: 30,
+                    fill: textColor
+                  })
+                }
+              />
+            )
+          })
+        : null}
     </Container>
   )
 }
