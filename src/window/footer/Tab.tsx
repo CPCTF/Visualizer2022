@@ -1,11 +1,15 @@
 import { useContext, VFC } from 'react'
 import { WindowSettingContext } from '../GlobalSetting'
 import { TextStyle } from 'pixi.js'
-import { footerHeight, tabWidth } from '../globals'
+import { footerHeight } from '../globals'
 import { Container, Sprite, Text } from '@inlet/react-pixi'
 import { SpriteHolder } from '../stores/SpriteHolder'
 
-export const Tab: VFC<{ id: string; index: number }> = ({ id, index }) => {
+export const Tab: VFC<{ id: string; index: number; tabWidth: number }> = ({
+  id,
+  index,
+  tabWidth
+}) => {
   const {
     windowSettings: { windows, focused, focus, minimize }
   } = useContext(WindowSettingContext)
@@ -28,7 +32,7 @@ export const Tab: VFC<{ id: string; index: number }> = ({ id, index }) => {
     >
       {taskbar ? (
         <Sprite
-          width={tabWidth * 0.9}
+          width={tabWidth * 0.96}
           height={footerHeight * 0.9}
           texture={taskbar}
           anchor={[0, 0.5]}
