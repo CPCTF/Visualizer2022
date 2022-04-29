@@ -24,7 +24,7 @@ export const generateSubmission = (): ProblemSolvedData => {
     userId: users[Math.floor(Math.random() * users.length)].id,
     point: Math.random() * 1000,
     genre: Math.floor(Math.random() * QuestionGenreList.length),
-    title: `オモシロ問題 -これは適当に考えたタイトル-`
+    challengeName: `オモシロ問題 -これは適当に考えたタイトル-`
   }
 }
 

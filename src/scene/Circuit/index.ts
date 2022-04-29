@@ -7,12 +7,8 @@ import { SubmissionEffect } from './SubmissionEffect'
 import { CircuitManager } from '#/circuit/CliantScript/CircuitManager'
 import { EventEmitter } from '#/system/EventEmitter'
 import type { QuestionGenre } from '#/system/ResponseType'
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import jsonSrc from '../../../public/circuit.json'
-import {
+import type {
   CircuitBasisInfo,
-  CircuitInfoUtils,
   CircuitPartsInfo,
   CircuitWiresInfo
 } from '#/circuit/BothScript/CircuitInfo'
@@ -45,17 +41,11 @@ export class Circuit extends VisualizerGroup {
 
   //サーバーから送られてきたCircuitInfoを元に設置
   createCircuit(): void {
-    const isDebug = false
-    let [basisInfo, partsInfos, wiresInfos]: [
+    const [basisInfo, partsInfos, wiresInfos]: [
       CircuitBasisInfo,
       CircuitPartsInfo[],
       CircuitWiresInfo[]
     ] = CircuitManager.getCircuitInfo()
-    if (isDebug) {
-      ;[basisInfo, partsInfos, wiresInfos] = CircuitInfoUtils.jsonToInfo(
-        JSON.stringify(jsonSrc)
-      )
-    }
     const offsetX = -basisInfo.sizeX / 2 - 0.5
     const offsetY = 0
     const offsetZ = -basisInfo.sizeY / 2 - 0.5
