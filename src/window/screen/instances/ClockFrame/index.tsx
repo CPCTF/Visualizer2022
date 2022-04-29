@@ -59,11 +59,13 @@ export const ClockFrame: VFC<WindowComponentProps> = ({
           height={virtualWidth}
         />
         {/* タイトル（残り時間） */}
-        <Sprite
-          image={titleSrc}
-          anchor={[0.5, 0]}
-          position={[virtualWidth / 2, 40]}
-        />
+        {restTime ? (
+          <Sprite
+            image={titleSrc}
+            anchor={[0.5, 0]}
+            position={[virtualWidth / 2, 40]}
+          />
+        ) : null}
         {/* 時間 */}
         <Text
           text={restTime || time}
@@ -90,24 +92,28 @@ export const ClockFrame: VFC<WindowComponentProps> = ({
           position={[virtualWidth / 2, 400]}
         />
         {/* カウンター */}
-        <Sprite
-          image={counterSrc}
-          anchor={[0.5, 0]}
-          position={[virtualWidth / 2, 550]}
-        />
-        <Text
-          text={`${fourPadding(UserManager.size())}`}
-          anchor={0.5}
-          position={[virtualWidth / 2 - 60, 603]}
-          style={
-            new TextStyle({
-              align: 'right',
-              fontFamily: 'GNUUnifont, Roboto, Helvetica, sans-serif',
-              fontSize: 24,
-              fill: 'yellow'
-            })
-          }
-        />
+        {restTime ? (
+          <>
+            <Sprite
+              image={counterSrc}
+              anchor={[0.5, 0]}
+              position={[virtualWidth / 2, 550]}
+            />
+            <Text
+              text={`${fourPadding(UserManager.size())}`}
+              anchor={0.5}
+              position={[virtualWidth / 2 - 60, 603]}
+              style={
+                new TextStyle({
+                  align: 'right',
+                  fontFamily: 'GNUUnifont, Roboto, Helvetica, sans-serif',
+                  fontSize: 24,
+                  fill: 'yellow'
+                })
+              }
+            />
+          </>
+        ) : null}
       </Container>
     </Container>
   )
