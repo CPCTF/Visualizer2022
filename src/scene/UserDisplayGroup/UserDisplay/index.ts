@@ -1,6 +1,5 @@
 import { ThreeResourceLoader } from '#/system/Loader'
 import type { User } from '#/system/User'
-import { UserManager } from '#/system/UserManager'
 import { VisualizerGroup } from '#/templates/VisualizerGroup'
 import type { Mesh } from 'three'
 import { Display } from './Display'
@@ -24,9 +23,8 @@ export class UserDisplay extends VisualizerGroup {
     this.display.animation()
   }
 
-  public updateUser(userid: string) {
+  public updateUser(user: User) {
     // TODO: update animation
-    const user = UserManager.getUser(userid)
     if (!user) this.user = null
     else {
       this.user = user

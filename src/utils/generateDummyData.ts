@@ -37,8 +37,12 @@ export const generateRecalculate = (): RecalculateRaw => {
     value.rank = index + 1
   })
   return {
-    ranking: users,
-    circuit: { data: JSON.stringify(circuitJson) }
+    ranking: users.map(({ id, point }) => ({
+      id,
+      score: point,
+      scoreLogs: []
+    })),
+    circuit: circuitJson
   }
 }
 
@@ -51,7 +55,7 @@ export const generateInitialData = (): InitialRaw => {
   return {
     users: users.map(({ id, name, iconUrl }) => ({
       id,
-      name,
+      userName: name,
       iconUrl
     })),
     recalculate: generateRecalculate(),

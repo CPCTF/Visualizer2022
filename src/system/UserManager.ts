@@ -1,42 +1,42 @@
-import type { UserRankingRaw, UserRaw } from './ResponseType'
+import type { UserRankingRaw, UserRaw, UserScoreRaw } from './ResponseType'
 import { User } from './User'
 
 export class UserManager {
-  private static users: Record<string, User> = {}
-  private static _ranking: string[] = []
+  private static users: Map<string, User> = new Map()
+  private static _ranking: User[] = []
   public static get ranking() {
     return this._ranking
   }
 
-  public static addUser({ id, name, iconUrl }: UserRaw) {
+  public static addUser({ id, userName: name, iconUrl }: UserRaw) {
     const user = new User(id)
-    this.users[id] = user
-    user.set(-1, -1, name, iconUrl)
+    this.users.set(id, user)
+    user.updateInfo(name, iconUrl)
   }
 
-  public static updateUser({
-    id,
-    name,
-    iconUrl,
-    point,
-    rank
-  }: UserRankingRaw): void {
-    if (!this.users[id]) {
-      this.addUser({ id, name, iconUrl })
-    }
-    this.users[id]?.set(point, rank, name, iconUrl)
+  public static updateUser({ id, userName, iconUrl }: UserRaw): void {
+    if (!this.users.has(id)) return
+    this.users.get(id)?.updateInfo(userName, iconUrl)
   }
 
-  public static updateRanking() {
-    this._ranking = Object.keys(this.users)
-    this._ranking = this._ranking.sort(
-      (user1, user2) =>
-        (this.users[user1]?.rank || 99999999) -
-        (this.users[user2]?.rank || 999999999)
-    )
+  public static updateRanking(ranking: UserRankingRaw[]) {
+    this._ranking = ranking.map(({ id, score }) => {
+      const user = this.getUser(id)
+      if (!user) throw Error(`This user does not exist : ${id}`)
+      user.updateScore(score)
+      return user
+    })
+  }
+
+  public static updateUserScore({ id, score }: UserScoreRaw) {
+    this.users.get(id)?.updateScore(score)
   }
 
   public static getUser(id: string): User | undefined {
-    return this.users[id]
+    return this.users.get(id)
+  }
+
+  public static size() {
+    return this.users.size
   }
 }

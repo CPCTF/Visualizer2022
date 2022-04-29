@@ -50,7 +50,7 @@ export class SubmissionEffect extends VisualizerGroup {
         this.objects.position.z = 0
         this.submissionInfo.visible = true
         this.submissionInfo.redraw(
-          UserManager.getUser(submission.userid)?.displayName as string,
+          UserManager.getUser(submission.userId)?.displayName as string,
           submission.title,
           new Color(0xff0000)
         )

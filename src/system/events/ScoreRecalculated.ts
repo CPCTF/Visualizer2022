@@ -17,13 +17,12 @@ const setRecalculateData = async () => {
   const recalculateData = await ServerRequest.recalculate()
   if (!recalculateData) return
   const { ranking, circuit } = recalculateData
-  ranking.forEach(user => {
-    UserManager.updateUser(user)
-  })
 
-  UserManager.updateRanking()
+  UserManager.updateRanking(ranking)
 
-  await wait(4000)
+  await wait(3000)
 
   CircuitManager.setCircuitInfo(JSON.stringify(circuit))
+
+  await wait(1000)
 }

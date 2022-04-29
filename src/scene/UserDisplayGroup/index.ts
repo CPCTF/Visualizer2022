@@ -47,19 +47,19 @@ export class UserDisplayGroup extends VisualizerGroup {
   }
 
   public start() {
-    UserManager.ranking.forEach((id, index) => {
+    UserManager.ranking.forEach((user, index) => {
       if (index >= this.users.length) return
-      this.users[index].updateUser(id)
+      this.users[index].updateUser(user)
     })
-    EventEmitter.on('submit', ({ userid }) => {
+    EventEmitter.on('submit', ({ userId: userid }) => {
       const user = this.users.filter(user => user.userid === userid)
       if (!user.length) return
       user[0].animation()
     })
 
     EventEmitter.on('recalculateend', () => {
-      UserManager.ranking.forEach((id, index) => {
-        this.users[index].updateUser(id)
+      UserManager.ranking.forEach((user, index) => {
+        this.users[index].updateUser(user)
       })
     })
   }

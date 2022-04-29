@@ -7,5 +7,5 @@ export interface UserCreatedData {
 }
 
 export const userCreated = ({ userId, name, iconUrl }: UserCreatedData) => {
-  UserManager.addUser({ id: userId, name, iconUrl })
+  UserManager.addUser({ id: userId, userName: name, iconUrl })
 }
