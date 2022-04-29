@@ -20,9 +20,10 @@ export class UserManager {
   }
 
   public static updateRanking(ranking: UserRankingRaw[]) {
-    this._ranking = ranking.map(({ id }) => {
+    this._ranking = ranking.map(({ id, score }) => {
       const user = this.getUser(id)
       if (!user) throw Error(`This user does not exist : ${id}`)
+      user.updateScore(score)
       return user
     })
   }
