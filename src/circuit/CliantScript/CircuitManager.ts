@@ -4,6 +4,9 @@ import {
   CircuitPartsInfo,
   CircuitWiresInfo
 } from '../BothScript/CircuitInfo'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import jsonSrc from '../../../public/circuit.json'
 
 export class CircuitManager {
   static circuitBasisInfo: CircuitBasisInfo | undefined = undefined
@@ -18,10 +21,15 @@ export class CircuitManager {
     CircuitPartsInfo[],
     CircuitWiresInfo[]
   ] {
-    return [
-      this.circuitBasisInfo,
-      this.circuitPartsInfos,
-      this.circuitWiresInfos
-    ] as [CircuitBasisInfo, CircuitPartsInfo[], CircuitWiresInfo[]]
+    const isDebug = true
+    if (isDebug) {
+      return CircuitInfoUtils.jsonToInfo(JSON.stringify(jsonSrc))
+    } else {
+      return [
+        this.circuitBasisInfo,
+        this.circuitPartsInfos,
+        this.circuitWiresInfos
+      ] as [CircuitBasisInfo, CircuitPartsInfo[], CircuitWiresInfo[]]
+    }
   }
 }

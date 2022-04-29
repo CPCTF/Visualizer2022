@@ -27,7 +27,7 @@ export interface ServerResponse {
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 const serverMain = async () => {
-  const isDebug = false
+  const isDebug = true
   // TODO: fix url
   const res = await fetch('https://dev.cpctf.space/api/visualizer')
   const json = (await res.json()) as ServerResponse
