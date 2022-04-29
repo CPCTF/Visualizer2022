@@ -110,8 +110,9 @@ export class WireExtendInfo {
   private beforeDir: number
   private counter = 0
   private straightCounter = 0
-  private readonly straightMax = 4
-  private readonly counterMax = 10
+  private readonly straightMin = 2
+  private readonly straightMax = 10
+  private readonly counterMax = 20
 
   update(wireInd: number, ndir: number): void {
     this.counter++
@@ -130,7 +131,10 @@ export class WireExtendInfo {
     }
 
     //真っすぐの限界
-    if (this.rand(this.straightCounter / this.straightMax)) {
+    if (
+      this.rand(this.straightCounter / this.straightMax) &&
+      this.straightCounter > this.straightMin
+    ) {
       //曲げる
       if (ndir == this.dir) {
         //straight
