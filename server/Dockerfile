@@ -6,9 +6,11 @@ COPY . /app/client/
 
 WORKDIR /app/client/server
 
+RUN apk update && apk add git
+
 RUN npm ci
 RUN npm run build
 
 FROM busybox:1
 
-COPY --from=build /app/client/server/build /server
+COPY --from=build /app/client/server /server
