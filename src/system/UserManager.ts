@@ -2,7 +2,7 @@ import type { UserRankingRaw, UserRaw, UserScoreRaw } from './ResponseType'
 import { User } from './User'
 
 export class UserManager {
-  private static users: Record<string, User> = {}
+  private static users: Map<string, User> = new Map()
   private static _ranking: User[] = []
   public static get ranking() {
     return this._ranking
@@ -10,13 +10,13 @@ export class UserManager {
 
   public static addUser({ id, userName: name, iconUrl }: UserRaw) {
     const user = new User(id)
-    this.users[id] = user
+    this.users.set(id, user)
     user.updateInfo(name, iconUrl)
   }
 
   public static updateUser({ id, userName, iconUrl }: UserRaw): void {
-    if (!this.users[id]) return
-    this.users[id]?.updateInfo(userName, iconUrl)
+    if (!this.users.has(id)) return
+    this.users.get(id)?.updateInfo(userName, iconUrl)
   }
 
   public static updateRanking(ranking: UserRankingRaw[]) {
@@ -29,10 +29,14 @@ export class UserManager {
   }
 
   public static updateUserScore({ id, score }: UserScoreRaw) {
-    this.users[id]?.updateScore(score)
+    this.users.get(id)?.updateScore(score)
   }
 
   public static getUser(id: string): User | undefined {
-    return this.users[id]
+    return this.users.get(id)
+  }
+
+  public static size() {
+    return this.users.size
   }
 }
