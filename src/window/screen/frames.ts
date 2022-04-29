@@ -61,7 +61,7 @@ export const frames: Record<string, WindowInfo> = {
   },
   ranking: {
     Component: RankingFrame,
-    icon: () => SpriteHolder.get('ReadMe.png'),
+    icon: () => SpriteHolder.get('Ranking.png'),
     title: 'Ranking',
     rect: {
       x: 0,
