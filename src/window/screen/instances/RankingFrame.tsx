@@ -1,16 +1,11 @@
 import type { WindowComponentProps } from '#/window/stores/WindowSystem'
 import { useEffect, useMemo, useState, VFC } from 'react'
 import { Graphics, TextStyle } from 'pixi.js'
-import { Container, Text, useTick } from '@inlet/react-pixi'
+import { Container, Text } from '@inlet/react-pixi'
 import { Visualizer } from '#/Visualizer'
-import { globalSettings } from '#/system/GlobalSettings'
 import { EventEmitter } from '#/system/EventEmitter'
 import { UserManager } from '#/system/UserManager'
 import type { User } from '#/system/User'
-
-const twoPadding = (time: number) => {
-  return ('00' + time).slice(-2)
-}
 
 export const RankingFrame: VFC<WindowComponentProps> = ({
   x,
