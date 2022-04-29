@@ -42,7 +42,7 @@ export interface RecalculateRaw {
 
 export interface InitialRaw {
   users: UserRaw[]
-  recalculate: RecalculateRaw | null
+  recalculate: RecalculateRaw
   startTime: string
   endTime: string
 }

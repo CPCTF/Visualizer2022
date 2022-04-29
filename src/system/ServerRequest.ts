@@ -31,27 +31,23 @@ export class ServerRequest {
     return {
       users,
       recalculate,
-      startTime: time.starttime,
-      endTime: time.endtime
+      startTime: time.startTime,
+      endTime: time.endTime
     }
   }
-  public static async recalculate(): Promise<RecalculateRaw | null> {
+  public static async recalculate(): Promise<RecalculateRaw> {
     if (isDevelop) {
       await wait(1000)
       return generateRecalculate()
     }
-    try {
-      const circuitFetch = fetch(`./circuit.json`).then(getJson)
-      const rankingFetch = fetch(`/api/ranking`).then(getJson)
+    const circuitFetch = fetch(`./circuit.json`).then(getJson)
+    const rankingFetch = fetch(`/api/ranking?includeAdmin=false`).then(getJson)
 
-      const [circuit, ranking] = await Promise.all([circuitFetch, rankingFetch])
+    const [circuit, ranking] = await Promise.all([circuitFetch, rankingFetch])
 
-      return {
-        circuit,
-        ranking
-      }
-    } catch (e) {
-      return null
+    return {
+      circuit,
+      ranking
     }
   }
 }

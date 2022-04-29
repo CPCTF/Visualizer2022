@@ -18,25 +18,16 @@ export const RankingFrame: VFC<WindowComponentProps> = ({
   width,
   height
 }) => {
-  const [ranking, setRanking] = useState<User[]>(() => {
-    return UserManager.ranking.map(value => {
-      return UserManager.getUser(value) as User
-    })
-  })
-  console.log(ranking)
-  const [updating, setUpdating] = useState(true)
+  const [ranking, setRanking] = useState<User[]>(() => UserManager.ranking)
+  const [updating, setUpdating] = useState(false)
+
   useEffect(() => {
     const recalculateStartHandler = () => {
       setUpdating(true)
     }
     const recalculateEndHandler = () => {
       setUpdating(false)
-      setRanking(
-        UserManager.ranking.map(value => {
-          return UserManager.getUser(value) as User
-        })
-      )
-      console.log(ranking)
+      setRanking(UserManager.ranking)
     }
 
     EventEmitter.on('recalculatestart', recalculateStartHandler)
@@ -53,22 +44,24 @@ export const RankingFrame: VFC<WindowComponentProps> = ({
     [x, y, width, height]
   )
 
-  if (updating) {
-    ;<Container mask={mask}>
-      <Text
-        text={'更新中'}
-        anchor={0.5}
-        position={[width / 2, height / 2]}
-        style={
-          new TextStyle({
-            align: 'right',
-            fontFamily: 'GNUUnifont, Roboto, Helvetica, sans-serif',
-            fontSize: 50,
-            fill: '#000000'
-          })
-        }
-      />
-    </Container>
+  if (updating || !Visualizer.getInstance().isInitialized) {
+    return (
+      <Container mask={mask}>
+        <Text
+          text={'更新待ち'}
+          anchor={0.5}
+          position={[width / 2, height / 2]}
+          style={
+            new TextStyle({
+              align: 'right',
+              fontFamily: 'GNUUnifont, Roboto, Helvetica, sans-serif',
+              fontSize: 50,
+              fill: '#000000'
+            })
+          }
+        />
+      </Container>
+    )
   }
 
   return (
@@ -77,7 +70,9 @@ export const RankingFrame: VFC<WindowComponentProps> = ({
         return (
           <Text
             key={user.id}
-            text={`${index + 1} : ${user.displayName}`}
+            text={`${index + 1} : ${user.displayName} / ${Math.floor(
+              user.score
+            )}pts`}
             anchor={0.5}
             position={[width / 2, 30 + index * 30]}
             style={
