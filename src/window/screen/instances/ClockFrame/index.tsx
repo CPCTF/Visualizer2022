@@ -28,11 +28,7 @@ export const ClockFrame: VFC<WindowComponentProps> = ({
   const [restTime, setRestTime] = useState('')
   useTick(() => {
     const now = new Date()
-    setTime(
-      `${now.getHours()}:${twoPadding(now.getMinutes())}:${twoPadding(
-        now.getSeconds()
-      )}`
-    )
+    setTime(`${now.getHours()}時${twoPadding(now.getMinutes())}分`)
     if (!Visualizer.getInstance().isInitialized) return
     // minutes
     const delta = Math.ceil(
