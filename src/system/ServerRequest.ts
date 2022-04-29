@@ -18,9 +18,9 @@ export class ServerRequest {
       await wait(1000)
       return generateInitialData()
     }
-    const usersFetch = fetch(`/api/users`).then(getJson)
+    const usersFetch = fetch('/api/users').then(getJson)
     const recalculateFetch = this.recalculate()
-    const timeFetch = fetch(`/api/schedule`).then(getJson)
+    const timeFetch = fetch('/api/schedule').then(getJson)
 
     const [users, recalculate, time] = await Promise.all([
       usersFetch,
@@ -40,8 +40,8 @@ export class ServerRequest {
       await wait(1000)
       return generateRecalculate()
     }
-    const circuitFetch = fetch(`./circuit.json`).then(getJson)
-    const rankingFetch = fetch(`/api/ranking?includeAdmin=false`).then(getJson)
+    const circuitFetch = fetch('/visualizer/circuit.json').then(getJson)
+    const rankingFetch = fetch('/api/ranking?includeAdmin=false').then(getJson)
 
     const [circuit, ranking] = await Promise.all([circuitFetch, rankingFetch])
 
