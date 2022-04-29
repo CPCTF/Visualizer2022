@@ -12,24 +12,32 @@ export class CircuitManager {
   static circuitBasisInfo: CircuitBasisInfo | undefined = undefined
   static circuitPartsInfos: CircuitPartsInfo[] | undefined = undefined
   static circuitWiresInfos: CircuitWiresInfo[] | undefined = undefined
+  private static initBasisSize = [30, 30]
+  public static getBasisSize(): [number, number] {
+    return [
+      this.circuitBasisInfo?.sizeX ?? this.initBasisSize[0],
+      this.circuitBasisInfo?.sizeY ?? this.initBasisSize[1]
+    ]
+  }
   public static setCircuitInfo(json: string) {
-    ;[this.circuitBasisInfo, this.circuitPartsInfos, this.circuitWiresInfos] =
-      CircuitInfoUtils.jsonToInfo(json)
+    const isDebug = false
+    if (isDebug) {
+      ;[this.circuitBasisInfo, this.circuitPartsInfos, this.circuitWiresInfos] =
+        CircuitInfoUtils.jsonToInfo(JSON.stringify(jsonSrc))
+    } else {
+      ;[this.circuitBasisInfo, this.circuitPartsInfos, this.circuitWiresInfos] =
+        CircuitInfoUtils.jsonToInfo(json)
+    }
   }
   public static getCircuitInfo(): [
     CircuitBasisInfo,
     CircuitPartsInfo[],
     CircuitWiresInfo[]
   ] {
-    const isDebug = true
-    if (isDebug) {
-      return CircuitInfoUtils.jsonToInfo(JSON.stringify(jsonSrc))
-    } else {
-      return [
-        this.circuitBasisInfo,
-        this.circuitPartsInfos,
-        this.circuitWiresInfos
-      ] as [CircuitBasisInfo, CircuitPartsInfo[], CircuitWiresInfo[]]
-    }
+    return [
+      this.circuitBasisInfo,
+      this.circuitPartsInfos,
+      this.circuitWiresInfos
+    ] as [CircuitBasisInfo, CircuitPartsInfo[], CircuitWiresInfo[]]
   }
 }
