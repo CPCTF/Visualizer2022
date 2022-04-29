@@ -3,6 +3,7 @@ import { CanvasFrame } from './instances/CanvasFrame'
 import { ClockFrame } from './instances/ClockFrame'
 import { ReadmeFrame } from './instances/Readme'
 import { SpriteHolder } from '../stores/SpriteHolder'
+import { RankingFrame } from './instances/RankingFrame'
 
 export const dummyWindow = {
   Component: null,
@@ -35,7 +36,7 @@ export const frames: Record<string, WindowInfo> = {
   clock: {
     Component: ClockFrame,
     icon: () => SpriteHolder.get('Clock.png'),
-    title: 'Clock.exe',
+    title: 'Clock',
     rect: {
       x: 0,
       y: 0,
@@ -49,6 +50,19 @@ export const frames: Record<string, WindowInfo> = {
     Component: ReadmeFrame,
     icon: () => SpriteHolder.get('ReadMe.png'),
     title: 'Readme.txt',
+    rect: {
+      x: 0,
+      y: 0,
+      width: 850,
+      height: 600
+    },
+    visible: true,
+    fullscreen: false
+  },
+  ranking: {
+    Component: RankingFrame,
+    icon: () => SpriteHolder.get('ReadMe.png'),
+    title: 'Ranking',
     rect: {
       x: 0,
       y: 0,
