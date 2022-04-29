@@ -6,6 +6,8 @@ COPY . /app/client/
 
 WORKDIR /app/client/server
 
+RUN apk add git
+
 RUN npm ci
 RUN npm run build
 
