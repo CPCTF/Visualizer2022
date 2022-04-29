@@ -8,6 +8,7 @@ import { UserManager } from '#/system/UserManager'
 
 import backgroundSrc from './kusodasaBackGround.png'
 import titleSrc from './kusodasaTitle.png'
+import prevTitleSrc from './kusodasaTitle2.png'
 import nazoCatSrc from './nazoCat.png'
 import counterSrc from './counter.png'
 
@@ -61,7 +62,13 @@ export const ClockFrame: VFC<WindowComponentProps> = ({
             anchor={[0.5, 0]}
             position={[virtualWidth / 2, 40]}
           />
-        ) : null}
+        ) : (
+          <Sprite
+            image={prevTitleSrc}
+            anchor={[0.5, 0]}
+            position={[virtualWidth / 2, 40]}
+          />
+        )}
         {/* 時間 */}
         <Text
           text={restTime || time}
