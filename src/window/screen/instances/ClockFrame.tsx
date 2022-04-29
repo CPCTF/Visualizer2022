@@ -4,6 +4,7 @@ import { Graphics, TextStyle } from 'pixi.js'
 import { Container, Text, useTick } from '@inlet/react-pixi'
 import { Visualizer } from '#/Visualizer'
 import { globalSettings } from '#/system/GlobalSettings'
+import { UserManager } from '#/system/UserManager'
 
 const twoPadding = (time: number) => {
   return ('00' + time).slice(-2)
@@ -29,7 +30,6 @@ export const ClockFrame: VFC<WindowComponentProps> = ({
     const delta = Math.ceil(
       (globalSettings.endTime.getTime() - now.getTime()) / 1000 / 60
     )
-    // console.log(delta.getMilliseconds())
     setRestTime(
       `残り: ${Math.floor(delta / 60)}時間${twoPadding(delta % 60)}分`
     )
@@ -64,6 +64,19 @@ export const ClockFrame: VFC<WindowComponentProps> = ({
             align: 'right',
             fontFamily: 'GNUUnifont, Roboto, Helvetica, sans-serif',
             fontSize: 30,
+            fill: '#000000'
+          })
+        }
+      />
+      <Text
+        text={`あなたは${UserManager.size()}人目です`}
+        anchor={0}
+        position={[20, 20]}
+        style={
+          new TextStyle({
+            align: 'right',
+            fontFamily: 'GNUUnifont, Roboto, Helvetica, sans-serif',
+            fontSize: 20,
             fill: '#000000'
           })
         }

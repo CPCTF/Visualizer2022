@@ -56,7 +56,10 @@ export const Icon: VFC<{
             align: 'center',
             fontFamily: 'GNUUnifont, "Source Sans Pro", Helvetica, sans-serif',
             fontSize: fontSize,
-            fill: '#000'
+            fill: '#000',
+            fontWeight: 'bold',
+            stroke: '#ffffff',
+            strokeThickness: 4
           })
         }
       />
