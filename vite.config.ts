@@ -29,11 +29,11 @@ export default defineConfig({
       },
       '/images': {
         target: 'https://dev.cpctf.space',
-        changeOrigin: true,
-        ws: true,
-        headers: {
-          origin: 'https://dev.cpctf.space'
-        }
+        changeOrigin: true
+      },
+      '/visualizer/circuit.json': {
+        target: 'https://dev.cpctf.space',
+        changeOrigin: true
       }
     }
   }

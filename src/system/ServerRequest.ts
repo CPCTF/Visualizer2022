@@ -18,9 +18,9 @@ export class ServerRequest {
       await wait(1000)
       return generateInitialData()
     }
-    const usersFetch = fetch(`/api/users`).then(getJson)
+    const usersFetch = fetch('/api/users').then(getJson)
     const recalculateFetch = this.recalculate()
-    const timeFetch = fetch(`/api/schedule`).then(getJson)
+    const timeFetch = fetch('/api/schedule').then(getJson)
 
     const [users, recalculate, time] = await Promise.all([
       usersFetch,
@@ -31,27 +31,23 @@ export class ServerRequest {
     return {
       users,
       recalculate,
-      startTime: time.starttime,
-      endTime: time.endtime
+      startTime: time.startTime,
+      endTime: time.endTime
     }
   }
-  public static async recalculate(): Promise<RecalculateRaw | null> {
+  public static async recalculate(): Promise<RecalculateRaw> {
     if (isDevelop) {
       await wait(1000)
       return generateRecalculate()
     }
-    try {
-      const circuitFetch = fetch(`./circuit.json`).then(getJson)
-      const rankingFetch = fetch(`/api/ranking`).then(getJson)
+    const circuitFetch = fetch('/visualizer/circuit.json').then(getJson)
+    const rankingFetch = fetch('/api/ranking?includeAdmin=false').then(getJson)
 
-      const [circuit, ranking] = await Promise.all([circuitFetch, rankingFetch])
+    const [circuit, ranking] = await Promise.all([circuitFetch, rankingFetch])
 
-      return {
-        circuit,
-        ranking
-      }
-    } catch (e) {
-      return null
+    return {
+      circuit,
+      ranking
     }
   }
 }
