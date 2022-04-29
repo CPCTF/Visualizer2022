@@ -47,9 +47,9 @@ export class UserDisplayGroup extends VisualizerGroup {
   }
 
   public start() {
-    UserManager.ranking.forEach((id, index) => {
+    UserManager.ranking.forEach((user, index) => {
       if (index >= this.users.length) return
-      this.users[index].updateUser(id)
+      this.users[index].updateUser(user)
     })
     EventEmitter.on('submit', ({ userId: userid }) => {
       const user = this.users.filter(user => user.userid === userid)
@@ -58,8 +58,8 @@ export class UserDisplayGroup extends VisualizerGroup {
     })
 
     EventEmitter.on('recalculateend', () => {
-      UserManager.ranking.forEach((id, index) => {
-        this.users[index].updateUser(id)
+      UserManager.ranking.forEach((user, index) => {
+        this.users[index].updateUser(user)
       })
     })
   }
