@@ -71,32 +71,9 @@ export class Visualizer {
     )
 
     // load resources
-    // ThreeResourceLoader.addGLTF('gltf-path')
-    // ThreeResourceLoader.addTexture('texture-path')
-    // await ThreeResourceLoader.load(({ total, count }) => {
-    //   console.log('progress' + count / total)
-    // })
-    // console.log('loaded')
 
     // server connection
     initializeEventEmitter()
-    EventEmitter.on('start', () => {
-      console.log('start ctf')
-    })
-    EventEmitter.on('end', () => {
-      console.log('end ctf')
-    })
-    EventEmitter.on('recalculatestart', async () => {
-      console.log('recalculatestart')
-    })
-    EventEmitter.on('recalculateend', async () => {
-      console.log('recalculateend')
-    })
-    // EventEmitter.on('submit', data => {
-    //   console.log('submit', data)
-    // })
-
-    // const initialData = await ServerRequest.initial()
 
     // set render path
     composer.addPass(new RenderPass(scene, camera))
