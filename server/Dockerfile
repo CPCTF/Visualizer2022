@@ -11,6 +11,6 @@ RUN apk update && apk add git
 RUN npm ci
 RUN npm run build
 
-FROM node:16-alpine 
+FROM busybox:1
 
 COPY --from=build /app/client/server /server
