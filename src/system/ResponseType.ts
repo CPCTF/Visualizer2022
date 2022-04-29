@@ -1,21 +1,40 @@
-// TODO: 型修正
+import type {
+  CircuitBasisInfo,
+  CircuitPartsInfo,
+  CircuitWiresInfo
+} from '#/circuit/BothScript/CircuitInfo'
+
+interface UserScoreLogRaw {
+  id: string
+  challengeId: string
+  acquiredScore: number
+  createdAt: string
+}
 export interface UserRankingRaw {
   id: string
-  name: string
-  iconUrl: string
-  rank: number
-  point: number
+  score: number
+  scoreLogs: UserScoreLogRaw[]
 }
 
 export interface UserRaw {
   id: string
-  name: string
+  userName: string
   iconUrl: string
+  freshman?: boolean
+  admin?: boolean
+  twitterScreenName?: string
 }
 
-export interface CircuitRaw {
-  data: string
+export interface UserScoreRaw {
+  id: string
+  score: number
 }
+
+export type CircuitRaw = [
+  CircuitBasisInfo,
+  CircuitPartsInfo[],
+  CircuitWiresInfo[]
+]
 export interface RecalculateRaw {
   ranking: UserRankingRaw[]
   circuit: CircuitRaw
@@ -23,13 +42,13 @@ export interface RecalculateRaw {
 
 export interface InitialRaw {
   users: UserRaw[]
-  recalculate: RecalculateRaw | null
+  recalculate: RecalculateRaw
   startTime: string
   endTime: string
 }
 
 export interface SubmissionRaw {
-  userid: string
+  userId: string
   point: number
   genre: QuestionGenre
   title: string

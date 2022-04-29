@@ -5,17 +5,17 @@ export interface ProblemSolvedData {
   userId: string
   point: number
   genre: number
-  title: string
+  challengeName: string
 }
 
 export const problemSolved = ({
   userId,
   point,
   genre,
-  title
+  challengeName: title
 }: ProblemSolvedData) => {
   EventEmitter.emit('submit', {
-    userid: userId,
+    userId,
     point,
     genre: QuestionGenreList[genre],
     title

@@ -149,7 +149,7 @@
 			"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
 			"sourceSize": {"w":32,"h":32}
 		},
-		"ReadMe.png":
+		"Ranking.png":
 		{
 			"frame": {"x":366,"y":128,"w":32,"h":32},
 			"rotated": false,
@@ -157,9 +157,17 @@
 			"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
 			"sourceSize": {"w":32,"h":32}
 		},
-		"Visualizer.png":
+		"ReadMe.png":
 		{
 			"frame": {"x":398,"y":128,"w":32,"h":32},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+			"sourceSize": {"w":32,"h":32}
+		},
+		"Visualizer.png":
+		{
+			"frame": {"x":430,"y":128,"w":32,"h":32},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
