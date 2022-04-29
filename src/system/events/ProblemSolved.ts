@@ -15,7 +15,7 @@ export const problemSolved = ({
   title
 }: ProblemSolvedData) => {
   EventEmitter.emit('submit', {
-    userid: userId,
+    userId,
     point,
     genre: QuestionGenreList[genre],
     title

@@ -51,7 +51,7 @@ export class UserDisplayGroup extends VisualizerGroup {
       if (index >= this.users.length) return
       this.users[index].updateUser(id)
     })
-    EventEmitter.on('submit', ({ userid }) => {
+    EventEmitter.on('submit', ({ userId: userid }) => {
       const user = this.users.filter(user => user.userid === userid)
       if (!user.length) return
       user[0].animation()

@@ -3,13 +3,9 @@ import type { Texture } from 'three'
 
 export class User extends EventTarget {
   public id
-  private _point = 0
-  public get point() {
-    return this._point
-  }
-  private _rank = -1
-  public get rank() {
-    return this._rank
+  private _score = 0
+  public get score() {
+    return this._score
   }
   private _displayName = ''
   public get displayName(): string {
@@ -31,14 +27,7 @@ export class User extends EventTarget {
     this.id = id
   }
 
-  public set(
-    point: number,
-    rank: number,
-    displayName: string,
-    iconPath: string
-  ) {
-    this._point = point
-    this._rank = rank
+  public updateInfo(displayName: string, iconPath: string) {
     this._displayName = displayName
     if (iconPath && (!this._iconPath || this._iconPath !== iconPath)) {
       const pathname = new URL(iconPath).pathname
@@ -46,5 +35,9 @@ export class User extends EventTarget {
       this._icon?.dispose()
       this._icon = Loaders.texture.load(pathname)
     }
+  }
+
+  public updateScore(score: number) {
+    this._score = score
   }
 }
