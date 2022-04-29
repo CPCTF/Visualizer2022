@@ -6,7 +6,7 @@ export class Effects extends VisualizerGroup {
   constructor() {
     super()
     const wave = new Wave()
-    wave.position.setY(-1)
+    wave.position.setY(-20)
     this.add(wave)
     this.add(new Sky())
   }

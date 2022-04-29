@@ -1,7 +1,7 @@
 import { VisualizerGroup } from '#/templates/VisualizerGroup'
 import { CircuitWireObject } from './Parts/CircuitWireObject'
 import { ThreeResourceLoader } from '#/system/Loader'
-import { Mesh, Vector3 } from 'three'
+import { Mesh } from 'three'
 import { CircuitModelPath } from '#/circuit/CliantScript/CircuitModelPath'
 import { SubmissionEffect } from './SubmissionEffect'
 import { CircuitManager } from '#/circuit/CliantScript/CircuitManager'
@@ -23,7 +23,7 @@ export class Circuit extends VisualizerGroup {
   public start(): void {
     super.start()
     this.setPrefabs()
-    this.position.add(new Vector3(0, 0.1, 0))
+
     EventEmitter.on('recalculatestart', () => {
       //
     })
