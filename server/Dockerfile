@@ -4,6 +4,7 @@ WORKDIR /app/client
 
 COPY . /app/client/
 
+
 WORKDIR /app/client/server
 
 RUN apk update && apk add git
