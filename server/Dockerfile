@@ -6,11 +6,11 @@ COPY . /app/client/
 
 WORKDIR /app/client/server
 
-RUN apk add git
+RUN apk update && apk add git
 
 RUN npm ci
 RUN npm run build
 
-FROM busybox:1
+FROM node:16-alpine 
 
-COPY --from=build /app/client/server/build /server
+COPY --from=build /app/client/server /server
