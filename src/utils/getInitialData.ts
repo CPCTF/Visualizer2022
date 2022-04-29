@@ -1,4 +1,3 @@
-import type { InitialRaw } from '#/system/ResponseType'
 import { ServerRequest } from '#/system/ServerRequest'
 import { globalSettings } from '#/system/GlobalSettings'
 import { UserManager } from '#/system/UserManager'

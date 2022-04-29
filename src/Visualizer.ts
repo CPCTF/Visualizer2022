@@ -6,7 +6,6 @@ import { VisualizerGroup } from './templates/VisualizerGroup'
 import { VisualizerObject } from './templates/VisualizerObject'
 import {
   emitInitializedEvent,
-  EventEmitter,
   initializeEventEmitter
 } from './system/EventEmitter'
 import { Effects } from './scene/Effects'

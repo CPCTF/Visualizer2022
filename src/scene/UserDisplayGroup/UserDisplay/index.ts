@@ -1,6 +1,5 @@
 import { ThreeResourceLoader } from '#/system/Loader'
 import type { User } from '#/system/User'
-import { UserManager } from '#/system/UserManager'
 import { VisualizerGroup } from '#/templates/VisualizerGroup'
 import type { Mesh } from 'three'
 import { Display } from './Display'
