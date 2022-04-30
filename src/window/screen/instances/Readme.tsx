@@ -2,6 +2,7 @@ import type { WindowComponentProps } from '#/window/stores/WindowSystem'
 import { useMemo, VFC } from 'react'
 import { Graphics, TextStyle } from 'pixi.js'
 import { Container, Text } from '@inlet/react-pixi'
+import { FrameBackground } from '#/window/utils/MonoColorBG'
 
 const readmeText = `# VisualizerOS(仮称)
 せいさくしゃ: Fogrex, Renard, Uzaki
@@ -30,6 +31,7 @@ export const ReadmeFrame: VFC<WindowComponentProps> = ({
         [x, y, width, height]
       )}
     >
+      <FrameBackground bgColor={0xffffff} width={width} height={height} />
       <Text
         text={readmeText}
         anchor={0}

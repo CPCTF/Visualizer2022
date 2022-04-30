@@ -35,7 +35,17 @@ const rankingPost = [
   '7th',
   '8th',
   '9th',
-  '10th'
+  '10th',
+  '11th',
+  '12th',
+  '13th',
+  '14th',
+  '15th',
+  '16th',
+  '17th',
+  '18th',
+  '19th',
+  '20th'
 ]
 
 export const RankingFrame: VFC<WindowComponentProps> = ({
@@ -86,7 +96,7 @@ export const RankingFrame: VFC<WindowComponentProps> = ({
         }
       />
       {updated
-        ? UserManager.ranking.slice(0, 10).map((user, index) => {
+        ? UserManager.ranking.slice(0, 20).map((user, index) => {
             const textColor =
               index == 0 ? 'red' : index == 1 || index == 2 ? 'yellow' : 'white'
             return (

@@ -53,9 +53,17 @@
 			"spriteSourceSize": {"x":0,"y":0,"w":160,"h":22},
 			"sourceSize": {"w":160,"h":22}
 		},
+		"InButton.png":
+		{
+			"frame": {"x":30,"y":68,"w":79,"h":23},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {"x":0,"y":0,"w":79,"h":23},
+			"sourceSize": {"w":79,"h":23}
+		},
 		"WindowBorderBottom.png":
 		{
-			"frame": {"x":30,"y":68,"w":30,"h":60},
+			"frame": {"x":30,"y":91,"w":30,"h":60},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":30,"h":60},
@@ -63,7 +71,7 @@
 		},
 		"WindowBorderLeft.png":
 		{
-			"frame": {"x":60,"y":68,"w":60,"h":30},
+			"frame": {"x":60,"y":91,"w":60,"h":30},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":60,"h":30},
@@ -71,7 +79,7 @@
 		},
 		"WindowBorderRight.png":
 		{
-			"frame": {"x":120,"y":68,"w":60,"h":30},
+			"frame": {"x":120,"y":91,"w":60,"h":30},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":60,"h":30},
@@ -79,7 +87,7 @@
 		},
 		"CursorDefault.png":
 		{
-			"frame": {"x":30,"y":128,"w":38,"h":38},
+			"frame": {"x":30,"y":151,"w":38,"h":38},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":38,"h":38},
@@ -87,7 +95,7 @@
 		},
 		"CursorEwResize.png":
 		{
-			"frame": {"x":68,"y":128,"w":38,"h":38},
+			"frame": {"x":68,"y":151,"w":38,"h":38},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":38,"h":38},
@@ -95,7 +103,7 @@
 		},
 		"CursorGrab.png":
 		{
-			"frame": {"x":106,"y":128,"w":38,"h":38},
+			"frame": {"x":106,"y":151,"w":38,"h":38},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":38,"h":38},
@@ -103,7 +111,7 @@
 		},
 		"CursorGrabbing.png":
 		{
-			"frame": {"x":144,"y":128,"w":38,"h":38},
+			"frame": {"x":144,"y":151,"w":38,"h":38},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":38,"h":38},
@@ -111,7 +119,7 @@
 		},
 		"CursorNeswResize.png":
 		{
-			"frame": {"x":182,"y":128,"w":38,"h":38},
+			"frame": {"x":182,"y":151,"w":38,"h":38},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":38,"h":38},
@@ -119,7 +127,7 @@
 		},
 		"CursorNsResize.png":
 		{
-			"frame": {"x":220,"y":128,"w":38,"h":38},
+			"frame": {"x":220,"y":151,"w":38,"h":38},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":38,"h":38},
@@ -127,7 +135,7 @@
 		},
 		"CursorNwseResize.png":
 		{
-			"frame": {"x":258,"y":128,"w":38,"h":38},
+			"frame": {"x":258,"y":151,"w":38,"h":38},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":38,"h":38},
@@ -135,7 +143,7 @@
 		},
 		"CursorWait.png":
 		{
-			"frame": {"x":296,"y":128,"w":38,"h":38},
+			"frame": {"x":296,"y":151,"w":38,"h":38},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":38,"h":38},
@@ -143,7 +151,7 @@
 		},
 		"Clock.png":
 		{
-			"frame": {"x":334,"y":128,"w":32,"h":32},
+			"frame": {"x":334,"y":151,"w":32,"h":32},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -151,7 +159,7 @@
 		},
 		"Ranking.png":
 		{
-			"frame": {"x":366,"y":128,"w":32,"h":32},
+			"frame": {"x":366,"y":151,"w":32,"h":32},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -159,7 +167,7 @@
 		},
 		"ReadMe.png":
 		{
-			"frame": {"x":398,"y":128,"w":32,"h":32},
+			"frame": {"x":398,"y":151,"w":32,"h":32},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -167,7 +175,7 @@
 		},
 		"Visualizer.png":
 		{
-			"frame": {"x":430,"y":128,"w":32,"h":32},
+			"frame": {"x":430,"y":151,"w":32,"h":32},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -175,7 +183,7 @@
 		},
 		"WindowBorderUpperLeft.png":
 		{
-			"frame": {"x":180,"y":68,"w":6,"h":26},
+			"frame": {"x":180,"y":91,"w":6,"h":26},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":6,"h":26},
@@ -183,7 +191,7 @@
 		},
 		"WindowBorderUpperRight.png":
 		{
-			"frame": {"x":186,"y":68,"w":6,"h":26},
+			"frame": {"x":186,"y":91,"w":6,"h":26},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {"x":0,"y":0,"w":6,"h":26},
