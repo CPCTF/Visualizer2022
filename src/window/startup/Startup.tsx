@@ -6,6 +6,7 @@ import { WindowSettingContext } from '../GlobalSetting'
 import { FrameBackground } from '../utils/MonoColorBG'
 import { FrameTemplate, getFrameHeight } from '../utils/FrameTemplate'
 import { playLongSound, playSound } from '../utils/sounds/sound'
+import { Button } from './Button'
 
 export const Startup = () => {
   const { width, height } = useContext(WindowSettingContext)
@@ -20,13 +21,9 @@ export const Startup = () => {
     <Container>
       <FrameBackground bgColor={0x000000} width={width} height={height} />
       <Container position={[rect.left, rect.top]}>
-        <FrameTemplate
-          width={rect.width}
-          height={rect.height}
-          title="音を確認する(しなさい)"
-        >
+        <FrameTemplate width={rect.width} height={rect.height} title="音の確認">
           <Text
-            text="音が鸣リまずよ"
+            text="音を鳴らしても？"
             anchor={[0, 0]}
             position={[5, 5]}
             style={
@@ -39,14 +36,13 @@ export const Startup = () => {
               })
             }
           />
-          <Text
+          <Button
             text="いいね"
-            anchor={[0, 1]}
+            anchor={[1, 0.5]}
             position={[
-              getFrameHeight(rect.width) - 305,
-              getFrameHeight(rect.height) - 5
+              getFrameHeight(rect.width) - 205,
+              getFrameHeight(rect.height) - 20
             ]}
-            interactive
             click={() => {
               setVolume(1)
               setVisible(false)
@@ -54,37 +50,18 @@ export const Startup = () => {
               playSound('mouseup')
               playLongSound('hdd')
             }}
-            style={
-              new TextStyle({
-                align: 'center',
-                fontFamily:
-                  'GNUUnifont, "Source Sans Pro", Helvetica, sans-serif',
-                fontSize: windowHeaderHeight * 0.5,
-                fill: '#000'
-              })
-            }
           />
-          <Text
+          <Button
             text="よくないね"
-            anchor={[1, 1]}
+            anchor={[1, 0.5]}
             position={[
-              getFrameHeight(rect.width) - 5,
-              getFrameHeight(rect.height) - 5
+              getFrameHeight(rect.width) - 50,
+              getFrameHeight(rect.height) - 20
             ]}
-            interactive
             click={() => {
               setVolume(0)
               setVisible(false)
             }}
-            style={
-              new TextStyle({
-                align: 'center',
-                fontFamily:
-                  'GNUUnifont, "Source Sans Pro", Helvetica, sans-serif',
-                fontSize: windowHeaderHeight * 0.5,
-                fill: '#000'
-              })
-            }
           />
         </FrameTemplate>
       </Container>
