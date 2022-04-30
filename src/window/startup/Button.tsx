@@ -12,17 +12,19 @@ export interface ButtonProps {
 }
 
 export const Button = ({ text, click, ...rest }: ButtonProps) => {
-  const button = SpriteHolder.get('TaskbarButtonInactive.png')
+  const button = SpriteHolder.get('InButton.png')
 
   if (!button) return <></>
   return (
-    <Container interactive click={click} {...rest}>
+    <Container {...rest}>
       <Sprite
         width={150}
         height={windowHeaderHeight}
         texture={button}
         anchor={[0.5, 0.5]}
         position={[0, 0]}
+        interactive
+        click={click}
       />
       <Text
         text={text}
