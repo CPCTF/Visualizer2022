@@ -1,12 +1,12 @@
 import { VisualizerGroup } from '#/templates/VisualizerGroup'
 import { CircuitWireObject } from './Parts/CircuitWireObject'
 import { ThreeResourceLoader } from '#/system/Loader'
-import { Mesh } from 'three'
+import { Box3, Mesh, MeshBasicMaterial, PlaneGeometry, Vector3 } from 'three'
 import { CircuitModelPath } from '#/circuit/CliantScript/CircuitModelPath'
 import { SubmissionEffect } from './SubmissionEffect'
 import { CircuitManager } from '#/circuit/CliantScript/CircuitManager'
 import { EventEmitter } from '#/system/EventEmitter'
-import type { QuestionGenre } from '#/system/ResponseType'
+import { QuestionGenre, QuestionGenreList } from '#/system/ResponseType'
 import type {
   CircuitBasisInfo,
   CircuitPartsInfo,
@@ -14,9 +14,33 @@ import type {
 } from '#/circuit/BothScript/CircuitInfo'
 
 export class Circuit extends VisualizerGroup {
-  private objectPool: Record<string, [Array<Mesh>, number]> = {}
+  private static objectPool: Record<string, [Array<Mesh>, number]> = {}
+  private basisPlane: Mesh
+  private readonly maxBasisScale = 1
+  private readonly basisSize = 13
+  public static currentBasisSize = 13
+  public static randomPartsObjectKeys: Array<string>
+  public static randomIndex = 0
   constructor() {
     super()
+    Circuit.randomPartsObjectKeys = new Array(QuestionGenreList.length * 2)
+      .map((_, i) => {
+        if (i < QuestionGenreList.length) {
+          return QuestionGenreList[i]
+        } else {
+          return 'Big' + QuestionGenreList[i - QuestionGenreList.length]
+        }
+      })
+      .sort(() => Math.random() - 0.5)
+    const plane = new Mesh(
+      new PlaneGeometry(1, 1, 1, 1),
+      new MeshBasicMaterial({ color: 0x3b6141 })
+    )
+    plane.rotation.x = -Math.PI * 0.5
+    plane.position.set(0, -0.1, 0)
+    plane.scale.set(2, 2, 0)
+    this.basisPlane = plane
+    this.add(plane)
     this.add(new SubmissionEffect())
   }
 
@@ -39,13 +63,38 @@ export class Circuit extends VisualizerGroup {
     super.update()
   }
 
+  public static getRandomPartsPos(): Vector3 | undefined {
+    //big parts
+    for (let i = 0; i < Circuit.randomPartsObjectKeys.length * 2; i++) {
+      const key = Circuit.randomPartsObjectKeys[Circuit.randomIndex]
+      const objs = Circuit.objectPool[key][0]
+      if (objs.length > 0) {
+        const obj = objs[Math.floor(Math.random() * objs.length)]
+        const box = new Box3().setFromObject(obj)
+        const min = box.min.clone()
+        const max = box.max.clone()
+        const res = max.add(min).divideScalar(2)
+        return res
+      }
+      Circuit.randomIndex =
+        (Circuit.randomIndex + 1) % (Circuit.randomPartsObjectKeys.length * 2)
+    }
+    return undefined
+  }
+
   //サーバーから送られてきたCircuitInfoを元に設置
-  createCircuit(): void {
+  private createCircuit(): void {
     const [basisInfo, partsInfos, wiresInfos]: [
       CircuitBasisInfo,
       CircuitPartsInfo[],
       CircuitWiresInfo[]
     ] = CircuitManager.getCircuitInfo()
+    const basisScale = Math.min(
+      this.basisSize / basisInfo.sizeX,
+      this.maxBasisScale
+    )
+    Circuit.currentBasisSize = basisInfo.sizeX * basisScale
+    this.basisPlane.scale.set(basisInfo.sizeX, basisInfo.sizeY, 1)
     const offsetX = -basisInfo.sizeX / 2 - 0.5
     const offsetY = 0
     const offsetZ = -basisInfo.sizeY / 2 - 0.5
@@ -85,24 +134,7 @@ export class Circuit extends VisualizerGroup {
       })
     })
 
-    //グリッド線を表示
-    /*
-    if (isDebug) {
-      const geometry = new PlaneGeometry(
-        basisInfo.sizeX,
-        basisInfo.sizeY,
-        basisInfo.sizeX,
-        basisInfo.sizeY
-      )
-      geometry.rotateX(-Math.PI / 2)
-      const material = new MeshPhongMaterial({
-        color: 0xffffff,
-        wireframe: true
-      })
-      const mesh = new Mesh(geometry, material)
-      mesh.position.add(new Vector3(0.5, 0, 0.5))
-      this.add(mesh)
-    }*/
+    this.scale.setScalar(basisScale)
   }
   private setPrefabs(): void {
     //cpu
@@ -110,7 +142,7 @@ export class Circuit extends VisualizerGroup {
       CircuitModelPath.cpuPath
     )?.clone() as Mesh
     cpuPrefab.visible = false
-    this.objectPool['CPU'] = [[cpuPrefab], 1]
+    Circuit.objectPool['CPU'] = [[cpuPrefab], 1]
     this.add(cpuPrefab)
     //big parts
     for (const key in CircuitModelPath.partsBigPath) {
@@ -120,7 +152,7 @@ export class Circuit extends VisualizerGroup {
       if (prefab == undefined) continue
       prefab.visible = false
       prefab.scale.set(2, 2, 2)
-      this.objectPool['Big' + key] = [[prefab], 1]
+      Circuit.objectPool['Big' + key] = [[prefab], 1]
       this.add(prefab)
     }
     //parts
@@ -130,7 +162,7 @@ export class Circuit extends VisualizerGroup {
       )?.clone() as Mesh
       if (prefab == undefined) continue
       prefab.visible = false
-      this.objectPool[key] = [[prefab], 1]
+      Circuit.objectPool[key] = [[prefab], 1]
       this.add(prefab)
     }
     //wire
@@ -138,7 +170,7 @@ export class Circuit extends VisualizerGroup {
       const pref = new CircuitWireObject(wire)
       const prefab = new Mesh(pref.geometry, pref.material)
       prefab.visible = false
-      this.objectPool['Wire' + wire.toString()] = [[prefab], 1]
+      Circuit.objectPool['Wire' + wire.toString()] = [[prefab], 1]
       this.add(prefab)
     }
     for (let i = 0; i < 32; i++) {
@@ -156,8 +188,8 @@ export class Circuit extends VisualizerGroup {
   }
 
   private createObject(key: string): Mesh | undefined {
-    if (this.objectPool[key] == undefined) return undefined
-    const [objs, i] = this.objectPool[key]
+    if (Circuit.objectPool[key] == undefined) return undefined
+    const [objs, i] = Circuit.objectPool[key]
     let res: Mesh
     if (i >= objs.length) {
       res = objs[0].clone()
@@ -168,13 +200,13 @@ export class Circuit extends VisualizerGroup {
     }
     res.visible = true
     const newi = i + 1
-    this.objectPool[key] = [objs, newi]
+    Circuit.objectPool[key] = [objs, newi]
     return res
   }
   private removeAllObject(): void {
-    for (const key in this.objectPool) {
-      this.objectPool[key][0].forEach(obj => (obj.visible = false))
-      this.objectPool[key][1] = 1
+    for (const key in Circuit.objectPool) {
+      Circuit.objectPool[key][0].forEach(obj => (obj.visible = false))
+      Circuit.objectPool[key][1] = 1
     }
   }
 }

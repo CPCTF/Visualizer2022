@@ -9,13 +9,13 @@ export class VisualizerCamera extends PerspectiveCamera implements IRenderable {
   private state: VisualizerCameraState = 'Basis'
   private timeline = gsap.timeline()
   constructor() {
-    super(60, 1, 1, 2000)
+    super(60, 1, 0.1, 2000)
   }
 
   public start(): void {
-    this.position.set(10, 6, 0)
-    this.lookAt(0, 0, 0)
-
+    this.position.set(0, 8, -8)
+    this.lookAt(0, 1, 5)
+    /*
     EventEmitter.on('submit', ({ userId }) => {
       this.userId = userId
       if (this.state == 'Display') return
@@ -26,11 +26,13 @@ export class VisualizerCamera extends PerspectiveCamera implements IRenderable {
     })
     EventEmitter.on('recalculateend', () => {
       this.changeState('RecalculateEnd')
-    })
+    })*/
   }
 
   public update(): void {
+    /*
     this.stateMachine()
+    */
   }
 
   private stateMethods(): void {
