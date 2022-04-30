@@ -15,6 +15,7 @@ export class SubmissionEffect extends VisualizerGroup {
   private exclamation: Mesh
   private submissionInfo: SubmissionInfo
   private objects: Group
+  private animationTimeline: gsap.core.Timeline | null = null
   constructor() {
     super()
     this.objects = new Group()
@@ -90,6 +91,11 @@ export class SubmissionEffect extends VisualizerGroup {
         this.exclamation.visible = false
         this.submissionInfo.visible = false
       })
+
+      if (this.animationTimeline) {
+        this.animationTimeline.kill()
+      }
+      this.animationTimeline = tl
     })
   }
 
