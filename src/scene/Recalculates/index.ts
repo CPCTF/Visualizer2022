@@ -5,8 +5,8 @@ import { WaterAnimation } from './Water'
 import gsap from 'gsap'
 
 export class Recalculate extends VisualizerGroup {
-  private readonly startY = -25
-  private readonly endY = 20
+  private readonly startY = -2
+  private readonly endY = 1
   private readonly animationDuration = 3
   private emergencyAnimation: EmergencyAnimation
   private waterAnimation: WaterAnimation
@@ -17,6 +17,7 @@ export class Recalculate extends VisualizerGroup {
     this.waterAnimation = new WaterAnimation()
     this.add(this.emergencyAnimation)
     this.add(this.waterAnimation)
+    this.rotateY(Math.PI)
   }
 
   public start() {
