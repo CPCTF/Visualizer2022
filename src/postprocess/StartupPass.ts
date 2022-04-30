@@ -1,4 +1,3 @@
-import { Time } from '#/system/Time'
 import {
   Color,
   PerspectiveCamera,
@@ -42,6 +41,8 @@ void main() {
   vec4 edge = texeln;
 
   vec4 main = mix(texel, edge, step(vUv.y, 1.0 - progress));
+  float gray = main.r * 0.3 + main.g * 0.59 + main.b * 0.11;
+  main = mix(main, vec4(gray, gray, gray, 1.0), 0.3);
   gl_FragColor = vec4(main.rgb, 1.0);
 }
   `
