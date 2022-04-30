@@ -5,7 +5,6 @@ import { Container, Text } from '@inlet/react-pixi'
 import { Visualizer } from '#/Visualizer'
 import { EventEmitter } from '#/system/EventEmitter'
 import { UserManager } from '#/system/UserManager'
-import type { User } from '#/system/User'
 import { FrameBackground } from '#/window/utils/MonoColorBG'
 
 const twoPadding = (time: number) => {
