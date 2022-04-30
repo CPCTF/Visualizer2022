@@ -32,11 +32,7 @@ export const ReadmeFrame: VFC<WindowComponentProps> = ({
         [x, y, width, height]
       )}
     >
-      <FrameBackground
-        bgColor={0xffffff}
-        width={getFrameWidth(width)}
-        height={getFrameHeight(height)}
-      />
+      <FrameBackground bgColor={0xffffff} width={width} height={height} />
       <Text
         text={readmeText}
         anchor={0}
