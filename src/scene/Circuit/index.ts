@@ -112,7 +112,7 @@ export class Circuit extends VisualizerGroup {
       this.maxBasisScale
     )
     Circuit.currentBasisScale = basisScale
-    this.basisPlane.scale.set(basisInfo.sizeX + 1, basisInfo.sizeY + 1, 1)
+    this.basisPlane.scale.set(basisInfo.sizeX + 4, basisInfo.sizeY + 4, 1)
     const offsetX = -basisInfo.sizeX / 2 - 0.5
     const offsetY = 0
     const offsetZ = -basisInfo.sizeY / 2 - 0.5
