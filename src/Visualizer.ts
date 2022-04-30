@@ -14,6 +14,7 @@ import { VisualizerCamera } from './camera/VisualizerCamera'
 import { Recalculate } from './scene/Recalculates'
 import { getInitialData } from './utils/getInitialData'
 import { Circuit } from './scene/Circuit'
+import { FilmPass } from 'three/examples/jsm/postprocessing/FilmPass.js'
 import { StartupPass } from './postprocess/StartupPass'
 
 export class Visualizer {
@@ -76,12 +77,8 @@ export class Visualizer {
 
     // set render path
     composer.addPass(new RenderPass(scene, camera))
-    const startupPass = new StartupPass(
-      scene,
-      camera,
-      canvas.width,
-      canvas.height
-    )
+    composer.addPass(new FilmPass(0.7, 0.3, undefined, 0))
+    const startupPass = new StartupPass(camera)
     composer.addPass(startupPass)
 
     // animation loop

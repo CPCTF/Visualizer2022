@@ -1,5 +1,4 @@
 import type { ReactNode, VFC } from 'react'
-import { FrameBackground } from '../MonoColorBG'
 import { TextStyle, Texture } from 'pixi.js'
 import { Container, Sprite, Text } from '@inlet/react-pixi'
 import { windowEdge, windowHeaderEdge, windowHeaderHeight } from '../../globals'
@@ -87,13 +86,6 @@ export const FrameTemplate: VFC<FrameTemplate> = ({
       </Container>
 
       <Container position={[windowEdge, windowHeaderHeight]}>
-        {/* for delay load */}
-        {!children ? null : (
-          <FrameBackground
-            width={width - windowEdge * 2}
-            height={height - windowHeaderHeight - windowEdge}
-          />
-        )}
         {children}
       </Container>
     </>

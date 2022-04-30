@@ -11,6 +11,7 @@ import titleSrc from './kusodasaTitle.png'
 import prevTitleSrc from './kusodasaTitle2.png'
 import nazoCatSrc from './nazoCat.png'
 import counterSrc from './counter.png'
+import { FrameBackground } from '#/window/utils/MonoColorBG'
 
 const twoPadding = (time: number) => {
   return ('00' + time).slice(-2)
@@ -47,6 +48,7 @@ export const ClockFrame: VFC<WindowComponentProps> = ({
         [x, y, width, height]
       )}
     >
+      <FrameBackground bgColor={0xffffff} width={width} height={height} />
       <Container scale={width / virtualWidth}>
         {/* 背景 */}
         <Sprite
