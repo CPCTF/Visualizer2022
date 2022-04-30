@@ -12,12 +12,16 @@ export class CircuitManager {
   static circuitBasisInfo: CircuitBasisInfo | undefined = undefined
   static circuitPartsInfos: CircuitPartsInfo[] | undefined = undefined
   static circuitWiresInfos: CircuitWiresInfo[] | undefined = undefined
-  private static initBasisSize = [30, 30]
+  public static initBasisSize: [number, number] = [30, 30]
   public static getBasisSize(): [number, number] {
-    return [
-      this.circuitBasisInfo?.sizeX ?? this.initBasisSize[0],
-      this.circuitBasisInfo?.sizeY ?? this.initBasisSize[1]
-    ]
+    if (this.circuitBasisInfo == undefined) {
+      return this.initBasisSize
+    } else {
+      return [
+        Math.max(this.circuitBasisInfo?.sizeX, this.initBasisSize[0]),
+        Math.max(this.circuitBasisInfo?.sizeY, this.initBasisSize[1])
+      ]
+    }
   }
   public static setCircuitInfo(json: string) {
     const isDebug = false
