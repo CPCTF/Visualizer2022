@@ -24,7 +24,7 @@ export class CircuitManager {
     }
   }
   public static setCircuitInfo(json: string) {
-    const isDebug = true
+    const isDebug = false
     if (isDebug) {
       ;[this.circuitBasisInfo, this.circuitPartsInfos, this.circuitWiresInfos] =
         CircuitInfoUtils.jsonToInfo(JSON.stringify(jsonSrc))

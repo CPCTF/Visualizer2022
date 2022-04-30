@@ -1,4 +1,3 @@
-import { CircuitManager } from '#/circuit/CliantScript/CircuitManager'
 import { EventEmitter } from '#/system/EventEmitter'
 import { UserManager } from '#/system/UserManager'
 import { VisualizerGroup } from '#/templates/VisualizerGroup'
