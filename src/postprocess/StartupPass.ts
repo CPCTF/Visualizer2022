@@ -36,7 +36,7 @@ float absmax(vec4 _v) {
 void main() {
   vec2 d = vec2(0.001, 0.0);
   vec4 texeln = texture2D( tDiffuse, floor(vUv * 100.0) / 100.0 );
-  texeln = floor(texeln * 8.0) / 8.9;
+  texeln = floor(texeln * 4.0) / 4.0;
   vec4 texel = texture2D( tDiffuse, vUv );
 
   vec4 edge = texeln;
