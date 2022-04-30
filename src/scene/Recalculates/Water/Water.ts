@@ -42,7 +42,7 @@ class Water extends VisualizerObject {
     )
     const eye = options.eye !== undefined ? options.eye : new Vector3(0, 0, 0)
     const distortionScale =
-      options.distortionScale !== undefined ? options.distortionScale : 20.0
+      options.distortionScale !== undefined ? options.distortionScale : 100.0
     const side = options.side !== undefined ? options.side : FrontSide
     const fog = options.fog !== undefined ? options.fog : false
 
@@ -189,7 +189,7 @@ class Water extends VisualizerObject {
 
     material.uniforms['eye'].value = eye
 
-    const geometry = new PlaneGeometry(1000, 1000)
+    const geometry = new PlaneGeometry(100, 100)
     super(geometry, material)
 
     this.onBeforeRender = function (_renderer, _scene, camera) {

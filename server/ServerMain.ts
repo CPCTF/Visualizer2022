@@ -33,9 +33,11 @@ const serverMain = async () => {
   const json = (await res.json()) as ServerResponse
 
   // implementation
-  let result = CircuitBuilder.build(json)
+  let result = ''
   if (isDebug) {
     result = CircuitBuilder.build(CircuitBuilder.dummyServerResponse)
+  } else {
+    result = CircuitBuilder.build(json)
   }
   // TODO: !!generated in local!!
   const basepath = process.env.EXPORT_DIR ?? './'

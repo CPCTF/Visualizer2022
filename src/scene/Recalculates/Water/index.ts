@@ -19,7 +19,7 @@ export class WaterAnimation extends VisualizerGroup {
       ),
       alpha: 1.0,
       waterColor: 0x3e89ce,
-      distortionScale: 2.7,
+      distortionScale: 20.0,
       fog: undefined,
       sunDirection: undefined,
       sunColor: undefined,

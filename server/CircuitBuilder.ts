@@ -17,24 +17,25 @@ export class CircuitBuilder {
   //単位提出数(subUnit毎に一つパーツがおかれる)
   static subUnit = 10
   //予想されるパーツが占領するセルの領域の1辺
-  static sidePerParts = 5
+  static sideSmallPerParts = 10
+  static sideBigPerParts = 18
   //何個小さいパーツが集まると大きいパーツになるか
-  static bigPerSmall = 5
+  static bigPerSmall = 10
   //パーツ設置最大試行回数
-  static maxAttempts = 50
+  static maxAttempts = 100
 
   public static dummyServerResponse: ServerResponse = {
-    total: 90,
+    total: 1651,
     genre: {
-      PPC: 10,
-      Web: 10,
-      Crypto: 10,
-      Binary: 10,
-      Pwn: 10,
-      Misc: 10,
-      Shell: 10,
-      Forensics: 10,
-      OSINT: 10
+      PPC: 318,
+      Web: 166,
+      Crypto: 118,
+      Binary: 146,
+      Pwn: 80,
+      Misc: 206,
+      Shell: 80,
+      Forensics: 200,
+      OSINT: 337
     }
   }
 
@@ -74,8 +75,21 @@ export class CircuitBuilder {
 
   //基盤部品を配置し、結果をjsonにして返す
   public static build(info: ServerResponse): string {
-    const totalNum = Math.floor(info.total / this.subUnit)
-    let side = Math.floor(totalNum * this.sidePerParts)
+    let totalSmallNum = 0
+    let totalBigNum = 0
+    for (const key in info.genre) {
+      const genre = key as Genre
+      const partsNum = Math.floor(info.genre[genre] / CircuitBuilder.subUnit)
+      const partsBigNum = Math.floor(partsNum / CircuitBuilder.bigPerSmall)
+      const partsSmallNum = partsNum % CircuitBuilder.bigPerSmall
+      totalBigNum += partsBigNum
+      totalSmallNum += partsSmallNum
+    }
+    let side =
+      CircuitBuilder.sideSmallPerParts *
+      Math.floor(Math.sqrt(totalSmallNum) + 1)
+    side +=
+      CircuitBuilder.sideBigPerParts * Math.floor(Math.sqrt(totalBigNum) + 1)
     //sideを偶数にする
     side += side % 2 == 0 ? 0 : 1
     const center = Math.floor(side / 2)
@@ -96,7 +110,7 @@ export class CircuitBuilder {
 
     for (const key in info.genre) {
       const genre = key as Genre
-      const partsNum = Math.floor(info.genre[genre] / this.subUnit)
+      const partsNum = Math.floor(info.genre[genre] / CircuitBuilder.subUnit)
       const partsBigNum = Math.floor(partsNum / CircuitBuilder.bigPerSmall)
       const partsSmallNum = partsNum % CircuitBuilder.bigPerSmall
       for (let i = 0; i < partsBigNum; i++) {
@@ -116,7 +130,7 @@ export class CircuitBuilder {
         let attempts = 0
         while (!basis.putParts(x, y, v)) {
           attempts += 1
-          if (attempts >= this.maxAttempts) {
+          if (attempts >= CircuitBuilder.maxAttempts) {
             console.error('パーツ設置最大試行回数を超えました')
             break
           }
