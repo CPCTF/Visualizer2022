@@ -1,9 +1,7 @@
 import { Container, Sprite, Text } from '@inlet/react-pixi'
 import { TextStyle } from '@pixi/text'
-import { setVolume, windowHeaderHeight } from '../globals'
+import { windowHeaderHeight } from '../globals'
 import { SpriteHolder } from '../stores/SpriteHolder'
-import { getFrameHeight } from '../utils/FrameTemplate'
-import { playSound, playLongSound } from '../utils/sounds/sound'
 
 export interface ButtonProps {
   text: string

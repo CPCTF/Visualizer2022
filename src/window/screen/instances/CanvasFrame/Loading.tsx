@@ -6,6 +6,7 @@ import folderSrc from './folder.png'
 import loadingFrameSrc from './loading_frame.png'
 import loadingFillSrc from './loading_fill.png'
 import { addLoadFiles } from '#/globals/loadFiles'
+import { FrameBackground } from '#/window/utils/MonoColorBG'
 
 interface LoadingCanvasProps {
   width: number
@@ -66,49 +67,53 @@ export const LoadingCanvas: VFC<LoadingCanvasProps> = ({
   }, [])
 
   return (
-    <Container position={[width / 2, height / 2]}>
-      {textures.index < 0 ? null : (
-        <Sprite
-          texture={textures.textures[textures.index]}
+    <>
+      <FrameBackground bgColor={0xffffff} width={width} height={height} />
+      <Container position={[width / 2, height / 2]}>
+        {textures.index < 0 ? null : (
+          <Sprite
+            texture={textures.textures[textures.index]}
+            anchor={0.5}
+            position={[0, -50]}
+            width={64}
+            height={64}
+          />
+        )}
+        <Text
+          text={pathText}
           anchor={0.5}
-          position={[0, -50]}
-          width={64}
-          height={64}
+          position={[0, 0]}
+          style={
+            new TextStyle({
+              align: 'center',
+              fontFamily:
+                'GNUUnifont, "Source Sans Pro", Helvetica, sans-serif',
+              fontSize: 20,
+              fill: '#000'
+            })
+          }
         />
-      )}
-      <Text
-        text={pathText}
-        anchor={0.5}
-        position={[0, 0]}
-        style={
-          new TextStyle({
-            align: 'center',
-            fontFamily: 'GNUUnifont, "Source Sans Pro", Helvetica, sans-serif',
-            fontSize: 20,
-            fill: '#000'
-          })
-        }
-      />
-      <Sprite
-        image={loadingFrameSrc}
-        position={[0, 50]}
-        anchor={0.5}
-        width={260}
-        height={32}
-      >
-        {new Array(Math.floor(16 * percent)).fill(null).map((_, index) => {
-          return (
-            <Sprite
-              key={index}
-              image={loadingFillSrc}
-              anchor={[0, 0.5]}
-              position={[(index - 8) * 16, 0]}
-              width={16}
-              height={32}
-            />
-          )
-        })}
-      </Sprite>
-    </Container>
+        <Sprite
+          image={loadingFrameSrc}
+          position={[0, 50]}
+          anchor={0.5}
+          width={260}
+          height={32}
+        >
+          {new Array(Math.floor(16 * percent)).fill(null).map((_, index) => {
+            return (
+              <Sprite
+                key={index}
+                image={loadingFillSrc}
+                anchor={[0, 0.5]}
+                position={[(index - 8) * 16, 0]}
+                width={16}
+                height={32}
+              />
+            )
+          })}
+        </Sprite>
+      </Container>
+    </>
   )
 }
