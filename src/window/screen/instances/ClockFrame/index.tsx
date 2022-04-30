@@ -49,11 +49,7 @@ export const ClockFrame: VFC<WindowComponentProps> = ({
         [x, y, width, height]
       )}
     >
-      <FrameBackground
-        bgColor={0xffffff}
-        width={getFrameWidth(width)}
-        height={getFrameHeight(height)}
-      />
+      <FrameBackground bgColor={0xffffff} width={width} height={height} />
       <Container scale={width / virtualWidth}>
         {/* 背景 */}
         <Sprite
