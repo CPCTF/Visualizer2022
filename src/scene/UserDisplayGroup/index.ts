@@ -5,7 +5,7 @@ import { VisualizerGroup } from '#/templates/VisualizerGroup'
 import { UserDisplay } from './UserDisplay'
 
 export class UserDisplayGroup extends VisualizerGroup {
-  private users: UserDisplay[]
+  private static users: UserDisplay[]
   private readonly initDisplayNum = 300
   private readonly basisSizePadding = 5
   private readonly displayBoundingBox = [3.0, 2.6, 2.5]
@@ -25,7 +25,7 @@ export class UserDisplayGroup extends VisualizerGroup {
 
   constructor() {
     super()
-    this.users = []
+    UserDisplayGroup.users = []
   }
 
   public start() {
@@ -43,11 +43,11 @@ export class UserDisplayGroup extends VisualizerGroup {
       this.randomPutDisplay(user)
     }
     UserManager.ranking.forEach((id, index) => {
-      this.users[index].updateUser(id)
+      UserDisplayGroup.users[index].updateUser(id)
     })
 
     EventEmitter.on('submit', ({ userId }) => {
-      const user = this.users.filter(user => user.userid === userId)
+      const user = UserDisplayGroup.users.filter(user => user.userid === userId)
       if (!user.length) return
       user[0].animation()
     })
@@ -57,17 +57,23 @@ export class UserDisplayGroup extends VisualizerGroup {
         this.initDisplayExists(i)
       }
       UserManager.ranking.forEach((id, index) => {
-        if (index < this.users.length) {
-          this.users[index].updateUser(id)
-          this.randomPutDisplay(this.users[index])
+        if (index < UserDisplayGroup.users.length) {
+          UserDisplayGroup.users[index].updateUser(id)
+          this.randomPutDisplay(UserDisplayGroup.users[index])
         }
       })
-      this.users.forEach(user => {
+      UserDisplayGroup.users.forEach(user => {
         if (user.userid == undefined) {
           this.randomPutDisplay(user)
         }
       })
     })
+  }
+
+  public static getUserDisplay(userId: string): UserDisplay | undefined {
+    const user = UserDisplayGroup.users.filter(user => user.userid === userId)
+    if (!user.length) return undefined
+    return user[0]
   }
 
   private getDisplayScale(rank: number): number {
@@ -149,7 +155,7 @@ export class UserDisplayGroup extends VisualizerGroup {
     const user = new UserDisplay()
     if (userid != undefined) user.updateUser(userid)
     this.add(user)
-    this.users.push(user)
+    UserDisplayGroup.users.push(user)
     return user
   }
 }

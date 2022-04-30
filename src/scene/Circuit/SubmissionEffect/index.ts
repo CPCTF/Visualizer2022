@@ -43,7 +43,7 @@ export class SubmissionEffect extends VisualizerGroup {
   public start() {
     EventEmitter.on('submit', (submission: SubmissionRaw) => {
       const tl = gsap.timeline()
-      tl.timeScale(1 / 2.5)
+      tl.timeScale(1 / 5)
       tl.call(() => {
         this.question.visible = true
         this.objects.rotation.x = Math.PI * 0.3
