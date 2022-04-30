@@ -1,32 +1,21 @@
-import { Time } from '#/system/Time'
-import { EventEmitter } from '#/system/EventEmitter'
 import type { IRenderable } from '#/templates/IRenderable'
 import gsap from 'gsap'
-import {
-  Euler,
-  Object3D,
-  PerspectiveCamera,
-  Quaternion,
-  Vector2,
-  Vector3
-} from 'three'
+import { Euler, PerspectiveCamera, Vector2, Vector3 } from 'three'
 import { CircuitManager } from '#/circuit/CliantScript/CircuitManager'
-import type { CircuitBasisInfo } from '#/circuit/BothScript/CircuitInfo'
+import { EventEmitter } from '#/system/EventEmitter'
+import { Time } from '#/system/Time'
 
 export class VisualizerCamera extends PerspectiveCamera implements IRenderable {
   private state: VisualizerCameraState = 'Basis'
   private timeline = gsap.timeline()
-  private readonly minPosY = 6
   constructor() {
     super(60, 1, 1, 2000)
-    /*
     EventEmitter.on('recalculatestart', () => {
-      gsap.to(this.position, 2, { y: 20 })
+      this.changeState('RecalculateStart')
     })
     EventEmitter.on('recalculateend', () => {
-      gsap.to(this.position, 2, { y: 10 })
+      this.changeState('RecalculateEnd')
     })
-    */
   }
 
   public start(): void {
@@ -45,6 +34,10 @@ export class VisualizerCamera extends PerspectiveCamera implements IRenderable {
         return this.lookBasis()
       case 'Display':
         return this.lookDisplay()
+      case 'RecalculateStart':
+        return this.recalculateStart()
+      case 'RecalculateEnd':
+        return this.recalculateEnd()
     }
   }
 
@@ -57,8 +50,13 @@ export class VisualizerCamera extends PerspectiveCamera implements IRenderable {
     }
   }
 
+  private changeState(state: VisualizerCameraState): void {
+    this.timeline.clear()
+    this.state = state
+  }
+
+  private readonly basisMovePosY = 6.5
   private readonly basisMoveTime = 12
-  private readonly basisRotTime = 2
   private basisSideDir = 0
   private lookBasis(): void {
     this.basisSideDir =
@@ -78,19 +76,11 @@ export class VisualizerCamera extends PerspectiveCamera implements IRenderable {
         : -sizeZ / 2
 
     const toPos = new Vector2(toPosX, toPosZ)
-    const rotate = this.getLookRotation(new Vector3(toPos.x, -10, toPos.x))
     //rot
     const tl1 = gsap.timeline()
-    /*
-    tl1.to(this.rotation, this.basisMoveTime, {
-      x: rotate.x,
-      y: rotate.y,
-      z: rotate.z
-    })*/
     tl1
       .call(() => {
         this.lookAt(0, 0, 0)
-        console.log('lookAt')
       })
       .delay(1 / 30)
       .repeat(1e9)
@@ -98,6 +88,7 @@ export class VisualizerCamera extends PerspectiveCamera implements IRenderable {
     const tl2 = gsap.timeline()
     tl2.to(this.position, this.basisMoveTime, {
       x: toPos.x,
+      y: this.basisMovePosY,
       z: toPos.y
     })
     this.timeline.add(tl1, 0)
@@ -108,7 +99,54 @@ export class VisualizerCamera extends PerspectiveCamera implements IRenderable {
     //TODO
   }
 
-  private getLookRotation(look: Vector3): Euler {
+  private readonly recalculateStartTime = 3
+  private readonly recalculateStartPosY = 30
+  private readonly recalculateStartRange = 5
+  private recalculateStart(): void {
+    //rot
+    const tl1 = gsap.timeline()
+    tl1
+      .call(() => {
+        this.lookAt(0, 0, 0)
+      })
+      .delay(1 / 30)
+      .repeat(1e9)
+    //moveY
+    const tl2 = gsap.timeline()
+    tl2.to(this.position, this.recalculateStartTime, {
+      y: this.recalculateStartPosY
+    })
+    //moveXZ
+    const tl3 = gsap.timeline()
+    tl3
+      .to(this.position, 1, {
+        x: -this.recalculateStartRange,
+        z: -this.recalculateStartRange
+      })
+      .to(this.position, 1, {
+        x: this.recalculateStartRange,
+        z: -this.recalculateStartRange
+      })
+      .to(this.position, 1, {
+        x: this.recalculateStartRange,
+        z: this.recalculateStartRange
+      })
+      .to(this.position, 1, {
+        x: -this.recalculateStartRange,
+        z: this.recalculateStartRange
+      })
+      .repeat(1e9)
+
+    this.timeline.add(tl1, 0)
+    this.timeline.add(tl2, 0)
+    this.timeline.add(tl3, 0)
+  }
+
+  private recalculateEnd(): void {
+    this.changeState('Basis')
+  }
+
+  public getLookRotation(look: Vector3): Euler {
     const befrot = this.rotation.clone()
     this.lookAt(look)
     const rotate = this.rotation.clone()
@@ -117,6 +155,11 @@ export class VisualizerCamera extends PerspectiveCamera implements IRenderable {
   }
 }
 
-export const VisualizerCameraStateList = ['Basis', 'Display'] as const
+export const VisualizerCameraStateList = [
+  'Basis',
+  'RecalculateStart',
+  'RecalculateEnd',
+  'Display'
+] as const
 // TODO: ジャンル追加
 export type VisualizerCameraState = typeof VisualizerCameraStateList[number]

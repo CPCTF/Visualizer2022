@@ -5,8 +5,9 @@ import { WaterAnimation } from './Water'
 import gsap from 'gsap'
 
 export class Recalculate extends VisualizerGroup {
-  private startY = -2
-  private endY = 2
+  private readonly startY = -25
+  private readonly endY = 6
+  private readonly animationDuration = 3
   private emergencyAnimation: EmergencyAnimation
   private waterAnimation: WaterAnimation
 
@@ -25,11 +26,11 @@ export class Recalculate extends VisualizerGroup {
     this.position.y = this.startY
     EventEmitter.on('recalculatestart', () => {
       this.visible = true
-      gsap.to(this.position, 1, { y: this.endY })
+      gsap.to(this.position, this.animationDuration, { y: this.endY })
     })
     EventEmitter.on('recalculateend', () => {
       gsap
-        .to(this.position, 1, { y: this.startY })
+        .to(this.position, this.animationDuration, { y: this.startY })
         .eventCallback('onComplete', () => {
           this.visible = false
         })
