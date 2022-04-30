@@ -1,12 +1,16 @@
 import type { WindowComponentProps } from '#/window/stores/WindowSystem'
 import { useEffect, useRef, useState, VFC } from 'react'
-import { Texture, BaseTexture } from 'pixi.js'
-import { Sprite, useTick } from '@inlet/react-pixi'
+import { Texture, BaseTexture, TextStyle, Text as PixiText } from 'pixi.js'
+import { Sprite, useTick, Text } from '@inlet/react-pixi'
 import { LoadingCanvas } from './Loading'
 import { SplashScreen } from './SplashScreen'
 import { Visualizer } from '#/Visualizer'
 
 type VisualizerMode = 'loading' | 'splashscreen' | 'visualizer'
+
+const twoPadding = (time: number) => {
+  return ('00' + time).slice(-2)
+}
 
 export const CanvasFrame: VFC<WindowComponentProps> = ({ width, height }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
@@ -15,11 +19,21 @@ export const CanvasFrame: VFC<WindowComponentProps> = ({ width, height }) => {
     new Texture(new BaseTexture())
   )
   const [mode, setMode] = useState<VisualizerMode>('loading')
+  const timeRef = useRef<PixiText>(null)
 
   useTick(() => {
     texture.update()
     const tick = Visualizer.getInstance().tick
     if (tick) tick()
+
+    if (timeRef.current) {
+      const now = new Date()
+      timeRef.current.text = `${now.getFullYear()}-${twoPadding(
+        now.getMonth()
+      )}-${twoPadding(now.getDate())} ${twoPadding(
+        now.getHours()
+      )}:${twoPadding(now.getMinutes())}:${twoPadding(now.getSeconds())}`
+    }
   })
 
   useEffect(() => {
@@ -61,11 +75,42 @@ export const CanvasFrame: VFC<WindowComponentProps> = ({ width, height }) => {
         />
       )
     return (
-      <Sprite
-        texture={texture}
-        width={spriteSize.width}
-        height={spriteSize.height}
-      />
+      <>
+        <Sprite
+          texture={texture}
+          width={spriteSize.width}
+          height={spriteSize.height}
+        />
+
+        <Text
+          text={'\nﾋﾞｼﾞｭｱﾗｲｻﾞ'}
+          anchor={[0.0, 0.0]}
+          position={[20, 20]}
+          style={
+            new TextStyle({
+              align: 'left',
+              fontFamily: 'GNUUnifont, Roboto, Helvetica, sans-serif',
+              fontSize: 48,
+              fill: '#ffffff'
+            })
+          }
+        />
+
+        <Text
+          ref={timeRef}
+          text={''}
+          anchor={[0, 0]}
+          position={[20, 10]}
+          style={
+            new TextStyle({
+              align: 'left',
+              fontFamily: 'GNUUnifont, Roboto, Helvetica, sans-serif',
+              fontSize: 48,
+              fill: '#ffffff'
+            })
+          }
+        />
+      </>
     )
   }
 
