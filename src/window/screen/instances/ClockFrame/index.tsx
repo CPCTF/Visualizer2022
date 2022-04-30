@@ -12,7 +12,6 @@ import prevTitleSrc from './kusodasaTitle2.png'
 import nazoCatSrc from './nazoCat.png'
 import counterSrc from './counter.png'
 import { FrameBackground } from '#/window/utils/MonoColorBG'
-import { getFrameHeight, getFrameWidth } from '#/window/utils/FrameTemplate'
 
 const twoPadding = (time: number) => {
   return ('00' + time).slice(-2)
