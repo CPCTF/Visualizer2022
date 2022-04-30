@@ -6,7 +6,7 @@ import gsap from 'gsap'
 
 export class Recalculate extends VisualizerGroup {
   private readonly startY = -25
-  private readonly endY = 6
+  private readonly endY = 20
   private readonly animationDuration = 3
   private emergencyAnimation: EmergencyAnimation
   private waterAnimation: WaterAnimation
