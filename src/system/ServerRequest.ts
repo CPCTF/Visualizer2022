@@ -19,18 +19,12 @@ export class ServerRequest {
       return generateInitialData()
     }
     const usersFetch = fetch('/api/users').then(getJson)
-    const recalculateFetch = this.recalculate()
     const timeFetch = fetch('/api/schedule').then(getJson)
 
-    const [users, recalculate, time] = await Promise.all([
-      usersFetch,
-      recalculateFetch,
-      timeFetch
-    ])
+    const [users, time] = await Promise.all([usersFetch, timeFetch])
 
     return {
       users,
-      recalculate,
       startTime: time.startTime,
       endTime: time.endTime
     }
