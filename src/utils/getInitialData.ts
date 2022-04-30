@@ -18,5 +18,5 @@ export const getInitialData = async () => {
   // 再計算直前とかにページ読むとバグる気がするけど:genba_cat:
   setTimeout(() => {
     scoreRecalculated()
-  }, 4000)
+  }, 4500)
 }
