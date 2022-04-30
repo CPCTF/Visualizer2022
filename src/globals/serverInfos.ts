@@ -1,2 +1,2 @@
-export const apiBasePath = 'https://dev.cpctf.space/api'
-export const websocketBasePath = 'wss://dev.cpctf.space/ws/visualizer'
+export const apiBasePath = 'https://cpctf.space/api'
+export const websocketBasePath = 'wss://cpctf.space/ws/visualizer'
