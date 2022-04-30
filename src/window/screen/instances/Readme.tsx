@@ -3,7 +3,6 @@ import { useMemo, VFC } from 'react'
 import { Graphics, TextStyle } from 'pixi.js'
 import { Container, Text } from '@inlet/react-pixi'
 import { FrameBackground } from '#/window/utils/MonoColorBG'
-import { getFrameHeight, getFrameWidth } from '#/window/utils/FrameTemplate'
 
 const readmeText = `# VisualizerOS(仮称)
 せいさくしゃ: Fogrex, Renard, Uzaki
