@@ -58,7 +58,6 @@ export const generateInitialData = (): InitialRaw => {
       userName: name,
       iconUrl
     })),
-    recalculate: generateRecalculate(),
     startTime: startDate.toString(),
     endTime: endDate.toString()
   }
