@@ -16,23 +16,23 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://dev.cpctf.space',
+        target: 'https://cpctf.space',
         changeOrigin: true
       },
       '/ws': {
-        target: 'https://dev.cpctf.space',
+        target: 'https://cpctf.space',
         changeOrigin: true,
         ws: true,
         headers: {
-          origin: 'https://dev.cpctf.space'
+          origin: 'https://cpctf.space'
         }
       },
       '/images': {
-        target: 'https://dev.cpctf.space',
+        target: 'https://cpctf.space',
         changeOrigin: true
       },
       '/visualizer/circuit.json': {
-        target: 'https://dev.cpctf.space',
+        target: 'https://cpctf.space',
         changeOrigin: true
       }
     }
