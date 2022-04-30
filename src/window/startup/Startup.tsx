@@ -4,7 +4,11 @@ import { useContext, useState } from 'react'
 import { setVolume, windowHeaderHeight } from '../globals'
 import { WindowSettingContext } from '../GlobalSetting'
 import { FrameBackground } from '../utils/MonoColorBG'
-import { FrameTemplate, getFrameHeight } from '../utils/FrameTemplate'
+import {
+  FrameTemplate,
+  getFrameHeight,
+  getFrameWidth
+} from '../utils/FrameTemplate'
 import { playLongSound, playSound } from '../utils/sounds/sound'
 import { Button } from './Button'
 
@@ -22,6 +26,11 @@ export const Startup = () => {
       <FrameBackground bgColor={0x000000} width={width} height={height} />
       <Container position={[rect.left, rect.top]}>
         <FrameTemplate width={rect.width} height={rect.height} title="音の確認">
+          <FrameBackground
+            bgColor={0xc6c6c6}
+            width={getFrameWidth(rect.width)}
+            height={getFrameHeight(rect.height)}
+          />
           <Text
             text="音を鳴らしても？"
             anchor={[0, 0]}
@@ -40,8 +49,8 @@ export const Startup = () => {
             text="いいね"
             anchor={[1, 0.5]}
             position={[
-              getFrameHeight(rect.width) - 205,
-              getFrameHeight(rect.height) - 20
+              getFrameHeight(rect.width) - 215,
+              getFrameHeight(rect.height) - 30
             ]}
             click={() => {
               setVolume(1)
@@ -55,8 +64,8 @@ export const Startup = () => {
             text="よくないね"
             anchor={[1, 0.5]}
             position={[
-              getFrameHeight(rect.width) - 50,
-              getFrameHeight(rect.height) - 20
+              getFrameHeight(rect.width) - 60,
+              getFrameHeight(rect.height) - 30
             ]}
             click={() => {
               setVolume(0)
