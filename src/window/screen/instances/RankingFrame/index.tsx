@@ -26,13 +26,25 @@ ${
 }`
 }
 
+const rankingPost = [
+  '1st',
+  '2nd',
+  '3rd',
+  '4th',
+  '5th',
+  '6th',
+  '7th',
+  '8th',
+  '9th',
+  '10th'
+]
+
 export const RankingFrame: VFC<WindowComponentProps> = ({
   x,
   y,
   width,
   height
 }) => {
-  const [ranking, setRanking] = useState<User[]>(() => UserManager.ranking)
   const [updating, setUpdating] = useState(false)
 
   useEffect(() => {
@@ -41,7 +53,6 @@ export const RankingFrame: VFC<WindowComponentProps> = ({
     }
     const recalculateEndHandler = () => {
       setUpdating(false)
-      setRanking(UserManager.ranking)
     }
 
     EventEmitter.on('recalculatestart', recalculateStartHandler)
@@ -59,7 +70,6 @@ export const RankingFrame: VFC<WindowComponentProps> = ({
   )
 
   const updated = !updating && Visualizer.getInstance().isInitialized
-
   return (
     <Container mask={mask}>
       <FrameBackground width={width} height={height} bgColor={0x000000} />
@@ -77,15 +87,15 @@ export const RankingFrame: VFC<WindowComponentProps> = ({
         }
       />
       {updated
-        ? ranking.slice(0, 10).map((user, index) => {
+        ? UserManager.ranking.slice(0, 10).map((user, index) => {
             const textColor =
               index == 0 ? 'red' : index == 1 || index == 2 ? 'yellow' : 'white'
             return (
               <Text
                 key={user.id}
-                text={`${index + 1} : ${user.displayName} / ${Math.floor(
-                  user.score
-                )}pts`}
+                text={`${rankingPost[index]} : ${
+                  user.displayName
+                } / ${Math.floor(user.score)}pts`}
                 anchor={0}
                 position={[0, 124 + index * 26]}
                 style={

@@ -1,6 +1,7 @@
 import { ServerRequest } from '#/system/ServerRequest'
 import { globalSettings } from '#/system/GlobalSettings'
 import { UserManager } from '#/system/UserManager'
+import { scoreRecalculated } from '#/system/events/ScoreRecalculated'
 
 // setup with initial data
 export const getInitialData = async () => {
@@ -10,10 +11,8 @@ export const getInitialData = async () => {
     UserManager.addUser(value)
   })
 
-  UserManager.updateRanking(data.recalculate?.ranking)
-
-  // TODO: Recalculate
-
   globalSettings.startTime = new Date(data.startTime)
   globalSettings.endTime = new Date(data.endTime)
+
+  scoreRecalculated()
 }
