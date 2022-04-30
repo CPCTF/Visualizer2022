@@ -14,5 +14,9 @@ export const getInitialData = async () => {
   globalSettings.startTime = new Date(data.startTime)
   globalSettings.endTime = new Date(data.endTime)
 
-  scoreRecalculated()
+  // すぐさま実行するとイベント未登録のオブジェクトで再計算イベントが発生しない
+  // 再計算直前とかにページ読むとバグる気がするけど:genba_cat:
+  setTimeout(() => {
+    scoreRecalculated()
+  }, 4000)
 }
