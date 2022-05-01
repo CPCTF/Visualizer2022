@@ -30,10 +30,9 @@ export class User extends EventTarget {
   public updateInfo(displayName: string, iconPath: string) {
     this._displayName = displayName
     if (iconPath && (!this._iconPath || this._iconPath !== iconPath)) {
-      const pathname = new URL(iconPath).pathname
-      this._iconPath = pathname
+      this._iconPath = iconPath
       this._icon?.dispose()
-      this._icon = Loaders.texture.load(pathname)
+      this._icon = Loaders.texture.load(iconPath)
     }
   }
 

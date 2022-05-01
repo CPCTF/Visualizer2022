@@ -29,10 +29,6 @@ export default defineConfig({
           origin: cpctfBaseUrl
         }
       },
-      '/profile_images': {
-        target: cpctfBaseUrl,
-        changeOrigin: true
-      },
       '/images': {
         target: cpctfBaseUrl,
         changeOrigin: true
