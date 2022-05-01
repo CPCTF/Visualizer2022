@@ -11,6 +11,8 @@ export class Emergency extends VisualizerGroup {
   private loopTime = 2
   static emergencyBlackGeom: BufferGeometry | undefined = undefined
   static emergencyRedGeom: BufferGeometry | undefined = undefined
+  static emergencyBlackMaterial: ShaderMaterial[] | undefined = undefined
+  static emergencyRedMaterial: ShaderMaterial[] | undefined = undefined
   constructor(offsetTime = 0) {
     super()
     if (Emergency.emergencyBlackGeom == undefined) {
@@ -28,8 +30,20 @@ export class Emergency extends VisualizerGroup {
     this.offsetTime = offsetTime
     this.emergencyBlack = new Mesh(Emergency.emergencyBlackGeom)
     this.emergencyRed = new Mesh(Emergency.emergencyRedGeom)
-    moldingMesh(this.emergencyBlack, new Color(0x000000))
-    moldingMesh(this.emergencyRed, new Color(0xff0000))
+    if (Emergency.emergencyBlackMaterial == undefined) {
+      moldingMesh(this.emergencyBlack, new Color(0x000000))
+      Emergency.emergencyBlackMaterial = this.emergencyBlack
+        .material as ShaderMaterial[]
+    } else {
+      this.emergencyBlack.material = Emergency.emergencyBlackMaterial
+    }
+    if (Emergency.emergencyRedMaterial == undefined) {
+      moldingMesh(this.emergencyRed, new Color(0xff0000))
+      Emergency.emergencyRedMaterial = this.emergencyRed
+        .material as ShaderMaterial[]
+    } else {
+      this.emergencyRed.material = Emergency.emergencyRedMaterial
+    }
     this.add(this.emergencyBlack)
     this.add(this.emergencyRed)
   }
@@ -43,13 +57,5 @@ export class Emergency extends VisualizerGroup {
     )
     size = size < 0 ? 0 : size
     this.scale.set(size, size, size)
-    ;(this.emergencyBlack.material as ShaderMaterial[])[0].uniforms.time.value =
-      Time.time + this.offsetTime
-    ;(this.emergencyRed.material as ShaderMaterial[])[0].uniforms.time.value =
-      Time.time + this.offsetTime
-    ;(this.emergencyBlack.material as ShaderMaterial[])[1].uniforms.time.value =
-      Time.time + this.offsetTime
-    ;(this.emergencyRed.material as ShaderMaterial[])[1].uniforms.time.value =
-      Time.time + this.offsetTime
   }
 }
