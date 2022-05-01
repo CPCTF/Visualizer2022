@@ -1,5 +1,5 @@
 import { Basis } from './Basis'
-import { CircuitParts } from './CircuitParts'
+import type { CircuitParts } from './CircuitParts'
 import { Condenser } from './CircuitParts/Condenser'
 import { CPU } from './CircuitParts/CPU'
 import { GraphicBoard } from './CircuitParts/GraphicBoard'
@@ -11,7 +11,7 @@ import { TipSet } from './CircuitParts/TipSet'
 import { PowerSupply } from './CircuitParts/PowerSupply'
 import { Audio } from './CircuitParts/Audio'
 import { CircuitUtils } from './CircuitUtils'
-import { Genre, ServerResponse } from './ServerMain'
+import type { Genre, ServerResponse } from './ServerMain'
 
 export class CircuitBuilder {
   //単位提出数(subUnit毎に一つパーツがおかれる)

@@ -1,14 +1,14 @@
-import {
-  CircuitBasisInfo,
-  CircuitPartsInfo,
-  CircuitWiresInfo
-} from '../src/circuit/BothScript/CircuitInfo'
+import type {
+  CircuitServerBasisInfo,
+  CircuitServerPartsInfo,
+  CircuitServerWiresInfo
+} from './CircuitServerInfo'
 
 export class CircuitUtils {
   static infoToJson(
-    circuitBasisInfo: CircuitBasisInfo,
-    circuitPartsInfos: CircuitPartsInfo[],
-    circuitWiresInfos: CircuitWiresInfo[]
+    circuitBasisInfo: CircuitServerBasisInfo,
+    circuitPartsInfos: CircuitServerPartsInfo[],
+    circuitWiresInfos: CircuitServerWiresInfo[]
   ): string {
     const objs = new Array<ICircuit>(0)
     const basisObj: IBasisInfo = {
