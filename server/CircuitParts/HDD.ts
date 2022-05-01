@@ -1,10 +1,10 @@
-import type { QuestionGenre } from '../../src/system/ResponseType'
 import { CircuitParts } from '../CircuitParts'
+import type { Genre } from '../ServerMain'
 export class HDD extends CircuitParts {
   public sizeX = 4
   public sizeY = 2
   public wirePointsInts: number[][] = new Array(this.sizeY * this.sizeX)
-  public problemCategory: QuestionGenre = 'Binary'
+  public problemCategory: Genre = 'Binary'
   constructor(isBig: boolean) {
     super(isBig)
     this.wirePointsInts.forEach(
