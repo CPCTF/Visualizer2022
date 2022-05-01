@@ -2,7 +2,7 @@ import { defineConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import react from '@vitejs/plugin-react'
 
-const cpctfBaseUrl = 'https://dev.cpctf.space'
+const cpctfBaseUrl = 'https://cpctf.space'
 
 export default defineConfig({
   base: process.env.BUILD_BASE_PATH || '/',
