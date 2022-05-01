@@ -27,6 +27,10 @@ export default defineConfig({
           origin: 'https://cpctf.space'
         }
       },
+      '/profile_images': {
+        target: 'https://cpctf.space',
+        changeOrigin: true
+      },
       '/images': {
         target: 'https://cpctf.space',
         changeOrigin: true
