@@ -5,6 +5,7 @@ import { EventEmitter } from '#/system/EventEmitter'
 import { UserDisplayGroup } from '#/scene/UserDisplayGroup'
 import { Circuit } from '#/scene/Circuit'
 import { globalSettings } from '#/system/GlobalSettings'
+import { scoreRecalculated } from '#/system/events/ScoreRecalculated'
 
 export class VisualizerCamera extends PerspectiveCamera implements IRenderable {
   private state: VisualizerCameraState = 'parts'
@@ -80,7 +81,7 @@ export class VisualizerCamera extends PerspectiveCamera implements IRenderable {
   private recalculateCam(): void {
     this.position.set(0, 10, -10)
     this.lookAt(0, 0, 5)
-    this.setRandomDelay(1e9, 1e9)
+    this.setRandomDelay(100000, 100000)
   }
 
   private userId = ''
@@ -162,6 +163,7 @@ export class VisualizerCamera extends PerspectiveCamera implements IRenderable {
   }
 
   private changeState(state: VisualizerCameraState): void {
+    if (this.state == 'recalculate' && state !== 'parts') return
     this.timeline.clear()
     this.state = state
     globalSettings.cameraNumber = VisualizerCameraStateList.indexOf(state)
