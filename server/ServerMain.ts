@@ -29,7 +29,7 @@ export interface ServerResponse {
 const serverMain = async () => {
   const isDebug = false
   // TODO: fix url
-  const res = await fetch('https://dev.cpctf.space/api/visualizer')
+  const res = await fetch('https://cpctf.space/api/visualizer')
   const json = (await res.json()) as ServerResponse
 
   // implementation
