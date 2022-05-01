@@ -30,9 +30,12 @@ export class User extends EventTarget {
   public updateInfo(displayName: string, iconPath: string) {
     this._displayName = displayName
     if (iconPath && (!this._iconPath || this._iconPath !== iconPath)) {
-      this._iconPath = iconPath
+      const url = new URL(iconPath)
+      const pathname =
+        url.hostname === 'pbs.twimg.com' ? url.href : url.pathname
+      this._iconPath = pathname
       this._icon?.dispose()
-      this._icon = Loaders.texture.load(iconPath)
+      this._icon = Loaders.texture.load(pathname)
     }
   }
 
