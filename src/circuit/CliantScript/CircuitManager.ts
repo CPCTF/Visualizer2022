@@ -6,7 +6,7 @@ import {
 } from '../BothScript/CircuitInfo'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import jsonSrc from '../../../public/circuit.json'
+// import jsonSrc from '../../../public/circuit.json'
 
 export class CircuitManager {
   static circuitBasisInfo: CircuitBasisInfo | undefined = undefined
@@ -26,8 +26,8 @@ export class CircuitManager {
   public static setCircuitInfo(json: string) {
     const isDebug = false
     if (isDebug) {
-      ;[this.circuitBasisInfo, this.circuitPartsInfos, this.circuitWiresInfos] =
-        CircuitInfoUtils.jsonToInfo(JSON.stringify(jsonSrc))
+      // ;[this.circuitBasisInfo, this.circuitPartsInfos, this.circuitWiresInfos] =
+      //   CircuitInfoUtils.jsonToInfo(JSON.stringify(jsonSrc))
     } else {
       ;[this.circuitBasisInfo, this.circuitPartsInfos, this.circuitWiresInfos] =
         CircuitInfoUtils.jsonToInfo(json)
