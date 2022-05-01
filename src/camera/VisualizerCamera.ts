@@ -20,7 +20,12 @@ export class VisualizerCamera extends PerspectiveCamera implements IRenderable {
     this.position.set(0, 3, -6)
     this.lookAt(0, 0, 0)
     EventEmitter.on('submit', ({ userId }) => {
-      if (this.state == 'cpu' || this.state == 'display') return
+      if (
+        this.state == 'cpu' ||
+        this.state == 'display' ||
+        this.state == 'recalculate'
+      )
+        return
       this.userId = userId
       this.changeState('cpu')
       gsap.delayedCall(2, () => {
