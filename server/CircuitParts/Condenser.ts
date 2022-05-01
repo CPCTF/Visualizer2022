@@ -1,5 +1,5 @@
 import { CircuitParts } from '../CircuitParts'
-import { Genre } from '../ServerMain'
+import type { Genre } from '../ServerMain'
 export class Condenser extends CircuitParts {
   public sizeX = 1
   public sizeY = 7

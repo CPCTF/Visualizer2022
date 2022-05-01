@@ -1,5 +1,5 @@
 import { CircuitParts } from '../CircuitParts'
-import { Genre } from '../ServerMain'
+import type { Genre } from '../ServerMain'
 export class Memory extends CircuitParts {
   public sizeX = 8
   public sizeY = 4

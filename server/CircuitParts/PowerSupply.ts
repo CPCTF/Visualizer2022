@@ -1,5 +1,5 @@
 import { CircuitParts } from '../CircuitParts'
-import { Genre } from '../ServerMain'
+import type { Genre } from '../ServerMain'
 export class PowerSupply extends CircuitParts {
   public sizeX = 3
   public sizeY = 2
