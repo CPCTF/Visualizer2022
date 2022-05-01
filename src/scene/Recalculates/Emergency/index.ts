@@ -1,4 +1,6 @@
+import { Time } from '#/system/Time'
 import { VisualizerGroup } from '#/templates/VisualizerGroup'
+import type { ShaderMaterial } from 'three'
 import { Emergency } from './Emergency'
 
 export class EmergencyAnimation extends VisualizerGroup {
@@ -23,5 +25,23 @@ export class EmergencyAnimation extends VisualizerGroup {
         this.add(emergency)
       }
     }
+  }
+  public start() {
+    super.start()
+  }
+  public update() {
+    super.update()
+    ;(
+      Emergency.emergencyBlackMaterial as ShaderMaterial[]
+    )[0].uniforms.time.value = Time.time
+    ;(
+      Emergency.emergencyRedMaterial as ShaderMaterial[]
+    )[0].uniforms.time.value = Time.time
+    ;(
+      Emergency.emergencyBlackMaterial as ShaderMaterial[]
+    )[1].uniforms.time.value = Time.time
+    ;(
+      Emergency.emergencyRedMaterial as ShaderMaterial[]
+    )[1].uniforms.time.value = Time.time
   }
 }
