@@ -1,8 +1,8 @@
 import {
-  CircuitBasisInfo,
-  CircuitPartsInfo,
-  CircuitWiresInfo
-} from '../src/circuit/BothScript/CircuitInfo'
+  CircuitServerBasisInfo,
+  CircuitServerPartsInfo,
+  CircuitServerWiresInfo
+} from './CircuitServerInfo'
 import { Cell, WireExtendInfo } from './Cell'
 import type { CircuitParts } from './CircuitParts'
 
@@ -98,16 +98,16 @@ export class Basis {
   }
 
   convertToCircuitInfos(): [
-    CircuitBasisInfo,
-    CircuitPartsInfo[],
-    CircuitWiresInfo[]
+    CircuitServerBasisInfo,
+    CircuitServerPartsInfo[],
+    CircuitServerWiresInfo[]
   ] {
-    const basisInfo: CircuitBasisInfo = new CircuitBasisInfo(
+    const basisInfo: CircuitServerBasisInfo = new CircuitServerBasisInfo(
       this.sizeX,
       this.sizeY
     )
-    const partsInfos: CircuitPartsInfo[] = new Array(0)
-    const wiresInfos: CircuitWiresInfo[] = new Array(0)
+    const partsInfos: CircuitServerPartsInfo[] = new Array(0)
+    const wiresInfos: CircuitServerWiresInfo[] = new Array(0)
     //wire追加
     this.cells.forEach(v => {
       const wires = new Array<[number, number]>(0)
@@ -122,14 +122,14 @@ export class Basis {
         }
       })
       if (wires.length != 0) {
-        wiresInfos.push(new CircuitWiresInfo(v.x, v.y, wires))
+        wiresInfos.push(new CircuitServerWiresInfo(v.x, v.y, wires))
       }
     })
     //parts追加
     this.parts.forEach(v => {
       const [x, y] = v.getPosition()
       partsInfos.push(
-        new CircuitPartsInfo(
+        new CircuitServerPartsInfo(
           x,
           y,
           v.isBig,

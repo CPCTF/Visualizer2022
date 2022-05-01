@@ -1,10 +1,10 @@
-import type { QuestionGenre } from '../../src/system/ResponseType'
 import { CircuitParts } from '../CircuitParts'
+import { Genre } from '../ServerMain'
 export class TipSet extends CircuitParts {
   public sizeX = 2
   public sizeY = 2
   public wirePointsInts: number[][] = new Array(this.sizeY * this.sizeX)
-  public problemCategory: QuestionGenre = 'PPC'
+  public problemCategory: Genre = 'PPC'
   constructor(isBig: boolean) {
     super(isBig)
     this.wirePointsInts.forEach(
