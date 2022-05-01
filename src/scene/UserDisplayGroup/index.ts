@@ -2,6 +2,7 @@ import { EventEmitter } from '#/system/EventEmitter'
 import { UserManager } from '#/system/UserManager'
 import { VisualizerGroup } from '#/templates/VisualizerGroup'
 import { UserDisplay } from './UserDisplay'
+import gsap from 'gsap'
 
 export class UserDisplayGroup extends VisualizerGroup {
   private static users: UserDisplay[]
@@ -15,6 +16,9 @@ export class UserDisplayGroup extends VisualizerGroup {
   ]
   private readonly displaySizeWH = [2.8, 2.5]
 
+  private readonly startY = 0
+  private readonly endY = 3
+  private readonly animationDuration = 3
   constructor() {
     super()
     UserDisplayGroup.users = []
@@ -25,6 +29,13 @@ export class UserDisplayGroup extends VisualizerGroup {
     UserManager.ranking.forEach((id, index) => {
       if (index >= UserDisplayGroup.users.length) return
       UserDisplayGroup.users[index].updateUser(id)
+    })
+
+    EventEmitter.on('recalculatestart', () => {
+      gsap.to(this.position, this.animationDuration, { y: this.endY })
+    })
+    EventEmitter.on('recalculateend', () => {
+      gsap.to(this.position, this.animationDuration, { y: this.startY })
     })
 
     EventEmitter.on('submit', ({ userId }) => {
