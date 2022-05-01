@@ -2,6 +2,8 @@ import { defineConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import react from '@vitejs/plugin-react'
 
+const cpctfBaseUrl = 'https://dev.cpctf.space'
+
 export default defineConfig({
   base: process.env.BUILD_BASE_PATH || '/',
   build: {
@@ -16,27 +18,27 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://cpctf.space',
+        target: cpctfBaseUrl,
         changeOrigin: true
       },
       '/ws': {
-        target: 'https://cpctf.space',
+        target: cpctfBaseUrl,
         changeOrigin: true,
         ws: true,
         headers: {
-          origin: 'https://cpctf.space'
+          origin: cpctfBaseUrl
         }
       },
       '/profile_images': {
-        target: 'https://cpctf.space',
+        target: cpctfBaseUrl,
         changeOrigin: true
       },
       '/images': {
-        target: 'https://cpctf.space',
+        target: cpctfBaseUrl,
         changeOrigin: true
       },
       '/visualizer/circuit.json': {
-        target: 'https://cpctf.space',
+        target: cpctfBaseUrl,
         changeOrigin: true
       }
     }
