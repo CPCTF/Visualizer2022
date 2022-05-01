@@ -11,7 +11,7 @@ import testIcon from '#/utils/testicon.jpg'
 export class Display extends VisualizerObject {
   constructor() {
     super(
-      new PlaneBufferGeometry(4 * 0.5, 3 * 0.5),
+      new PlaneBufferGeometry(4.2 * 0.5, 2.8 * 0.5),
       new ShaderMaterial({
         vertexShader,
         fragmentShader,
@@ -24,7 +24,7 @@ export class Display extends VisualizerObject {
         }
       })
     )
-    this.position.set(0, 1.5, 1.0)
+    this.position.set(0, 1.5, 0.9)
     this.rotation.set(-0.03 + Math.PI, -Math.PI, Math.PI)
   }
 
