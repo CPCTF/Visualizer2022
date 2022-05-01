@@ -4,6 +4,7 @@ import { Box3, PerspectiveCamera, Vector3 } from 'three'
 import { EventEmitter } from '#/system/EventEmitter'
 import { UserDisplayGroup } from '#/scene/UserDisplayGroup'
 import { Circuit } from '#/scene/Circuit'
+import { globalSettings } from '#/system/GlobalSettings'
 
 export class VisualizerCamera extends PerspectiveCamera implements IRenderable {
   private state: VisualizerCameraState = 'parts'
@@ -158,6 +159,7 @@ export class VisualizerCamera extends PerspectiveCamera implements IRenderable {
   private changeState(state: VisualizerCameraState): void {
     this.timeline.clear()
     this.state = state
+    globalSettings.cameraNumber = VisualizerCameraStateList.indexOf(state)
   }
 
   public update(): void {

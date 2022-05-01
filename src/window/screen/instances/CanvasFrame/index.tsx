@@ -33,6 +33,7 @@ export const CanvasFrame: VFC<WindowComponentProps> = ({
   const [mode, setMode] = useState<VisualizerMode>('loading')
   const timeRef = useRef<PixiText>(null)
   const titleRef = useRef<PixiText>(null)
+  const cameraNumRef = useRef<PixiText>(null)
   const mask = useMemo(
     () => new Graphics().drawRect(x, y, width, height),
     [x, y, width, height]
@@ -61,6 +62,10 @@ export const CanvasFrame: VFC<WindowComponentProps> = ({
       } else {
         titleRef.current.text = '\nﾋﾞｼﾞｭｱﾗｲｻﾞ'
       }
+    }
+
+    if (cameraNumRef.current) {
+      cameraNumRef.current.text = `CAMERA ${globalSettings.cameraNumber}`
     }
   })
 
@@ -130,6 +135,21 @@ export const CanvasFrame: VFC<WindowComponentProps> = ({
           text={''}
           anchor={[0, 0]}
           position={[20, 10]}
+          style={
+            new TextStyle({
+              align: 'left',
+              fontFamily: 'GNUUnifont, Roboto, Helvetica, sans-serif',
+              fontSize: 48,
+              fill: '#ffffff'
+            })
+          }
+        />
+
+        <Text
+          ref={cameraNumRef}
+          text={''}
+          anchor={[1, 1]}
+          position={[width - 20, height - 10]}
           style={
             new TextStyle({
               align: 'left',
