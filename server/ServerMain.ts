@@ -23,6 +23,10 @@ export interface ServerResponse {
   total: number
   genre: Record<Genre, number>
 }
+export interface ServerResponseRaw {
+  total: number
+  genre: { genre: Genre; solvedCount: number }[]
+}
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -30,7 +34,25 @@ const serverMain = async () => {
   const isDebug = false
   // TODO: fix url
   const res = await fetch('https://cpctf.space/api/visualizer')
-  const json = (await res.json()) as ServerResponse
+  const jsonRaw = (await res.json()) as ServerResponseRaw
+  const mapper: Record<Genre, number> = {
+    PPC: 0,
+    Web: 0,
+    Crypto: 0,
+    Binary: 0,
+    Pwn: 0,
+    Misc: 0,
+    Shell: 0,
+    Forensics: 0,
+    OSINT: 0
+  }
+  jsonRaw.genre.map(value => {
+    mapper[value.genre] = value.solvedCount
+  })
+  const json: ServerResponse = {
+    total: jsonRaw.total,
+    genre: mapper
+  }
 
   // implementation
   let result = ''
