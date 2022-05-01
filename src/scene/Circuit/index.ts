@@ -74,10 +74,10 @@ export class Circuit extends VisualizerGroup {
   }
 
   public static getRandomPartsBox(): Box3 | undefined {
-    Circuit.randomIndex =
-      (Circuit.randomIndex + 1) % (Circuit.randomPartsObjectKeys.length * 2)
     //big parts
-    for (let i = 0; i < Circuit.randomPartsObjectKeys.length * 2; i++) {
+    for (let i = 0; i < Circuit.randomPartsObjectKeys.length; i++) {
+      Circuit.randomIndex =
+        (Circuit.randomIndex + 1) % Circuit.randomPartsObjectKeys.length
       const key = Circuit.randomPartsObjectKeys[Circuit.randomIndex]
       if (Circuit.objectPool[key] == undefined) continue
       const objs = Circuit.objectPool[key][0]
