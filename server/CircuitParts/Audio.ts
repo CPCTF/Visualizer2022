@@ -1,5 +1,5 @@
 import { CircuitParts } from '../CircuitParts'
-import { Genre } from '../ServerMain'
+import type { Genre } from '../ServerMain'
 export class Audio extends CircuitParts {
   public sizeX = 5
   public sizeY = 2

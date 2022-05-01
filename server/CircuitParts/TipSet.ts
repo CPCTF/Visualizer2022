@@ -1,5 +1,5 @@
 import { CircuitParts } from '../CircuitParts'
-import { Genre } from '../ServerMain'
+import type { Genre } from '../ServerMain'
 export class TipSet extends CircuitParts {
   public sizeX = 2
   public sizeY = 2

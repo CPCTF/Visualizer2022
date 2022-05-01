@@ -1,4 +1,4 @@
-import { Genre } from './ServerMain'
+import type { Genre } from './ServerMain'
 
 export abstract class CircuitParts {
   public sizeX = 0
