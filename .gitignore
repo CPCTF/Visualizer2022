@@ -29,3 +29,5 @@ dist-ssr
 src/**/*.js
 server/**/*.js
 src/utils/circuit.json
+
+public/circuit.json
