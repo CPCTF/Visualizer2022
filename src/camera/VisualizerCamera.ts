@@ -5,7 +5,6 @@ import { EventEmitter } from '#/system/EventEmitter'
 import { UserDisplayGroup } from '#/scene/UserDisplayGroup'
 import { Circuit } from '#/scene/Circuit'
 import { globalSettings } from '#/system/GlobalSettings'
-import { scoreRecalculated } from '#/system/events/ScoreRecalculated'
 
 export class VisualizerCamera extends PerspectiveCamera implements IRenderable {
   private state: VisualizerCameraState = 'parts'
