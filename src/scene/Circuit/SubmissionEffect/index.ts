@@ -47,6 +47,7 @@ export class SubmissionEffect extends VisualizerGroup {
       tl.timeScale(1 / 5)
       tl.call(() => {
         this.question.visible = true
+        this.exclamation.visible = false
         this.objects.rotation.x = Math.PI * 0.3
         this.objects.position.z = 0
         this.submissionInfo.visible = true
