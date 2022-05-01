@@ -1,4 +1,4 @@
-import type { QuestionGenre } from '../src/system/ResponseType'
+import { Genre } from './ServerMain'
 
 export abstract class CircuitParts {
   public sizeX = 0
@@ -11,7 +11,7 @@ export abstract class CircuitParts {
   }
   public wirePointsInts: number[][] = []
   public bigWirePointsInts: number[][] = []
-  public abstract problemCategory: QuestionGenre | undefined
+  public abstract problemCategory: Genre | undefined
   public id: number
   static counter = 0
   public isBig: boolean
