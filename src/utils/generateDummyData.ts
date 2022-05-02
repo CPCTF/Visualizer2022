@@ -14,17 +14,19 @@ import type { ProblemSolvedData } from '#/system/events/ProblemSolved'
 const users = new Array(100).fill(null).map((_, index) => ({
   id: `user${index}`,
   name: `USER${index}`,
-  iconUrl: dummyIcon,
+  iconUrl: `${location.protocol}//${location.host}${dummyIcon}`,
   point: 0,
   rank: -1
 }))
+
+console.log(location)
 
 export const generateSubmission = (): ProblemSolvedData => {
   return {
     userId: users[Math.floor(Math.random() * users.length)].id,
     point: Math.random() * 1000,
     genre: Math.floor(Math.random() * QuestionGenreList.length),
-    challengeName: `オモシロ問題 -これは適当に考えたタイトル-`
+    challengeName: `Dummy Problem Title`
   }
 }
 
