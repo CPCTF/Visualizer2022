@@ -5,16 +5,16 @@ import {
   QuestionGenreList,
   RecalculateRaw
 } from '#/system/ResponseType'
-import dummyIcon from './testicon.jpg'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import circuitJson from './circuit.json'
 import type { ProblemSolvedData } from '#/system/events/ProblemSolved'
 
+const basepath = location.pathname.replace(/index\.html.*/gm, '')
 const users = new Array(100).fill(null).map((_, index) => ({
   id: `user${index}`,
   name: `USER${index}`,
-  iconUrl: dummyIcon,
+  iconUrl: `${location.protocol}//${location.host}${basepath}icons/user${index}.png`,
   point: 0,
   rank: -1
 }))
@@ -24,7 +24,7 @@ export const generateSubmission = (): ProblemSolvedData => {
     userId: users[Math.floor(Math.random() * users.length)].id,
     point: Math.random() * 1000,
     genre: Math.floor(Math.random() * QuestionGenreList.length),
-    challengeName: `オモシロ問題 -これは適当に考えたタイトル-`
+    challengeName: `Dummy Problem Title`
   }
 }
 
@@ -32,7 +32,7 @@ export const generateRecalculate = (): RecalculateRaw => {
   users.forEach(value => {
     value.point += Math.random() * 1000
   })
-  users.sort((user1, user2) => user1.point - user2.point)
+  users.sort((user1, user2) => user2.point - user1.point)
   users.forEach((value, index) => {
     value.rank = index + 1
   })
@@ -48,9 +48,9 @@ export const generateRecalculate = (): RecalculateRaw => {
 
 export const generateInitialData = (): InitialRaw => {
   const startDate = new Date()
-  startDate.setMinutes(startDate.getMinutes() - 5)
+  startDate.setMinutes(startDate.getMinutes() - 15)
   const endDate = new Date()
-  endDate.setMinutes(endDate.getMinutes() + 5)
+  endDate.setMinutes(endDate.getMinutes() + 15)
 
   return {
     users: users.map(({ id, name, iconUrl }) => ({

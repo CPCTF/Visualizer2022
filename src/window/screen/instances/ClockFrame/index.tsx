@@ -111,7 +111,7 @@ export const ClockFrame: VFC<WindowComponentProps> = ({
               style={
                 new TextStyle({
                   align: 'right',
-                  fontFamily: 'GNUUnifont, Roboto, Helvetica, sans-serif',
+                  fontFamily: 'DotGothic16, Roboto, Helvetica, sans-serif',
                   fontSize: 24,
                   fill: 'yellow'
                 })

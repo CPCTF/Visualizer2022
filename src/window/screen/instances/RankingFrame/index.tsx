@@ -89,7 +89,7 @@ export const RankingFrame: VFC<WindowComponentProps> = ({
         style={
           new TextStyle({
             align: 'left',
-            fontFamily: 'GNUUnifont, Roboto, Helvetica, sans-serif',
+            fontFamily: 'DotGothic16, Roboto, Helvetica, sans-serif',
             fontSize: 30,
             fill: '#ffffff'
           })
@@ -110,7 +110,7 @@ export const RankingFrame: VFC<WindowComponentProps> = ({
                 style={
                   new TextStyle({
                     align: 'left',
-                    fontFamily: 'GNUUnifont, Roboto, Helvetica, sans-serif',
+                    fontFamily: 'DotGothic16, Roboto, Helvetica, sans-serif',
                     fontSize: 30,
                     fill: textColor
                   })
