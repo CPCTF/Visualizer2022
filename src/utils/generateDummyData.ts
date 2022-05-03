@@ -10,10 +10,11 @@ import {
 import circuitJson from './circuit.json'
 import type { ProblemSolvedData } from '#/system/events/ProblemSolved'
 
+const basepath = location.pathname.replace(/index\.html.*/gm, '')
 const users = new Array(100).fill(null).map((_, index) => ({
   id: `user${index}`,
   name: `USER${index}`,
-  iconUrl: `${location.protocol}//${location.host}/icons/user${index}.png`,
+  iconUrl: `${location.protocol}//${location.host}${basepath}icons/user${index}.png`,
   point: 0,
   rank: -1
 }))
