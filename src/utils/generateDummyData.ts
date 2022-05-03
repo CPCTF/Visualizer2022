@@ -5,7 +5,6 @@ import {
   QuestionGenreList,
   RecalculateRaw
 } from '#/system/ResponseType'
-import dummyIcon from './testicon.jpg'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import circuitJson from './circuit.json'
@@ -14,7 +13,7 @@ import type { ProblemSolvedData } from '#/system/events/ProblemSolved'
 const users = new Array(100).fill(null).map((_, index) => ({
   id: `user${index}`,
   name: `USER${index}`,
-  iconUrl: `${location.protocol}//${location.host}${dummyIcon}`,
+  iconUrl: `${location.protocol}//${location.host}/icons/user${index}.png`,
   point: 0,
   rank: -1
 }))

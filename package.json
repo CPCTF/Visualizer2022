@@ -8,7 +8,8 @@
     "preview": "vite preview",
     "check": "stylelint \"src/**/*.css\" && eslint .",
     "format": "stylelint \"src/**/*.css\" --fix && eslint . --fix",
-    "texture-pack": "node ./scripts/texture-packer.js"
+    "texture-pack": "node ./scripts/texture-packer.js",
+    "icon-generate": "node ./scripts/icon-generator.js"
   },
   "devDependencies": {
     "@types/gsap": "^3.0.0",

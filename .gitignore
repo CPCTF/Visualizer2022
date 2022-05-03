@@ -31,3 +31,4 @@ server/**/*.js
 src/utils/circuit.json
 
 public/circuit.json
+public/icons
