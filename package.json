@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --config tsconfig.json && vite build",
+    "build": "tsc && vite build",
     "preview": "vite preview",
     "check": "stylelint \"src/**/*.css\" && eslint .",
     "format": "stylelint \"src/**/*.css\" --fix && eslint . --fix",
