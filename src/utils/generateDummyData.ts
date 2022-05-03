@@ -18,8 +18,6 @@ const users = new Array(100).fill(null).map((_, index) => ({
   rank: -1
 }))
 
-console.log(location)
-
 export const generateSubmission = (): ProblemSolvedData => {
   return {
     userId: users[Math.floor(Math.random() * users.length)].id,

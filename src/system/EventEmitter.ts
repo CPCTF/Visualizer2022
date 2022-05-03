@@ -51,21 +51,24 @@ const testEvent = () => {
   setInterval(() => {
     messageHandler(
       generateWebSocketMessage({
-        data: '{ type: 7 }'
+        data: '{ "type": 7 }'
       })
     )
   }, 30000)
   setInterval(() => {
     messageHandler(
       generateWebSocketMessage({
-        data: '{ type: 6 }'
+        data: '{ "type": 6 }'
       })
     )
   }, 300000)
   setInterval(() => {
     messageHandler(
       generateWebSocketMessage({
-        data: `{ type: 2, data: "${JSON.stringify(generateSubmission())}"}`
+        data: JSON.stringify({
+          type: 2,
+          data: generateSubmission()
+        })
       })
     )
   }, 3000)
