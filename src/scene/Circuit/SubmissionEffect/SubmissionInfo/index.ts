@@ -54,7 +54,7 @@ export class SubmissionInfo extends VisualizerGroup {
     const dark = color.clone().multiplyScalar(0.8).getStyle()
     this.nameText.text = name
     this.nameText.style = new TextStyle({
-      fontFamily: 'GNUUnifont',
+      fontFamily: 'DotGothic16',
       dropShadowAngle: 6.7,
       dropShadowDistance: 3,
       fill: bright,
@@ -67,7 +67,7 @@ export class SubmissionInfo extends VisualizerGroup {
     this.nameText.style.stroke = dark
     this.titleText.text = title
     this.titleText.style = new TextStyle({
-      fontFamily: 'GNUUnifont',
+      fontFamily: 'DotGothic16',
       dropShadowAngle: 6.7,
       dropShadowDistance: 3,
       fill: bright,

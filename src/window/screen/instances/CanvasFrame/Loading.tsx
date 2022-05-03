@@ -87,7 +87,7 @@ export const LoadingCanvas: VFC<LoadingCanvasProps> = ({
             new TextStyle({
               align: 'center',
               fontFamily:
-                'GNUUnifont, "Source Sans Pro", Helvetica, sans-serif',
+                'DotGothic16, "Source Sans Pro", Helvetica, sans-serif',
               fontSize: 20,
               fill: '#000'
             })

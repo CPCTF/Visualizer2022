@@ -39,7 +39,7 @@ export const Startup = () => {
               new TextStyle({
                 align: 'center',
                 fontFamily:
-                  'GNUUnifont, "Source Sans Pro", Helvetica, sans-serif',
+                  'DotGothic16, "Source Sans Pro", Helvetica, sans-serif',
                 fontSize: windowHeaderHeight * 0.5,
                 fill: '#000'
               })
