@@ -29,15 +29,20 @@ export type VisualizerEvents = {
 export const EventEmitter = mitt<VisualizerEvents>()
 
 export const initializeEventEmitter = () => {
+  if (!isDevelop) {
+    testEvent()
+  }
   try {
-    const websocket = new WebSocket(`wss://${location.host}/ws/visualizer`)
-    websocket.addEventListener('message', messageHandler.bind(this))
-    websocket.addEventListener('error', e => {
-      console.error(e)
-      EventEmitter.emit('disconnect')
-    })
-    // test
-    if (isDevelop) testEvent()
+    if (!isDevelop) {
+      const websocket = new WebSocket(`wss://${location.host}/ws/visualizer`)
+      websocket.addEventListener('message', messageHandler.bind(this))
+      websocket.addEventListener('error', e => {
+        console.error(e)
+        EventEmitter.emit('disconnect')
+      })
+    } else {
+      testEvent()
+    }
   } catch (e) {
     console.log(e)
   }
@@ -54,15 +59,16 @@ const testEvent = () => {
         data: '{ "type": 7 }'
       })
     )
-  }, 30000)
-  setInterval(() => {
+  }, 180000)
+  setTimeout(() => {
     messageHandler(
       generateWebSocketMessage({
         data: '{ "type": 6 }'
       })
     )
-  }, 300000)
-  setInterval(() => {
+  }, 900000)
+
+  const submissionActivator = () => {
     messageHandler(
       generateWebSocketMessage({
         data: JSON.stringify({
@@ -71,7 +77,9 @@ const testEvent = () => {
         })
       })
     )
-  }, 3000)
+    setTimeout(submissionActivator, Math.random() * 10000 + 10000)
+  }
+  submissionActivator()
 }
 
 const messageHandler = (event: MessageEvent<string>) => {

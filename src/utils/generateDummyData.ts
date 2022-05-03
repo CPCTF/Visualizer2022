@@ -31,7 +31,7 @@ export const generateRecalculate = (): RecalculateRaw => {
   users.forEach(value => {
     value.point += Math.random() * 1000
   })
-  users.sort((user1, user2) => user1.point - user2.point)
+  users.sort((user1, user2) => user2.point - user1.point)
   users.forEach((value, index) => {
     value.rank = index + 1
   })
@@ -47,9 +47,9 @@ export const generateRecalculate = (): RecalculateRaw => {
 
 export const generateInitialData = (): InitialRaw => {
   const startDate = new Date()
-  startDate.setMinutes(startDate.getMinutes() - 5)
+  startDate.setMinutes(startDate.getMinutes() - 15)
   const endDate = new Date()
-  endDate.setMinutes(endDate.getMinutes() + 5)
+  endDate.setMinutes(endDate.getMinutes() + 15)
 
   return {
     users: users.map(({ id, name, iconUrl }) => ({
