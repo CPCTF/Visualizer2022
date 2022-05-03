@@ -19,6 +19,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
       - run: npm install
+      - run: npm icon-generate
       - run: BUILD_BASE_PATH=$(echo ${{ github.repository }} | sed -e "s#.*/##") npm run build
       - uses: peaceiris/actions-gh-pages@v3
         with:
