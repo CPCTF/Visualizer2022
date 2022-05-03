@@ -5,7 +5,7 @@
   "main": "index.js",
   "output_path": "../public/dummy",
   "scripts": {
-    "build": "echo 'server' && tsc ServerMain.ts --module commonjs --outdir ./build",
+    "build": "tsc ServerMain.ts --module commonjs --outdir ./build",
     "start": "EXPORT_DIR=\"../public\" ts-node ServerMain.ts"
   },
   "author": "",
