@@ -1,12 +1,10 @@
 import { getVolume } from '../../globals'
 import clickUpSrc from './clickup.mp3?url'
 import clickDownSrc from './clickdown.mp3?url'
-import hddSrc from './hdd.mp3?url'
 
 const sounds: Record<string, HTMLAudioElement> = {
   mouseup: new Audio(clickUpSrc),
-  mousedown: new Audio(clickDownSrc),
-  hdd: new Audio(hddSrc)
+  mousedown: new Audio(clickDownSrc)
 }
 
 export const playSound = (id: string) => {

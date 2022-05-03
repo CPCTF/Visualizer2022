@@ -31,7 +31,7 @@ export const Button = ({ text, click, ...rest }: ButtonProps) => {
         style={
           new TextStyle({
             align: 'center',
-            fontFamily: 'GNUUnifont, "Source Sans Pro", Helvetica, sans-serif',
+            fontFamily: 'DotGothic16, "Source Sans Pro", Helvetica, sans-serif',
             fontSize: windowHeaderHeight * 0.5,
             fill: '#000'
           })

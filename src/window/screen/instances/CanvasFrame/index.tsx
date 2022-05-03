@@ -123,7 +123,7 @@ export const CanvasFrame: VFC<WindowComponentProps> = ({
           style={
             new TextStyle({
               align: 'left',
-              fontFamily: 'GNUUnifont, Roboto, Helvetica, sans-serif',
+              fontFamily: 'DotGothic16, Roboto, Helvetica, sans-serif',
               fontSize: 48,
               fill: '#ffffff'
             })
@@ -138,7 +138,7 @@ export const CanvasFrame: VFC<WindowComponentProps> = ({
           style={
             new TextStyle({
               align: 'left',
-              fontFamily: 'GNUUnifont, Roboto, Helvetica, sans-serif',
+              fontFamily: 'DotGothic16, Roboto, Helvetica, sans-serif',
               fontSize: 48,
               fill: '#ffffff'
             })
@@ -153,7 +153,7 @@ export const CanvasFrame: VFC<WindowComponentProps> = ({
           style={
             new TextStyle({
               align: 'left',
-              fontFamily: 'GNUUnifont, Roboto, Helvetica, sans-serif',
+              fontFamily: 'DotGothic16, Roboto, Helvetica, sans-serif',
               fontSize: 48,
               fill: '#ffffff'
             })
